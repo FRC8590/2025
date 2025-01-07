@@ -664,6 +664,13 @@ public class SwerveSubsystem extends SubsystemBase
   public void setMotorBrake(boolean brake)
   {
     swerveDrive.setMotorIdleMode(false);
+    swerveDrive.getModules()[0].getDriveMotor().burnFlash();
+    swerveDrive.getModules()[1].getDriveMotor().burnFlash();
+    swerveDrive.getModules()[2].getDriveMotor().burnFlash();
+    swerveDrive.getModules()[3].getDriveMotor().burnFlash();
+    
+
+
   }
 
   /**
