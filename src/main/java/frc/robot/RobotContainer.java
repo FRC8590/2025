@@ -188,4 +188,16 @@ public class RobotContainer
   {
     drivebase.setMotorBrake(false);
   }
+    /**
+   * Replaces the swerve module feedforward with a new SimpleMotorFeedforward object.
+   *
+   * @param kS the static gain of the feedforward
+   * @param kV the velocity gain of the feedforward
+   * @param kA the acceleration gain of the feedforward
+   */
+
+  public void setDriveFeedForward(double kS, double kV, double kA){
+    drivebase.replaceSwerveModuleFeedforward(kS, kV, kA);
+  }
+  
 }
