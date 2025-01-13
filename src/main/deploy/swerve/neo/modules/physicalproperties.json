@@ -1,5 +1,4 @@
 {
-  "optimalVoltage": 12,
   "conversionFactors": {
     "angle": {
       "gearRatio": 12.8
@@ -8,5 +7,15 @@
       "diameter": 4,
       "gearRatio": 6.75
     }
-  }
+  },
+  "currentLimit": {
+    "drive": 40,
+    "angle": 20
+  },
+  "rampRate": {
+    "drive": 0.25,
+    "angle": 0.25
+  },
+  "wheelGripCoefficientOfFriction": 1.19,
+  "optimalVoltage": 12
 }
