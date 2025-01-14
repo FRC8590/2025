@@ -4,6 +4,8 @@ import static edu.wpi.first.units.Units.DegreesPerSecond;
 
 import com.studica.frc.AHRS;
 import com.studica.frc.AHRS.NavXComType;
+
+import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Rotation3d;
 import edu.wpi.first.math.geometry.Translation3d;
 import edu.wpi.first.units.measure.MutAngularVelocity;
@@ -53,11 +55,15 @@ public class NavXSwerve extends SwerveIMU
       /* See http://navx-mxp.kauailabs.com/guidance/selecting-an-interface/ for details. */
       imu = new AHRS(port);
       factoryDefault();
+      imu.reset();
     } catch (RuntimeException ex)
     {
       navXError.setText("Error instantiating NavX: " + ex.getMessage());
       navXError.set(true);
     }
+  
+    // setOffset(new Rotation3d(new Rotation2d(0.78)));
+    // System.out.println("OFFSET FOR GYRO " + offset.getAngle());
   }
 
 
@@ -68,7 +74,7 @@ public class NavXSwerve extends SwerveIMU
   @Override
   public void factoryDefault()
   {
-    // gyro.reset(); // Reported to be slow
+    imu.reset(); // Reported to be slow
     offset = imu.getRotation3d();
   }
 

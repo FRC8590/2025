@@ -435,7 +435,7 @@ public class SwerveDrive
    */
   public Rotation2d getOdometryHeading()
   {
-    return swerveDrivePoseEstimator.getEstimatedPosition().getRotation();
+    return new Rotation2d(swerveDrivePoseEstimator.getEstimatedPosition().getRotation().getRadians());
   }
 
   /**

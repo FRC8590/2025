@@ -188,6 +188,10 @@ public class RobotContainer
   {
     drivebase.setMotorBrake(false);
   }
+
+  public void zeroEverything(){
+    drivebase.zeroGyro();
+  }
     /**
    * Replaces the swerve module feedforward with a new SimpleMotorFeedforward object.
    *
@@ -198,6 +202,10 @@ public class RobotContainer
 
   public void setDriveFeedForward(double kS, double kV, double kA){
     drivebase.replaceSwerveModuleFeedforward(kS, kV, kA);
+  }
+
+  public void resetAndStop(){
+    drivebase.drive(new Translation2d(), 0, false);
   }
   
 }
