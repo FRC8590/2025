@@ -120,6 +120,10 @@ public class RobotContainer
     // Configure the trigger bindings
     configureBindings();
     DriverStation.silenceJoystickConnectionWarning(true);
+    
+    // Initialize with proper alliance orientation
+    drivebase.zeroGyroWithAlliance();
+    
     NamedCommands.registerCommand("test", Commands.print("I EXIST"));
   }
 

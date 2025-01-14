@@ -23,6 +23,7 @@ import edu.wpi.first.math.controller.SimpleMotorFeedforward;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Pose3d;
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.geometry.Rotation3d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
@@ -205,9 +206,9 @@ public class SwerveSubsystem extends SubsystemBase
           // Method that will drive the robot given ROBOT RELATIVE ChassisSpeeds. Also optionally outputs individual module feedforwards
           new PPHolonomicDriveController(
               // PPHolonomicController is the built in path following controller for holonomic drive trains
-              new PIDConstants(2, 0, 0.1),
+              new PIDConstants(5, 0, 0.1),
               // Translation PID constants
-              new PIDConstants(1, 0.0, 0.0)
+              new PIDConstants(2, 0.0, 0.0)
               // Rotation PID constants
           ),
           config,
@@ -217,11 +218,11 @@ public class SwerveSubsystem extends SubsystemBase
             // This will flip the path being followed to the red side of the field.
             // THE ORIGIN WILL REMAIN ON THE BLUE SIDE
 
-            var alliance = DriverStation.getAlliance();
-            if (alliance.isPresent())
-            {
-              return alliance.get() == DriverStation.Alliance.Red;
-            }
+            // var alliance = DriverStation.getAlliance();
+            // if (alliance.isPresent())
+            // {
+            //   return alliance.get() == DriverStation.Alliance.Red;
+            // }
             return false;
           },
           this
@@ -465,6 +466,7 @@ public class SwerveSubsystem extends SubsystemBase
   }
 
   /**
+   * 
    * Command to drive the robot using translative values and heading as angular velocity.
    *
    * @param translationX     Translation in the X direction. Cubed for smoother controls.
@@ -639,20 +641,19 @@ public class SwerveSubsystem extends SubsystemBase
   }
 
   /**
-   * This will zero (calibrate) the robot to assume the current position is facing forward
-   * <p>
-   * If red alliance rotate the robot 180 after the drviebase zero command
+   * Zero the gyro and properly initialize field-relative orientation based on alliance.
+   * This ensures compatibility with PathPlanner's coordinate system.
    */
-  public void zeroGyroWithAlliance()
-  {
-    if (isRedAlliance())
-    {
-      zeroGyro();
-      //Set the pose 180 degrees
-      resetOdometry(new Pose2d(getPose().getTranslation(), Rotation2d.fromDegrees(180)));
-    } else
-    {
-      zeroGyro();
+  public void zeroGyroWithAlliance() {
+    // First zero the gyro
+    zeroGyro();
+    
+    // Get the current alliance
+    var alliance = DriverStation.getAlliance();
+    if (alliance.isPresent() && isRedAlliance()) {
+        // When on red alliance, we need to rotate the field coordinate system 180 degrees
+        // This matches PathPlanner's coordinate system where the origin stays on blue side
+        swerveDrive.setGyroOffset(new Rotation3d(0, 0, 180));
     }
   }
 
