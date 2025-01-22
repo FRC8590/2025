@@ -22,7 +22,7 @@ public class Robot extends TimedRobot
   private static Robot   instance;
   private        Command m_autonomousCommand;
 
-  private RobotContainer m_robotContainer;
+  public RobotContainer m_robotContainer;
 
   private Timer disabledTimer;
 
@@ -148,7 +148,6 @@ public class Robot extends TimedRobot
   @Override
   public void teleopPeriodic()
   {
-    SmartDashboard.putNumber("BR output",m_robotContainer.drivebase.getSwerveDrive().getModuleMap().get("backright").getDriveMotor().getAppliedOutput());
   }
 
   @Override

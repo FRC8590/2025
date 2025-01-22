@@ -17,6 +17,8 @@ import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.OperatorConstants;
+import frc.robot.commands.DriveTest;
+import frc.robot.commands.swervedrive.auto.AutoBalanceCommand;
 import frc.robot.commands.swervedrive.drivebase.AbsoluteDriveAdv;
 import frc.robot.subsystems.swervedrive.SwerveSubsystem;
 import java.io.File;
@@ -58,8 +60,8 @@ public class RobotContainer
    * Converts driver input into a field-relative ChassisSpeeds that is controlled by angular velocity.
    */
   SwerveInputStream driveAngularVelocity = SwerveInputStream.of(drivebase.getSwerveDrive(),
-                                                                () -> -driverXbox.getLeftY(),
-                                                                () -> -driverXbox.getLeftX())
+                                                                () -> driverXbox.getLeftY(),
+                                                                () -> driverXbox.getLeftX())
                                                             .withControllerRotationAxis(() -> -driverXbox.getRightX() * 0.4)
                                                             .deadband(OperatorConstants.DEADBAND)
                                                             .scaleTranslation(0.4)
@@ -163,7 +165,7 @@ public class RobotContainer
           drivebase.driveToPose(
               new Pose2d(new Translation2d(4, 4), Rotation2d.fromDegrees(0)))
                               );
-      driverXbox.y().whileTrue(drivebase.aimAtSpeaker(2));
+      driverXbox.y().onTrue(new DriveTest(drivebase));
       driverXbox.start().whileTrue(Commands.none());
       driverXbox.back().whileTrue(Commands.none());
       driverXbox.leftBumper().whileTrue(Commands.runOnce(drivebase::lock, drivebase).repeatedly());
