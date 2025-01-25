@@ -58,7 +58,7 @@ public class Vision
   /**
    * Ambiguity defined as a value between (0,1). Used in {@link Vision#filterPose}.
    */
-  private final       double              maximumAmbiguity                = 0.25;
+  private final       double              maximumAmbiguity                = 0.15;
   /**
    * Photon Vision Simulation
    */
@@ -75,6 +75,8 @@ public class Vision
    * Field from {@link swervelib.SwerveDrive#field}
    */
   private             Field2d             field2d;
+
+  public              EstimatedRobotPose  estimatedVisionPose;
 
 
   /**
@@ -144,17 +146,21 @@ public class Vision
     for (Cameras camera : Cameras.values())
     {
       Optional<EstimatedRobotPose> poseEst = getEstimatedGlobalPose(camera);
-      
+
       if (poseEst.isPresent())
       {
+
+
+        estimatedVisionPose = poseEst.get();
         
-        // for(PhotonPipelineResult result : camera.camera.getAllUnreadResults()){
-        //   System.out.println("xDist" + camera + result.getBestTarget().getBestCameraToTarget().getX());
-        // }
         var pose = poseEst.get();
         swerveDrive.addVisionMeasurement(pose.estimatedPose.toPose2d(),
                                          pose.timestampSeconds,
                                          camera.curStdDevs);
+        // System.out.println("vision estimation added");
+        SmartDashboard.putNumber("poseX",pose.estimatedPose.toPose2d().getX());
+        SmartDashboard.putNumber("poseY", pose.estimatedPose.toPose2d().getY());
+
       }
     }
 
@@ -347,18 +353,18 @@ public class Vision
     LEFT_CAM("left",
              new Rotation3d(0, 0, 0),
              new Translation3d(Units.inchesToMeters(14),
-                               Units.inchesToMeters(8),
+                               Units.inchesToMeters(10)+0.1,
                                Units.inchesToMeters(6.25)),
-             VecBuilder.fill(4, 4, 8), VecBuilder.fill(0.5, 0.5, 1)),
+             VecBuilder.fill(4, 4, 8), VecBuilder.fill(0.5, 0.5, 1));
     /**
      * Right Camera
      */
-    RIGHT_CAM("right",
-              new Rotation3d(0, 0, 0),
-              new Translation3d(Units.inchesToMeters(14),
-                                Units.inchesToMeters(-8),
-                                Units.inchesToMeters(6.25)),
-              VecBuilder.fill(4, 4, 8), VecBuilder.fill(0.5, 0.5, 1));
+    // RIGHT_CAM("right",
+    //           new Rotation3d(0, 0, 0),
+    //           new Translation3d(Units.inchesToMeters(14),
+    //                             Units.inchesToMeters(-8),
+    //                             Units.inchesToMeters(6.25)),
+    //           VecBuilder.fill(4, 4, 8), VecBuilder.fill(0.5, 0.5, 1));
 
     /**
      * Latency alert to use when high latency is detected.
@@ -367,7 +373,7 @@ public class Vision
     /**
      * Camera instance for comms.
      */
-    public final  PhotonCamera                 camera;
+    public  PhotonCamera                 camera;
     /**
      * Pose estimator for camera.
      */
@@ -405,6 +411,9 @@ public class Vision
      */
     private       double                       lastReadTimestamp = Microseconds.of(NetworkTablesJNI.now()).in(Seconds);
 
+    private boolean hasSetOffset = false;
+
+    private double timerOffset = 0;
     /**
      * Construct a Photon Camera class with help. Standard deviations are fake values, experiment and determine
      * estimation noise on an actual robot.
@@ -420,7 +429,15 @@ public class Vision
     {
       latencyAlert = new Alert("'" + name + "' Camera is experiencing high latency.", AlertType.kWarning);
 
-      camera = new PhotonCamera(name);
+      camera = null;
+      try{
+        camera = new PhotonCamera(name);
+      }catch(Exception e){
+        System.out.println(e);
+      }
+
+      
+      
 
       // https://docs.wpilib.org/en/stable/docs/software/basic-programming/coordinate-system.html
       robotToCamTransform = new Transform3d(robotToCamTranslation, robotToCamRotation);
@@ -519,12 +536,29 @@ public class Vision
      */
     private void updateUnreadResults()
     {
-      double mostRecentTimestamp = resultsList.isEmpty() ? 0.0 : resultsList.get(0).getTimestampSeconds();
+
+
+      double mostRecentTimestamp;
+      
+      if(resultsList.isEmpty()){
+        mostRecentTimestamp = 0.0;
+      }else{
+        mostRecentTimestamp = resultsList.get(0).getTimestampSeconds() - timerOffset;
+      }
+
+      // System.out.println(mostRecentTimestamp);
       double currentTimestamp    = Microseconds.of(NetworkTablesJNI.now()).in(Seconds);
       double debounceTime        = Milliseconds.of(15).in(Seconds);
+
+
+      if(hasSetOffset == false && mostRecentTimestamp != 0){
+        timerOffset = mostRecentTimestamp;
+        hasSetOffset = true;
+    }
+
       for (PhotonPipelineResult result : resultsList)
       {
-        mostRecentTimestamp = Math.max(mostRecentTimestamp, result.getTimestampSeconds());
+        mostRecentTimestamp = Math.max(mostRecentTimestamp, result.getTimestampSeconds() - timerOffset);
       }
 
       if ((resultsList.isEmpty() || (currentTimestamp - mostRecentTimestamp >= debounceTime)) &&
@@ -540,6 +574,7 @@ public class Vision
           updateEstimatedGlobalPose();
         }
       }
+
     }
 
     /**

@@ -4,12 +4,16 @@
 
 package frc.robot;
 
+import org.dyn4j.geometry.decompose.SweepLine;
+import org.photonvision.targeting.PhotonPipelineMetadata;
+
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.subsystems.swervedrive.Vision;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to each mode, as
@@ -50,6 +54,10 @@ public class Robot extends TimedRobot
     // immediately when disabled, but then also let it be pushed more 
     disabledTimer = new Timer();
 
+    // Constants.visionTimerOffset = Vision.Cameras.LEFT_CAM.resultsList.get(0).getTimestampSeconds();
+
+
+
     if (isSimulation())
     {
       DriverStation.silenceJoystickConnectionWarning(true);
@@ -81,7 +89,6 @@ public class Robot extends TimedRobot
   @Override
   public void disabledInit()
   {
-    m_robotContainer.setMotorBrake(false);
     disabledTimer.reset();
     disabledTimer.start();
     
@@ -92,7 +99,6 @@ public class Robot extends TimedRobot
   {
     if (disabledTimer.hasElapsed(Constants.DrivebaseConstants.WHEEL_LOCK_TIME))
     {
-      m_robotContainer.setMotorBrake(false);
       disabledTimer.stop();
     }
     m_robotContainer.resetAndStop();

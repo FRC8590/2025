@@ -31,12 +31,14 @@ import edu.wpi.first.math.trajectory.Trajectory;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Config;
 import frc.robot.Constants;
+import frc.robot.commands.swervedrive.AutoAlignment;
 import frc.robot.subsystems.swervedrive.Vision.Cameras;
 import java.io.File;
 import java.io.IOException;
@@ -45,6 +47,9 @@ import java.util.Optional;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.DoubleSupplier;
 import java.util.function.Supplier;
+import edu.wpi.first.units.measure.Force;
+import javax.lang.model.element.ModuleElement;
+
 import org.json.simple.parser.ParseException;
 import org.photonvision.targeting.PhotonPipelineResult;
 import swervelib.SwerveController;
@@ -72,7 +77,7 @@ public class SwerveSubsystem extends SubsystemBase
    * Enable vision odometry updates while driving.
    */
   private final boolean             visionDriveTest     = true;
-  /**
+  /** 
    * PhotonVision class to keep an accurate odometry.
    */
   private       Vision              vision;
@@ -182,6 +187,8 @@ public class SwerveSubsystem extends SubsystemBase
       config = RobotConfig.fromGUISettings();
 
       final boolean enableFeedforward = false;
+
+      
       // Configure AutoBuilder last
       AutoBuilder.configure(
           this::getPose,
@@ -198,6 +205,10 @@ public class SwerveSubsystem extends SubsystemBase
                   swerveDrive.kinematics.toSwerveModuleStates(speedsRobotRelative),
                   moduleFeedForwards.linearForces()
                                );
+              Force[] forces = moduleFeedForwards.linearForces();
+
+              SmartDashboard.putNumber("forces", forces[0].magnitude());
+              
             } else
             {
               swerveDrive.setChassisSpeeds(speedsRobotRelative);
@@ -206,10 +217,22 @@ public class SwerveSubsystem extends SubsystemBase
           // Method that will drive the robot given ROBOT RELATIVE ChassisSpeeds. Also optionally outputs individual module feedforwards
           new PPHolonomicDriveController(
               // PPHolonomicController is the built in path following controller for holonomic drive trains
-              new PIDConstants(5, 0, 0.1),
+              new PIDConstants(3,0,0),
+              // new PIDConstants(0.1, 0.0, 0.0)
+              // new PIDConstants(4, 0, 0.1),
+
+              new PIDConstants(1, 0, 0)
+
+
+
+              /*
+              WORKING PID WITHOUT FF (disable FF to make it work)
+               *new PIDConstants(4, 0, 0.1),
               // Translation PID constants
-              new PIDConstants(2, 0.0, 0.0)
+              new PIDConstants(4, 0.0, 0.0)
               // Rotation PID constants
+
+               */
           ),
           config,
           // The robot configuration
@@ -330,17 +353,17 @@ public class SwerveSubsystem extends SubsystemBase
    */
   public Command driveToPose(Pose2d pose)
   {
-// Create the constraints to use while pathfinding
     PathConstraints constraints = new PathConstraints(
-        swerveDrive.getMaximumChassisVelocity(), 4.0,
+        swerveDrive.getMaximumChassisVelocity(), 2.0,
         swerveDrive.getMaximumChassisAngularVelocity(), Units.degreesToRadians(720));
-
-// Since AutoBuilder is configured, we can use it to build pathfinding commands
-    return AutoBuilder.pathfindToPose(
-        pose,
+    
+    return new AutoAlignment(
         constraints,
-        edu.wpi.first.units.Units.MetersPerSecond.of(0) // Goal end velocity in meters/sec
-                                     );
+        this::getPose,  // robotPoseSupplier
+        this::setChassisSpeeds,  // robotRelativeSpeedsOutput
+        this,  // driveSubsystem
+        pose   // targetPose
+    );
   }
 
   /**
@@ -665,7 +688,7 @@ public class SwerveSubsystem extends SubsystemBase
    */
   public void setMotorBrake(boolean brake)
   {
-    swerveDrive.setMotorIdleMode(false);
+    swerveDrive.setMotorIdleMode(brake);
     swerveDrive.getModules()[0].getDriveMotor().burnFlash();
     swerveDrive.getModules()[1].getDriveMotor().burnFlash();
     swerveDrive.getModules()[2].getDriveMotor().burnFlash();

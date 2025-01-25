@@ -19,22 +19,22 @@
     "###/FMSInfo": {
       "Collapsed": "0",
       "Pos": "60,60",
-      "Size": "398,329"
+      "Size": "368,329"
     },
     "###/SmartDashboard/Field": {
       "Collapsed": "0",
-      "Pos": "1531,782",
+      "Pos": "423,910",
       "Size": "1372,867"
     },
     "###FMS": {
       "Collapsed": "0",
       "Pos": "4,414",
-      "Size": "368,364"
+      "Size": "383,364"
     },
     "###Joysticks": {
       "Collapsed": "0",
       "Pos": "826,1262",
-      "Size": "1828,366"
+      "Size": "1828,162"
     },
     "###Keyboard 0 Settings": {
       "Collapsed": "0",
@@ -74,7 +74,7 @@
     "Robot State": {
       "Collapsed": "0",
       "Pos": "764,791",
-      "Size": "213,224"
+      "Size": "213,53"
     }
   }
 }
