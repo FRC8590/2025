@@ -72,7 +72,7 @@ public class SwerveSubsystem extends SubsystemBase
   /**
    * AprilTag field layout.
    */
-  private final AprilTagFieldLayout aprilTagFieldLayout = Constants.layout;
+  public final AprilTagFieldLayout aprilTagFieldLayout = Constants.layout;
   /**
    * Enable vision odometry updates while driving.
    */
@@ -187,7 +187,7 @@ public class SwerveSubsystem extends SubsystemBase
       config = RobotConfig.fromGUISettings();
 
       final boolean enableFeedforward = false;
-
+      
       
       // Configure AutoBuilder last
       AutoBuilder.configure(
@@ -217,11 +217,11 @@ public class SwerveSubsystem extends SubsystemBase
           // Method that will drive the robot given ROBOT RELATIVE ChassisSpeeds. Also optionally outputs individual module feedforwards
           new PPHolonomicDriveController(
               // PPHolonomicController is the built in path following controller for holonomic drive trains
-              new PIDConstants(3,0,0),
+              new PIDConstants(4,0,0),
               // new PIDConstants(0.1, 0.0, 0.0)
               // new PIDConstants(4, 0, 0.1),
 
-              new PIDConstants(1, 0, 0)
+              new PIDConstants(5, 0, 0.5)
 
 
 
@@ -354,8 +354,10 @@ public class SwerveSubsystem extends SubsystemBase
   public Command driveToPose(Pose2d pose)
   {
     PathConstraints constraints = new PathConstraints(
-        swerveDrive.getMaximumChassisVelocity(), 2.0,
+        swerveDrive.getMaximumChassisVelocity(), 0.5,
         swerveDrive.getMaximumChassisAngularVelocity(), Units.degreesToRadians(720));
+
+        
     
     return new AutoAlignment(
         constraints,

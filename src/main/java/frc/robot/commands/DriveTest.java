@@ -60,7 +60,7 @@ public class DriveTest extends Command
   public void execute()
   {
 
-    List<PhotonPipelineResult> list = Vision.Cameras.LEFT_CAM.camera.getAllUnreadResults();
+    List<PhotonPipelineResult> list = null;
 
     DoubleSupplier x = new DoubleSupplier() {
       @Override

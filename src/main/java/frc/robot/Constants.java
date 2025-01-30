@@ -28,7 +28,7 @@ public final class Constants
 {
 //36.75 inches, 26.5 inches
 //300 inches
-  private static AprilTag tag1 = new AprilTag(1, new Pose3d(0,Units.inchesToMeters(13),Units.inchesToMeters(9.5),new Rotation3d(new Rotation2d(0))));
+  private static AprilTag tag1 = new AprilTag(1, new Pose3d(0,Units.inchesToMeters(13.5),Units.inchesToMeters(9),new Rotation3d(new Rotation2d(0))));
   // private static AprilTag tag2 = new AprilTag(2, new Pose3d(1,1,1,new Rotation3d(new Rotation2d(0))));
   // private static AprilTag tag3 = new AprilTag(3, new Pose3d(1,1,1,new Rotation3d(new Rotation2d(0))));
   // private static AprilTag tag4 = new AprilTag(4, new Pose3d(1,1,1,new Rotation3d(new Rotation2d(0))));
@@ -40,7 +40,7 @@ public final class Constants
   public static final double ROBOT_MASS = 10; // 32lbs * kg per pound
   public static final Matter CHASSIS    = new Matter(new Translation3d(0, 0, Units.inchesToMeters(14)), ROBOT_MASS);
   public static final double LOOP_TIME  = 0.05; //s, 20ms + 110ms sprk max velocity lag
-  public static final double MAX_SPEED  = 3;
+  public static final double MAX_SPEED  = 4;
 
   public static double visionTimerOffset = 0;
   // Maximum speed of the robot in meters per second, used to limit acceleration.

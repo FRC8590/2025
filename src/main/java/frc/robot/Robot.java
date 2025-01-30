@@ -13,7 +13,12 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.commands.swervedrive.AutoAlignment;
 import frc.robot.subsystems.swervedrive.Vision;
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Translation2d;
+import edu.wpi.first.math.util.Units;
+import edu.wpi.first.math.geometry.Rotation2d;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to each mode, as
@@ -81,6 +86,9 @@ public class Robot extends TimedRobot
     // and running subsystem periodic() methods.  This must be called from the robot's periodic
     // block in order for anything in the Command-based framework to work.
     CommandScheduler.getInstance().run();
+
+
+
   }
 
   /**
@@ -154,6 +162,22 @@ public class Robot extends TimedRobot
   @Override
   public void teleopPeriodic()
   {
+    // Get the current pose from the swerve subsystem
+    Pose2d currentPose = m_robotContainer.drivebase.getPose();
+
+    // Define the target pose
+    Pose2d targetPose = new Pose2d(new Translation2d(Units.feetToMeters(3), Units.feetToMeters(2)), Rotation2d.fromDegrees(180));
+
+    // Calculate the x offset
+    double xOffset = currentPose.getX() - targetPose.getX();
+    double yOffset = currentPose.getY() - targetPose.getY();
+    double yawOffset = currentPose.getRotation().getDegrees() - targetPose.getRotation().getRadians();
+
+    // Output the x offset to the SmartDashboard
+    SmartDashboard.putNumber("X Offset", xOffset);
+    SmartDashboard.putNumber("Y Offset", yOffset);
+    SmartDashboard.putNumber("Yaw Offset", yawOffset);
+
   }
 
   @Override

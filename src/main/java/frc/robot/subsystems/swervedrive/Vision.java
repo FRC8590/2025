@@ -125,6 +125,31 @@ public class Vision
 
   }
 
+    /**
+   * Calculates whether it has the apriltag in view
+   *
+   * @param number    The numberof the AprilTag.
+   * @return Whether it has that number in view of any camera.
+   */
+
+
+  public static boolean seesNumber(int number){
+    for (Cameras c : Cameras.values())
+    {
+      if (!c.resultsList.isEmpty()){
+        for(PhotonPipelineResult result : c.resultsList){
+          for(PhotonTrackedTarget target : result.getTargets()){
+            if(target.getFiducialId() == number){
+              return true;
+            }
+          }
+        }
+      }
+      }
+      return false;
+    }
+
+
   /**
    * Update the pose estimation inside of {@link SwerveDrive} with all of the given poses.
    *
@@ -353,18 +378,18 @@ public class Vision
     LEFT_CAM("left",
              new Rotation3d(0, 0, 0),
              new Translation3d(Units.inchesToMeters(14),
-                               Units.inchesToMeters(10)+0.1,
+                               Units.inchesToMeters(10)+0.13,
                                Units.inchesToMeters(6.25)),
-             VecBuilder.fill(4, 4, 8), VecBuilder.fill(0.5, 0.5, 1));
+             VecBuilder.fill(4, 4, 8), VecBuilder.fill(0.5, 0.5, 1)),
     /**
      * Right Camera
      */
-    // RIGHT_CAM("right",
-    //           new Rotation3d(0, 0, 0),
-    //           new Translation3d(Units.inchesToMeters(14),
-    //                             Units.inchesToMeters(-8),
-    //                             Units.inchesToMeters(6.25)),
-    //           VecBuilder.fill(4, 4, 8), VecBuilder.fill(0.5, 0.5, 1));
+    RIGHT_CAM("right",
+              new Rotation3d(0, 0, Units.degreesToRadians(-7)),
+              new Translation3d(Units.inchesToMeters(14),
+                                Units.inchesToMeters(4),
+                                Units.inchesToMeters(6.25)),
+              VecBuilder.fill(4, 4, 8), VecBuilder.fill(0.5, 0.5, 1));
 
     /**
      * Latency alert to use when high latency is detected.
@@ -576,6 +601,7 @@ public class Vision
       }
 
     }
+
 
     /**
      * The latest estimated robot pose on the field from vision data. This may be empty. This should only be called once
