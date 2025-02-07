@@ -14,6 +14,7 @@ import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Rotation3d;
 import edu.wpi.first.math.geometry.Translation3d;
 import edu.wpi.first.math.util.Units;
+import frc.robot.subsystems.TestingMotor;
 import swervelib.math.Matter;
 
 /**
@@ -43,6 +44,8 @@ public final class Constants
   public static final double MAX_SPEED  = 4;
 
   public static double visionTimerOffset = 0;
+
+  public static TestingMotor testingMotor;
   // Maximum speed of the robot in meters per second, used to limit acceleration.
 
 //  public static final class AutonConstants
