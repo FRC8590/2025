@@ -166,11 +166,6 @@ public class Elevator extends SubsystemBase {
         .reverseLimitSwitchEnabled(false)
         .forwardLimitSwitchType(Type.kNormallyClosed);
 
-    //explore smart motion stuff tomorrow
-    // elevatorMasterConfig.closedLoop.smartMotion
-    elevatorFollowerConfig.follow(elevatorMaster);
-
-
 
 
 
