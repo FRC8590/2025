@@ -18,11 +18,12 @@ import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
-import frc.robot.Constants.OperatorConstants;
+import frc.robot.Constants.*;
 import frc.robot.commands.DriveTest;
 import frc.robot.commands.swervedrive.FinalAlignment;
 import frc.robot.commands.swervedrive.auto.AutoBalanceCommand;
 import frc.robot.commands.swervedrive.drivebase.AbsoluteDriveAdv;
+import frc.robot.constants.OperatorConstants;
 import frc.robot.commands.swervedrive.AlignToAprilTag;
 import frc.robot.subsystems.swervedrive.SwerveSubsystem;
 import frc.robot.subsystems.swervedrive.Vision;
@@ -53,11 +54,11 @@ public class RobotContainer
   // WARNING: default buttons are on the same buttons as the ones defined in configureBindings
   AbsoluteDriveAdv closedAbsoluteDriveAdv = new AbsoluteDriveAdv(Constants.drivebase,
                                                                  () -> -MathUtil.applyDeadband(driverXbox.getLeftY(),
-                                                                                               OperatorConstants.LEFT_Y_DEADBAND),
+                                                                                               Constants.OPERATOR.leftYDeadband()),
                                                                  () -> -MathUtil.applyDeadband(driverXbox.getLeftX(),
-                                                                                               OperatorConstants.DEADBAND),
+                                                                                               Constants.OPERATOR.leftYDeadband()),
                                                                  () -> -MathUtil.applyDeadband(driverXbox.getRightX(),
-                                                                                               OperatorConstants.RIGHT_X_DEADBAND),
+                                                                                               Constants.OPERATOR.leftYDeadband()),
                                                                  driverXbox.getHID()::getYButtonPressed,
                                                                  driverXbox.getHID()::getAButtonPressed,
                                                                  driverXbox.getHID()::getXButtonPressed,
@@ -70,7 +71,7 @@ public class RobotContainer
                                                                 () -> -driverXbox.getLeftY(),
                                                                 () -> -driverXbox.getLeftX())
                                                             .withControllerRotationAxis(() -> -driverXbox.getRightX() * 0.6)
-                                                            .deadband(OperatorConstants.DEADBAND)
+                                                            .deadband(Constants.OPERATOR.deadband())
                                                             .scaleTranslation(0.5)
                                                             .allianceRelativeControl(true);
 
@@ -102,7 +103,7 @@ public class RobotContainer
                                                                    () -> driverXbox.getLeftY(),
                                                                    () -> driverXbox.getLeftX())
                                                                .withControllerRotationAxis(() -> -driverXbox.getRightX())
-                                                               .deadband(OperatorConstants.DEADBAND)
+                                                               .deadband(Constants.OPERATOR.deadband())
                                                                .scaleTranslation(0.8)
                                                                .allianceRelativeControl(true);
   // Derive the heading axis with math!

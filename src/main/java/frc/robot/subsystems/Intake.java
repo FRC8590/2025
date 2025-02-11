@@ -9,28 +9,34 @@ import com.revrobotics.spark.SparkLowLevel.MotorType;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class Intake extends SubsystemBase {
   /** Creates a new Intake. */
 
-  private SparkMax intakeMotor = new SparkMax(Constants.Passthrough.kIntakeMotorID, MotorType.kBrushless);
+  private final SparkMax intakeMotor = new SparkMax(
+    Constants.INTAKE.motorID(), 
+    MotorType.kBrushless
+  );
 
   public Intake() {
     
   }
 
-  public void run(){
-    intakeMotor.set(Constants.Passthrough.kIntakeSpeed);    
+  public Command intakeCommand() {
+    return run(() -> setSpeed(Constants.INTAKE.speed()))
+        .withName("Intake");
   }
 
-  public void runBackward(){
-    intakeMotor.set(-Constants.Passthrough.kIntakeSpeed);
+  public Command ejectCommand() {
+    return run(() -> setSpeed(-Constants.INTAKE.speed()))
+        .withName("Eject");
   }
 
-  public void stop(){
-    intakeMotor.set(0);
+  private void setSpeed(double speed) {
+    intakeMotor.set(speed);
   }
 
   @Override
@@ -40,6 +46,6 @@ public class Intake extends SubsystemBase {
   }
 
   public void log(){
-    SmartDashboard.putNumber("Intake/Outtake Speed", intakeMotor.get());
+    SmartDashboard.putNumber("Intake/Eject Speed", intakeMotor.get());
   }
 }

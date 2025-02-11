@@ -47,8 +47,8 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
+import frc.robot.Constants.*;
 import frc.robot.Constants;
-import frc.robot.Constants.ElevatorConstants;
 import edu.wpi.first.units.Measure;
 import edu.wpi.first.units.Units;
 import edu.wpi.first.units.measure.MutAngle;
@@ -65,12 +65,21 @@ public class Elevator extends SubsystemBase {
   
 
   public final Trigger atMin = new Trigger((BooleanSupplier) () -> 
-      getElevatorHeight() <= Constants.ElevatorConstants.kMinHeight + 3.0);
+      getElevatorHeight() <= Constants.ELEVATOR.minHeightMeters() + 3.0);
 
   public final Trigger atMax = new Trigger((BooleanSupplier) () -> 
-      getElevatorHeight() >= Constants.ElevatorConstants.kMinHeight - 3.0);
+      getElevatorHeight() >= Constants.ELEVATOR.minHeightMeters() - 3.0);
 
-  private SparkMax elevatorMaster, elevatorFollower;
+  private final SparkMax elevatorMaster = new SparkMax(
+      Constants.ELEVATOR.masterMotorID(),
+      MotorType.kBrushless
+  );
+  
+  private final SparkMax elevatorFollower = new SparkMax(
+      Constants.ELEVATOR.followerMotorID(),
+      MotorType.kBrushless
+  );
+
   private RelativeEncoder tbEncoder;
 
   private double motorOutput;
@@ -80,18 +89,22 @@ public class Elevator extends SubsystemBase {
 
   double[] measurementStdDevs = {0.0, 0.0};
 
-    ElevatorFeedforward m_feedforward =
-    new ElevatorFeedforward(
-        ElevatorConstants.kElevatorkS,
-        ElevatorConstants.kElevatorkG,
-        ElevatorConstants.kElevatorkV,
-        ElevatorConstants.kElevatorkA);
+    ElevatorFeedforward m_feedforward = new ElevatorFeedforward(
+        Constants.ELEVATOR.feedforward().kS(),
+        Constants.ELEVATOR.feedforward().kG(),
+        Constants.ELEVATOR.feedforward().kV(),
+        Constants.ELEVATOR.feedforward().kA()
+    );
 
-    private final ProfiledPIDController m_controller = new ProfiledPIDController(ElevatorConstants.kElevatorKp,
-                                                                                ElevatorConstants.kElevatorKi,
-                                                                                ElevatorConstants.kElevatorKd,
-                                                                                new Constraints(ElevatorConstants.kMaxVelocity,
-                                                                                                ElevatorConstants.kMaxAcceleration));
+    private final ProfiledPIDController m_controller = new ProfiledPIDController(
+        Constants.ELEVATOR.pid().kP(),
+        Constants.ELEVATOR.pid().kI(),
+        Constants.ELEVATOR.pid().kD(),
+        new Constraints(
+            Constants.ELEVATOR.maxVelocity(),
+            Constants.ELEVATOR.maxAcceleration()
+        )
+    );
 
 
 
@@ -135,10 +148,6 @@ public class Elevator extends SubsystemBase {
 
   public Elevator() {
 
-    //create both sparkmaxes
-    elevatorMaster = new SparkMax(Constants.ElevatorConstants.kElevatorMasterID, MotorType.kBrushless);
-    elevatorFollower = new SparkMax(Constants.ElevatorConstants.kElevatorFollowerID, MotorType.kBrushless);
-
     SparkMaxConfig elevatorMasterConfig  = new SparkMaxConfig();
     SparkMaxConfig elevatorFollowerConfig  = new SparkMaxConfig();
 
@@ -149,7 +158,7 @@ public class Elevator extends SubsystemBase {
         .inverted(true)
         .idleMode(IdleMode.kBrake)
         .smartCurrentLimit(10)
-        .closedLoopRampRate(ElevatorConstants.kElevatorRampRate);
+        .closedLoopRampRate(Constants.ELEVATOR.rampRate());
     elevatorMasterConfig.closedLoop
         .feedbackSensor(FeedbackSensor.kAlternateOrExternalEncoder);
     elevatorMasterConfig.limitSwitch
@@ -186,14 +195,14 @@ public class Elevator extends SubsystemBase {
   public void reachGoal(double goal) {
     // Safety checks
     if (getLimitSwitchStatus() || 
-        getElevatorHeight() <= Constants.ElevatorConstants.kBottomSetpoint || 
-        goal <= Constants.ElevatorConstants.kBottomSetpoint) {
+        getElevatorHeight() <= Constants.ELEVATOR.minHeightMeters() || 
+        goal <= Constants.ELEVATOR.minHeightMeters()) {
       setState(ElevatorState.ZEROED);
       return;
     }
 
-    if (goal < Constants.ElevatorConstants.kBottomSetpoint || 
-        goal > Constants.ElevatorConstants.kTopSetpoint) {
+    if (goal < Constants.ELEVATOR.minHeightMeters() || 
+        goal > Constants.ELEVATOR.maxHeightMeters()) {
       setState(ElevatorState.DISABLED);
       System.out.println("SOMETHING IS WRONG. CHECK CODE NOW");
       return;
@@ -232,7 +241,7 @@ public class Elevator extends SubsystemBase {
    * @return the rotations of the alternate encoder multiplied by the {@link Constants.Elevator} kDistancePeraTick
    */
   public double getElevatorHeight(){
-    return tbEncoder.getPosition() * Constants.ElevatorConstants.kDistancePerTick;
+    return tbEncoder.getPosition() * Constants.ELEVATOR.distancePerTick();
   }
 
   /**
@@ -240,7 +249,7 @@ public class Elevator extends SubsystemBase {
  * @return the rotations of the alternate encoder multiplied by the {@link Constants.Elevator} kDistancePeraTick
  */
   public double getElevatorVelocity(){
-    return tbEncoder.getVelocity() * Constants.ElevatorConstants.kDistancePerTick;
+    return tbEncoder.getVelocity() * Constants.ELEVATOR.distancePerTick();
   }
 
 

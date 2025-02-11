@@ -110,7 +110,7 @@ public class Robot extends TimedRobot
   {
 
     Constants.elevator.setState(ElevatorState.DISABLED);
-    if (disabledTimer.hasElapsed(Constants.DrivebaseConstants.WHEEL_LOCK_TIME))
+    if (disabledTimer.hasElapsed(Constants.DRIVE.wheelLockTime()))
     {
       disabledTimer.stop();
     }

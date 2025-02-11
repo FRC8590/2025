@@ -17,10 +17,15 @@ import edu.wpi.first.math.geometry.Translation3d;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.Filesystem;
 import frc.robot.subsystems.Elevator;
+import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.sensors.TestingMotor;
 import frc.robot.subsystems.swervedrive.SwerveSubsystem;
 import frc.robot.subsystems.swervedrive.Vision;
 import swervelib.math.Matter;
+import frc.robot.constants.IntakeConstants;
+import frc.robot.constants.ElevatorConstants;
+import frc.robot.constants.DriveConstants;
+import frc.robot.constants.OperatorConstants;
 
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean constants. This
@@ -32,108 +37,66 @@ import swervelib.math.Matter;
  */
 public final class Constants
 {
-//36.75 inches, 26.5 inches
-//300 inches
-  private static AprilTag tag1 = new AprilTag(1, new Pose3d(0,Units.inchesToMeters(13.5),Units.inchesToMeters(9),new Rotation3d(new Rotation2d(0))));
-  // private static AprilTag tag2 = new AprilTag(2, new Pose3d(1,1,1,new Rotation3d(new Rotation2d(0))));
-  // private static AprilTag tag3 = new AprilTag(3, new Pose3d(1,1,1,new Rotation3d(new Rotation2d(0))));
-  // private static AprilTag tag4 = new AprilTag(4, new Pose3d(1,1,1,new Rotation3d(new Rotation2d(0))));
-  private static List<AprilTag> tagList = new ArrayList<AprilTag>() {{
-    add(tag1);
-  }};
+    private Constants() {} // Prevent instantiation
 
-  public static final AprilTagFieldLayout layout = new AprilTagFieldLayout(tagList, 7.62,3.6068);
-  public static final double ROBOT_MASS = 10; // 32lbs * kg per pound
-  public static final Matter CHASSIS    = new Matter(new Translation3d(0, 0, Units.inchesToMeters(14)), ROBOT_MASS);
-  public static final double LOOP_TIME  = 0.05; //s, 20ms + 110ms sprk max velocity lag
-  public static final double MAX_SPEED  = 4;
+    // Vision & Field Constants
+    private static final AprilTag tag1 = new AprilTag(
+        1, 
+        new Pose3d(
+            0,
+            Units.inchesToMeters(13.5),
+            Units.inchesToMeters(9),
+            new Rotation3d(new Rotation2d(0))
+        )
+    );
+    private static final List<AprilTag> tagList = new ArrayList<AprilTag>() {{
+        add(tag1);
+    }};
 
-  public static double visionTimerOffset = 0;
+    public static final AprilTagFieldLayout layout = new AprilTagFieldLayout(
+        tagList, 
+        7.62,    // Field length (meters)
+        3.6068   // Field width (meters)
+    );
 
-  public static TestingMotor testingMotor;
+    // Robot Physical Properties
+    public static final double ROBOT_MASS = Units.lbsToKilograms(32);
+    public static final Matter CHASSIS = new Matter(
+        new Translation3d(0, 0, Units.inchesToMeters(14)), 
+        ROBOT_MASS
+    );
+    
+    // Control Loop Timing
+    public static final double LOOP_TIME = 0.05; // seconds
+    public static final double MAX_SPEED = 4.0;  // meters per second
+    public static double visionTimerOffset = 0;
 
-  public static Elevator elevator = new Elevator();
-  public static OI oi = new OI();
+    // Subsystem Instances
+    public static TestingMotor testingMotor;
+    public static final Elevator elevator = new Elevator();
+    public static final Intake intake = new Intake();
+    public static final SwerveSubsystem drivebase = new SwerveSubsystem(
+        new File(Filesystem.getDeployDirectory(), "swerve/neo")
+    );
+    public static Vision vision;
 
-  public static final SwerveSubsystem       drivebase  = new SwerveSubsystem(new File(Filesystem.getDeployDirectory(),
-                                                                              "swerve/neo"));
-  public static       Vision              vision;
+    // Constants Records
+    public static final IntakeConstants INTAKE = IntakeConstants.DEFAULT;
+    public static final ElevatorConstants ELEVATOR = ElevatorConstants.DEFAULT;
+    public static final DriveConstants DRIVE = DriveConstants.DEFAULT;
+    public static final OperatorConstants OPERATOR = OperatorConstants.DEFAULT;
 
-  // Maximum speed of the robot in meters per second, used to limit acceleration.
+    // Enums
+    public enum ElevatorState {
+        ZEROED, 
+        SETPOINT, 
+        DISABLED
+    }
 
-//  public static final class AutonConstants
-//  {
-//
-//    public static final PIDConstants TRANSLATION_PID = new PIDConstants(0.7, 0, 0);
-//    public static final PIDConstants ANGLE_PID       = new PIDConstants(0.4, 0, 0.01);
-//  }
-
-  public static final class DrivebaseConstants
-  {
-
-    // Hold time on motor brakes when disabled
-    public static final double WHEEL_LOCK_TIME = 10; // seconds
-  }
-
-  public static class OperatorConstants
-  {
-
-    // Joystick Deadband
-    public static final double DEADBAND        = 0.1;
-    public static final double LEFT_Y_DEADBAND = 0.1;
-    public static final double RIGHT_X_DEADBAND = 0.1;
-    public static final double TURN_CONSTANT    = 6;
-  }
-
-  
-	public final static class Passthrough{
-		public static final int kIntakeMotorID = 3;
-		public static final double kIntakeSpeed = 0.73;
-	}
-	
-	public final static class OI{
-		//OI Constants
-		public static final int kDriverControllerPort = 0;
-	}
-
-	public final static class ElevatorConstants{
-	//Elevator Constants
-    public static final double kGearRatio = 10.0;  // 40:1 Reduction
-    public static final double kPulleyRadius = Units.inchesToMeters(2);
-    public static final double kCarriageMass = 6.803;  // in KG  (15 pounds)
-    public static final double kMinHeight = 0;
-    public static final double kMaxHeight = 3.35;  // SI Units is meters == 11 ft
-    public static final double kTicksPerRevolution = 2048;//Think this might be 2048, need to check w/ Luke
-
-    public static final double kDistancePerTick = 2 * Math.PI * kPulleyRadius / kTicksPerRevolution / kGearRatio;
-
-    public static final double kP  = 1.0;
-    public static final double kI = 0.5;
-    public static final double kD = 0.2;
-
-    public static final double kBottomSetpoint = 0;
-    public static final double kMidSetpoint = 2;
-    public static final double kTopSetpoint = 3;
-
-    public static final int kElevatorMasterID = 1;
-    public static final int kElevatorFollowerID = 2;
-    public static double kElevatorkS;
-    public static double kElevatorkG;
-    public static double kElevatorkV;
-    public static double kElevatorkA;
-    public static double kElevatorKp;
-    public static double kElevatorKi;
-    public static double kElevatorKd;
-    public static double kMaxVelocity;
-    public static double kMaxAcceleration;
-    public static double kElevatorRampRate;
-	}
-
-  public enum ElevatorState{
-    ZEROED, SETPOINT, DISABLED;
-  }
-
-  public enum ScoreLocation{
-    LEFT2, LEFT3, RIGHT2, RIGHT3
-  }
+    public enum ScoreLocation {
+        LEFT2, 
+        LEFT3, 
+        RIGHT2, 
+        RIGHT3
+    }
 }
