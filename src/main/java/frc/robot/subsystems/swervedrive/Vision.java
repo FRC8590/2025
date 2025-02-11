@@ -148,6 +148,24 @@ public class Vision
       }
       return false;
     }
+    
+
+    /**
+     * gets closest tag. Might need modification because not sure if the getBestTarget will return the closest one consistently. It should!
+     * @return Closest tag's fiducial id
+     */
+    public int getClosestTag(){
+      for (Cameras c : Cameras.values())
+      {
+        if (!c.resultsList.isEmpty()){
+          for(PhotonPipelineResult result : c.resultsList){
+            return result.getBestTarget().getFiducialId();
+          }
+        }
+      }
+      return -1;
+    }
+
 
 
   /**

@@ -5,6 +5,7 @@
 package frc.robot;
 
 import java.util.List;
+import java.io.File;
 import java.util.ArrayList;
 
 import edu.wpi.first.apriltag.AprilTag;
@@ -14,7 +15,11 @@ import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Rotation3d;
 import edu.wpi.first.math.geometry.Translation3d;
 import edu.wpi.first.math.util.Units;
-import frc.robot.subsystems.TestingMotor;
+import edu.wpi.first.wpilibj.Filesystem;
+import frc.robot.subsystems.Elevator;
+import frc.robot.subsystems.sensors.TestingMotor;
+import frc.robot.subsystems.swervedrive.SwerveSubsystem;
+import frc.robot.subsystems.swervedrive.Vision;
 import swervelib.math.Matter;
 
 /**
@@ -46,6 +51,14 @@ public final class Constants
   public static double visionTimerOffset = 0;
 
   public static TestingMotor testingMotor;
+
+  public static Elevator elevator = new Elevator();
+  public static OI oi = new OI();
+
+  public static final SwerveSubsystem       drivebase  = new SwerveSubsystem(new File(Filesystem.getDeployDirectory(),
+                                                                              "swerve/neo"));
+  public static       Vision              vision;
+
   // Maximum speed of the robot in meters per second, used to limit acceleration.
 
 //  public static final class AutonConstants
@@ -70,5 +83,57 @@ public final class Constants
     public static final double LEFT_Y_DEADBAND = 0.1;
     public static final double RIGHT_X_DEADBAND = 0.1;
     public static final double TURN_CONSTANT    = 6;
+  }
+
+  
+	public final static class Passthrough{
+		public static final int kIntakeMotorID = 3;
+		public static final double kIntakeSpeed = 0.73;
+	}
+	
+	public final static class OI{
+		//OI Constants
+		public static final int kDriverControllerPort = 0;
+	}
+
+	public final static class ElevatorConstants{
+	//Elevator Constants
+    public static final double kGearRatio = 10.0;  // 40:1 Reduction
+    public static final double kPulleyRadius = Units.inchesToMeters(2);
+    public static final double kCarriageMass = 6.803;  // in KG  (15 pounds)
+    public static final double kMinHeight = 0;
+    public static final double kMaxHeight = 3.35;  // SI Units is meters == 11 ft
+    public static final double kTicksPerRevolution = 2048;//Think this might be 2048, need to check w/ Luke
+
+    public static final double kDistancePerTick = 2 * Math.PI * kPulleyRadius / kTicksPerRevolution / kGearRatio;
+
+    public static final double kP  = 1.0;
+    public static final double kI = 0.5;
+    public static final double kD = 0.2;
+
+    public static final double kBottomSetpoint = 0;
+    public static final double kMidSetpoint = 2;
+    public static final double kTopSetpoint = 3;
+
+    public static final int kElevatorMasterID = 1;
+    public static final int kElevatorFollowerID = 2;
+    public static double kElevatorkS;
+    public static double kElevatorkG;
+    public static double kElevatorkV;
+    public static double kElevatorkA;
+    public static double kElevatorKp;
+    public static double kElevatorKi;
+    public static double kElevatorKd;
+    public static double kMaxVelocity;
+    public static double kMaxAcceleration;
+    public static double kElevatorRampRate;
+	}
+
+  public enum ElevatorState{
+    ZEROED, SETPOINT, DISABLED;
+  }
+
+  public enum ScoreLocation{
+    LEFT2, LEFT3, RIGHT2, RIGHT3
   }
 }

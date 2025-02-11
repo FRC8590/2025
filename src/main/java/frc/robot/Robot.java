@@ -19,6 +19,8 @@ import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.math.geometry.Rotation2d;
+import frc.robot.subsystems.Elevator;
+import frc.robot.Constants.ElevatorState;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to each mode, as
@@ -88,7 +90,6 @@ public class Robot extends TimedRobot
     CommandScheduler.getInstance().run();
 
 
-
   }
 
   /**
@@ -97,6 +98,8 @@ public class Robot extends TimedRobot
   @Override
   public void disabledInit()
   {
+    Constants.elevator.setState(ElevatorState.DISABLED);
+
     disabledTimer.reset();
     disabledTimer.start();
     
@@ -105,6 +108,8 @@ public class Robot extends TimedRobot
   @Override
   public void disabledPeriodic()
   {
+
+    Constants.elevator.setState(ElevatorState.DISABLED);
     if (disabledTimer.hasElapsed(Constants.DrivebaseConstants.WHEEL_LOCK_TIME))
     {
       disabledTimer.stop();
@@ -118,7 +123,7 @@ public class Robot extends TimedRobot
   @Override
   public void autonomousInit()
   {
-    m_robotContainer.drivebase.zeroGyroWithAlliance();
+    Constants.drivebase.zeroGyroWithAlliance();
     
     m_autonomousCommand = m_robotContainer.getAutonomousCommand();
 
@@ -141,6 +146,7 @@ public class Robot extends TimedRobot
   @Override
   public void teleopInit()
   {
+    Constants.elevator.setState(ElevatorState.ZEROED);
 
     // This makes sure that the autonomous stops running when
     // teleop starts running. If you want the autonomous to
@@ -163,7 +169,7 @@ public class Robot extends TimedRobot
   public void teleopPeriodic()
   {
     // Get the current pose from the swerve subsystem
-    Pose2d currentPose = m_robotContainer.drivebase.getPose();
+    Pose2d currentPose = Constants.drivebase.getPose();
 
     // Define the target pose
     Pose2d targetPose = new Pose2d(new Translation2d(Units.feetToMeters(3), Units.feetToMeters(2)), Rotation2d.fromDegrees(180));
@@ -177,6 +183,8 @@ public class Robot extends TimedRobot
     SmartDashboard.putNumber("X Offset", xOffset);
     SmartDashboard.putNumber("Y Offset", yOffset);
     SmartDashboard.putNumber("Yaw Offset", yawOffset);
+
+    Constants.elevator.setState(ElevatorState.SETPOINT);
 
   }
 
