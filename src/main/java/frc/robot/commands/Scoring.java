@@ -6,6 +6,7 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
+import edu.wpi.first.wpilibj2.command.ParallelDeadlineGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.Constants;
@@ -33,25 +34,22 @@ public class Scoring extends SequentialCommandGroup {
     }
 
     addCommands(
-
-
-      new ParallelCommandGroup(
+      // Drive to position and move elevator - using deadline() to end when drive is complete
+      new ParallelDeadlineGroup(
         Constants.drivebase.driveToPose(Conversions.scoringGoalsToPose(closestID, scoreLocation)),
         Constants.elevator.setGoal(Conversions.getElevatorGoal(scoreLocation))
-        // Constants.led.setScoring())
+        // Constants.led.setScoring()
       ),
         
       // Score game piece
       new WaitCommand(0.5),
       Constants.intake.ejectCommand(),
       
-
-      // Return to safe position
-      new ParallelCommandGroup(
-        //drive back a bit to make it safe
-        Constants.drivebase.driveToDistanceCommand(-0.5, 1)),
+      // Return to safe position - using deadline() again
+      new ParallelDeadlineGroup(
+        Constants.drivebase.driveToDistanceCommand(-0.5, 1),
         Constants.elevator.setGoal(Constants.ELEVATOR.bottomSetpoint())
-
+      )
       
       // Reset LED
       // new InstantCommand(() -> Constants.led.setDefault())

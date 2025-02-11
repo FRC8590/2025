@@ -146,6 +146,8 @@ public class Elevator extends SubsystemBase {
   private ElevatorState currState;
  
 
+  // private double targetHeight = Constants.ELEVATOR.bottomSetpoint();
+
   public Elevator() {
 
     SparkMaxConfig elevatorMasterConfig  = new SparkMaxConfig();
@@ -314,5 +316,16 @@ public class Elevator extends SubsystemBase {
 
     
   }
+
+  // public void setTargetHeight(double height) {
+  //   targetHeight = height;
+  // }
+
+  // @Override
+  // public void periodic() {
+  //   // This will continuously run the control loop
+  //   reachGoal(targetHeight);
+  //   log();
+  // }
 
 }
