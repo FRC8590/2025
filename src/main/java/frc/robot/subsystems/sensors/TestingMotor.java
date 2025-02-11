@@ -33,8 +33,7 @@ public class TestingMotor extends SubsystemBase{
         config.smartCurrentLimit(20);
         motor.configure(config, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
 
-        RelativeEncoder altEnc = motor.getAlternateEncoder();
-        altEnc.
+        RelativeEncoder altEnc = motor.getAlternateEncoder(); //this is for the shaft encoder we are going to put on the spark
 
     }
 
