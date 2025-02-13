@@ -22,6 +22,7 @@ import frc.robot.subsystems.sensors.TestingMotor;
 import frc.robot.subsystems.swervedrive.SwerveSubsystem;
 import frc.robot.subsystems.swervedrive.Vision;
 import swervelib.math.Matter;
+import edu.wpi.first.wpilibj.Encoder;
 import frc.robot.constants.IntakeConstants;
 import frc.robot.constants.ElevatorConstants;
 import frc.robot.constants.DriveConstants;
@@ -98,5 +99,38 @@ public final class Constants
         LEFT3, 
         RIGHT2, 
         RIGHT3
+    }
+
+    //Elevator Constants Default
+    public final class ElevatorConstantsDefault{
+
+        public static double gearRatio = 10.0; // gearRatio
+        public static double pulleyRadiusMeters = Units.inchesToMeters(2.0); // pulleyRadiusMeters
+        public static double carriageMassKg = 6.803; // carriageMassKg
+        public static double minHeightMeters = 0.0; // minHeightMeters
+        public static double maxHeightMeters = 3.35; // maxHeightMeters
+        public static int ticksPerRevolution = 2048; // ticksPerRevolution
+        public static double distancePerTick = 2 * Math.PI * Units.inchesToMeters(2) / 2048 / 10.0; // distancePerTick
+        public static double kP = 1.0; // kP
+        public static double kI = 0.5; // kI
+        public static double kD = 0.2; // kD
+        public static double bottomSetpoint = 0.0; // bottomSetpoint
+        public static double midSetpoint = 2.0; // midSetpoint
+        public static double topSetpoint = 3.0; // topSetpoint
+        public static int masterMotorID = 1; // masterMotorID
+        public static int followerMotorID = 2; // followerMotorID
+        public static double kS = 0.0; // kS
+        public static double kG = 0.0; // kG
+        public static double kV = 0.0; // kV
+        public static double kA = 0.0; // kA
+        public static double maxVelocity = 0.0; // maxVelocity
+        public static double maxAcceleration = 0.0; // maxAcceleration
+        public static double rampRate = 0.0; // rampRate
+        public static int SLOT_A = 0;
+        public static int SLOT_B = 1;
+        public static int SLOT_I = 3;
+        public static final Encoder encoder = new Encoder(SLOT_A, SLOT_B, SLOT_I);
+        
+
     }
 }

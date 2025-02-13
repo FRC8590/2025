@@ -19,17 +19,19 @@ import static edu.wpi.first.units.Units.Volts;
 import com.revrobotics.spark.SparkBase.ResetMode;
 import com.revrobotics.spark.SparkClosedLoopController;
 import com.revrobotics.RelativeEncoder;
+import com.revrobotics.AbsoluteEncoder;
 import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.SparkBase.PersistMode;
 import com.revrobotics.spark.config.ClosedLoopConfig.FeedbackSensor;
 import com.revrobotics.spark.config.LimitSwitchConfig.Type;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
+import com.revrobotics.spark.config.AlternateEncoderConfig;
 import com.revrobotics.spark.config.ClosedLoopConfig;
 import com.revrobotics.spark.config.MAXMotionConfig;
 import com.revrobotics.spark.config.SparkMaxConfig;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 
-import edu.wpi.first.wpilibj.RobotBase;
+
 import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
@@ -71,16 +73,17 @@ public class Elevator extends SubsystemBase {
       getElevatorHeight() >= Constants.ELEVATOR.minHeightMeters() - 3.0);
 
   private final SparkMax elevatorMaster = new SparkMax(
-      Constants.ELEVATOR.masterMotorID(),
+      Constants.ElevatorConstantsDefault.masterMotorID,
       MotorType.kBrushless
   );
   
   private final SparkMax elevatorFollower = new SparkMax(
-      Constants.ELEVATOR.followerMotorID(),
+      Constants.ElevatorConstantsDefault.followerMotorID,
       MotorType.kBrushless
   );
 
   private RelativeEncoder tbEncoder;
+
 
   private double motorOutput;
   private double setpoint;
@@ -90,19 +93,19 @@ public class Elevator extends SubsystemBase {
   double[] measurementStdDevs = {0.0, 0.0};
 
     ElevatorFeedforward m_feedforward = new ElevatorFeedforward(
-        Constants.ELEVATOR.feedforward().kS(),
-        Constants.ELEVATOR.feedforward().kG(),
-        Constants.ELEVATOR.feedforward().kV(),
-        Constants.ELEVATOR.feedforward().kA()
+        Constants.ElevatorConstantsDefault.kS,
+        Constants.ElevatorConstantsDefault.kG,
+        Constants.ElevatorConstantsDefault.kV,
+        Constants.ElevatorConstantsDefault.kA
     );
 
     private final ProfiledPIDController m_controller = new ProfiledPIDController(
-        Constants.ELEVATOR.pid().kP(),
-        Constants.ELEVATOR.pid().kI(),
-        Constants.ELEVATOR.pid().kD(),
+      Constants.ElevatorConstantsDefault.kP,
+      Constants.ElevatorConstantsDefault.kI,
+      Constants.ElevatorConstantsDefault.kD,
         new Constraints(
-            Constants.ELEVATOR.maxVelocity(),
-            Constants.ELEVATOR.maxAcceleration()
+          Constants.ElevatorConstantsDefault.maxVelocity,
+            Constants.ElevatorConstantsDefault.maxAcceleration
         )
     );
 
@@ -155,19 +158,50 @@ public class Elevator extends SubsystemBase {
 
     // SparkClosedLoopController pidController = elevatorMaster.getClosedLoopController();
 
+    
+    //I'm trying to configure the alternate encoder here but all I'm doing is configuring myself off a cliff
+    //Note to self— check the revlib updates and see if there's something that should go here instead
+    
+
+
     //create configs for both. The master spark is running with the external alternate encoder.
+    
+    
+    
     elevatorMasterConfig
         .inverted(true)
         .idleMode(IdleMode.kBrake)
         .smartCurrentLimit(10)
-        .closedLoopRampRate(Constants.ELEVATOR.rampRate());
+        .closedLoopRampRate(Constants.ElevatorConstantsDefault.rampRate);
+    
+    elevatorMasterConfig.encoder
+        .positionConversionFactor(Constants.ElevatorConstantsDefault.distancePerTick)
+        .velocityConversionFactor(1000); //PLACEHOLDER
+
+
     elevatorMasterConfig.closedLoop
         .feedbackSensor(FeedbackSensor.kAlternateOrExternalEncoder);
+
+        
     elevatorMasterConfig.limitSwitch
         .forwardLimitSwitchEnabled(true)
         .reverseLimitSwitchEnabled(false)
         .forwardLimitSwitchType(Type.kNormallyClosed);
 
+    
+
+    elevatorFollowerConfig
+        .inverted(true)
+        .idleMode(IdleMode.kBrake)
+        .smartCurrentLimit(10)
+        .closedLoopRampRate(Constants.ElevatorConstantsDefault.rampRate)
+        .follow(elevatorMaster);
+    
+
+
+        
+
+    
 
 
 
@@ -192,14 +226,14 @@ public class Elevator extends SubsystemBase {
   public void reachGoal(double goal) {
     // Safety checks
     if (getLimitSwitchStatus() || 
-        getElevatorHeight() <= Constants.ELEVATOR.minHeightMeters() || 
-        goal <= Constants.ELEVATOR.minHeightMeters()) {
+        getElevatorHeight() <= Constants.ElevatorConstantsDefault.minHeightMeters || 
+        goal <= Constants.ElevatorConstantsDefault.minHeightMeters) {
       setState(ElevatorState.ZEROED);
       return;
     }
 
-    if (goal < Constants.ELEVATOR.minHeightMeters() || 
-        goal > Constants.ELEVATOR.maxHeightMeters()) {
+    if (goal < Constants.ElevatorConstantsDefault.minHeightMeters || 
+        goal > Constants.ElevatorConstantsDefault.maxHeightMeters) {
       setState(ElevatorState.DISABLED);
       System.out.println("SOMETHING IS WRONG. CHECK CODE NOW");
       return;
