@@ -14,7 +14,7 @@ public record IntakeConstants(
     }
 
     public static final IntakeConstants DEFAULT = new IntakeConstants(
-        3,      // kIntakeMotorID (from old Passthrough)
+        12,      // kIntakeMotorID (from old Passthrough)
         0.73    // kIntakeSpeed (from old Passthrough)
     );
 } 

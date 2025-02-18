@@ -63,20 +63,21 @@ import java.util.function.BooleanSupplier;
 public class Elevator extends SubsystemBase {
   /** Creates a new Elevator. */
   
+  
 
   public final Trigger atMin = new Trigger((BooleanSupplier) () -> 
-      getElevatorHeight() <= Constants.ELEVATOR.minHeightMeters() + 3.0);
+      getElevatorHeight() <= Constants.ElevatorConstants.minHeightMeters() + 3.0);
 
   public final Trigger atMax = new Trigger((BooleanSupplier) () -> 
-      getElevatorHeight() >= Constants.ELEVATOR.minHeightMeters() - 3.0);
+      getElevatorHeight() >= Constants.ElevatorConstants.minHeightMeters() - 3.0);
 
   private final SparkMax elevatorMaster = new SparkMax(
-      Constants.ELEVATOR.masterMotorID(),
+      Constants.ElevatorConstants.masterMotorID(),
       MotorType.kBrushless
   );
   
   private final SparkMax elevatorFollower = new SparkMax(
-      Constants.ELEVATOR.followerMotorID(),
+      Constants.ElevatorConstants.followerMotorID(),
       MotorType.kBrushless
   );
 
@@ -90,19 +91,19 @@ public class Elevator extends SubsystemBase {
   double[] measurementStdDevs = {0.0, 0.0};
 
     ElevatorFeedforward m_feedforward = new ElevatorFeedforward(
-        Constants.ELEVATOR.feedforward().kS(),
-        Constants.ELEVATOR.feedforward().kG(),
-        Constants.ELEVATOR.feedforward().kV(),
-        Constants.ELEVATOR.feedforward().kA()
+        Constants.ElevatorConstants.feedforward().kS(),
+        Constants.ElevatorConstants.feedforward().kG(),
+        Constants.ElevatorConstants.feedforward().kV(),
+        Constants.ElevatorConstants.feedforward().kA()
     );
 
     private final ProfiledPIDController m_controller = new ProfiledPIDController(
-        Constants.ELEVATOR.pid().kP(),
-        Constants.ELEVATOR.pid().kI(),
-        Constants.ELEVATOR.pid().kD(),
+        Constants.ElevatorConstants.pid().kP(),
+        Constants.ElevatorConstants.pid().kI(),
+        Constants.ElevatorConstants.pid().kD(),
         new Constraints(
-            Constants.ELEVATOR.maxVelocity(),
-            Constants.ELEVATOR.maxAcceleration()
+            Constants.ElevatorConstants.maxVelocity,
+            Constants.ElevatorConstants.maxAcceleration
         )
     );
 

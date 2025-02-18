@@ -48,7 +48,7 @@ public class Scoring extends SequentialCommandGroup {
       // Return to safe position - using deadline() again
       new ParallelDeadlineGroup(
         Constants.drivebase.driveToDistanceCommand(-0.5, 1),
-        Constants.elevator.setGoal(Constants.ELEVATOR.bottomSetpoint())
+        Constants.elevator.setGoal(Constants.ELEVATOR.bottomSetpoint)
       )
       
       // Reset LED

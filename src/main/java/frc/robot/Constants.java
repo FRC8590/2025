@@ -18,6 +18,7 @@ import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.Filesystem;
 import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.sensors.PhotoelectricSensor;
 import frc.robot.subsystems.sensors.TestingMotor;
 import frc.robot.subsystems.swervedrive.SwerveSubsystem;
 import frc.robot.subsystems.swervedrive.Vision;
@@ -75,6 +76,7 @@ public final class Constants
     public static TestingMotor testingMotor;
     public static final Elevator elevator = new Elevator();
     public static final Intake intake = new Intake();
+    public static PhotoelectricSensor photoelectricSensor = new PhotoelectricSensor(0);
     public static final SwerveSubsystem drivebase = new SwerveSubsystem(
         new File(Filesystem.getDeployDirectory(), "swerve/neo")
     );
@@ -82,7 +84,7 @@ public final class Constants
 
     // Constants Records
     public static final IntakeConstants INTAKE = IntakeConstants.DEFAULT;
-    public static final ElevatorConstants ELEVATOR = ElevatorConstants.DEFAULT;
+    public static final ElevatorConstants ELEVATOR = new ElevatorConstants();
     public static final DriveConstants DRIVE = DriveConstants.DEFAULT;
     public static final OperatorConstants OPERATOR = OperatorConstants.DEFAULT;
 
@@ -98,5 +100,77 @@ public final class Constants
         LEFT3, 
         RIGHT2, 
         RIGHT3
+    }
+
+    public static class ElevatorConstants {
+
+        public static double maxVelocity = 0.5; //vague estimate (do not use)
+        public static double maxAcceleration = 2; //vague estimate (do not use)
+        public static double bottomSetpoint = 3; //not even close estimate (do not use)
+
+        // Define all the constants for the Elevator subsystem here
+        public static int masterMotorID() {
+            return 1; // Example value
+        }
+
+        public static int followerMotorID() {
+            return 2; // Example value
+        }
+
+        public static double minHeightMeters() {
+            return 0.0; // Example value
+        }
+
+        public static double maxHeightMeters() {
+            return 2.0; // Example value
+        }
+
+        public static double distancePerTick() {
+            return 0.01; // Example value
+        }
+
+        public static double rampRate() {
+            return 0.5; // Example value
+        }
+
+        public static FeedforwardConstants feedforward() {
+            return new FeedforwardConstants();
+        }
+
+        public static PIDConstants pid() {
+            return new PIDConstants();
+        }
+
+        public static class FeedforwardConstants {
+            public double kS() {
+                return 0.1; // Example value
+            }
+
+            public double kG() {
+                return 0.2; // Example value
+            }
+
+            public double kV() {
+                return 0.3; // Example value
+            }
+
+            public double kA() {
+                return 0.4; // Example value
+            }
+        }
+
+        public static class PIDConstants {
+            public double kP() {
+                return 1.0; // Example value
+            }
+
+            public double kI() {
+                return 0.0; // Example value
+            }
+
+            public double kD() {
+                return 0.0; // Example value
+            }
+        }
     }
 }

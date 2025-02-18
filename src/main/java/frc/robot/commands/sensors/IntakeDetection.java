@@ -6,6 +6,7 @@ package frc.robot.commands.sensors;
 
 import frc.robot.Constants;
 import frc.robot.subsystems.ExampleSubsystem;
+import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.sensors.PhotoelectricSensor;
 import frc.robot.subsystems.sensors.TestingMotor;
 
@@ -14,11 +15,12 @@ import org.opencv.photo.Photo;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.subsystems.Intake;
 
 /** An example command that uses an example subsystem. */
 public class IntakeDetection extends Command {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
-  private final TestingMotor motor;
+  private final Intake motor;
   private final PhotoelectricSensor peSensor;
 
   /**
@@ -26,7 +28,7 @@ public class IntakeDetection extends Command {
    *
    * @param subsystem The subsystem used by this command.
    */
-  public IntakeDetection(TestingMotor subsystem, PhotoelectricSensor sensor) {
+  public IntakeDetection(Intake subsystem, PhotoelectricSensor sensor) {
     motor = subsystem;
     peSensor = sensor;
     // Use addRequirements() here to declare subsystem dependencies.
@@ -43,17 +45,17 @@ public class IntakeDetection extends Command {
   public void execute() {
     SmartDashboard.putNumber("pe value", peSensor.getVoltage());
     if(peSensor.hasDetection()){
-      motor.stop();
+      motor.setSpeed(0);
     }
     else{
-      motor.runAt(0.2);
+      motor.setSpeed(0.2);
     }
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    motor.stop();
+    motor.setSpeed(0);
   }
 
   // Returns true when the command should end.

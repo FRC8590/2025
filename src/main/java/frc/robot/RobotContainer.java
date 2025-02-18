@@ -20,6 +20,7 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.*;
 import frc.robot.commands.DriveTest;
+import frc.robot.commands.sensors.IntakeDetection;
 import frc.robot.commands.swervedrive.FinalAlignment;
 import frc.robot.commands.swervedrive.auto.AutoBalanceCommand;
 import frc.robot.commands.swervedrive.drivebase.AbsoluteDriveAdv;
@@ -164,7 +165,7 @@ public class RobotContainer
       driverXbox.y().whileTrue(Constants.drivebase.driveToDistanceCommand(1.0, 0.2));
       driverXbox.start().onTrue((Commands.runOnce(Constants.drivebase::zeroGyro)));
       driverXbox.back().whileTrue(Constants.drivebase.centerModulesCommand());
-      driverXbox.leftBumper().onTrue(Commands.none());
+      driverXbox.leftBumper().onTrue(new IntakeDetection(Constants.intake, Constants.photoelectricSensor));
       driverXbox.rightBumper().onTrue(Commands.none());
     } else
     {

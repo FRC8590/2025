@@ -35,7 +35,7 @@ public class Intake extends SubsystemBase {
         .withName("Eject");
   }
 
-  private void setSpeed(double speed) {
+  public void setSpeed(double speed) {
     intakeMotor.set(speed);
   }
 
