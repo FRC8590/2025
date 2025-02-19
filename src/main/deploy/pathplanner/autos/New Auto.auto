@@ -7,13 +7,19 @@
         {
           "type": "path",
           "data": {
-            "pathName": "New New Path"
+            "pathName": "step1"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "wasd"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "New New New Path"
+            "pathName": "step2"
           }
         }
       ]

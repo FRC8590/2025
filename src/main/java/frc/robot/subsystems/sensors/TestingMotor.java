@@ -9,11 +9,13 @@ import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import com.revrobotics.spark.config.AlternateEncoderConfig;
 import com.revrobotics.spark.config.SparkMaxConfig;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class TestingMotor extends SubsystemBase{
 
     public SparkMax motor;
+    private RelativeEncoder tbEncoder;
 
     public TestingMotor (int id){
         motor = new SparkMax(id, MotorType.kBrushless);
@@ -24,16 +26,20 @@ public class TestingMotor extends SubsystemBase{
 
     private void configureMotor(){
         SparkMaxConfig config = new SparkMaxConfig();
-        config.limitSwitch.forwardLimitSwitchEnabled(true);
-        config.limitSwitch.reverseLimitSwitchEnabled(false);
+        // config.limitSwitch.forwardLimitSwitchEnabled(true);
+        // config.limitSwitch.reverseLimitSwitchEnabled(false);
+        // config.limitSwitch.forwardLimitSwitchType(Type.kNormallyClosed);
+
         config.idleMode(IdleMode.kBrake);
-
-        config.limitSwitch.forwardLimitSwitchType(Type.kNormallyClosed);
-
+        
         config.smartCurrentLimit(20);
+        config.alternateEncoder.setSparkMaxDataPortConfig();
+        
         motor.configure(config, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
 
-        RelativeEncoder altEnc = motor.getAlternateEncoder(); //this is for the shaft encoder we are going to put on the spark
+        tbEncoder = motor.getAlternateEncoder(); //this is for the shaft encoder we are going to put on the spark
+
+
 
     }
 
@@ -61,6 +67,17 @@ public class TestingMotor extends SubsystemBase{
     public void stop(){
         motor.set(0);
     }
+    
+
+    /**
+     *
+     *
+     * @return The counts of the relative through bore encoder since startup.
+     */
+    public double getRotations(){
+        return tbEncoder.getPosition();
+    }
+
 
     /**
      * Returns {@code true} if the limit switch is pressed, based on the selected polarity.
@@ -71,6 +88,12 @@ public class TestingMotor extends SubsystemBase{
      */
     public boolean limitSwitchPressed(){
         return motor.getForwardLimitSwitch().isPressed();
+    }
+
+
+    @Override
+    public void periodic(){
+        SmartDashboard.putNumber("rotations", getRotations());
     }
 
 }

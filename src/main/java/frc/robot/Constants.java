@@ -73,12 +73,18 @@ public final class Constants
 
     // Subsystem Instances
     public static TestingMotor testingMotor;
-    public static final Elevator elevator = new Elevator();
-    public static final Intake intake = new Intake();
-    public static final SwerveSubsystem drivebase = new SwerveSubsystem(
-        new File(Filesystem.getDeployDirectory(), "swerve/neo")
-    );
-    public static Vision vision;
+    // public static final Elevator elevator = new Elevator();
+    // public static final Intake intake = new Intake();
+    // public static final SwerveSubsystem drivebase = new SwerveSubsystem(
+    //     new File(Filesystem.getDeployDirectory(), "swerve/neo")
+    // );
+    // public static Vision vision;
+
+    public static final Elevator elevator = null;
+    public static final Intake intake = null;
+    public static final SwerveSubsystem drivebase = null;
+    public static Vision vision = null;
+
 
     // Constants Records
     public static final IntakeConstants INTAKE = IntakeConstants.DEFAULT;
