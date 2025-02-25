@@ -23,20 +23,22 @@ public class Shooter extends SubsystemBase {
   /** Creates a new ShooterSubsystem. */
 
 
-  SparkMaxConfig masterConfig = new SparkMaxConfig();
+  SparkMaxConfig shooterConfig = new SparkMaxConfig();
 
   private final SparkMax shooterMotor = new SparkMax(Constants.SHOOTER_CONSTANTS.kShooterMotorID(), MotorType.kBrushless);
-  private final AnalogInput intakePhotoElectricSensor = new AnalogInput(Constants.SHOOTER_CONSTANTS.intakePhotoElectricSensorID());
+  private final AnalogInput secondIntakePhotoElectricSensor = new AnalogInput(Constants.SHOOTER_CONSTANTS.secondIntakePhotoElectricSensorID()); //the second sensor the coral hits
+  private final AnalogInput firstIntakePhotoElectricSensor = new AnalogInput(Constants.SHOOTER_CONSTANTS.firstIntakePhotoElectricSensorID()); //the first sensor the coral hits
 
   public int counter;
+
   public Shooter() {
 
-    masterConfig
+    shooterConfig
     .inverted(false)
     .idleMode(IdleMode.kCoast)
     .smartCurrentLimit(10)
     .closedLoopRampRate(0.1);
-    shooterMotor.configure(masterConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
+    shooterMotor.configure(shooterConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
 
   }
 
@@ -63,7 +65,7 @@ public class Shooter extends SubsystemBase {
    */
   public Trigger hasCoral() {
     return new Trigger(() -> 
-        (intakePhotoElectricSensor.getVoltage() < 2 && counter > 8));
+        (secondIntakePhotoElectricSensor.getVoltage() < 2 && counter > 8));
   }
   
 
@@ -72,11 +74,23 @@ public class Shooter extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    SmartDashboard.putNumber("Motor Speed", shooterMotor.get());
-    SmartDashboard.putBoolean("Coral Detected", intakePhotoElectricSensor.getVoltage() < 0.5);
-    SmartDashboard.putNumber("Photo Electric Sensor", intakePhotoElectricSensor.getVoltage());
 
-    if(intakePhotoElectricSensor.getVoltage() < 2){
+    if(firstIntakePhotoElectricSensor.getVoltage() > 2){ //if coral is not detected by first sensor
+      shooterMotor.set(0);
+    }
+    else if(firstIntakePhotoElectricSensor.getVoltage() < 2 && secondIntakePhotoElectricSensor.getVoltage() > 2){ //if first sensor but not second sensor
+      shooterMotor.set(0.7); //run pretty fast
+    }
+    else if(firstIntakePhotoElectricSensor.getVoltage() < 2 && secondIntakePhotoElectricSensor.getVoltage() < 2){ //if both sensors detect coral
+      shooterMotor.set(0.2); //run slow
+    }
+    
+
+    SmartDashboard.putNumber("Motor Speed", shooterMotor.get());
+    SmartDashboard.putBoolean("Coral Detected", secondIntakePhotoElectricSensor.getVoltage() < 0.5);
+    SmartDashboard.putNumber("Photo Electric Sensor", firstIntakePhotoElectricSensor.getVoltage());
+
+    if(secondIntakePhotoElectricSensor.getVoltage() < 2){
       counter++;
     }
   }
