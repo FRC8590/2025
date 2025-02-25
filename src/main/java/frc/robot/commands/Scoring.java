@@ -2,8 +2,9 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.commands;
+package frc.robot.Commands;
 
+import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.ParallelDeadlineGroup;
@@ -43,7 +44,7 @@ public class Scoring extends SequentialCommandGroup {
         
       // Score game piece
       new WaitCommand(0.5),
-      Constants.intake.ejectCommand(),
+      new RunShooterIntake(), //Maybe needs to be whileheld or something like that, but hopefully future iteration stops the command when it's out of the elevator's way
       
       // Return to safe position - using deadline() again
       new ParallelDeadlineGroup(
@@ -55,6 +56,6 @@ public class Scoring extends SequentialCommandGroup {
       // new InstantCommand(() -> Constants.led.setDefault())
     );
 
-    addRequirements(Constants.drivebase, Constants.elevator, Constants.intake);
+    addRequirements(Constants.drivebase, Constants.elevator, Constants.ShooterConstants.shooterSubsystem);
   }
 }

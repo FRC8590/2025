@@ -1,4 +1,4 @@
-package frc.robot.subsystems.sensors;
+package frc.robot.Subsystems.sensors;
 
 import com.revrobotics.spark.SparkMax;
 import com.revrobotics.RelativeEncoder;

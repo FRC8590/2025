@@ -1,4 +1,4 @@
-package frc.robot.commands.swervedrive;
+package frc.robot.Commands.swervedrive;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,10 +15,8 @@ import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Subsystem;
-import frc.robot.subsystems.swervedrive.SwerveSubsystem;
-import frc.robot.subsystems.swervedrive.Vision;
-import swervelib.math.SwerveMath;
-import frc.robot.subsystems.swervedrive.*;;;
+import frc.robot.Subsystems.swervedrive.*;
+import swervelib.math.SwerveMath;;;
 /**
  * Auto Balance command using a simple PID controller. Created by Team 3512
  * <a href="https://github.com/frc3512/Robot-2023/blob/main/src/main/java/frc3512/robot/commands/AutoBalance.java">...</a>

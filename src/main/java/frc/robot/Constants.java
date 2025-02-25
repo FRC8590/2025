@@ -16,14 +16,14 @@ import edu.wpi.first.math.geometry.Rotation3d;
 import edu.wpi.first.math.geometry.Translation3d;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.Filesystem;
-import frc.robot.subsystems.Elevator;
-import frc.robot.subsystems.Intake;
-import frc.robot.subsystems.sensors.TestingMotor;
-import frc.robot.subsystems.swervedrive.SwerveSubsystem;
-import frc.robot.subsystems.swervedrive.Vision;
 import swervelib.math.Matter;
 import frc.robot.constants.IntakeConstants;
 import frc.robot.constants.ElevatorConstants;
+import frc.robot.Subsystems.Elevator;
+import frc.robot.Subsystems.ShooterSubsystem;
+import frc.robot.Subsystems.sensors.TestingMotor;
+import frc.robot.Subsystems.swervedrive.SwerveSubsystem;
+import frc.robot.Subsystems.swervedrive.Vision;
 import frc.robot.constants.DriveConstants;
 import frc.robot.constants.OperatorConstants;
 
@@ -81,13 +81,11 @@ public final class Constants
     // public static Vision vision;
 
     public static final Elevator elevator = null;
-    public static final Intake intake = null;
     public static final SwerveSubsystem drivebase = null;
     public static Vision vision = null;
 
 
     // Constants Records
-    public static final IntakeConstants INTAKE = IntakeConstants.DEFAULT;
     public static final ElevatorConstants ELEVATOR = ElevatorConstants.DEFAULT;
     public static final DriveConstants DRIVE = DriveConstants.DEFAULT;
     public static final OperatorConstants OPERATOR = OperatorConstants.DEFAULT;
@@ -104,5 +102,11 @@ public final class Constants
         LEFT3, 
         RIGHT2, 
         RIGHT3
+    }
+
+    public static final class ShooterConstants {
+        public static final int kShooterMotorID = 11;
+        public static final int intakePhotoElectricSensorID = 0;
+        public static final ShooterSubsystem shooterSubsystem = new ShooterSubsystem();
     }
 }

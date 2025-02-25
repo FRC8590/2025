@@ -1,4 +1,4 @@
-package frc.robot.subsystems.sensors;
+package frc.robot.Subsystems.sensors;
 
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;

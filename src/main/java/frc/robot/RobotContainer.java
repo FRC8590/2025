@@ -18,15 +18,15 @@ import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
+import frc.robot.Commands.DriveTest;
+import frc.robot.Commands.swervedrive.AlignToAprilTag;
+import frc.robot.Commands.swervedrive.FinalAlignment;
+import frc.robot.Commands.swervedrive.auto.AutoBalanceCommand;
+import frc.robot.Commands.swervedrive.drivebase.AbsoluteDriveAdv;
 import frc.robot.Constants.*;
-import frc.robot.commands.DriveTest;
-import frc.robot.commands.swervedrive.FinalAlignment;
-import frc.robot.commands.swervedrive.auto.AutoBalanceCommand;
-import frc.robot.commands.swervedrive.drivebase.AbsoluteDriveAdv;
+import frc.robot.Subsystems.swervedrive.SwerveSubsystem;
+import frc.robot.Subsystems.swervedrive.Vision;
 import frc.robot.constants.OperatorConstants;
-import frc.robot.commands.swervedrive.AlignToAprilTag;
-import frc.robot.subsystems.swervedrive.SwerveSubsystem;
-import frc.robot.subsystems.swervedrive.Vision;
 
 import java.io.File;
 
@@ -166,6 +166,8 @@ public class RobotContainer
       driverXbox.back().whileTrue(Constants.drivebase.centerModulesCommand());
       driverXbox.leftBumper().onTrue(Commands.none());
       driverXbox.rightBumper().onTrue(Commands.none());
+
+
     } else
     {
       driverXbox.a().onTrue((Commands.runOnce(Constants.drivebase::zeroGyro)));
@@ -176,6 +178,9 @@ public class RobotContainer
       driverXbox.back().whileTrue(Commands.none());
       driverXbox.leftBumper().whileTrue(Commands.runOnce(Constants.drivebase::lock, Constants.drivebase).repeatedly());
       driverXbox.rightBumper().onTrue(Commands.none());
+      //driverXbox.something().whileTrue(new RunShooterIntake());
+      //driverXbox.something().whileTrue(new SpitItBack());
+
     }
 
     // Update the X button binding to use the existing driveAngularVelocity input stream

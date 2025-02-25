@@ -1,5 +1,5 @@
 
-package frc.robot.subsystems.sensors;
+package frc.robot.Subsystems.sensors;
 
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Notifier;

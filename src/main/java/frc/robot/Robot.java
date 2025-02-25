@@ -13,14 +13,14 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import frc.robot.commands.swervedrive.AutoAlignment;
-import frc.robot.subsystems.swervedrive.Vision;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.math.geometry.Rotation2d;
-import frc.robot.subsystems.Elevator;
+import frc.robot.Commands.swervedrive.AutoAlignment;
 import frc.robot.Constants.ElevatorState;
+import frc.robot.Subsystems.Elevator;
+import frc.robot.Subsystems.swervedrive.Vision;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to each mode, as
