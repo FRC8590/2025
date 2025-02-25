@@ -5,6 +5,9 @@
 package frc.robot;
 
 import java.util.List;
+
+import au.grapplerobotics.LaserCan;
+
 import java.io.File;
 import java.util.ArrayList;
 
@@ -16,14 +19,13 @@ import edu.wpi.first.math.geometry.Rotation3d;
 import edu.wpi.first.math.geometry.Translation3d;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.Filesystem;
+import frc.robot.subsystems.Elevator;
+import frc.robot.subsystems.ShooterSubsystem;
+import frc.robot.subsystems.swervedrive.SwerveSubsystem;
+import frc.robot.subsystems.swervedrive.Vision;
 import swervelib.math.Matter;
 import frc.robot.constants.IntakeConstants;
 import frc.robot.constants.ElevatorConstants;
-import frc.robot.Subsystems.Elevator;
-import frc.robot.Subsystems.ShooterSubsystem;
-import frc.robot.Subsystems.sensors.TestingMotor;
-import frc.robot.Subsystems.swervedrive.SwerveSubsystem;
-import frc.robot.Subsystems.swervedrive.Vision;
 import frc.robot.constants.DriveConstants;
 import frc.robot.constants.OperatorConstants;
 
@@ -60,7 +62,7 @@ public final class Constants
     );
 
     // Robot Physical Properties
-    public static final double ROBOT_MASS = Units.lbsToKilograms(32);
+    public static final double ROBOT_MASS = Units.lbsToKilograms(85);
     public static final Matter CHASSIS = new Matter(
         new Translation3d(0, 0, Units.inchesToMeters(14)), 
         ROBOT_MASS
@@ -72,20 +74,13 @@ public final class Constants
     public static double visionTimerOffset = 0;
 
     // Subsystem Instances
-    public static TestingMotor testingMotor;
-    // public static final Elevator elevator = new Elevator();
-    // public static final Intake intake = new Intake();
-    // public static final SwerveSubsystem drivebase = new SwerveSubsystem(
-    //     new File(Filesystem.getDeployDirectory(), "swerve/neo")
-    // );
-    // public static Vision vision;
-
-    public static final Elevator elevator = null;
-    public static final SwerveSubsystem drivebase = null;
-    public static Vision vision = null;
-
+    public static final SwerveSubsystem drivebase = new SwerveSubsystem(
+        new File(Filesystem.getDeployDirectory(), "swerve/neo")
+    );
+    public static Vision vision;
 
     // Constants Records
+    public static final IntakeConstants INTAKE = IntakeConstants.DEFAULT;
     public static final ElevatorConstants ELEVATOR = ElevatorConstants.DEFAULT;
     public static final DriveConstants DRIVE = DriveConstants.DEFAULT;
     public static final OperatorConstants OPERATOR = OperatorConstants.DEFAULT;
@@ -104,9 +99,44 @@ public final class Constants
         RIGHT3
     }
 
+        public static double distancePerRotation = 1/14.36; //meters per rotations
+    public static final LaserCan laserCan = new LaserCan(8);
+
+    public static final Elevator elevator = new Elevator();
+
+
+    public static final double minHeightMeters = 0.0;
+    public static final double maxHeightMeters = 3.35;
+    public static final int masterMotorID = 9;
+    public static final int followerMotorID = 10;
+
+    public final class feedforward{
+        public static final double kS = 0;
+        public static final double kG = 0.4;
+        public static final double kV = 0.1;
+        public static final double kA = 0.0;
+    }
+
+    public final class pid{
+        public static final double kP = 4.5;
+        public static final double kI = 0;
+        public static final double kD = 4;
+    }
+
+    public static double maxVelocity = 0.0;
+    public static double maxAcceleration = 0.0;
+
+    public static double rampRate = 0.3;
+
+
+
     public static final class ShooterConstants {
         public static final int kShooterMotorID = 11;
         public static final int intakePhotoElectricSensorID = 0;
         public static final ShooterSubsystem shooterSubsystem = new ShooterSubsystem();
     }
+
+
+    
+
 }

@@ -18,15 +18,18 @@ import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
-import frc.robot.Commands.DriveTest;
-import frc.robot.Commands.swervedrive.AlignToAprilTag;
-import frc.robot.Commands.swervedrive.FinalAlignment;
-import frc.robot.Commands.swervedrive.auto.AutoBalanceCommand;
-import frc.robot.Commands.swervedrive.drivebase.AbsoluteDriveAdv;
 import frc.robot.Constants.*;
-import frc.robot.Subsystems.swervedrive.SwerveSubsystem;
-import frc.robot.Subsystems.swervedrive.Vision;
+import frc.robot.commands.DriveTest;
+import frc.robot.commands.MoveElevatorCommand;
+import frc.robot.commands.RunShooterIntake;
+import frc.robot.commands.swervedrive.FinalAlignment;
+import frc.robot.commands.SpitItBack;
+import frc.robot.commands.swervedrive.auto.AutoBalanceCommand;
+import frc.robot.commands.swervedrive.drivebase.AbsoluteDriveAdv;
 import frc.robot.constants.OperatorConstants;
+import frc.robot.commands.swervedrive.AlignToAprilTag;
+import frc.robot.subsystems.swervedrive.SwerveSubsystem;
+import frc.robot.subsystems.swervedrive.Vision;
 
 import java.io.File;
 
@@ -68,9 +71,9 @@ public class RobotContainer
    * Converts driver input into a field-relative ChassisSpeeds that is controlled by angular velocity.
    */
   SwerveInputStream driveAngularVelocity = SwerveInputStream.of(Constants.drivebase.getSwerveDrive(),
-                                                                () -> -driverXbox.getLeftY(),
-                                                                () -> -driverXbox.getLeftX())
-                                                            .withControllerRotationAxis(() -> -driverXbox.getRightX() * 0.6)
+                                                                () -> driverXbox.getLeftY(),
+                                                                () -> driverXbox.getLeftX())
+                                                            .withControllerRotationAxis(() -> driverXbox.getRightX() * 0.6)
                                                             .deadband(Constants.OPERATOR.deadband())
                                                             .scaleTranslation(0.5)
                                                             .allianceRelativeControl(true);
@@ -166,21 +169,18 @@ public class RobotContainer
       driverXbox.back().whileTrue(Constants.drivebase.centerModulesCommand());
       driverXbox.leftBumper().onTrue(Commands.none());
       driverXbox.rightBumper().onTrue(Commands.none());
-
-
     } else
     {
-      driverXbox.a().onTrue((Commands.runOnce(Constants.drivebase::zeroGyro)));
-      driverXbox.b().whileTrue(
+      driverXbox.start().onTrue((Commands.runOnce(Constants.drivebase::zeroGyro)));
+      driverXbox.back().whileTrue(
           Constants.drivebase.driveToPose(new Pose2d(new Translation2d(Units.feetToMeters(3), Units.feetToMeters(2)), Rotation2d.fromDegrees(180))));
       driverXbox.y().onTrue(new DriveTest(Constants.drivebase));
-      driverXbox.start().whileTrue(Commands.none());
-      driverXbox.back().whileTrue(Commands.none());
-      driverXbox.leftBumper().whileTrue(Commands.runOnce(Constants.drivebase::lock, Constants.drivebase).repeatedly());
-      driverXbox.rightBumper().onTrue(Commands.none());
-      //driverXbox.something().whileTrue(new RunShooterIntake());
-      //driverXbox.something().whileTrue(new SpitItBack());
-
+      driverXbox.a().whileTrue(new MoveElevatorCommand(0.330));
+      driverXbox.b().whileTrue(new MoveElevatorCommand(0.69));
+      driverXbox.x().whileTrue(new MoveElevatorCommand(0));
+      driverXbox.leftTrigger().whileTrue(Commands.runOnce(Constants.drivebase::lock, Constants.drivebase).repeatedly());
+      driverXbox.rightBumper().whileTrue(new RunShooterIntake());
+      driverXbox.leftBumper().whileTrue(new SpitItBack());
     }
 
     // Update the X button binding to use the existing driveAngularVelocity input stream

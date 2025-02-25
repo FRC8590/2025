@@ -13,14 +13,13 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.commands.swervedrive.AutoAlignment;
+import frc.robot.subsystems.swervedrive.Vision;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.math.geometry.Rotation2d;
-import frc.robot.Commands.swervedrive.AutoAlignment;
 import frc.robot.Constants.ElevatorState;
-import frc.robot.Subsystems.Elevator;
-import frc.robot.Subsystems.swervedrive.Vision;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to each mode, as
@@ -98,7 +97,6 @@ public class Robot extends TimedRobot
   @Override
   public void disabledInit()
   {
-    Constants.elevator.setState(ElevatorState.DISABLED);
 
     disabledTimer.reset();
     disabledTimer.start();
@@ -109,7 +107,6 @@ public class Robot extends TimedRobot
   public void disabledPeriodic()
   {
 
-    Constants.elevator.setState(ElevatorState.DISABLED);
     if (disabledTimer.hasElapsed(Constants.DRIVE.wheelLockTime()))
     {
       disabledTimer.stop();
@@ -146,7 +143,6 @@ public class Robot extends TimedRobot
   @Override
   public void teleopInit()
   {
-    Constants.elevator.setState(ElevatorState.ZEROED);
 
     // This makes sure that the autonomous stops running when
     // teleop starts running. If you want the autonomous to
@@ -184,7 +180,6 @@ public class Robot extends TimedRobot
     SmartDashboard.putNumber("Y Offset", yOffset);
     SmartDashboard.putNumber("Yaw Offset", yawOffset);
 
-    Constants.elevator.setState(ElevatorState.SETPOINT);
 
   }
 

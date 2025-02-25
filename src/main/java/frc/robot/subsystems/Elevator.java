@@ -2,7 +2,8 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.Subsystems;
+package frc.robot.subsystems;
+import edu.wpi.first.math.util.Units;
 
 import static edu.wpi.first.units.Units.Inches;
 import static edu.wpi.first.units.Units.Meters;
@@ -20,6 +21,7 @@ import com.revrobotics.spark.SparkBase.ResetMode;
 import com.revrobotics.spark.SparkClosedLoopController;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.spark.SparkMax;
+import com.revrobotics.spark.SparkBase.ControlType;
 import com.revrobotics.spark.SparkBase.PersistMode;
 import com.revrobotics.spark.config.ClosedLoopConfig.FeedbackSensor;
 import com.revrobotics.spark.config.LimitSwitchConfig.Type;
@@ -27,6 +29,9 @@ import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import com.revrobotics.spark.config.ClosedLoopConfig;
 import com.revrobotics.spark.config.MAXMotionConfig;
 import com.revrobotics.spark.config.SparkMaxConfig;
+
+import au.grapplerobotics.LaserCan;
+
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.RobotBase;
@@ -47,172 +52,128 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
-import frc.robot.Constants.*;
-import frc.robot.Constants;
 import edu.wpi.first.units.Measure;
-import edu.wpi.first.units.Units;
 import edu.wpi.first.units.measure.MutAngle;
 import edu.wpi.first.units.measure.MutDistance;
 import edu.wpi.first.units.measure.MutLinearVelocity;
 import edu.wpi.first.units.measure.MutVoltage;
-
+import frc.robot.Constants;
 import frc.robot.Constants.ElevatorState;
-
+import com.revrobotics.spark.ClosedLoopSlot;
 import java.util.function.BooleanSupplier;
 
 public class Elevator extends SubsystemBase {
   /** Creates a new Elevator. */
   
+  // Define limits in meters
+  private static final double MAX_HEIGHT_METERS = 0.69;  // 10cm up
+  private static final double MIN_HEIGHT_METERS = 0.01; // 10cm down
+  private static final double MAX_VELOCITY_METERS = 1.6; // ~0.5 inches per second
 
-  public final Trigger atMin = new Trigger((BooleanSupplier) () -> 
-      getElevatorHeight() <= Constants.ELEVATOR.minHeightMeters() + 3.0);
+  // Fix trigger definitions with small tolerance
+  public final Trigger atMin = new Trigger(() -> 
+      getElevatorHeightEncoder() <= MIN_HEIGHT_METERS + 0.001);
 
-  public final Trigger atMax = new Trigger((BooleanSupplier) () -> 
-      getElevatorHeight() >= Constants.ELEVATOR.minHeightMeters() - 3.0);
+  public final Trigger atMax = new Trigger(() -> 
+      getElevatorHeightEncoder() >= MAX_HEIGHT_METERS - 0.001);
 
-  private final SparkMax elevatorMaster = new SparkMax(
-      Constants.ELEVATOR.masterMotorID(),
-      MotorType.kBrushless
-  );
-  
-  private final SparkMax elevatorFollower = new SparkMax(
-      Constants.ELEVATOR.followerMotorID(),
-      MotorType.kBrushless
-  );
-
-  private RelativeEncoder tbEncoder;
-
-  private double motorOutput;
-  private double setpoint;
+  private final SparkMax elevatorMaster;
+  private final SparkMax elevatorFollower;
+  private final RelativeEncoder tbEncoder;
+  private final SparkClosedLoopController closedLoopController;
+  private ElevatorState currState = ElevatorState.DISABLED;
+  private double setpoint = 0.0;
 
   ShuffleboardTab tab;
 
   double[] measurementStdDevs = {0.0, 0.0};
 
     ElevatorFeedforward m_feedforward = new ElevatorFeedforward(
-        Constants.ELEVATOR.feedforward().kS(),
-        Constants.ELEVATOR.feedforward().kG(),
-        Constants.ELEVATOR.feedforward().kV(),
-        Constants.ELEVATOR.feedforward().kA()
-    );
-
-    private final ProfiledPIDController m_controller = new ProfiledPIDController(
-        Constants.ELEVATOR.pid().kP(),
-        Constants.ELEVATOR.pid().kI(),
-        Constants.ELEVATOR.pid().kD(),
-        new Constraints(
-            Constants.ELEVATOR.maxVelocity(),
-            Constants.ELEVATOR.maxAcceleration()
-        )
+        Constants.feedforward.kS,
+        Constants.feedforward.kG,
+        Constants.feedforward.kV,
+        Constants.feedforward.kA
     );
 
 
 
-                                                                                                  // SysId Routine and seutp
-  // Mutable holder for unit-safe voltage values, persisted to avoid reallocation.
-  private final MutVoltage        m_appliedVoltage = Volts.mutable(0);
-  // Mutable holder for unit-safe linear distance values, persisted to avoid reallocation.
-  private final MutDistance       m_distance       = Meters.mutable(0);
-  private final MutAngle          m_rotations      = Rotations.mutable(0);
-  // Mutable holder for unit-safe linear velocity values, persisted to avoid reallocation.
-  private final MutLinearVelocity m_velocity       = MetersPerSecond.mutable(0);
-  // SysID Routine
-  private final SysIdRoutine      m_sysIdRoutine   =
-      new SysIdRoutine(
-          // Empty config defaults to 1 volt/second ramp rate and 7 volt step voltage.
-          new SysIdRoutine.Config(Volts.per(Second).of(1),
-                                  Volts.of(7),
-                                  Seconds.of(10)),
-          new SysIdRoutine.Mechanism(
-              // Tell SysId how to plumb the driving voltage to the motor(s).
-              elevatorFollower::setVoltage,
-              // Tell SysId how to record a frame of data for each motor on the mechanism being
-              // characterized.
-              log -> {
-                // Record a frame for the shooter motor.
-                log.motor("elevator")
-                   .voltage(
-                       m_appliedVoltage.mut_replace(
-                        elevatorFollower.getAppliedOutput() * RobotController.getBatteryVoltage(), Volts))
-                   .linearPosition(m_distance.mut_replace(getElevatorHeight(),
-                                                          Meters)) // Records Height in Meters via SysIdRoutineLog.linearPosition
-                   .linearVelocity(m_velocity.mut_replace(getElevatorVelocity(),
-                                                          MetersPerSecond)); // Records velocity in MetersPerSecond via SysIdRoutineLog.linearVelocity
-              },
-              this));
 
   
 
-  private ElevatorState currState;
- 
-
-  // private double targetHeight = Constants.ELEVATOR.bottomSetpoint();
-
   public Elevator() {
-
-    SparkMaxConfig elevatorMasterConfig  = new SparkMaxConfig();
-    SparkMaxConfig elevatorFollowerConfig  = new SparkMaxConfig();
-
-    // SparkClosedLoopController pidController = elevatorMaster.getClosedLoopController();
-
-    //create configs for both. The master spark is running with the external alternate encoder.
-    elevatorMasterConfig
-        .inverted(true)
-        .idleMode(IdleMode.kBrake)
-        .smartCurrentLimit(10)
-        .closedLoopRampRate(Constants.ELEVATOR.rampRate());
-    elevatorMasterConfig.closedLoop
-        .feedbackSensor(FeedbackSensor.kAlternateOrExternalEncoder);
-    elevatorMasterConfig.limitSwitch
-        .forwardLimitSwitchEnabled(true)
-        .reverseLimitSwitchEnabled(false)
-        .forwardLimitSwitchType(Type.kNormallyClosed);
-
-
-
-
-    //config both elevator sparks with configs we just created
-    elevatorMaster.configure(elevatorMasterConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
-    elevatorFollower.configure(elevatorFollowerConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
+    elevatorMaster = new SparkMax(Constants.masterMotorID, MotorType.kBrushless);
+    elevatorFollower = new SparkMax(Constants.followerMotorID, MotorType.kBrushless);
     
-    //setup the external encoder
+    closedLoopController = elevatorMaster.getClosedLoopController();
     tbEncoder = elevatorMaster.getAlternateEncoder();
 
+    SparkMaxConfig masterConfig = new SparkMaxConfig();
+    masterConfig
+        .inverted(true)
+        .idleMode(IdleMode.kBrake)
+        .smartCurrentLimit(35)
+        .closedLoopRampRate(Constants.rampRate);
 
+    masterConfig.alternateEncoder
+        .setSparkMaxDataPortConfig()
+        .positionConversionFactor(Constants.distancePerRotation);
 
-    setState(ElevatorState.DISABLED);
+    masterConfig.closedLoop
+        .feedbackSensor(FeedbackSensor.kAlternateOrExternalEncoder)
+        .p(Constants.pid.kP)
+        .i(Constants.pid.kI)
+        .d(Constants.pid.kD)
+        .outputRange(-1, 1);
+
+    SparkMaxConfig followerConfig = new SparkMaxConfig();
+    followerConfig
+        .idleMode(IdleMode.kBrake)
+        .smartCurrentLimit(35)
+        .closedLoopRampRate(Constants.rampRate)
+        .follow(elevatorMaster, true);
+
+    // Apply configurations
+    elevatorMaster.configure(masterConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
+    elevatorFollower.configure(followerConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
+    
+
+    System.out.println(getElevatorHeightLaser());
+    // Zero encoder
+    tbEncoder.setPosition(0);
   }
 
   
     /**
    * Run control loop to reach and maintain goal.
-   *
-   * @param goal the position to maintain
+   * @param goalMeters the position to maintain in meters
    */
-  public void reachGoal(double goal) {
-    // Safety checks
-    if (getLimitSwitchStatus() || 
-        getElevatorHeight() <= Constants.ELEVATOR.minHeightMeters() || 
-        goal <= Constants.ELEVATOR.minHeightMeters()) {
-      setState(ElevatorState.ZEROED);
+  public void reachGoal(double goalMeters) {
+    double currentPos = getElevatorHeightEncoder();
+    if(currentPos < -1){
+      System.out.println("ERROR, LESS THAN 0");
       return;
     }
 
-    if (goal < Constants.ELEVATOR.minHeightMeters() || 
-        goal > Constants.ELEVATOR.maxHeightMeters()) {
-      setState(ElevatorState.DISABLED);
-      System.out.println("SOMETHING IS WRONG. CHECK CODE NOW");
-      return;
-    }
-
+    // Bound goal to valid range
+    goalMeters = MathUtil.clamp(goalMeters, MIN_HEIGHT_METERS, MAX_HEIGHT_METERS);
+    
+    setpoint = goalMeters;
     setState(ElevatorState.SETPOINT);
 
-    // Original control logic
-    double voltsOut = MathUtil.clamp(
-        m_controller.calculate(getElevatorHeight(), goal) +
-        m_feedforward.calculateWithVelocities(getElevatorVelocity(),
-                                              m_controller.getSetpoint().velocity), -7, 7);
-    elevatorMaster.setVoltage(voltsOut);
+    // Add velocity limiting
+    double error = goalMeters - currentPos;
+    double maxDelta = MAX_VELOCITY_METERS; // Max change per 20ms cycle
+    
+    double limitedGoal = currentPos + MathUtil.clamp(error, -maxDelta, maxDelta);
+
+    closedLoopController.setReference(
+        limitedGoal, // Convert meters to encoder units
+        ControlType.kPosition,
+        ClosedLoopSlot.kSlot0,
+        Constants.feedforward.kG // Gravity compensation
+    );
+
+    SmartDashboard.putNumber("error", closedLoopController.getIAccum());
   }
 
 
@@ -224,21 +185,32 @@ public class Elevator extends SubsystemBase {
    *
    * @return {@code true} if the limit switch is pressed
    */
-  public boolean getLimitSwitchStatus(){
-    return elevatorMaster.getForwardLimitSwitch().isPressed();
-  }
-
-
 
 
 
 
   /**
+   * Returns the height of the elevator currently based on the laser can
+   * @return the rotations of the alternate encoder multiplied by the {@link Constants.Elevator} kDistancePeraTick
+   */
+
+  public double getElevatorHeightLaser(){
+
+    LaserCan.Measurement measurement = Constants.laserCan.getMeasurement();
+    if (measurement != null && measurement.status == LaserCan.LASERCAN_STATUS_VALID_MEASUREMENT){
+      return (measurement.distance_mm/1000.0) - 0.055;
+    } else {
+      return -1;
+    }
+  
+  }
+
+  /**
    * Returns the height of the elevator currently based on the rotations of the elevator shaft
    * @return the rotations of the alternate encoder multiplied by the {@link Constants.Elevator} kDistancePeraTick
    */
-  public double getElevatorHeight(){
-    return tbEncoder.getPosition() * Constants.ELEVATOR.distancePerTick();
+  public double getElevatorHeightEncoder(){
+    return tbEncoder.getPosition();
   }
 
   /**
@@ -246,20 +218,19 @@ public class Elevator extends SubsystemBase {
  * @return the rotations of the alternate encoder multiplied by the {@link Constants.Elevator} kDistancePeraTick
  */
   public double getElevatorVelocity(){
-    return tbEncoder.getVelocity() * Constants.ELEVATOR.distancePerTick();
+    return tbEncoder.getVelocity();
   }
 
 
 
   /**
    * Set the goal of the elevator. Can be used to directly set goal of the elevator as a command
-   *
-   * @param goal Goal in meters
+   * @param goalMeters Goal in meters
    * @return {@link edu.wpi.first.wpilibj2.command.Command}
    */
-  public Command setGoal(double goal)
-  {
-    return run(() -> reachGoal(goal));
+  public Command setGoal(double goalMeters) {
+    return run(() -> reachGoal(goalMeters))
+        .until(() -> atHeight(goalMeters, 0.002).getAsBoolean()); // Stop when at target with 2mm tolerance
   }
 
   
@@ -272,16 +243,15 @@ public class Elevator extends SubsystemBase {
 
   /**
    * A trigger for when the height is at an acceptable tolerance.
-   *
-   * @param height    Height in Meters
-   * @param tolerance Tolerance in meters.
+   * @param heightMeters Height in meters
+   * @param toleranceMeters Tolerance in meters
    * @return {@link Trigger}
    */
-  public Trigger atHeight(double height, double tolerance)
-  {
-    return new Trigger((BooleanSupplier) () -> MathUtil.isNear(height,
-                                             getElevatorHeight(),
-                                             tolerance));
+  public Trigger atHeight(double heightMeters, double toleranceMeters) {
+    return new Trigger(() -> 
+        MathUtil.isNear(heightMeters,
+                       getElevatorHeightEncoder(),
+                       toleranceMeters));
   }
 
     /**
@@ -303,29 +273,28 @@ public class Elevator extends SubsystemBase {
 
 
   /**
-   * Prints data to Smart Dashboard
+   * Prints data to Smart Dashboard with values in meters
    */
-  public void log(){
-    SmartDashboard.putNumber("Motor Output [-1, 1]", motorOutput);
-    SmartDashboard.putNumber("Elevator Position", getElevatorHeight());
-    SmartDashboard.putNumber("Elevator Velocity", getElevatorVelocity());
-    SmartDashboard.putNumber("Setpoint", setpoint);
-    SmartDashboard.putNumber("Error", setpoint - getElevatorHeight());
-    SmartDashboard.putBoolean("Bottom Limit Switch", getLimitSwitchStatus());
-    SmartDashboard.putString("Current State", getState());
+  public void log() {
+    SmartDashboard.putNumber("Elevator Position (m)", getElevatorHeightEncoder());
+    SmartDashboard.putNumber("Elevator Velocity (m/s)", getElevatorVelocity());
+    SmartDashboard.putNumber("Elevator Setpoint (m)", setpoint);
+    SmartDashboard.putNumber("Elevator Error (m)", setpoint - getElevatorHeightEncoder());
+    SmartDashboard.putString("Elevator State", getState());
+    SmartDashboard.putNumber("Motor Output", elevatorMaster.getAppliedOutput());
+    SmartDashboard.putBoolean("At Min Limit", atMin.getAsBoolean());
+    SmartDashboard.putBoolean("At Max Limit", atMax.getAsBoolean());
+    SmartDashboard.putNumber("Current Pulled", elevatorMaster.getOutputCurrent());
+    SmartDashboard.putNumber("distance in meters", getElevatorHeightLaser());
 
-    
   }
 
-  // public void setTargetHeight(double height) {
-  //   targetHeight = height;
-  // }
+  
+  @Override
+  public void periodic() {
+    // This will continuously run the control loop
+    log();
+  }
 
-  // @Override
-  // public void periodic() {
-  //   // This will continuously run the control loop
-  //   reachGoal(targetHeight);
-  //   log();
-  // }
 
 }

@@ -1,4 +1,4 @@
-package frc.robot.Commands.swervedrive;
+package frc.robot.commands.swervedrive;
 
 import java.util.List;
 
@@ -9,8 +9,8 @@ import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.Subsystems.swervedrive.SwerveSubsystem;
-import frc.robot.Subsystems.swervedrive.Vision;
+import frc.robot.subsystems.swervedrive.SwerveSubsystem;
+import frc.robot.subsystems.swervedrive.Vision;
 import swervelib.SwerveInputStream;
 
 public class AlignToAprilTag extends Command {

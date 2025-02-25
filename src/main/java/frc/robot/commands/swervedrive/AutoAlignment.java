@@ -1,4 +1,4 @@
-package frc.robot.Commands.swervedrive;
+package frc.robot.commands.swervedrive;
 
 import java.util.function.BooleanSupplier;
 import java.util.function.Consumer;
@@ -21,7 +21,7 @@ import edu.wpi.first.wpilibj2.command.FunctionalCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.Subsystem;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
-import frc.robot.Subsystems.swervedrive.SwerveSubsystem;
+import frc.robot.subsystems.swervedrive.SwerveSubsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class AutoAlignment extends SequentialCommandGroup {
