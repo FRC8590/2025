@@ -20,7 +20,7 @@ import edu.wpi.first.math.geometry.Translation3d;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.Filesystem;
 import frc.robot.subsystems.Elevator;
-import frc.robot.subsystems.ShooterSubsystem;
+import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.swervedrive.SwerveSubsystem;
 import frc.robot.subsystems.swervedrive.Vision;
 import swervelib.math.Matter;
@@ -28,6 +28,7 @@ import frc.robot.constants.IntakeConstants;
 import frc.robot.constants.ElevatorConstants;
 import frc.robot.constants.DriveConstants;
 import frc.robot.constants.OperatorConstants;
+import frc.robot.constants.ShooterConstants;
 
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean constants. This
@@ -79,11 +80,18 @@ public final class Constants
     );
     public static Vision vision;
 
+
+    public static final LaserCan laserCan = new LaserCan(8);
+
+    public static final Elevator ELEVATOR = new Elevator();
+    public static final Shooter SHOOTER = new Shooter();
+
     // Constants Records
-    public static final IntakeConstants INTAKE = IntakeConstants.DEFAULT;
-    public static final ElevatorConstants ELEVATOR = ElevatorConstants.DEFAULT;
-    public static final DriveConstants DRIVE = DriveConstants.DEFAULT;
-    public static final OperatorConstants OPERATOR = OperatorConstants.DEFAULT;
+    public static final IntakeConstants INTAKE_CONSTANTS = IntakeConstants.DEFAULT;
+    public static final ElevatorConstants ELEVATOR_CONSTANTS = ElevatorConstants.DEFAULT;
+    public static final DriveConstants DRIVE_CONSTANTS = DriveConstants.DEFAULT;
+    public static final OperatorConstants OPERATOR_CONSTANTS = OperatorConstants.DEFAULT;
+    public static final ShooterConstants SHOOTER_CONSTANTS = ShooterConstants.DEFAULT;
 
     // Enums
     public enum ElevatorState {
@@ -100,10 +108,6 @@ public final class Constants
     }
 
         public static double distancePerRotation = 1/14.36; //meters per rotations
-    public static final LaserCan laserCan = new LaserCan(8);
-
-    public static final Elevator elevator = new Elevator();
-
 
     public static final double minHeightMeters = 0.0;
     public static final double maxHeightMeters = 3.35;
@@ -128,13 +132,6 @@ public final class Constants
 
     public static double rampRate = 0.3;
 
-
-
-    public static final class ShooterConstants {
-        public static final int kShooterMotorID = 11;
-        public static final int intakePhotoElectricSensorID = 0;
-        public static final ShooterSubsystem shooterSubsystem = new ShooterSubsystem();
-    }
 
 
     

@@ -20,16 +20,17 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.*;
 import frc.robot.commands.DriveTest;
-import frc.robot.commands.MoveElevatorCommand;
-import frc.robot.commands.RunShooterIntake;
+import frc.robot.commands.IntakeCoral;
+import frc.robot.commands.MoveElevator;
+import frc.robot.commands.ScoreCoral;
 import frc.robot.commands.swervedrive.FinalAlignment;
-import frc.robot.commands.SpitItBack;
 import frc.robot.commands.swervedrive.auto.AutoBalanceCommand;
 import frc.robot.commands.swervedrive.drivebase.AbsoluteDriveAdv;
 import frc.robot.constants.OperatorConstants;
 import frc.robot.commands.swervedrive.AlignToAprilTag;
 import frc.robot.subsystems.swervedrive.SwerveSubsystem;
 import frc.robot.subsystems.swervedrive.Vision;
+import frc.robot.subsystems.Shooter.*;
 
 import java.io.File;
 
@@ -57,11 +58,11 @@ public class RobotContainer
   // WARNING: default buttons are on the same buttons as the ones defined in configureBindings
   AbsoluteDriveAdv closedAbsoluteDriveAdv = new AbsoluteDriveAdv(Constants.drivebase,
                                                                  () -> -MathUtil.applyDeadband(driverXbox.getLeftY(),
-                                                                                               Constants.OPERATOR.leftYDeadband()),
+                                                                                               Constants.OPERATOR_CONSTANTS.leftYDeadband()),
                                                                  () -> -MathUtil.applyDeadband(driverXbox.getLeftX(),
-                                                                                               Constants.OPERATOR.leftYDeadband()),
+                                                                                               Constants.OPERATOR_CONSTANTS.leftYDeadband()),
                                                                  () -> -MathUtil.applyDeadband(driverXbox.getRightX(),
-                                                                                               Constants.OPERATOR.leftYDeadband()),
+                                                                                               Constants.OPERATOR_CONSTANTS.leftYDeadband()),
                                                                  driverXbox.getHID()::getYButtonPressed,
                                                                  driverXbox.getHID()::getAButtonPressed,
                                                                  driverXbox.getHID()::getXButtonPressed,
@@ -74,7 +75,7 @@ public class RobotContainer
                                                                 () -> driverXbox.getLeftY(),
                                                                 () -> driverXbox.getLeftX())
                                                             .withControllerRotationAxis(() -> driverXbox.getRightX() * 0.6)
-                                                            .deadband(Constants.OPERATOR.deadband())
+                                                            .deadband(Constants.OPERATOR_CONSTANTS.deadband())
                                                             .scaleTranslation(0.5)
                                                             .allianceRelativeControl(true);
 
@@ -106,7 +107,7 @@ public class RobotContainer
                                                                    () -> driverXbox.getLeftY(),
                                                                    () -> driverXbox.getLeftX())
                                                                .withControllerRotationAxis(() -> -driverXbox.getRightX())
-                                                               .deadband(Constants.OPERATOR.deadband())
+                                                               .deadband(Constants.OPERATOR_CONSTANTS.deadband())
                                                                .scaleTranslation(0.8)
                                                                .allianceRelativeControl(true);
   // Derive the heading axis with math!
@@ -171,16 +172,31 @@ public class RobotContainer
       driverXbox.rightBumper().onTrue(Commands.none());
     } else
     {
-      driverXbox.start().onTrue((Commands.runOnce(Constants.drivebase::zeroGyro)));
-      driverXbox.back().whileTrue(
-          Constants.drivebase.driveToPose(new Pose2d(new Translation2d(Units.feetToMeters(3), Units.feetToMeters(2)), Rotation2d.fromDegrees(180))));
-      driverXbox.y().onTrue(new DriveTest(Constants.drivebase));
-      driverXbox.a().whileTrue(new MoveElevatorCommand(0.330));
-      driverXbox.b().whileTrue(new MoveElevatorCommand(0.69));
-      driverXbox.x().whileTrue(new MoveElevatorCommand(0));
-      driverXbox.leftTrigger().whileTrue(Commands.runOnce(Constants.drivebase::lock, Constants.drivebase).repeatedly());
-      driverXbox.rightBumper().whileTrue(new RunShooterIntake());
-      driverXbox.leftBumper().whileTrue(new SpitItBack());
+
+
+      //change to arbitrary heights and press again to return down to base
+      driverXbox.rightBumper().onTrue(new MoveElevator(0.330)); //L2
+      driverXbox.leftBumper().onTrue(new MoveElevator(0.330)); //L2
+
+      driverXbox.rightTrigger().onTrue(new MoveElevator(0.69));
+      driverXbox.leftTrigger().onTrue(new MoveElevator(0.69));
+
+
+      driverXbox.y().onTrue(new IntakeCoral());
+      driverXbox.a().onTrue(new ScoreCoral());
+
+
+
+      // driverXbox.start().onTrue((Commands.runOnce(Constants.drivebase::zeroGyro)));
+      // driverXbox.back().whileTrue(
+      //     Constants.drivebase.driveToPose(new Pose2d(new Translation2d(Units.feetToMeters(3), Units.feetToMeters(2)), Rotation2d.fromDegrees(180))));
+      // driverXbox.y().onTrue(new DriveTest(Constants.drivebase));
+      // driverXbox.a().whileTrue(new MoveElevator(0.330));
+      // driverXbox.b().whileTrue(new MoveElevator(0.69));
+      // driverXbox.x().whileTrue(new MoveElevator(0));
+      // driverXbox.leftTrigger().whileTrue(Commands.runOnce(Constants.drivebase::lock, Constants.drivebase).repeatedly());
+      // driverXbox.rightBumper().whileTrue(new IntakeCoral());
+      // driverXbox.leftBumper().whileTrue(new ScoreCoral());
     }
 
     // Update the X button binding to use the existing driveAngularVelocity input stream

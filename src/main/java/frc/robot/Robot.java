@@ -107,7 +107,7 @@ public class Robot extends TimedRobot
   public void disabledPeriodic()
   {
 
-    if (disabledTimer.hasElapsed(Constants.DRIVE.wheelLockTime()))
+    if (disabledTimer.hasElapsed(Constants.DRIVE_CONSTANTS.wheelLockTime()))
     {
       disabledTimer.stop();
     }

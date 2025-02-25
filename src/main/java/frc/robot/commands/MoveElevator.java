@@ -14,21 +14,21 @@ import frc.robot.Constants;
 import frc.robot.Constants.ScoreLocation;
 
 /** An example command that uses an example subsystem. */
-public class MoveElevatorCommand extends SequentialCommandGroup {
+public class MoveElevator extends SequentialCommandGroup {
 
   /**
    * Creates a new CoralScore command that drives to the scoring position and moves the elevator.
    *
    * @param scoreLocation The desired scoring location (LEFT, CENTER, RIGHT)
    */
-  public MoveElevatorCommand(double desired) {
+  public MoveElevator(double desired) {
     addCommands(
       new ParallelCommandGroup(
-        Constants.elevator.setGoal(desired)  // Set to specific height in meters
+        Constants.ELEVATOR.setGoal(desired)  // Set to specific height in meters
       )
     );
 
-    addRequirements(Constants.elevator);
+    addRequirements(Constants.ELEVATOR);
   }
 
   
