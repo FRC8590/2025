@@ -15,7 +15,9 @@ import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.PrintCommand;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants;
 
@@ -26,15 +28,15 @@ public class Shooter extends SubsystemBase {
   SparkMaxConfig shooterConfig = new SparkMaxConfig();
 
   private final SparkMax shooterMotor = new SparkMax(Constants.SHOOTER_CONSTANTS.kShooterMotorID(), MotorType.kBrushless);
-  private final AnalogInput secondIntakePhotoElectricSensor = new AnalogInput(Constants.SHOOTER_CONSTANTS.secondIntakePhotoElectricSensorID()); //the second sensor the coral hits
   private final AnalogInput firstIntakePhotoElectricSensor = new AnalogInput(Constants.SHOOTER_CONSTANTS.firstIntakePhotoElectricSensorID()); //the first sensor the coral hits
+  private final AnalogInput secondIntakePhotoElectricSensor = new AnalogInput(Constants.SHOOTER_CONSTANTS.secondIntakePhotoElectricSensorID()); //the second sensor the coral hits
 
   public int counter;
 
   public Shooter() {
 
     shooterConfig
-    .inverted(false)
+    .inverted(true)
     .idleMode(IdleMode.kCoast)
     .smartCurrentLimit(10)
     .closedLoopRampRate(0.1);
@@ -46,15 +48,30 @@ public class Shooter extends SubsystemBase {
     shooterMotor.set(speed);
   }
 
-  public void runShooter() {
-
-    shooterMotor.set(0.2);
-
+  public void processIntakeCoral() {
+      if (firstIntakePhotoElectricSensor.getVoltage() < 3 && secondIntakePhotoElectricSensor.getVoltage() > 3) {
+        shooterMotor.set(0.6); // Fast speed when first sensor detects coral but second doesn't
+      } 
+      else if (secondIntakePhotoElectricSensor.getVoltage() < 3) {
+        shooterMotor.set(0.2); // Slow speed when second sensor detects coral
+      }
+      else if (firstIntakePhotoElectricSensor.getVoltage() > 3) {
+        stopShooter(); // Stop when first sensor no longer detects coral
+      }
+      else {
+        shooterMotor.set(0); // Default state - motors off
+      }
   }
 
+  public void ejectCoral() {
+
+    shooterMotor.set(0.8);
+  }
+
+
   public void stopShooter() {
+    System.out.println("working");
     shooterMotor.set(0);
-    counter = 0;
   }
 
 
@@ -65,7 +82,7 @@ public class Shooter extends SubsystemBase {
    */
   public Trigger hasCoral() {
     return new Trigger(() -> 
-        (secondIntakePhotoElectricSensor.getVoltage() < 2 && counter > 8));
+        (firstIntakePhotoElectricSensor.getVoltage() > 3 && secondIntakePhotoElectricSensor.getVoltage() < 3));
   }
   
 
@@ -75,41 +92,36 @@ public class Shooter extends SubsystemBase {
   public void periodic() {
     // This method will be called once per scheduler run
 
-    if(firstIntakePhotoElectricSensor.getVoltage() > 2){ //if coral is not detected by first sensor
-      shooterMotor.set(0);
-    }
-    else if(firstIntakePhotoElectricSensor.getVoltage() < 2 && secondIntakePhotoElectricSensor.getVoltage() > 2){ //if first sensor but not second sensor
-      shooterMotor.set(0.7); //run pretty fast
-    }
-    else if(firstIntakePhotoElectricSensor.getVoltage() < 2 && secondIntakePhotoElectricSensor.getVoltage() < 2){ //if both sensors detect coral
-      shooterMotor.set(0.2); //run slow
-    }
-    
+
 
     SmartDashboard.putNumber("Motor Speed", shooterMotor.get());
     SmartDashboard.putBoolean("Coral Detected", secondIntakePhotoElectricSensor.getVoltage() < 0.5);
     SmartDashboard.putNumber("Photo Electric Sensor", firstIntakePhotoElectricSensor.getVoltage());
+    SmartDashboard.putNumber("Photo2 Electric Sensor", secondIntakePhotoElectricSensor.getVoltage());
 
-    if(secondIntakePhotoElectricSensor.getVoltage() < 2){
-      counter++;
-    }
+    SmartDashboard.putBoolean("has coral", hasCoral().getAsBoolean());
+    SmartDashboard.putNumber("counter", counter);
   }
 
 
   
   /**
-   * Run the intake until stopped
+   * Run the intake with the following logic:
+   * 1. When first sensor detects coral, run intake fast
+   * 2. When second sensor detects coral, slow down the intake
+   * 3. When first sensor no longer detects coral, stop the intake
    * @return {@link edu.wpi.first.wpilibj2.command.Command}
    */
   public Command intakeCoral() {
-    return run(() -> runShooter())
-        .until(() -> hasCoral().getAsBoolean())
-        .andThen(() -> stopShooter());
+    return run(() -> processIntakeCoral())
+        .finallyDo(() -> stopShooter());
   }
 
 
   public Command scoreCoral(){
-    return run(() -> runShooter());
+    return run(() -> ejectCoral())
+        .withTimeout(5)
+        .finallyDo(() -> stopShooter());
   }
 
 

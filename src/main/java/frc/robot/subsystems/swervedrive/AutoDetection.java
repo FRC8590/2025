@@ -56,7 +56,7 @@ public class AutoDetection {
      * Right Camera
      */
     RIGHT_CAM("right",
-              new Rotation3d(0, 0, Units.degreesToRadians(-7)),
+              new Rotation3d(0, 0, Units.degreesToRadians(0)),
               new Translation3d(Units.inchesToMeters(14),
                                 Units.inchesToMeters(4),
                                 Units.inchesToMeters(6.25)),

@@ -13,6 +13,7 @@ import java.util.ArrayList;
 
 import edu.wpi.first.apriltag.AprilTag;
 import edu.wpi.first.apriltag.AprilTagFieldLayout;
+import edu.wpi.first.apriltag.AprilTagFields;
 import edu.wpi.first.math.geometry.Pose3d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Rotation3d;
@@ -56,11 +57,13 @@ public final class Constants
         add(tag1);
     }};
 
-    public static final AprilTagFieldLayout layout = new AprilTagFieldLayout(
-        tagList, 
-        7.62,    // Field length (meters)
-        3.6068   // Field width (meters)
-    );
+    // public static final AprilTagFieldLayout layout = new AprilTagFieldLayout(
+    //     tagList, 
+    //     7.62,    // Field length (meters)
+    //     3.6068   // Field width (meters)
+    // );
+
+    public static final AprilTagFieldLayout layout = AprilTagFieldLayout.loadField(AprilTagFields.k2025Reefscape);
 
     // Robot Physical Properties
     public static final double ROBOT_MASS = Units.lbsToKilograms(85);
@@ -81,10 +84,7 @@ public final class Constants
     public static Vision vision;
 
 
-    public static final LaserCan laserCan = new LaserCan(8);
 
-    public static final Elevator ELEVATOR = new Elevator();
-    public static final Shooter SHOOTER = new Shooter();
 
     // Constants Records
     public static final IntakeConstants INTAKE_CONSTANTS = IntakeConstants.DEFAULT;
@@ -92,6 +92,12 @@ public final class Constants
     public static final DriveConstants DRIVE_CONSTANTS = DriveConstants.DEFAULT;
     public static final OperatorConstants OPERATOR_CONSTANTS = OperatorConstants.DEFAULT;
     public static final ShooterConstants SHOOTER_CONSTANTS = ShooterConstants.DEFAULT;
+
+
+    public static double distancePerRotation = 1/14.36; //meters per rotations
+
+    public static final LaserCan laserCan = new LaserCan(8);
+
 
     // Enums
     public enum ElevatorState {
@@ -107,7 +113,6 @@ public final class Constants
         RIGHT3
     }
 
-        public static double distancePerRotation = 1/14.36; //meters per rotations
 
     public static final double minHeightMeters = 0.0;
     public static final double maxHeightMeters = 3.35;
@@ -122,9 +127,9 @@ public final class Constants
     }
 
     public final class pid{
-        public static final double kP = 4.5;
+        public static final double kP = 6;
         public static final double kI = 0;
-        public static final double kD = 4;
+        public static final double kD = 1;
     }
 
     public static double maxVelocity = 0.0;
@@ -134,6 +139,8 @@ public final class Constants
 
 
 
-    
+    public static final Elevator ELEVATOR = new Elevator();
+    public static final Shooter SHOOTER = new Shooter();
+
 
 }
