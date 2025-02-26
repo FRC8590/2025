@@ -13,23 +13,19 @@ import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.Constants;
 import frc.robot.Constants.ScoreLocation;
 
-/** An example command that uses an example subsystem. */
+/** Command to run the coral intake system */
 public class IntakeCoral extends SequentialCommandGroup {
 
   /**
-   * Creates a new CoralScore command that drives to the scoring position and moves the elevator.
-   *
-   * @param scoreLocation The desired scoring location (LEFT, CENTER, RIGHT)
+   * Creates a new IntakeCoral command that runs the intake system
    */
   public IntakeCoral() {
     addCommands(
       new ParallelCommandGroup(
-        Constants.SHOOTER.intakeCoral()  // Set to specific height in meters
+        Constants.SHOOTER.intakeCoral()
       )
     );
 
     addRequirements(Constants.SHOOTER);
   }
-
-  
 }

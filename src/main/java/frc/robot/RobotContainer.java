@@ -72,12 +72,12 @@ public class RobotContainer
    * Converts driver input into a field-relative ChassisSpeeds that is controlled by angular velocity.
    */
   SwerveInputStream driveAngularVelocity = SwerveInputStream.of(Constants.drivebase.getSwerveDrive(),
-                                                                () -> driverXbox.getLeftY(),
-                                                                () -> driverXbox.getLeftX())
+                                                                () -> -driverXbox.getLeftY(),
+                                                                () -> -driverXbox.getLeftX())
                                                             .withControllerRotationAxis(() -> driverXbox.getRightX() * 0.6)
                                                             .deadband(Constants.OPERATOR_CONSTANTS.deadband())
                                                             .scaleTranslation(0.5)
-                                                            .allianceRelativeControl(true);
+                                                            .allianceRelativeControl(false);
 
   /**
    * Clone's the angular velocity input stream and converts it to a fieldRelative input stream.
@@ -172,24 +172,26 @@ public class RobotContainer
       driverXbox.rightBumper().onTrue(Commands.none());
     } else
     {
+      // Create a default command for the shooter to always run the intake logic
+      Constants.SHOOTER.setDefaultCommand(new IntakeCoral());
 
+      // Update the scoring button to temporarily interrupt the default command
+      driverXbox.a().whileTrue(new ScoreCoral());
 
       //change to arbitrary heights and press again to return down to base
       driverXbox.rightBumper().onTrue(new MoveElevator(0.330)); //L2
       driverXbox.leftBumper().onTrue(new MoveElevator(0.330)); //L2
 
-      driverXbox.rightTrigger().onTrue(new MoveElevator(0.69));
-      driverXbox.leftTrigger().onTrue(new MoveElevator(0.69));
+      driverXbox.x().onTrue(new MoveElevator(0));
+
+      driverXbox.rightTrigger().onTrue(new MoveElevator(0.69420));
+      driverXbox.leftTrigger().onTrue(new MoveElevator(0.69420));
 
 
-      driverXbox.y().onTrue(new IntakeCoral());
-      driverXbox.a().onTrue(new ScoreCoral());
-
-
-
+    
       // driverXbox.start().onTrue((Commands.runOnce(Constants.drivebase::zeroGyro)));
-      // driverXbox.back().whileTrue(
-      //     Constants.drivebase.driveToPose(new Pose2d(new Translation2d(Units.feetToMeters(3), Units.feetToMeters(2)), Rotation2d.fromDegrees(180))));
+      driverXbox.back().whileTrue(
+          Constants.drivebase.driveToPose(new Pose2d(new Translation2d(6.4, 4.1), new Rotation2d(180))));
       // driverXbox.y().onTrue(new DriveTest(Constants.drivebase));
       // driverXbox.a().whileTrue(new MoveElevator(0.330));
       // driverXbox.b().whileTrue(new MoveElevator(0.69));
@@ -200,7 +202,7 @@ public class RobotContainer
     }
 
     // Update the X button binding to use the existing driveAngularVelocity input stream
-    driverXbox.rightTrigger(0.3).whileTrue(new AlignToAprilTag(Constants.drivebase, driveAngularVelocity));
+    // driverXbox.rightTrigger(0.3).whileTrue(new AlignToAprilTag(Constants.drivebase, driveAngularVelocity));
   }
 
   /**

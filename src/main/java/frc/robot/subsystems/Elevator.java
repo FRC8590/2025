@@ -66,9 +66,9 @@ public class Elevator extends SubsystemBase {
   /** Creates a new Elevator. */
   
   // Define limits in meters
-  private static final double MAX_HEIGHT_METERS = 0.69;  // 10cm up
-  private static final double MIN_HEIGHT_METERS = 0.01; // 10cm down
-  private static final double MAX_VELOCITY_METERS = 1.6; // ~0.5 inches per second
+  private static final double MAX_HEIGHT_METERS = 0.69420;  // 10cm up
+  private static final double MIN_HEIGHT_METERS = 0.001; // 10cm down
+  private static final double MAX_VELOCITY_METERS = 3; // ~0.5 inches per second
 
   // Fix trigger definitions with small tolerance
   public final Trigger atMin = new Trigger(() -> 
@@ -110,7 +110,7 @@ public class Elevator extends SubsystemBase {
     SparkMaxConfig masterConfig = new SparkMaxConfig();
     masterConfig
         .inverted(true)
-        .idleMode(IdleMode.kBrake)
+        .idleMode(IdleMode.kCoast)
         .smartCurrentLimit(35)
         .closedLoopRampRate(Constants.rampRate);
 
@@ -127,7 +127,7 @@ public class Elevator extends SubsystemBase {
 
     SparkMaxConfig followerConfig = new SparkMaxConfig();
     followerConfig
-        .idleMode(IdleMode.kBrake)
+        .idleMode(IdleMode.kCoast)
         .smartCurrentLimit(35)
         .closedLoopRampRate(Constants.rampRate)
         .follow(elevatorMaster, true);

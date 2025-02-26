@@ -4,32 +4,23 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
-import edu.wpi.first.wpilibj2.command.ParallelDeadlineGroup;
-import edu.wpi.first.wpilibj2.command.PrintCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.Constants;
-import frc.robot.Constants.ScoreLocation;
 
-/** An example command that uses an example subsystem. */
+/** Command to score a coral by ejecting it */
 public class ScoreCoral extends SequentialCommandGroup {
 
   /**
-   * Creates a new CoralScore command that drives to the scoring position and moves the elevator.
-   *
-   * @param scoreLocation The desired scoring location (LEFT, CENTER, RIGHT)
+   * Creates a new ScoreCoral command that ejects the coral
    */
   public ScoreCoral() {
     addCommands(
       new ParallelCommandGroup(
-        Constants.SHOOTER.scoreCoral()  // Set to specific height in meters
+        Constants.SHOOTER.scoreCoral()  // Eject coral for 5 seconds
       )
     );
 
     addRequirements(Constants.SHOOTER);
   }
-
-  
 }
