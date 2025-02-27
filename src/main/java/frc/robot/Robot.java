@@ -180,6 +180,8 @@ public class Robot extends TimedRobot
     SmartDashboard.putNumber("Y Offset", yOffset);
     SmartDashboard.putNumber("Yaw Offset", yawOffset);
 
+    SmartDashboard.putNumber("elevatorHeight", Constants.elevatorHeight);
+    // CommandScheduler.getInstance().schedule(Constants.ELEVATOR.setGoal(Constants.elevatorHeight));
 
   }
 

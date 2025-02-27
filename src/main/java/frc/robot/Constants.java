@@ -20,6 +20,7 @@ import edu.wpi.first.math.geometry.Rotation3d;
 import edu.wpi.first.math.geometry.Translation3d;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.Filesystem;
+import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import swervelib.math.Matter;
 import frc.robot.constants.IntakeConstants;
 import frc.robot.constants.ElevatorConstants;
@@ -93,6 +94,7 @@ public final class Constants
     public static final OperatorConstants OPERATOR_CONSTANTS = OperatorConstants.DEFAULT;
     public static final ShooterConstants SHOOTER_CONSTANTS = ShooterConstants.DEFAULT;
 
+    public static double elevatorHeight = 0;
 
     public static double distancePerRotation = 1/14.36; //meters per rotations
 
@@ -141,6 +143,8 @@ public final class Constants
 
     public static final Elevator ELEVATOR = new Elevator();
     public static final Shooter SHOOTER = new Shooter();
+    
+    public static final CommandXboxController driverXbox = new CommandXboxController(0);
 
 
 }

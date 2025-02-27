@@ -294,6 +294,7 @@ public class Elevator extends SubsystemBase {
   public void periodic() {
     // This will continuously run the control loop
     log();
+    reachGoal(Constants.elevatorHeight);
   }
 
 
