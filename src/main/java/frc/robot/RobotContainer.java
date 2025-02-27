@@ -22,9 +22,7 @@ import frc.robot.Constants.*;
 import frc.robot.commands.DriveTest;
 import frc.robot.commands.IntakeCoral;
 import frc.robot.commands.MoveElevator;
-import frc.robot.commands.ScoreCoral;
-import frc.robot.commands.ScoreCoralThing;
-import frc.robot.commands.ScoreDrive;
+import frc.robot.commands.Scoring.*;
 import frc.robot.commands.swervedrive.FinalAlignment;
 import frc.robot.commands.swervedrive.auto.AutoBalanceCommand;
 import frc.robot.commands.swervedrive.drivebase.AbsoluteDriveAdv;
@@ -33,7 +31,6 @@ import frc.robot.commands.swervedrive.AlignToAprilTag;
 import frc.robot.subsystems.swervedrive.SwerveSubsystem;
 import frc.robot.subsystems.swervedrive.Vision;
 import frc.robot.subsystems.Shooter.*;
-import frc.robot.commands.ScoreDrive;
 import java.io.File;
 
 import org.photonvision.targeting.PhotonPipelineResult;
@@ -192,7 +189,9 @@ public class RobotContainer
 
       driverXbox.back().onTrue(Commands.runOnce(Constants.drivebase::zeroGyro));
       // driverXbox.start().onTrue((Commands.runOnce(Constants.drivebase::zeroGyro)));
-      driverXbox.b().whileTrue(new ScoreDrive().andThen(new ScoreCoralThing()));
+      driverXbox.b().whileTrue(new ScoreDrive());
+      driverXbox.y().whileTrue(new ScoreDrive2());
+
       // driverXbox.y().onTrue(new DriveTest(Constants.drivebase));
       // driverXbox.a().whileTrue(new MoveElevator(0.330));
       // driverXbox.b().whileTrue(new MoveElevator(0.69));

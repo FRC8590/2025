@@ -487,7 +487,8 @@ public class SwerveSubsystem extends SubsystemBase
       
     return run(() -> drive(new ChassisSpeeds(speedInMetersPerSecond, 0, 0)))
         .until(() -> swerveDrive.getPose().getTranslation().getDistance(startingPose2d.getTranslation()) >
-                     distanceInMeters);
+                     distanceInMeters)
+        .andThen(() -> lock());
   }
 
 
