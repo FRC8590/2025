@@ -154,12 +154,21 @@ public class Vision
      * gets closest tag. Might need modification because not sure if the getBestTarget will return the closest one consistently. It should!
      * @return Closest tag's fiducial id
      */
-    public int getClosestTag(){
+    public int getClosestTag()
+  {
       for (Cameras c : Cameras.values())
       {
         if (!c.resultsList.isEmpty()){
           for(PhotonPipelineResult result : c.resultsList){
-            return result.getBestTarget().getFiducialId();
+
+            int tester = result.getBestTarget().getFiducialId();
+            PhotonTrackedTarget targetTest = result.getBestTarget();
+           int antiYaw = 60; 
+            //change later if needed
+            if (getDistanceFromAprilTag(tester)<4.5 && targetTest.getYaw()<antiYaw) 
+            {
+              return result.getBestTarget().getFiducialId();
+            }
           }
         }
       }
