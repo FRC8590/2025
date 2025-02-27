@@ -57,9 +57,9 @@ public class AutoDetection {
      */
     RIGHT_CAM("right",
               new Rotation3d(0, 0, Units.degreesToRadians(0)),
-              new Translation3d(Units.inchesToMeters(14),
-                                Units.inchesToMeters(4),
-                                Units.inchesToMeters(6.25)),
+              new Translation3d(Units.inchesToMeters(1),
+                                Units.inchesToMeters(13.5),
+                                Units.inchesToMeters(8.25)),
               VecBuilder.fill(4, 4, 8), VecBuilder.fill(0.5, 0.5, 1));
 
     /**

@@ -107,9 +107,9 @@ public class SwerveSubsystem extends SubsystemBase
     try
     {
       swerveDrive = new SwerveParser(directory).createSwerveDrive(Constants.MAX_SPEED,
-                                                                  new Pose2d(new Translation2d(Meter.of(0),
-                                                                                               Meter.of(0)),
-                                                                             Rotation2d.fromDegrees(0)));
+                                                                  new Pose2d(new Translation2d(Meter.of(5.33),
+                                                                                               Meter.of(6.0)),
+                                                                             Rotation2d.fromDegrees(180)));
       // Alternative method if you don't want to supply the conversion factor via JSON files.
       // swerveDrive = new SwerveParser(directory).createSwerveDrive(maximumSpeed, angleConversionFactor, driveConversionFactor);
     } catch (Exception e)
@@ -145,8 +145,8 @@ public class SwerveSubsystem extends SubsystemBase
     swerveDrive = new SwerveDrive(driveCfg,
                                   controllerCfg,
                                   Constants.MAX_SPEED,
-                                  new Pose2d(new Translation2d(Meter.of(0), Meter.of(0)),
-                                             Rotation2d.fromDegrees(0)));
+                                  new Pose2d(new Translation2d(Meter.of(5.33), Meter.of(6.0)),
+                                             Rotation2d.fromDegrees(180)));
   }
 
   /**
@@ -352,6 +352,8 @@ public class SwerveSubsystem extends SubsystemBase
    */
   public Command driveToPose(Pose2d pose)
   {
+
+
     PathConstraints constraints = new PathConstraints(
         swerveDrive.getMaximumChassisVelocity(), 0.5,
         swerveDrive.getMaximumChassisAngularVelocity(), Units.degreesToRadians(720));
@@ -470,12 +472,24 @@ public class SwerveSubsystem extends SubsystemBase
    * @param speedInMetersPerSecond the speed at which to drive in meters per second
    * @return a Command that drives the swerve drive to a specific distance at a given speed
    */
+  // public Command driveToDistanceCommand(double distanceInMeters, double speedInMetersPerSecond)
+  // {
+  //   return run(() -> drive(new ChassisSpeeds(speedInMetersPerSecond, 0, 0)))
+  //       .until(() -> swerveDrive.getPose().getTranslation().getDistance(new Translation2d(0, 0)) >
+  //                    distanceInMeters);
+  // }
+
   public Command driveToDistanceCommand(double distanceInMeters, double speedInMetersPerSecond)
   {
+    
+    Pose2d startingPose2d = swerveDrive.getPose();
+
+      
     return run(() -> drive(new ChassisSpeeds(speedInMetersPerSecond, 0, 0)))
-        .until(() -> swerveDrive.getPose().getTranslation().getDistance(new Translation2d(0, 0)) >
+        .until(() -> swerveDrive.getPose().getTranslation().getDistance(startingPose2d.getTranslation()) >
                      distanceInMeters);
   }
+
 
   /**
    * Replaces the swerve module feedforward with a new SimpleMotorFeedforward object.
@@ -591,6 +605,11 @@ public class SwerveSubsystem extends SubsystemBase
   public void drive(ChassisSpeeds velocity)
   {
     swerveDrive.drive(velocity);
+
+    Pose2d startingPose2d = swerveDrive.getPose();
+
+    SmartDashboard.putNumber("distanceTRAVELEDDD", swerveDrive.getPose().getTranslation().getDistance(startingPose2d.getTranslation()));
+
   }
 
 

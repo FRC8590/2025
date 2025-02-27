@@ -23,6 +23,8 @@ import frc.robot.commands.DriveTest;
 import frc.robot.commands.IntakeCoral;
 import frc.robot.commands.MoveElevator;
 import frc.robot.commands.ScoreCoral;
+import frc.robot.commands.ScoreCoralThing;
+import frc.robot.commands.ScoreDrive;
 import frc.robot.commands.swervedrive.FinalAlignment;
 import frc.robot.commands.swervedrive.auto.AutoBalanceCommand;
 import frc.robot.commands.swervedrive.drivebase.AbsoluteDriveAdv;
@@ -31,7 +33,7 @@ import frc.robot.commands.swervedrive.AlignToAprilTag;
 import frc.robot.subsystems.swervedrive.SwerveSubsystem;
 import frc.robot.subsystems.swervedrive.Vision;
 import frc.robot.subsystems.Shooter.*;
-
+import frc.robot.commands.ScoreDrive;
 import java.io.File;
 
 import org.photonvision.targeting.PhotonPipelineResult;
@@ -72,9 +74,9 @@ public class RobotContainer
    * Converts driver input into a field-relative ChassisSpeeds that is controlled by angular velocity.
    */
   SwerveInputStream driveAngularVelocity = SwerveInputStream.of(Constants.drivebase.getSwerveDrive(),
-                                                                () -> -driverXbox.getLeftY(),
-                                                                () -> -driverXbox.getLeftX())
-                                                            .withControllerRotationAxis(() -> driverXbox.getRightX() * 0.6)
+                                                                () -> driverXbox.getLeftY(),
+                                                                () -> driverXbox.getLeftX())
+                                                            .withControllerRotationAxis(() -> -driverXbox.getRightX() * 0.6)
                                                             .deadband(Constants.OPERATOR_CONSTANTS.deadband())
                                                             .scaleTranslation(0.5)
                                                             .allianceRelativeControl(false);
@@ -186,12 +188,11 @@ public class RobotContainer
 
       driverXbox.rightTrigger().onTrue(new MoveElevator(0.69420));
       driverXbox.leftTrigger().onTrue(new MoveElevator(0.69420));
+      
 
-
-    
+      driverXbox.back().onTrue(Commands.runOnce(Constants.drivebase::zeroGyro));
       // driverXbox.start().onTrue((Commands.runOnce(Constants.drivebase::zeroGyro)));
-      driverXbox.back().whileTrue(
-          Constants.drivebase.driveToPose(new Pose2d(new Translation2d(6.4, 4.1), new Rotation2d(180))));
+      driverXbox.b().whileTrue(new ScoreDrive().andThen(new ScoreCoralThing()));
       // driverXbox.y().onTrue(new DriveTest(Constants.drivebase));
       // driverXbox.a().whileTrue(new MoveElevator(0.330));
       // driverXbox.b().whileTrue(new MoveElevator(0.69));

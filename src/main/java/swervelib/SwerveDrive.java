@@ -294,6 +294,7 @@ public class SwerveDrive
 
     zeroGyro();
 
+
     // Initialize Telemetry
     if (SwerveDriveTelemetry.verbosity.ordinal() >= TelemetryVerbosity.POSE.ordinal())
     {
@@ -993,7 +994,6 @@ public class SwerveDrive
     imuReadingCache.update();
     swerveController.lastAngleScalar = 0;
     lastHeadingRadians = 0;
-    resetOdometry(new Pose2d(getPose().getTranslation(), new Rotation2d()));
   }
 
   /**

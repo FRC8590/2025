@@ -49,14 +49,15 @@ public class Shooter extends SubsystemBase {
   }
 
   public void processIntakeCoral() {
-      if (firstIntakePhotoElectricSensor.getVoltage() < 3 && secondIntakePhotoElectricSensor.getVoltage() > 3) {
-        shooterMotor.set(0.6); // Fast speed when first sensor detects coral but second doesn't
+
+      if(firstIntakePhotoElectricSensor.getVoltage() > 3){
+        stopShooter(); 
+      }
+      else if (firstIntakePhotoElectricSensor.getVoltage() < 3 && secondIntakePhotoElectricSensor.getVoltage() > 3) {
+        shooterMotor.set(0.6);
       } 
       else if (secondIntakePhotoElectricSensor.getVoltage() < 3) {
-        shooterMotor.set(0.2); // Slow speed when second sensor detects coral
-      }
-      else if (firstIntakePhotoElectricSensor.getVoltage() > 3) {
-        stopShooter(); // Stop when first sensor no longer detects coral
+        shooterMotor.set(0.2); 
       }
       else {
         shooterMotor.set(0); // Default state - motors off
@@ -70,7 +71,6 @@ public class Shooter extends SubsystemBase {
 
 
   public void stopShooter() {
-    System.out.println("working");
     shooterMotor.set(0);
   }
 
