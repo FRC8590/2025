@@ -17,23 +17,23 @@ import frc.robot.Constants;
 import frc.robot.commands.MoveElevator;
 
 /** Command to score a coral by ejecting it */
-public class ScoreDrive2 extends SequentialCommandGroup {
+public class Four extends SequentialCommandGroup {
 
   /**
    * Creates a new ScoreCoral command that ejects the coral
    */
   public 
-  ScoreDrive2() {
+  Four() {
     addCommands(
         // Constants.drivebase.driveToPose(new Pose2d(new Translation2d(4.92,5.9), new Rotation2d(Units.degreesToRadians(-107)))),        // Constants.drivebase.driveToPose(new Pose2d(new Translation2d(4.92,5.9), new Rotation2d(Units.degreesToRadians(-107)))),
         // Constants.drivebase.driveToPose(new Pose2d(new Translation2d(3.42,5.49), new Rotation2d(Units.degreesToRadians(-47)))),
         // Constants.drivebase.driveToDistanceCommand(Units.feetToMeters(2.56), 0.8),
-          Constants.drivebase.driveToPose(new Pose2d(new Translation2d(3.87,5.23), new Rotation2d(Units.degreesToRadians(-57)))),
+        Constants.drivebase.driveToPose(Constants.SCORING_CONSTANTS.locationFour())
 
         // Constants.drivebase.driveToDistanceCommand(Units.feetToMeters(2), 0.8),
-        new PrintCommand("DONE"),
-        new MoveElevator(0.39),
-        new ScoreCoral()
+        // new PrintCommand("DONE"),
+        // new MoveElevator(0.37),
+        // new ScoreCoral()
       //TRY DISSTAMCE SENSOR
     );
 

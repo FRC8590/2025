@@ -43,15 +43,15 @@ public class AutoAlignment extends SequentialCommandGroup {
     ) {
 
         roughHolonomicDriveController = new HolonomicDriveController(
-            new PIDController(6, 0, 0),  // X controller 
-            new PIDController(6, 0, 0),  // Y controller - increased P, added I and D terms
+            new PIDController(3, 0, 0),  // X controller 
+            new PIDController(3, 0, 0),  // Y controller - increased P, added I and D terms
             new ProfiledPIDController(4, 0, 0, 
-                new TrapezoidProfile.Constraints(10, 6))); 
+                new TrapezoidProfile.Constraints(3, 6))); 
         smallHolonomicDriveController = new HolonomicDriveController(
                 new PIDController(10, 0, 0),  // X controller 
                 new PIDController(15, 0, 0),  // Y controller - increased P, added I and D terms
                 new ProfiledPIDController(10, 0, 0, 
-                        new TrapezoidProfile.Constraints(10, 6))); 
+                        new TrapezoidProfile.Constraints(3, 6))); 
             
 
             
@@ -60,23 +60,8 @@ public class AutoAlignment extends SequentialCommandGroup {
         roughHolonomicDriveController.setTolerance(new Pose2d(0.05, 0.05, Rotation2d.fromDegrees(1)));
 
         final Command
-                pathFindToTargetRough = AutoBuilder.pathfindToPose(targetPose, constraints, 1),
+                pathFindToTargetRough = AutoBuilder.pathfindToPose(targetPose, constraints, 0),
 
-                preciseAlignment = new FunctionalCommand(
-                        () -> {},
-                        () -> {
-                                Pose2d currentPose = robotPoseSupplier.get(); 
-                                robotRelativeSpeedsOutput.accept(smallHolonomicDriveController.calculate(
-                                        currentPose,
-                                        targetPose,
-                                        0,
-                                        targetPose.getRotation()
-                                ));
-                        },
-                        (interrupted) ->
-                                robotRelativeSpeedsOutput.accept(new ChassisSpeeds()),
-                                smallHolonomicDriveController::atReference        
-                        ),
 
         
                 roughAlignment = new FunctionalCommand(
@@ -94,32 +79,28 @@ public class AutoAlignment extends SequentialCommandGroup {
                                 robotRelativeSpeedsOutput.accept(new ChassisSpeeds()),
                                 roughHolonomicDriveController::atReference        
                         ),
-        
-                preciseAlignment2 = new FunctionalCommand(
-                        () -> {},
-                        () -> {
-                                Pose2d currentPose = robotPoseSupplier.get(); 
-                                robotRelativeSpeedsOutput.accept(smallHolonomicDriveController.calculate(
-                                        currentPose,
-                                        targetPose,
-                                        0,
-                                        targetPose.getRotation()
-                                ));
-                        },
-                        (interrupted) ->
-                                robotRelativeSpeedsOutput.accept(new ChassisSpeeds()),
-                                smallHolonomicDriveController::atReference        
-                        );
-                
-                
-        
+                preciseAlignment = new FunctionalCommand(
+                                () -> {},
+                                () -> {
+                                        Pose2d currentPose = robotPoseSupplier.get(); 
+                                        robotRelativeSpeedsOutput.accept(smallHolonomicDriveController.calculate(
+                                                currentPose,
+                                                targetPose,
+                                                0,
+                                                targetPose.getRotation()
+                                        ));
+                                },
+                                (interrupted) ->
+                                        robotRelativeSpeedsOutput.accept(new ChassisSpeeds()),
+                                        smallHolonomicDriveController::atReference        
+                                );
         
 
         
         super.addCommands(roughAlignment);
-        super.addCommands(new WaitCommand(0.1));
+        // super.addCommands(new WaitCommand(0.4));
 
-        super.addCommands(preciseAlignment2);
+        // super.addCommands(preciseAlignment);
 
 
         super.addRequirements(driveSubsystem);

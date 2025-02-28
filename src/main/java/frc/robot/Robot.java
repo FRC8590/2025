@@ -179,6 +179,7 @@ public class Robot extends TimedRobot
     SmartDashboard.putNumber("X Offset", xOffset);
     SmartDashboard.putNumber("Y Offset", yOffset);
     SmartDashboard.putNumber("Yaw Offset", yawOffset);
+    SmartDashboard.putNumber("scale factor", Constants.scaleFactor);
 
 
   }

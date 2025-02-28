@@ -598,6 +598,21 @@ public class SwerveSubsystem extends SubsystemBase
     });
   }
 
+  public Command speedFast()
+  {
+    return run(() -> {
+      Constants.scaleFactor = 1;
+    });
+  }
+  public Command speedSlow()
+  {
+    return run(() -> {
+      Constants.scaleFactor = 0.2;
+    });
+  }
+
+
+
   /**
    * Drive according to the chassis robot oriented velocity.
    *

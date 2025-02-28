@@ -25,6 +25,7 @@ import frc.robot.constants.IntakeConstants;
 import frc.robot.constants.ElevatorConstants;
 import frc.robot.constants.DriveConstants;
 import frc.robot.constants.OperatorConstants;
+import frc.robot.constants.ScoringConstants;
 import frc.robot.constants.ShooterConstants;
 import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.Shooter;
@@ -84,6 +85,7 @@ public final class Constants
     public static Vision vision;
 
 
+    public static double scaleFactor = 1;
 
 
     // Constants Records
@@ -92,6 +94,7 @@ public final class Constants
     public static final DriveConstants DRIVE_CONSTANTS = DriveConstants.DEFAULT;
     public static final OperatorConstants OPERATOR_CONSTANTS = OperatorConstants.DEFAULT;
     public static final ShooterConstants SHOOTER_CONSTANTS = ShooterConstants.DEFAULT;
+    public static final ScoringConstants SCORING_CONSTANTS = ScoringConstants.DEFAULT;
 
 
     public static double distancePerRotation = 1/14.36; //meters per rotations
