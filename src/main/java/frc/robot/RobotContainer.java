@@ -148,7 +148,11 @@ public class RobotContainer
     // Initialize with proper alliance orientation
     Constants.drivebase.zeroGyroWithAlliance();
     
-    NamedCommands.registerCommand("test", Commands.print("I EXIST"));
+    NamedCommands.registerCommand("One", new One());
+    NamedCommands.registerCommand("Two", new Two());
+    NamedCommands.registerCommand("Three", new Three());
+    NamedCommands.registerCommand("Four", new Four());
+
   }
 
   /**
