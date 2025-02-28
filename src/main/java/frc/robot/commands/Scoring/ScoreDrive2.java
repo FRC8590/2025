@@ -72,6 +72,10 @@ public class ScoreDrive2 extends SequentialCommandGroup {
         // Constants.drivebase.driveToPose(new Pose2d(new Translation2d(3.42,5.49), new Rotation2d(Units.degreesToRadians(-47)))),
         // Constants.drivebase.driveToDistanceCommand(Units.feetToMeters(2.56), 0.8),
               Constants.drivebase.driveToPose(new Pose2d(new Translation2d(3.74,5.08), new Rotation2d(Units.degreesToRadians(-47)))),
+            
+            
+              //how did joseph determine the x and y??
+
 
         // Constants.drivebase.driveToDistanceCommand(Units.feetToMeters(2), 0.8),
         new PrintCommand("DONE"),
