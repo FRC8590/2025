@@ -163,7 +163,7 @@ public class Vision
 
             int tester = result.getBestTarget().getFiducialId();
             PhotonTrackedTarget targetTest = result.getBestTarget();
-           int antiYaw = 60; 
+            int antiYaw = 60; 
             //change later if needed
             if (getDistanceFromAprilTag(tester)<4.5 && targetTest.getYaw()<antiYaw) 
             {
