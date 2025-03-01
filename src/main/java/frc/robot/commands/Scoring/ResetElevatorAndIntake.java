@@ -4,36 +4,28 @@
 
 package frc.robot.commands.Scoring;
 
-import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.Constants;
 import frc.robot.commands.MoveElevator;
+import frc.robot.commands.StopShooter;
 
-/* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
-public class ResetElevatorAndIntake extends Command {
-  /** Creates a new ResetElevatorAndIntake. */
+/** Command to score a coral by ejecting it */
+public class ResetElevatorAndIntake extends ParallelCommandGroup {
+
+  /**
+   * Creates a new ScoreCoral command that ejects the coral
+   */
   public ResetElevatorAndIntake() {
-    // Use addRequirements() here to declare subsystem dependencies.
-  }
+    addCommands(
+      new ParallelCommandGroup(
+        new StopShooter(),
+        new MoveElevator(0)
+      )
+    );
 
-  // Called when the command is initially scheduled.
-  @Override
-  public void initialize() {}
+    addRequirements(Constants.SHOOTER);
+    addRequirements(Constants.ELEVATOR);
 
-  // Called every time the scheduler runs while the command is scheduled.
-  @Override
-  public void execute() {
-    CommandScheduler.getInstance().schedule(new MoveElevator(0));
-    Constants.SHOOTER.setSpeed(0);
-  }
-
-  // Called once the command ends or is interrupted.
-  @Override
-  public void end(boolean interrupted) {}
-
-  // Returns true when the command should end.
-  @Override
-  public boolean isFinished() {
-    return false;
   }
 }

@@ -74,6 +74,9 @@ public class Shooter extends SubsystemBase {
     shooterMotor.set(0);
   }
 
+  public Command stop() {
+    return run(() -> stopShooter()).withTimeout(0.1);
+  }
 
   
   /**

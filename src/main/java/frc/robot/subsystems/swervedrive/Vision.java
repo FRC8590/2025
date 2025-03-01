@@ -391,24 +391,48 @@ public class Vision
   public enum Cameras
   {
 
+    /**
+     *
+     */
     FRONT_CAM("center",
      new Rotation3d(0, 0, Units.degreesToRadians(0)),
-     new Translation3d(Units.inchesToMeters(8),
-                       Units.inchesToMeters(0),
-                       Units.inchesToMeters(2)),
+     new Translation3d(Units.inchesToMeters(11),
+                       Units.inchesToMeters(1),
+                       Units.inchesToMeters(6)),
      VecBuilder.fill(4, 4, 8), VecBuilder.fill(0.5, 0.5, 1)),
 
     RIGHT_CAM("right",
+<<<<<<< Updated upstream
+=======
+<<<<<<< HEAD
+              new Rotation3d(0, 0, Units.degreesToRadians(5)),
+              new Translation3d(Units.inchesToMeters(-11),
+                                Units.inchesToMeters(10),
+                                Units.inchesToMeters(9.5)),
+=======
+>>>>>>> Stashed changes
               new Rotation3d(0, 0, Units.degreesToRadians(-5)),
               new Translation3d(Units.inchesToMeters(-30),
                                 Units.inchesToMeters(-10),
                                 Units.inchesToMeters(10)),
+>>>>>>> 18a407efe4e55263a92be4e4299ac0cd60299663
               VecBuilder.fill(4, 4, 8), VecBuilder.fill(0.5, 0.5, 1)),
+
     LEFT_CAM("left",
+<<<<<<< Updated upstream
+=======
+<<<<<<< HEAD
+              new Rotation3d(0, 0, Units.degreesToRadians(31)),
+              new Translation3d(Units.inchesToMeters(-15.5),
+                                Units.inchesToMeters(2.5),
+                                Units.inchesToMeters(14)),
+=======
+>>>>>>> Stashed changes
               new Rotation3d(0, 0, Units.degreesToRadians(25)),
               new Translation3d(Units.inchesToMeters(3),
                                 Units.inchesToMeters(7),
                                 Units.inchesToMeters(13)),
+>>>>>>> 18a407efe4e55263a92be4e4299ac0cd60299663
               VecBuilder.fill(4, 4, 8), VecBuilder.fill(0.5, 0.5, 1));
 
     /**
