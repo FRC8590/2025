@@ -11,11 +11,10 @@ import frc.robot.Constants;
 import java.util.function.BooleanSupplier;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
-public class WaitForCoralIntake extends WaitUntilCommand {
+public class WaitForCoralIntake extends Command {
   /** Creates a new WaitForCoralIntake. */
 
-  public WaitForCoralIntake(BooleanSupplier hasCoral) {
-    super(() -> Constants.SHOOTER.secondIntakePhotoElectricSensor.getVoltage() > 3);
+  public WaitForCoralIntake() {
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
@@ -34,6 +33,6 @@ public class WaitForCoralIntake extends WaitUntilCommand {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return Constants.SHOOTER.secondIntakePhotoElectricSensor.getVoltage() < 3;
   }
 }
