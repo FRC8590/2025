@@ -204,16 +204,19 @@ public class RobotContainer
 
       // driverXbox.back().onTrue(Commands.runOnce(Constants.drivebase::zeroGyro));
       // driverXbox.start().onTrue((Commands.runOnce(Constants.drivebase::zeroGyro)));
-      driverXbox.a().whileTrue(new UniversalLeft());
+      driverXbox.a().whileTrue(new One());
       driverXbox.b().whileTrue(new Two());
       driverXbox.x().whileTrue(new Three());
       driverXbox.y().whileTrue(new Four());
 
       driverXbox.rightBumper().onTrue(new MoveElevator(0.01));
 
-      driverXbox.leftTrigger().whileTrue(driveRobotOrientedAngular);
-      driverXbox.leftBumper().onTrue(Commands.runOnce(() -> Constants.scaleFactor = 0.2));
-      driverXbox.leftBumper().onFalse(Commands.runOnce(() -> Constants.scaleFactor = 1));
+      // driverXbox.leftTrigger().whileTrue(driveRobotOrientedAngular);
+      // driverXbox.leftBumper().onTrue(Commands.runOnce(() -> Constants.scaleFactor = 0.2));
+      // driverXbox.leftBumper().onFalse(Commands.runOnce(() -> Constants.scaleFactor = 1));
+
+      driverXbox.leftTrigger().onTrue(new UniversalLeft());
+      driverXbox.rightTrigger().onTrue(new UniversalRight());
 
       driverXbox.rightBumper().onTrue(new MoveElevator(0));
 
