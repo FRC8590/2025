@@ -215,7 +215,7 @@ public class RobotContainer
       driverXbox.leftBumper().onTrue(Commands.runOnce(() -> Constants.scaleFactor = 0.2));
       driverXbox.leftBumper().onFalse(Commands.runOnce(() -> Constants.scaleFactor = 1));
 
-      driverXbox.rightBumper().onTrue(new ResetElevatorAndIntake());
+      driverXbox.rightBumper().onTrue(new MoveElevator(0));
 
 
       // driverXbox.y().onTrue(new DriveTest(Constants.drivebase));
