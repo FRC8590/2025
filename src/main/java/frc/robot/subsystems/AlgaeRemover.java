@@ -25,7 +25,7 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants;
 import frc.robot.constants.AlgaeRemoverConstants;
 
-public class AlgaeRemoverSubsystem extends SubsystemBase {
+public class AlgaeRemover extends SubsystemBase {
   
   // Define limits in rotations/meters
   private static final double MAX_POSITION = 0.5;  
@@ -57,7 +57,7 @@ public class AlgaeRemoverSubsystem extends SubsystemBase {
   private final ElevatorFeedforward feedforward;
 
   /** Creates a new AlgaeRemoverSubsystem. */
-  public AlgaeRemoverSubsystem() {
+  public AlgaeRemover() {
     
     pivotMotor = new SparkMax(Constants.ALGAE_REMOVER_CONSTANTS.pivotMotorID(), MotorType.kBrushless);
     removerMotor = new SparkMax(Constants.ALGAE_REMOVER_CONSTANTS.removerID(), MotorType.kBrushless);
