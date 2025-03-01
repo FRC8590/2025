@@ -123,7 +123,7 @@ public class Shooter extends SubsystemBase {
 
   public Command scoreCoral(){
     return run(() -> ejectCoral())
-        .withTimeout(5)
+        .withTimeout(3)
         .finallyDo(() -> stopShooter());
   }
 

@@ -98,15 +98,7 @@ public class AutoAlignment extends SequentialCommandGroup {
 
         
         super.addCommands(roughAlignment);
-<<<<<<< Updated upstream
         super.addCommands(new WaitCommand(0.3));
-=======
-<<<<<<< HEAD
-        super.addCommands(new WaitCommand(0.4));
-=======
-        super.addCommands(new WaitCommand(0.3));
->>>>>>> 18a407efe4e55263a92be4e4299ac0cd60299663
->>>>>>> Stashed changes
 
         super.addCommands(preciseAlignment);
 
