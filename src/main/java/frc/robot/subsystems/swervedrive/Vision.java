@@ -78,6 +78,8 @@ public class Vision
 
   public              EstimatedRobotPose  estimatedVisionPose;
 
+  private SwerveDrive swerveDrive; // Add this field
+
 
   /**
    * Constructor for the Vision class.
@@ -85,10 +87,11 @@ public class Vision
    * @param currentPose Current pose supplier, should reference {@link SwerveDrive#getPose()}
    * @param field       Current field, should be {@link SwerveDrive#field}
    */
-  public Vision(Supplier<Pose2d> currentPose, Field2d field)
+  public Vision(Supplier<Pose2d> currentPose, Field2d field) // Modify constructor
   {
     this.currentPose = currentPose;
     this.field2d = field;
+    this.swerveDrive = swerveDrive; // Initialize the field
 
     if (Robot.isSimulation())
     {
@@ -154,12 +157,24 @@ public class Vision
      * gets closest tag. Might need modification because not sure if the getBestTarget will return the closest one consistently. It should!
      * @return Closest tag's fiducial id
      */
-    public int getClosestTag(){
+    public int getClosestTag()
+  {
       for (Cameras c : Cameras.values())
       {
         if (!c.resultsList.isEmpty()){
           for(PhotonPipelineResult result : c.resultsList){
-            return result.getBestTarget().getFiducialId();
+
+            if(result.hasTargets()){
+
+              int tester = result.getBestTarget().getFiducialId();
+              //double degreesOfFreedom = 15; //technically not what a degree of freedom is but I'm calling it that anyway :) -Connor
+              PhotonTrackedTarget targetTest = result.getBestTarget();
+              //change later if needed
+              if (getDistanceFromAprilTag(tester)<4.5)// && targetTest.getYaw() < swerveDrive.getYaw().getDegrees() + degreesOfFreedom && targetTest.getYaw() > swerveDrive.getYaw().getDegrees() - degreesOfFreedom) // Replace 20 with robot's yaw
+              {
+                return result.getBestTarget().getFiducialId();
+              }
+            }
           }
         }
       }
@@ -715,5 +730,7 @@ public class Vision
 
 
   }
+
+  
 
 }
