@@ -23,10 +23,12 @@ import edu.wpi.first.wpilibj.Filesystem;
 import swervelib.math.Matter;
 import frc.robot.constants.IntakeConstants;
 import frc.robot.constants.ElevatorConstants;
+import frc.robot.constants.AlgaeRemoverConstants;
 import frc.robot.constants.DriveConstants;
 import frc.robot.constants.OperatorConstants;
 import frc.robot.constants.ScoringConstants;
 import frc.robot.constants.ShooterConstants;
+import frc.robot.subsystems.AlgaeRemover;
 import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.swervedrive.SwerveSubsystem;
@@ -95,7 +97,7 @@ public final class Constants
     public static final OperatorConstants OPERATOR_CONSTANTS = OperatorConstants.DEFAULT;
     public static final ShooterConstants SHOOTER_CONSTANTS = ShooterConstants.DEFAULT;
     public static final ScoringConstants SCORING_CONSTANTS = ScoringConstants.DEFAULT;
-
+    public static final AlgaeRemoverConstants ALGAE_REMOVER_CONSTANTS = AlgaeRemoverConstants.DEFAULT;
 
     public static double distancePerRotation = 1/14.36; //meters per rotations
 
@@ -145,5 +147,6 @@ public final class Constants
     public static final Elevator ELEVATOR = new Elevator();
     public static final Shooter SHOOTER = new Shooter();
 
+    public static final AlgaeRemover ALGAE_REMOVER = new AlgaeRemover();
 
 }
