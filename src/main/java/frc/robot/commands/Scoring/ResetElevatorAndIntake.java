@@ -18,10 +18,7 @@ public class ResetElevatorAndIntake extends ParallelCommandGroup {
    */
   public ResetElevatorAndIntake() {
     addCommands(
-      new ParallelCommandGroup(
-        new StopShooter(),
-        new MoveElevator(0)
-      )
+      new MoveElevator(0)
     );
 
     addRequirements(Constants.SHOOTER);
