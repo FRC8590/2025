@@ -29,7 +29,7 @@ public class Shooter extends SubsystemBase {
 
   private final SparkMax shooterMotor = new SparkMax(Constants.SHOOTER_CONSTANTS.kShooterMotorID(), MotorType.kBrushless);
   private final AnalogInput firstIntakePhotoElectricSensor = new AnalogInput(Constants.SHOOTER_CONSTANTS.firstIntakePhotoElectricSensorID()); //the first sensor the coral hits
-  private final AnalogInput secondIntakePhotoElectricSensor = new AnalogInput(Constants.SHOOTER_CONSTANTS.secondIntakePhotoElectricSensorID()); //the second sensor the coral hits
+  public final AnalogInput secondIntakePhotoElectricSensor = new AnalogInput(Constants.SHOOTER_CONSTANTS.secondIntakePhotoElectricSensorID()); //the second sensor the coral hits
 
   public int counter;
 

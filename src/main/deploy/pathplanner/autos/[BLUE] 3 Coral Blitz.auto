@@ -17,9 +17,21 @@
           }
         },
         {
+          "type": "named",
+          "data": {
+            "name": "ResetElevatorAndIntake"
+          }
+        },
+        {
           "type": "path",
           "data": {
             "pathName": "1o'clock-coral"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "WaitForCoralIntake"
           }
         },
         {
@@ -35,9 +47,21 @@
           }
         },
         {
+          "type": "named",
+          "data": {
+            "name": "ResetElevatorAndIntake"
+          }
+        },
+        {
           "type": "path",
           "data": {
             "pathName": "11o'clock-coral"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "WaitForCoralIntake"
           }
         },
         {
@@ -50,6 +74,12 @@
           "type": "named",
           "data": {
             "name": "Two"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "ResetElevatorAndIntake"
           }
         }
       ]
