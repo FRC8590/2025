@@ -98,9 +98,9 @@ public class AutoAlignment extends SequentialCommandGroup {
 
         
         super.addCommands(roughAlignment);
-        // super.addCommands(new WaitCommand(0.4));
+        super.addCommands(new WaitCommand(0.3));
 
-        // super.addCommands(preciseAlignment);
+        super.addCommands(preciseAlignment);
 
 
         super.addRequirements(driveSubsystem);

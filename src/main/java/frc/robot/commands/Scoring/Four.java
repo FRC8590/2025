@@ -28,7 +28,9 @@ public class Four extends SequentialCommandGroup {
         // Constants.drivebase.driveToPose(new Pose2d(new Translation2d(4.92,5.9), new Rotation2d(Units.degreesToRadians(-107)))),        // Constants.drivebase.driveToPose(new Pose2d(new Translation2d(4.92,5.9), new Rotation2d(Units.degreesToRadians(-107)))),
         // Constants.drivebase.driveToPose(new Pose2d(new Translation2d(3.42,5.49), new Rotation2d(Units.degreesToRadians(-47)))),
         // Constants.drivebase.driveToDistanceCommand(Units.feetToMeters(2.56), 0.8),
-        Constants.drivebase.driveToPose(Constants.SCORING_CONSTANTS.locationFour())
+        Constants.drivebase.driveToPose(Constants.SCORING_CONSTANTS.locationFour()),
+        new MoveElevator(0.37),
+        new ScoreCoral()
 
         // Constants.drivebase.driveToDistanceCommand(Units.feetToMeters(2), 0.8),
         // new PrintCommand("DONE"),
