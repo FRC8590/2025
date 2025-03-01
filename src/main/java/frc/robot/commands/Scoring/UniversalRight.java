@@ -19,7 +19,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /** Command to score a coral by ejecting it */
-public class UniversalLeft extends SequentialCommandGroup {
+public class UniversalRight extends SequentialCommandGroup {
 
   // Define the AprilTag IDs we're interested in
   private static final int[] APRILTAG_IDS = {17, 18, 19, 20, 21, 22};
@@ -27,7 +27,7 @@ public class UniversalLeft extends SequentialCommandGroup {
   /**
    * Creates a new ScoreCoral command that ejects the coral
    */
-  public UniversalLeft() {
+  public UniversalRight() {
     // Find the closest AprilTag based on current robot position
     int closestTag = findClosestAprilTag();
     
@@ -76,7 +76,7 @@ public class UniversalLeft extends SequentialCommandGroup {
       case 18:
         return new Rotation2d(Units.degreesToRadians(0));
       case 19:
-        return new Rotation2d(Units.degreesToRadians(-56));
+        return new Rotation2d(Units.degreesToRadians(-55));
       case 20:
         return new Rotation2d(Units.degreesToRadians(-117));
       case 21:
@@ -95,9 +95,9 @@ public class UniversalLeft extends SequentialCommandGroup {
       case 18:
         return new Translation2d(2.789, 4.000);
       case 19:
-        return new Translation2d(3.46, 4.73);
+        return new Translation2d(3.86, 5.11);
       case 20:
-        return new Translation2d(4.70, 5.25);
+        return new Translation2d(5.13, 5.04);
       case 21:
         return new Translation2d(6.191, 4.000);
       case 22:
