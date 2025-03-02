@@ -862,4 +862,36 @@ public class SwerveSubsystem extends SubsystemBase
   {
     return swerveDrive;
   }
+
+  
+  /**
+   * Finds the closest AprilTag to the robot's current position
+   * @return The ID of the closest AprilTag
+   */
+  public int findClosestAprilTag() {
+
+
+    Pose2d currentPose = Constants.drivebase.getPose();
+    Translation2d currentPosition = currentPose.getTranslation();
+    
+    int closestTag = Constants.SCORING_IDS[0]; // Default to first tag
+    double minDistance = Double.MAX_VALUE;
+    
+    for (int tagId : Constants.SCORING_IDS) {
+      Translation2d tagPosition = Constants.layout.getTagPose(tagId).get().getTranslation().toTranslation2d();
+      if (tagPosition != null) {
+        double distance = currentPosition.getDistance(tagPosition);
+        if (distance < minDistance) {
+          minDistance = distance;
+          closestTag = tagId;
+        }
+      }
+    }
+    
+    // Log the chosen tag to SmartDashboard for debugging
+    SmartDashboard.putNumber("Selected AprilTag", closestTag);
+    SmartDashboard.putNumber("Distance to Tag", minDistance);
+    
+    return closestTag;
+  }
 }

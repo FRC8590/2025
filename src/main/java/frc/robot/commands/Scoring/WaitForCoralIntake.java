@@ -24,7 +24,9 @@ public class WaitForCoralIntake extends Command {
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {}
+  public void execute() {
+    System.out.println("running");
+  }
 
   // Called once the command ends or is interrupted.
   @Override
@@ -33,6 +35,6 @@ public class WaitForCoralIntake extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return Constants.SHOOTER.secondIntakePhotoElectricSensor.getVoltage() < 3;
+    return Constants.SHOOTER.hasCoral().getAsBoolean();
   }
 }

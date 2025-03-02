@@ -51,8 +51,6 @@ public class AlignToAprilTag extends Command {
         ChassisSpeeds speeds = inputStream.get();
         speeds.omegaRadiansPerSecond = rotationSpeed;
 
-        SmartDashboard.putNumber("desiredAngle", desired);
-        SmartDashboard.putNumber("currentAngle", swerve.getHeading().getDegrees());
         
         // Drive the robot field oriented
         swerve.driveFieldOriented(speeds);

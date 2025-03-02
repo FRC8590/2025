@@ -9,102 +9,65 @@ import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.PrintCommand;
+import edu.wpi.first.wpilibj2.command.SelectCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.Constants;
 import frc.robot.commands.MoveElevator;
+import frc.robot.constants.ScoringConstants;
+
+import java.io.Console;
+import java.security.AllPermission;
 import java.util.HashMap;
 import java.util.Map;
+
+import com.fasterxml.jackson.databind.ser.std.StdKeySerializers.Default;
 
 /** Command to score a coral by ejecting it */
 public class UniversalRight extends SequentialCommandGroup {
 
   // Define the AprilTag IDs we're interested in
-  private static final int[] APRILTAG_IDS = {17, 18, 19, 20, 21, 22};
   
   /**
    * Creates a new ScoreCoral command that ejects the coral
    */
   public UniversalRight() {
-    // Find the closest AprilTag based on current robot position
-    int closestTag = findClosestAprilTag();
     
     addCommands(
-        Constants.drivebase.driveToPose(new Pose2d(getApriltagTranslation2d(closestTag), getApriltagRotation2d(closestTag)))
+      new ParallelCommandGroup(
+        moveToScore,
+        new MoveElevator(0.37)
+      ),
+      new ScoreCoral()
     );
-
     addRequirements(Constants.drivebase);
     addRequirements(Constants.SHOOTER);
     addRequirements(Constants.ELEVATOR);
   }
 
-  /**
-   * Finds the closest AprilTag to the robot's current position
-   * @return The ID of the closest AprilTag
-   */
-  private int findClosestAprilTag() {
-    Pose2d currentPose = Constants.drivebase.getPose();
-    Translation2d currentPosition = currentPose.getTranslation();
-    
-    int closestTag = APRILTAG_IDS[0]; // Default to first tag
-    double minDistance = Double.MAX_VALUE;
-    
-    for (int tagId : APRILTAG_IDS) {
-      Translation2d tagPosition = getApriltagTranslation2d(tagId);
-      if (tagPosition != null) {
-        double distance = currentPosition.getDistance(tagPosition);
-        if (distance < minDistance) {
-          minDistance = distance;
-          closestTag = tagId;
-        }
-      }
-    }
-    
-    // Log the chosen tag to SmartDashboard for debugging
-    SmartDashboard.putNumber("Selected AprilTag", closestTag);
-    SmartDashboard.putNumber("Distance to Tag", minDistance);
-    
-    return closestTag;
+
+
+  private int getClosestTag() {
+    return Constants.drivebase.findClosestAprilTag();
   }
 
-  private Rotation2d getApriltagRotation2d(int apriltag) {
-    switch (apriltag) {
-      case 17:
-        return new Rotation2d(Units.degreesToRadians(60));
-      case 18:
-        return new Rotation2d(Units.degreesToRadians(0));
-      case 19:
-        return new Rotation2d(Units.degreesToRadians(-55));
-      case 20:
-        return new Rotation2d(Units.degreesToRadians(-117));
-      case 21:
-        return new Rotation2d(Units.degreesToRadians(180));
-      case 22:
-        return new Rotation2d(Units.degreesToRadians(120));
-      default:
-        return new Rotation2d(); // Default to 0 degrees
-    }
-  }
-
-  public Translation2d getApriltagTranslation2d(int apriltag) {
-    switch (apriltag) {
-      case 17:
-        return new Translation2d(3.648, 2.444);
-      case 18:
-        return new Translation2d(2.789, 4.000);
-      case 19:
-        return new Translation2d(3.86, 5.11);
-      case 20:
-        return new Translation2d(5.13, 5.04);
-      case 21:
-        return new Translation2d(6.191, 4.000);
-      case 22:
-        return new Translation2d(5.353, 2.444);
-      default:
-        return null;
-    }
-  }
+  // An example selectcommand.  Will select from the three commands based on the value returned
+  // by the selector method at runtime.  Note that selectcommand works on Object(), so the
+  // selector does not have to be an enum; it could be any desired type (string, integer,
+  // boolean, double...)
+  private final Command moveToScore =
+      new SelectCommand<>(
+          // Maps selector values to commands
+          Map.ofEntries(
+              Map.entry(17, Constants.drivebase.driveToPose(Constants.SCORING_CONSTANTS.locationOne())),
+              Map.entry(18, Constants.drivebase.driveToPose(Constants.SCORING_CONSTANTS.locationOne())),
+              Map.entry(19, Constants.drivebase.driveToPose(Constants.SCORING_CONSTANTS.locationOne())),
+              Map.entry(20, Constants.drivebase.driveToPose(Constants.SCORING_CONSTANTS.locationThree())),
+              Map.entry(21, Constants.drivebase.driveToPose(Constants.SCORING_CONSTANTS.locationOne())),
+              Map.entry(22, Constants.drivebase.driveToPose(Constants.SCORING_CONSTANTS.locationOne()))),
+          this::getClosestTag);
 }
 
