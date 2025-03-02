@@ -267,7 +267,7 @@ public class RobotContainer
   public Command getAutonomousCommand()
   {
     // An example command will be run in autonomous
-    return Constants.drivebase.getAutonomousCommand("JGT 2 Coral");
+    return Constants.drivebase.getAutonomousCommand("JGT 66 point auto");
   }
 
   public void setDriveMode()
