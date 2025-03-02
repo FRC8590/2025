@@ -13,6 +13,43 @@
         {
           "type": "named",
           "data": {
+            "name": "UniversalLeftBot"
+          }
+        },
+        {
+          "type": "race",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "JGT-2"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "ZeroElevator"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "WaitForCoralIntake"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "JGT-1"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
             "name": "UniversalRightBot"
           }
         },
@@ -54,9 +91,40 @@
           }
         },
         {
+          "type": "race",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "JGT-4"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "ZeroElevator"
+                }
+              }
+            ]
+          }
+        },
+        {
           "type": "named",
           "data": {
-            "name": "ZeroElevator"
+            "name": "WaitForCoralIntake"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "JGT-3"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "UniversalRightBot"
           }
         }
       ]
