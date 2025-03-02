@@ -17,6 +17,12 @@
           }
         },
         {
+          "type": "named",
+          "data": {
+            "name": "ZeroElevator"
+          }
+        },
+        {
           "type": "path",
           "data": {
             "pathName": "JGT-2"
@@ -38,6 +44,12 @@
           "type": "named",
           "data": {
             "name": "UniversalLeftBot"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "ZeroElevator"
           }
         }
       ]
