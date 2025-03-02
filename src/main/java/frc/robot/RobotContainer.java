@@ -249,7 +249,7 @@ public class RobotContainer
   public Command getAutonomousCommand()
   {
     // An example command will be run in autonomous
-    return Constants.drivebase.getAutonomousCommand("[BLUE] 3 Coral Blitz");
+    return Constants.drivebase.getAutonomousCommand("JGT 2 Coral");
   }
 
   public void setDriveMode()
