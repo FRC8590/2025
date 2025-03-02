@@ -27,19 +27,19 @@ import java.util.Map;
 import com.fasterxml.jackson.databind.ser.std.StdKeySerializers.Default;
 
 /** Command to score a coral by ejecting it */
-public class UniversalRight extends SequentialCommandGroup {
+public class UniversalLeftTop extends SequentialCommandGroup {
 
   // Define the AprilTag IDs we're interested in
   
   /**
    * Creates a new ScoreCoral command that ejects the coral
    */
-  public UniversalRight() {
+  public UniversalLeftTop() {
     
     addCommands(
       new ParallelCommandGroup(
         moveToScore,
-        new MoveElevator(0.37)
+        new MoveElevator(0.69420)
       ),
       new ScoreCoral()
     );
@@ -64,8 +64,8 @@ public class UniversalRight extends SequentialCommandGroup {
           Map.ofEntries(
               Map.entry(17, Constants.drivebase.driveToPose(Constants.SCORING_CONSTANTS.locationOne())),
               Map.entry(18, Constants.drivebase.driveToPose(Constants.SCORING_CONSTANTS.locationOne())),
-              Map.entry(19, Constants.drivebase.driveToPose(Constants.SCORING_CONSTANTS.locationOne())),
-              Map.entry(20, Constants.drivebase.driveToPose(Constants.SCORING_CONSTANTS.locationThree())),
+              Map.entry(19, Constants.drivebase.driveToPose(Constants.SCORING_CONSTANTS.locationTwo())),
+              Map.entry(20, Constants.drivebase.driveToPose(Constants.SCORING_CONSTANTS.locationFour())),
               Map.entry(21, Constants.drivebase.driveToPose(Constants.SCORING_CONSTANTS.locationOne())),
               Map.entry(22, Constants.drivebase.driveToPose(Constants.SCORING_CONSTANTS.locationOne()))),
           this::getClosestTag);

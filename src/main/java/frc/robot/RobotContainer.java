@@ -37,6 +37,8 @@ import frc.robot.subsystems.swervedrive.Vision;
 import frc.robot.subsystems.Shooter.*;
 import java.io.File;
 
+import frc.robot.commands.*;
+
 import org.photonvision.targeting.PhotonPipelineResult;
 
 import swervelib.SwerveInputStream;
@@ -194,6 +196,7 @@ public class RobotContainer
     {
       // Create a default command for the shooter to always run the intake logic
       Constants.SHOOTER.setDefaultCommand(new IntakeCoral());
+      Constants.LEDSystem.setDefaultCommand(new SetLED());
 
       // Update the scoring button to temporarily interrupt the default command
       // driverXbox.a().whileTrue(new ScoreCoral());
@@ -210,15 +213,20 @@ public class RobotContainer
 
       // driverXbox.back().onTrue(Commands.runOnce(Constants.drivebase::zeroGyro));
       // driverXbox.start().onTrue((Commands.runOnce(Constants.drivebase::zeroGyro)));
-      driverXbox.a().whileTrue(new One());
-      driverXbox.b().whileTrue(new Two());
-      driverXbox.x().whileTrue(new Three());
-      driverXbox.y().whileTrue(new Four());
+      // driverXbox.a().whileTrue(new One());
+      // driverXbox.b().whileTrue(new Two());
+      // driverXbox.x().whileTrue(new Three());
+      // driverXbox.y().whileTrue(new Four());
 
-      driverXbox.leftTrigger().whileTrue(new UniversalLeft());
-      driverXbox.rightTrigger().whileTrue(new UniversalRight());
+      driverXbox.leftTrigger().whileTrue(new UniversalLeftTop());
+      driverXbox.rightTrigger().whileTrue(new UniversalRightTop());
+      driverXbox.leftBumper().whileTrue(new UniversalLeftBot());
+      driverXbox.rightBumper().whileTrue(new UniversalRightBot());
 
-      driverXbox.rightBumper().onTrue(new MoveElevator(0));
+
+      driverXbox.x().onTrue(new MoveElevator(0));
+
+      driverXbox.leftBumper().whileTrue(Commands.run(() -> Constants.LEDSystem.setYellow(), Constants.LEDSystem));
 
       // driverXbox.leftTrigger().whileTrue(driveRobotOrientedAngular);
       // driverXbox.leftBumper().onTrue(Commands.runOnce(() -> Constants.scaleFactor = 0.2));
