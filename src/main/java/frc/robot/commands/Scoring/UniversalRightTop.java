@@ -62,12 +62,12 @@ public class UniversalRightTop extends SequentialCommandGroup {
       new SelectCommand<>(
           // Maps selector values to commands
           Map.ofEntries(
-              Map.entry(17, Constants.drivebase.driveToPose(Constants.SCORING_CONSTANTS.locationOne())),
-              Map.entry(18, Constants.drivebase.driveToPose(Constants.SCORING_CONSTANTS.locationOne())),
-              Map.entry(19, Constants.drivebase.driveToPose(Constants.SCORING_CONSTANTS.locationOne())),
-              Map.entry(20, Constants.drivebase.driveToPose(Constants.SCORING_CONSTANTS.locationThree())),
-              Map.entry(21, Constants.drivebase.driveToPose(Constants.SCORING_CONSTANTS.locationOne())),
-              Map.entry(22, Constants.drivebase.driveToPose(Constants.SCORING_CONSTANTS.locationOne()))),
-          this::getClosestTag);
+            Map.entry(17, Constants.drivebase.driveToPose(Constants.SCORING_CONSTANTS.right17())),
+            Map.entry(18, Constants.drivebase.driveToPose(Constants.SCORING_CONSTANTS.right18())),
+            Map.entry(19, Constants.drivebase.driveToPose(Constants.SCORING_CONSTANTS.right19())),
+            Map.entry(20, Constants.drivebase.driveToPose(Constants.SCORING_CONSTANTS.right20())),
+            Map.entry(21, Constants.drivebase.driveToPose(Constants.SCORING_CONSTANTS.right21())),
+            Map.entry(22, Constants.drivebase.driveToPose(Constants.SCORING_CONSTANTS.right22()))),
+        this::getClosestTag);
 }
 

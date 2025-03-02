@@ -26,7 +26,6 @@ import frc.robot.commands.DriveTest;
 import frc.robot.commands.IntakeCoral;
 import frc.robot.commands.MoveElevator;
 import frc.robot.commands.Scoring.*;
-import frc.robot.commands.Scoring.dep.*;
 import frc.robot.commands.swervedrive.*;
 import frc.robot.commands.swervedrive.auto.AutoBalanceCommand;
 import frc.robot.commands.swervedrive.drivebase.AbsoluteDriveAdv;
@@ -154,11 +153,10 @@ public class RobotContainer
     // Initialize with proper alliance orientation
     Constants.drivebase.zeroGyroWithAlliance();
     
-    NamedCommands.registerCommand("One", new One());
-    NamedCommands.registerCommand("Two", new Two());
-    NamedCommands.registerCommand("Three", new Three());
     NamedCommands.registerCommand("UniversalRightBot", new UniversalRightBot());
     NamedCommands.registerCommand("UniversalLeftBot", new UniversalLeftBot());
+    NamedCommands.registerCommand("UniversalLeftTop", new UniversalLeftTop());
+    NamedCommands.registerCommand("UniversalRightTop", new UniversalRightTop());
     NamedCommands.registerCommand("WaitForCoralIntake", new WaitForCoralIntake());
     NamedCommands.registerCommand("ZeroElevator", new ZeroElevator());
 
