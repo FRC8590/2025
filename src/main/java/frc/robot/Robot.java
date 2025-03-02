@@ -169,7 +169,8 @@ public class Robot extends TimedRobot
   public void teleopPeriodic()
   {
 
-    Constants.drivebase.findClosestAprilTag();
+    SmartDashboard.putString("LED COLOR", Constants.LEDSystem.currentColor);
+    
 
 
   }
