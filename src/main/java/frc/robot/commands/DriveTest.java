@@ -98,8 +98,6 @@ public class DriveTest extends Command
       
     };
 
-    SmartDashboard.putNumber("x", x.getAsDouble());
-    SmartDashboard.putNumber("y", y.getAsDouble());
 
       swerveSubsystem.swerveDrive.drive(SwerveMath.scaleTranslation(new Translation2d(
                             x.getAsDouble() * swerveSubsystem.swerveDrive.getMaximumChassisVelocity(),

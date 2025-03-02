@@ -4,6 +4,10 @@
 
 package frc.robot;
 
+import java.io.Console;
+
+import javax.swing.text.StyleContext.SmallAttributeSet;
+
 import org.dyn4j.geometry.decompose.SweepLine;
 import org.photonvision.targeting.PhotonPipelineMetadata;
 
@@ -164,22 +168,8 @@ public class Robot extends TimedRobot
   @Override
   public void teleopPeriodic()
   {
-    // Get the current pose from the swerve subsystem
-    Pose2d currentPose = Constants.drivebase.getPose();
 
-    // Define the target pose
-    Pose2d targetPose = new Pose2d(new Translation2d(Units.feetToMeters(3), Units.feetToMeters(2)), Rotation2d.fromDegrees(180));
-
-    // Calculate the x offset
-    double xOffset = currentPose.getX() - targetPose.getX();
-    double yOffset = currentPose.getY() - targetPose.getY();
-    double yawOffset = currentPose.getRotation().getDegrees() - targetPose.getRotation().getRadians();
-
-    // Output the x offset to the SmartDashboard
-    SmartDashboard.putNumber("X Offset", xOffset);
-    SmartDashboard.putNumber("Y Offset", yOffset);
-    SmartDashboard.putNumber("Yaw Offset", yawOffset);
-    SmartDashboard.putNumber("scale factor", Constants.scaleFactor);
+    Constants.drivebase.findClosestAprilTag();
 
 
   }

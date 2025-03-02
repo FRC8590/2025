@@ -26,7 +26,8 @@ import frc.robot.commands.DriveTest;
 import frc.robot.commands.IntakeCoral;
 import frc.robot.commands.MoveElevator;
 import frc.robot.commands.Scoring.*;
-import frc.robot.commands.swervedrive.FinalAlignment;
+import frc.robot.commands.Scoring.dep.*;
+import frc.robot.commands.swervedrive.*;
 import frc.robot.commands.swervedrive.auto.AutoBalanceCommand;
 import frc.robot.commands.swervedrive.drivebase.AbsoluteDriveAdv;
 import frc.robot.constants.OperatorConstants;
@@ -158,6 +159,8 @@ public class RobotContainer
 
   }
 
+  
+
   /**
    * Use this method to define your trigger->command mappings. Triggers can be created via the
    * {@link Trigger#Trigger(java.util.function.BooleanSupplier)} constructor with an arbitrary predicate, or via the
@@ -212,7 +215,10 @@ public class RobotContainer
       driverXbox.x().whileTrue(new Three());
       driverXbox.y().whileTrue(new Four());
 
-      driverXbox.rightBumper().onTrue(new MoveElevator(0.01));
+      driverXbox.leftTrigger().whileTrue(new UniversalLeft());
+      driverXbox.rightTrigger().whileTrue(new UniversalRight());
+
+      driverXbox.rightBumper().onTrue(new MoveElevator(0));
 
       // driverXbox.leftTrigger().whileTrue(driveRobotOrientedAngular);
       // driverXbox.leftBumper().onTrue(Commands.runOnce(() -> Constants.scaleFactor = 0.2));
