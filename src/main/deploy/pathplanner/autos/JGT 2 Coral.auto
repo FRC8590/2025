@@ -17,15 +17,22 @@
           }
         },
         {
-          "type": "named",
+          "type": "race",
           "data": {
-            "name": "ZeroElevator"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "JGT-2"
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "JGT-2"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "ZeroElevator"
+                }
+              }
+            ]
           }
         },
         {

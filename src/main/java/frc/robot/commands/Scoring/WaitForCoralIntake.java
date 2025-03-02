@@ -26,6 +26,7 @@ public class WaitForCoralIntake extends Command {
   @Override
   public void execute() {
     System.out.println("running");
+    Constants.SHOOTER.processIntakeCoral();
   }
 
   // Called once the command ends or is interrupted.

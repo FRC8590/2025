@@ -157,7 +157,11 @@ public class RobotContainer
     NamedCommands.registerCommand("One", new One());
     NamedCommands.registerCommand("Two", new Two());
     NamedCommands.registerCommand("Three", new Three());
-    NamedCommands.registerCommand("Four", new Four());
+    NamedCommands.registerCommand("UniversalRightBot", new UniversalRightBot());
+    NamedCommands.registerCommand("UniversalLeftBot", new UniversalLeftBot());
+    NamedCommands.registerCommand("WaitForCoralIntake", new WaitForCoralIntake());
+    NamedCommands.registerCommand("ZeroElevator", new ZeroElevator());
+
 
   }
 
