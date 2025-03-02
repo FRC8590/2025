@@ -57,7 +57,7 @@ public class AutoAlignment extends SequentialCommandGroup {
             
         // Tighter tolerance for Y direction
         smallHolonomicDriveController.setTolerance(new Pose2d(0.01, 0.01, Rotation2d.fromDegrees(1)));
-        roughHolonomicDriveController.setTolerance(new Pose2d(0.1, 0.1, Rotation2d.fromDegrees(1)));
+        roughHolonomicDriveController.setTolerance(new Pose2d(0.05, 0.05, Rotation2d.fromDegrees(1)));
 
         final Command
                 pathFindToTargetRough = AutoBuilder.pathfindToPose(targetPose, constraints, 0),
@@ -71,7 +71,7 @@ public class AutoAlignment extends SequentialCommandGroup {
                                 robotRelativeSpeedsOutput.accept(roughHolonomicDriveController.calculate(
                                         currentPose,
                                         targetPose,
-                                        0.2,
+                                        0,
                                         targetPose.getRotation()
                                 ));
                         },
@@ -98,6 +98,7 @@ public class AutoAlignment extends SequentialCommandGroup {
 
         
         super.addCommands(roughAlignment);
+        super.addCommands(new WaitCommand(0.15));
 
         super.addCommands(preciseAlignment);
 

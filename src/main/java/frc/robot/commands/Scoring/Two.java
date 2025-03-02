@@ -30,7 +30,7 @@ public class Two extends SequentialCommandGroup {
         // Constants.drivebase.driveToDistanceCommand(Units.feetToMeters(2.56), 0.8),
         new ParallelCommandGroup(
           Constants.drivebase.driveToPose(Constants.SCORING_CONSTANTS.locationTwo()),
-          new MoveElevator(0.37)
+          new MoveElevator(0.69420)
         ),
         new ScoreCoral()
 

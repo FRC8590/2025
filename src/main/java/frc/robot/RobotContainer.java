@@ -14,10 +14,12 @@ import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.RobotBase;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.*;
 import frc.robot.commands.DriveTest;
@@ -216,10 +218,14 @@ public class RobotContainer
       // driverXbox.leftBumper().onTrue(Commands.runOnce(() -> Constants.scaleFactor = 0.2));
       // driverXbox.leftBumper().onFalse(Commands.runOnce(() -> Constants.scaleFactor = 1));
 
-      driverXbox.leftTrigger().onTrue(new UniversalLeft());
-      driverXbox.rightTrigger().onTrue(new UniversalRight());
+      // driverXbox.leftTrigger().onTrue(new UniversalLeft());
+      // driverXbox.rightTrigger().onTrue(new UniversalRight());
 
-      driverXbox.rightBumper().onTrue(new MoveElevator(0));
+
+   // For tag-based accuracy test, you'll need to create this command manually with measurements
+      
+      // driverXbox.rightBumper().onTrue(new MoveElevator(0));
+      // driverXbox.a().onTrue(new CameraCalibrationTest(Constants.drivebase, Constants.vision, driverXbox.getHID()));
 
 
       // driverXbox.y().onTrue(new DriveTest(Constants.drivebase));

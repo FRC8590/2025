@@ -15,8 +15,13 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.Constants;
 import frc.robot.commands.MoveElevator;
+import frc.robot.constants.ScoringConstants;
+
+import java.security.AllPermission;
 import java.util.HashMap;
 import java.util.Map;
+
+import com.fasterxml.jackson.databind.ser.std.StdKeySerializers.Default;
 
 /** Command to score a coral by ejecting it */
 public class UniversalLeft extends SequentialCommandGroup {
@@ -32,7 +37,7 @@ public class UniversalLeft extends SequentialCommandGroup {
     int closestTag = findClosestAprilTag();
     
     addCommands(
-        Constants.drivebase.driveToPose(new Pose2d(getApriltagTranslation2d(closestTag), getApriltagRotation2d(closestTag)))
+        Constants.drivebase.driveToPose(getScoringLocation(closestTag))
     );
 
     addRequirements(Constants.drivebase);
@@ -52,7 +57,7 @@ public class UniversalLeft extends SequentialCommandGroup {
     double minDistance = Double.MAX_VALUE;
     
     for (int tagId : APRILTAG_IDS) {
-      Translation2d tagPosition = getApriltagTranslation2d(tagId);
+      Translation2d tagPosition = getScoringLocation(tagId).getTranslation();
       if (tagPosition != null) {
         double distance = currentPosition.getDistance(tagPosition);
         if (distance < minDistance) {
@@ -69,42 +74,17 @@ public class UniversalLeft extends SequentialCommandGroup {
     return closestTag;
   }
 
-  private Rotation2d getApriltagRotation2d(int apriltag) {
-    switch (apriltag) {
-      case 17:
-        return new Rotation2d(Units.degreesToRadians(60));
-      case 18:
-        return new Rotation2d(Units.degreesToRadians(0));
-      case 19:
-        return new Rotation2d(Units.degreesToRadians(-56));
-      case 20:
-        return new Rotation2d(Units.degreesToRadians(-117));
-      case 21:
-        return new Rotation2d(Units.degreesToRadians(180));
-      case 22:
-        return new Rotation2d(Units.degreesToRadians(120));
-      default:
-        return new Rotation2d(); // Default to 0 degrees
-    }
-  }
 
-  public Translation2d getApriltagTranslation2d(int apriltag) {
-    switch (apriltag) {
-      case 17:
-        return new Translation2d(3.648, 2.444);
-      case 18:
-        return new Translation2d(2.789, 4.000);
+  private Pose2d getScoringLocation(int apriltag){
+    switch (apriltag){
       case 19:
-        return new Translation2d(3.46, 4.73);
+        return Constants.SCORING_CONSTANTS.locationTwo();
       case 20:
-        return new Translation2d(4.70, 5.25);
-      case 21:
-        return new Translation2d(6.191, 4.000);
-      case 22:
-        return new Translation2d(5.353, 2.444);
+        return Constants.SCORING_CONSTANTS.locationFour();
       default:
-        return null;
+        return new Pose2d();
     }
+
   }
 }
 
