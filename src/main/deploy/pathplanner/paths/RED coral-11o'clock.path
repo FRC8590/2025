@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 15.85,
-        "y": 7.3
+        "x": 16.25,
+        "y": 7.9
       },
       "prevControl": null,
       "nextControl": {
-        "x": 15.152569824385612,
-        "y": 6.968864473961226
+        "x": 15.552569824385607,
+        "y": 7.568864473961276
       },
       "isLocked": false,
       "linkedName": "Red feed"
@@ -21,7 +21,7 @@
       },
       "prevControl": {
         "x": 13.411126274789883,
-        "y": 6.17514060657231
+        "y": 6.175140606572313
       },
       "nextControl": null,
       "isLocked": false,
