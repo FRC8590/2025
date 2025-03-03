@@ -53,6 +53,7 @@ public class RobotContainer
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
   final         CommandXboxController driverXbox = new CommandXboxController(0);
+  final         CommandXboxController operaController = new CommandXboxController(1);
   // The robot's subsystems and commands are defined here...
   // Applies deadbands and inverts controls because joysticks
   // are back-right positive while robot
@@ -222,15 +223,13 @@ public class RobotContainer
       // driverXbox.x().whileTrue(new Three());
       // driverXbox.y().whileTrue(new Four());
 
-      driverXbox.leftTrigger().whileTrue(new UniversalLeftTop());
-      driverXbox.rightTrigger().whileTrue(new UniversalRightTop());
-      driverXbox.leftBumper().whileTrue(new UniversalLeftBot());
-      driverXbox.rightBumper().whileTrue(new UniversalRightBot());
+      driverXbox.leftTrigger().whileTrue(new UniversalLeftTop()); //score on the left top
+      driverXbox.rightTrigger().whileTrue(new UniversalRightTop()); //score on the right top
+      driverXbox.leftBumper().whileTrue(new UniversalLeftBot()); //score on the left bottom
+      driverXbox.rightBumper().whileTrue(new UniversalRightBot()); //score on the right bottom
 
-
-      driverXbox.x().onTrue(new MoveElevator(0));
-
-      driverXbox.leftBumper().whileTrue(Commands.run(() -> Constants.LEDSystem.setYellow(), Constants.LEDSystem));
+      driverXbox.x().onTrue(new MoveElevator(0)); // reset elevator
+      driverXbox.a().whileTrue(Commands.run(() -> Constants.LEDSystem.setYellow(), Constants.LEDSystem)); //flash leds yellow (to get human player's attention)
 
       // driverXbox.leftTrigger().whileTrue(driveRobotOrientedAngular);
       // driverXbox.leftBumper().onTrue(Commands.runOnce(() -> Constants.scaleFactor = 0.2));
