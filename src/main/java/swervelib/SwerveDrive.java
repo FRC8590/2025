@@ -486,6 +486,11 @@ public class SwerveDrive
     drive(ChassisSpeeds.fromFieldRelativeSpeeds(fieldRelativeSpeeds, getOdometryHeading()));
   }
 
+  public void driveRobotRelative(ChassisSpeeds robotRelativeSpeeds)
+  {
+    drive(robotRelativeSpeeds);
+  }
+
   /**
    * Secondary method of controlling the drive base given velocity and adjusting it for field oriented use.
    *

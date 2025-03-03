@@ -22,9 +22,6 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.*;
-import frc.robot.commands.DriveTest;
-import frc.robot.commands.IntakeCoral;
-import frc.robot.commands.MoveElevator;
 import frc.robot.commands.Scoring.*;
 import frc.robot.commands.swervedrive.*;
 import frc.robot.commands.swervedrive.auto.AutoBalanceCommand;
@@ -106,7 +103,7 @@ public class RobotContainer
   // left stick controls translation
   // right stick controls the desired angle NOT angular rotation
   Command driveFieldOrientedDirectAngle = Constants.drivebase.driveFieldOriented(driveDirectAngle);
-  Command driveRobotOrientedAngular = Constants.drivebase.driveFieldOriented(driveRobotOriented);
+  Command driveRobotOrientedAngular = Constants.drivebase.driveRobotRelative(driveRobotOriented);
 
   // Applies deadbands and inverts controls because joysticks
   // are back-right positive while robot
@@ -230,7 +227,7 @@ public class RobotContainer
 
       driverXbox.leftBumper().whileTrue(Commands.run(() -> Constants.LEDSystem.setYellow(), Constants.LEDSystem));
 
-      // driverXbox.leftTrigger().whileTrue(driveRobotOrientedAngular);
+      driverXbox.start().whileTrue(driveRobotOrientedAngular);
       // driverXbox.leftBumper().onTrue(Commands.runOnce(() -> Constants.scaleFactor = 0.2));
       // driverXbox.leftBumper().onFalse(Commands.runOnce(() -> Constants.scaleFactor = 1));
 

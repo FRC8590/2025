@@ -598,6 +598,28 @@ public class SwerveSubsystem extends SubsystemBase
     });
   }
 
+
+   /**
+   * Drive the robot given a chassis field oriented velocity.
+   *
+   * @param velocity Velocity according to the field.
+   */
+  public void driveRobotRelative(ChassisSpeeds velocity)
+  {
+    swerveDrive.driveRobotRelative(velocity);
+  }
+
+  /**
+   * Drive the robot given a chassis field oriented velocity.
+   *
+   * @param velocity Velocity according to the field.
+   */
+  public Command driveRobotRelative(Supplier<ChassisSpeeds> velocity)
+  {
+    return run(() -> {
+      swerveDrive.driveRobotRelative(velocity.get());
+    });
+  }
   public Command speedFast()
   {
     return run(() -> {
