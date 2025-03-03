@@ -8,8 +8,8 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 3.0661066119667804,
-        "y": 6.817943883057593
+        "x": 3.2434532122936504,
+        "y": 7.1774795864996
       },
       "isLocked": false,
       "linkedName": "feed"
@@ -48,7 +48,7 @@
   "folder": "Blue Side Paths",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": -54.53681909556692
+    "rotation": -55.0
   },
   "useDefaultConstraints": false
 }
