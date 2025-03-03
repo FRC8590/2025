@@ -89,6 +89,16 @@ public class Shooter extends SubsystemBase {
   }
   
 
+  /**
+ * A trigger for when the intake photoElectronic Sensor is triggered.
+ * @return {@link Trigger}
+ */
+  public Trigger noCoral () {
+    return new Trigger(() -> 
+        (firstIntakePhotoElectricSensor.getVoltage() < 3 && secondIntakePhotoElectricSensor.getVoltage() < 3));
+  }
+
+
 
 
   @Override
@@ -123,7 +133,8 @@ public class Shooter extends SubsystemBase {
 
   public Command scoreCoral(){
     return run(() -> ejectCoral())
-        .withTimeout(1.5)
+        .until(noCoral())
+        .andThen(new WaitCommand(0.2))
         .finallyDo(() -> stopShooter());
   }
 
