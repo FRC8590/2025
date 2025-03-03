@@ -12,7 +12,7 @@
         "y": 3.9762499999999985
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Blue Bottom"
     },
     {
       "anchor": {
@@ -25,7 +25,7 @@
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Blue 11"
     }
   ],
   "rotationTargets": [],
@@ -42,7 +42,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -59.99999999999999
+    "rotation": -61.109494402146716
   },
   "reversed": false,
   "folder": "Blue Side Paths",

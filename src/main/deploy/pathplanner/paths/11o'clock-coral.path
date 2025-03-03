@@ -8,11 +8,11 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.9970871945349165,
-        "y": 6.9915948232698675
+        "x": 2.5393613921129177,
+        "y": 6.694709887663597
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Blue 11"
     },
     {
       "anchor": {
@@ -20,8 +20,8 @@
         "y": 7.89
       },
       "prevControl": {
-        "x": 2.209819595525545,
-        "y": 7.184055479454681
+        "x": 2.0983019117025568,
+        "y": 7.145554761522645
       },
       "nextControl": null,
       "isLocked": false,
