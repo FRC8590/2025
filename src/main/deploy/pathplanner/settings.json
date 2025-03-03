@@ -4,7 +4,8 @@
   "holonomicMode": true,
   "pathFolders": [
     "Blue Side Paths",
-    "JGT Paths"
+    "JGT Paths",
+    "Red Side Paths"
   ],
   "autoFolders": [
     "4 Coral Behind [BLUE]",
