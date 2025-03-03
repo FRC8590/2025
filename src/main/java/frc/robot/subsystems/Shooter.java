@@ -95,7 +95,7 @@ public class Shooter extends SubsystemBase {
  */
   public Trigger noCoral () {
     return new Trigger(() -> 
-        (firstIntakePhotoElectricSensor.getVoltage() < 3 && secondIntakePhotoElectricSensor.getVoltage() < 3));
+        (firstIntakePhotoElectricSensor.getVoltage() > 3 && secondIntakePhotoElectricSensor.getVoltage() > 3));
   }
 
 

@@ -13,49 +13,26 @@
         {
           "type": "named",
           "data": {
-            "name": "Three"
+            "name": "UniversalLeftTop"
           }
         },
         {
-          "type": "named",
+          "type": "race",
           "data": {
-            "name": "ResetElevatorAndIntake"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "1o'clock-coral"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "WaitForCoralIntake"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "coral-11o'clock"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "One"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "ResetElevatorAndIntake"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "11o'clock-coral"
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "1o'clock-coral"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "ZeroElevator"
+                }
+              }
+            ]
           }
         },
         {
@@ -73,13 +50,44 @@
         {
           "type": "named",
           "data": {
-            "name": "Two"
+            "name": "UniversalLeftBot"
+          }
+        },
+        {
+          "type": "race",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "11o'clock-coral"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "ZeroElevator"
+                }
+              }
+            ]
           }
         },
         {
           "type": "named",
           "data": {
-            "name": "ResetElevatorAndIntake"
+            "name": "WaitForCoralIntake"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "coral-11o'clock"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "UniversalRightBot"
           }
         }
       ]
