@@ -16,16 +16,16 @@
     },
     {
       "anchor": {
-        "x": 2.7885000000000004,
-        "y": 4.0055
+        "x": 2.789,
+        "y": 4.0
       },
       "prevControl": {
-        "x": 2.423107744005846,
-        "y": 5.085636400840206
+        "x": 2.423607744005846,
+        "y": 5.080136400840207
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Blue 9"
     }
   ],
   "rotationTargets": [],
@@ -48,7 +48,7 @@
   "folder": "Blue Side Paths",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": -54.53681909556692
+    "rotation": -55.0
   },
   "useDefaultConstraints": false
 }

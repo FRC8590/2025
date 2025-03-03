@@ -8,24 +8,24 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.9253989158341343,
-        "y": 1.6173757664922475
+        "x": 1.9558544910745206,
+        "y": 1.5941058752374007
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Blue 9"
     },
     {
       "anchor": {
-        "x": 1.775,
-        "y": 0.75
+        "x": 1.39,
+        "y": 0.2
       },
       "prevControl": {
-        "x": 2.3534005531121513,
-        "y": 2.445130465750279
+        "x": 2.210928118639614,
+        "y": 2.401592207602309
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "feed Lower"
     }
   ],
   "rotationTargets": [],
