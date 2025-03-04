@@ -228,17 +228,19 @@ public class RobotContainer
       driverXbox.a().whileTrue(Commands.run(() -> Constants.LEDSystem.setYellow(), Constants.LEDSystem)); //flash leds yellow (to get human player's attention)
       driverXbox.povUp().onTrue(Commands.runOnce(() -> Constants.scaleFactor = 0.2)); //slow mode on back left top button (or up d-pad)
       driverXbox.povUp().onFalse(Commands.runOnce(() -> Constants.scaleFactor = 1)); //slow mode on back left top button (or up d-pad)
-    
+      driverXbox.y().onTrue(new ActiveRemover()); //remove algae
+      driverXbox.y().onFalse(new InactiveRemover()); //remove algae
+      driverXbox.start().whileTrue(driveRobotOrientedAngular);//drive robot oriented (doesn't work)
+
       //operator controls
       operatorController.a().onTrue(new MoveElevator(0)); //operator can zero the elevator
       operatorController.b().onTrue(new MoveElevator(0.37)); //operator can lift up the elevator
       operatorController.x().whileTrue(Commands.run(() -> Constants.LEDSystem.setYellow(), Constants.LEDSystem)); //operator can flash the lights too
       operatorController.y().onTrue(new MoveElevator(0.2));
 
-      driverXbox.start().whileTrue(driveRobotOrientedAngular);
+      
 
-      driverXbox.y().onTrue(new ActiveRemover());
-      driverXbox.b().onTrue(new InactiveRemover());
+      
 
       // driverXbox.leftBumper().onTrue(Commands.runOnce(() -> Constants.scaleFactor = 0.2));
       // driverXbox.leftBumper().onFalse(Commands.runOnce(() -> Constants.scaleFactor = 1));
