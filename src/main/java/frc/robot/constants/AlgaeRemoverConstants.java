@@ -15,7 +15,7 @@ public record AlgaeRemoverConstants(
 ) {
     public static final AlgaeRemoverConstants DEFAULT = new AlgaeRemoverConstants(
         12,     // pivotMotorID
-        2,    // kP
+        1,    // kP
         0,   // kI
         0,  // kD
         5.0,    // maxAcceleration
@@ -41,6 +41,6 @@ public record AlgaeRemoverConstants(
         double kV,
         double kA
     ) {
-        public static final FeedforwardConstants DEFAULT = new FeedforwardConstants(0.0, 0, 0.0, 0.0);
+        public static final FeedforwardConstants DEFAULT = new FeedforwardConstants(0.0, 0, 0, 0.0);
     }
 }

@@ -233,12 +233,13 @@ public class RobotContainer
       operatorController.a().onTrue(new MoveElevator(0)); //operator can zero the elevator
       operatorController.b().onTrue(new MoveElevator(0.37)); //operator can lift up the elevator
       operatorController.x().whileTrue(Commands.run(() -> Constants.LEDSystem.setYellow(), Constants.LEDSystem)); //operator can flash the lights too
-
+      operatorController.y().onTrue(new MoveElevator(0.2));
 
       driverXbox.start().whileTrue(driveRobotOrientedAngular);
 
       driverXbox.y().onTrue(new ActiveRemover());
       driverXbox.b().onTrue(new InactiveRemover());
+
       // driverXbox.leftBumper().onTrue(Commands.runOnce(() -> Constants.scaleFactor = 0.2));
       // driverXbox.leftBumper().onFalse(Commands.runOnce(() -> Constants.scaleFactor = 1));
 

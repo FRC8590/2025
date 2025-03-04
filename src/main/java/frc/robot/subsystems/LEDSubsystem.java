@@ -23,8 +23,8 @@ public class LEDSubsystem extends SubsystemBase {
   /** Creates a new LEDSubsystem. */
   
   //LED Objects
-  // private AddressableLED m_LED = new AddressableLED(Constants.LED_CONSTANTS.LEDPort());
-  // private AddressableLEDBuffer m_LEDBuffer = new AddressableLEDBuffer(Constants.LED_CONSTANTS.length());
+  private AddressableLED m_LED = new AddressableLED(Constants.LED_CONSTANTS.LEDPort());
+  private AddressableLEDBuffer m_LEDBuffer = new AddressableLEDBuffer(Constants.LED_CONSTANTS.length());
   private LEDPattern desiredPattern = LEDPattern.solid(Color.kRed);
 
   public String currentColor;
@@ -41,9 +41,9 @@ public class LEDSubsystem extends SubsystemBase {
   private final LEDPattern scrollingRainbow = rainbow.scrollAtAbsoluteSpeed(MetersPerSecond.of(1), kLedSpacing);
 
   public LEDSubsystem(){
-    // m_LED.setLength(m_LEDBuffer.getLength());
-    // m_LED.setData(m_LEDBuffer);
-    // m_LED.start();
+    m_LED.setLength(m_LEDBuffer.getLength());
+    m_LED.setData(m_LEDBuffer);
+    m_LED.start();
     currentColor = "black";
   
   }
@@ -72,30 +72,30 @@ public class LEDSubsystem extends SubsystemBase {
   public void periodic() {
     // This method will be called once per scheduler run
     
-    // if(desiredPattern.equals(fullYellow)){
+    if(desiredPattern.equals(fullYellow)){
 
-    //   fullYellow.applyTo(m_LEDBuffer);
-    //   m_LED.setData(m_LEDBuffer);
+      fullYellow.applyTo(m_LEDBuffer);
+      m_LED.setData(m_LEDBuffer);
 
-    // }
-    // else if(desiredPattern.equals(scrollingRainbow)){
+    }
+    else if(desiredPattern.equals(scrollingRainbow)){
 
-    //   scrollingRainbow.applyTo(m_LEDBuffer);
-    //   m_LED.setData(m_LEDBuffer);
+      scrollingRainbow.applyTo(m_LEDBuffer);
+      m_LED.setData(m_LEDBuffer);
 
-    // }
-    // else if(desiredPattern.equals(fullRed)){
+    }
+    else if(desiredPattern.equals(fullRed)){
 
-    //   fullRed.applyTo(m_LEDBuffer);
-    //   m_LED.setData(m_LEDBuffer);
+      fullRed.applyTo(m_LEDBuffer);
+      m_LED.setData(m_LEDBuffer);
 
-    // }
-    // else if(desiredPattern.equals(fullGreen)){
+    }
+    else if(desiredPattern.equals(fullGreen)){
 
-    //   fullGreen.applyTo(m_LEDBuffer);
-    //   m_LED.setData(m_LEDBuffer);
+      fullGreen.applyTo(m_LEDBuffer);
+      m_LED.setData(m_LEDBuffer);
 
-    // }
+    }
 
   }
 }
