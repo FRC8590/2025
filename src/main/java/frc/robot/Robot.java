@@ -170,6 +170,7 @@ public class Robot extends TimedRobot
   {
 
     SmartDashboard.putString("LED COLOR", Constants.LEDSystem.currentColor);
+    SmartDashboard.putBoolean("Right Camera Enabled", Constants.vision.getEnabled(1));
     
 
 
