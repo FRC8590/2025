@@ -28,7 +28,7 @@ import frc.robot.constants.AlgaeRemoverConstants;
 public class AlgaeRemover extends SubsystemBase {
   
   // Define limits in rotations/meters
-  private static final double MAX_POSITION = 0.5;  
+  private static final double MAX_POSITION = 5.5;  
   private static final double MIN_POSITION = 0.0;
   private static final double MAX_VELOCITY = 0.1;
   
@@ -153,6 +153,7 @@ public class AlgaeRemover extends SubsystemBase {
   private void setActive() {
     currentState = AlgaeRemoverState.ACTIVE;
     reachGoal(Constants.ALGAE_REMOVER_CONSTANTS.activeGoal());
+    runRemover();
   }
   
   /**
@@ -161,6 +162,7 @@ public class AlgaeRemover extends SubsystemBase {
   private void setInactive() {
     currentState = AlgaeRemoverState.INACTIVE;
     reachGoal(Constants.ALGAE_REMOVER_CONSTANTS.inactiveGoal());
+    stopRemover();
   }
   
   /**
@@ -183,7 +185,7 @@ public class AlgaeRemover extends SubsystemBase {
    */
   public Command setActiveCommand() {
     return run(this::setActive)
-        .until(() -> atPosition(Constants.ALGAE_REMOVER_CONSTANTS.activeGoal(), 0.002).getAsBoolean());
+        .until(() -> atPosition(Constants.ALGAE_REMOVER_CONSTANTS.activeGoal(), 0.1).getAsBoolean());
   }
   
   /**
@@ -192,7 +194,7 @@ public class AlgaeRemover extends SubsystemBase {
    */
   public Command setInactiveCommand() {
     return run(this::setInactive)
-        .until(() -> atPosition(Constants.ALGAE_REMOVER_CONSTANTS.inactiveGoal(), 0.002).getAsBoolean());
+        .until(() -> atPosition(Constants.ALGAE_REMOVER_CONSTANTS.inactiveGoal(), 0.1).getAsBoolean());
   }
   
   /**

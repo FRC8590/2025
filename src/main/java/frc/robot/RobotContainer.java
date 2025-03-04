@@ -236,6 +236,9 @@ public class RobotContainer
 
 
       driverXbox.start().whileTrue(driveRobotOrientedAngular);
+
+      driverXbox.y().onTrue(new ActiveRemover());
+      driverXbox.b().onTrue(new InactiveRemover());
       // driverXbox.leftBumper().onTrue(Commands.runOnce(() -> Constants.scaleFactor = 0.2));
       // driverXbox.leftBumper().onFalse(Commands.runOnce(() -> Constants.scaleFactor = 1));
 
