@@ -13,26 +13,19 @@
         {
           "type": "named",
           "data": {
-            "name": "UniversalLeftTop"
+            "name": "Three"
           }
         },
         {
-          "type": "race",
+          "type": "named",
           "data": {
-            "commands": [
-              {
-                "type": "path",
-                "data": {
-                  "pathName": "1o'clock-coral"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "ZeroElevator"
-                }
-              }
-            ]
+            "name": "ResetElevatorAndIntake"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "1o'clock-coral"
           }
         },
         {
@@ -50,26 +43,19 @@
         {
           "type": "named",
           "data": {
-            "name": "UniversalLeftBot"
+            "name": "One"
           }
         },
         {
-          "type": "race",
+          "type": "named",
           "data": {
-            "commands": [
-              {
-                "type": "path",
-                "data": {
-                  "pathName": "11o'clock-coral"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "ZeroElevator"
-                }
-              }
-            ]
+            "name": "ResetElevatorAndIntake"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "11o'clock-coral"
           }
         },
         {
@@ -87,7 +73,13 @@
         {
           "type": "named",
           "data": {
-            "name": "UniversalRightBot"
+            "name": "Two"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "ResetElevatorAndIntake"
           }
         }
       ]
