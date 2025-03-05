@@ -31,6 +31,7 @@ import frc.robot.constants.OperatorConstants;
 import frc.robot.commands.swervedrive.AlignToAprilTag;
 import frc.robot.subsystems.swervedrive.SwerveSubsystem;
 import frc.robot.subsystems.swervedrive.Vision;
+import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.Shooter.*;
 import java.io.File;
 
@@ -238,6 +239,8 @@ public class RobotContainer
       operatorController.b().onTrue(new MoveElevator(0.37)); //operator can lift up the elevator
       operatorController.x().whileTrue(Commands.run(() -> Constants.LEDSystem.setYellow(), Constants.LEDSystem)); //operator can flash the lights too
       operatorController.y().onTrue(new MoveElevator(0.2));
+      operatorController.leftBumper().whileTrue(new ScoreCoral()); //operator can intake coral
+      operatorController.rightBumper().onTrue(new StopShooter());
 
       
 
