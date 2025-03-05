@@ -38,14 +38,12 @@ public class UniversalRightTop extends SequentialCommandGroup {
   public UniversalRightTop() {
     
     addCommands(
-      new InstantCommand(()-> Constants.vision.setStatus(1, false)),
 
       new ParallelCommandGroup(
         moveToScore,
-        new MoveElevator(0.69420)
+        new MoveElevator(0.700)
       ),
-      new ScoreCoral(),
-      new InstantCommand(()-> Constants.vision.setStatus(1, true))
+      new ScoreCoral()
     );
     addRequirements(Constants.drivebase);
     addRequirements(Constants.SHOOTER);

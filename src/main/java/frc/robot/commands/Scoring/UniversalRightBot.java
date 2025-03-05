@@ -39,14 +39,11 @@ public class UniversalRightBot extends SequentialCommandGroup {
   public UniversalRightBot() {
     
     addCommands(
-      new InstantCommand(()-> Constants.vision.setStatus(1, false)),
       new ParallelCommandGroup(
         moveToScore,
         new MoveElevator(0.37)
       ),
-      new ScoreCoral(),
-      new PrintCommand("DONENENENENNENENENENEN"),
-      new InstantCommand(()-> Constants.vision.setStatus(1, true))
+      new ScoreCoral()
     );
     addRequirements(Constants.drivebase);
     addRequirements(Constants.SHOOTER);
