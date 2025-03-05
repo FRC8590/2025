@@ -16,6 +16,8 @@ import edu.wpi.first.wpilibj2.command.SelectCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.Constants;
+import frc.robot.commands.ActiveRemover;
+import frc.robot.commands.InactiveRemover;
 import frc.robot.commands.MoveElevator;
 import frc.robot.constants.ScoringConstants;
 
@@ -27,19 +29,19 @@ import java.util.Map;
 import com.fasterxml.jackson.databind.ser.std.StdKeySerializers.Default;
 
 /** Command to score a coral by ejecting it */
-public class UniversalLeftTop extends SequentialCommandGroup {
+public class UniversalLeftBotRemoveAlgae extends SequentialCommandGroup {
 
   // Define the AprilTag IDs we're interested in
   
   /**
    * Creates a new ScoreCoral command that ejects the coral
    */
-  public UniversalLeftTop() {
+  public UniversalLeftBotRemoveAlgae() {
     
     addCommands(
       new ParallelCommandGroup(
         moveToScore,
-        new MoveElevator(0.70)
+        new MoveElevator(0.37)
       ),
       new ScoreCoral()
     );

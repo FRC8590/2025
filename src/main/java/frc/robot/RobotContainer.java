@@ -220,10 +220,12 @@ public class RobotContainer
 
 
       //driver controls
-      driverXbox.leftTrigger().whileTrue(new UniversalLeftTop()); //score on the left top
-      driverXbox.rightTrigger().whileTrue(new UniversalRightTop().handleInterrupt(()-> Constants.vision.setStatus(1, true))); //score on the right top
-      driverXbox.leftBumper().whileTrue(new UniversalLeftBot()); //score on the left bottom
-      driverXbox.rightBumper().whileTrue(new UniversalRightBot().handleInterrupt(()-> Constants.vision.setStatus(1,true))); //score on the right bottom
+      driverXbox.leftTrigger().whileTrue(new UniversalLeftTopRemoveAlgae()); //score on the left top
+      driverXbox.rightTrigger().whileTrue(new UniversalRightTopRemoveAlgae().handleInterrupt(()-> Constants.vision.setStatus(1, true))); //score on the right top
+      driverXbox.leftBumper().whileTrue(new UniversalLeftBotRemoveAlgae()); //score on the left bottom
+      driverXbox.rightBumper().whileTrue(new UniversalRightBotRemoveAlgae().handleInterrupt(()-> Constants.vision.setStatus(1,true))); //score on the right bottom
+      
+      
       driverXbox.x().onTrue(new MoveElevator(0)); // reset elevator
       driverXbox.a().whileTrue(Commands.run(() -> Constants.LEDSystem.setYellow(), Constants.LEDSystem)); //flash leds yellow (to get human player's attention)
       driverXbox.povUp().onTrue(Commands.runOnce(() -> Constants.scaleFactor = 0.2)); //slow mode on back left top button (or up d-pad)
