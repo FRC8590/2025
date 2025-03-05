@@ -14,6 +14,9 @@ import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.RobotBase;
+import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
@@ -50,6 +53,14 @@ public class RobotContainer
   // Replace with CommandPS4Controller or CommandJoystick if needed
   final         CommandXboxController driverXbox = new CommandXboxController(0);
   final         CommandXboxController operatorController = new CommandXboxController(1);
+
+  //Dashboard Setup
+  SendableChooser<String> m_chooser = new SendableChooser<>();
+
+  
+
+
+
   // The robot's subsystems and commands are defined here...
   // Applies deadbands and inverts controls because joysticks
   // are back-right positive while robot
@@ -157,6 +168,18 @@ public class RobotContainer
     NamedCommands.registerCommand("UniversalRightTop", new UniversalRightTop());
     NamedCommands.registerCommand("WaitForCoralIntake", new WaitForCoralIntake());
     NamedCommands.registerCommand("ZeroElevator", new ZeroElevator());
+
+    m_chooser.setDefaultOption("Middle Exit Start (default)", "7");
+    m_chooser.addOption("4 Coral Blue Blitz Top", "1");
+    m_chooser.addOption("4 Coral Blue Blitz Bot", "2");
+    SmartDashboard.putData("Auto choices", m_chooser);
+
+    Shuffleboard.getTab("Autonomous")
+    .add("Auto Selector", m_chooser)
+    .withWidget(BuiltInWidgets.kComboBoxChooser)
+    .withPosition(0, 0)
+    .withSize(2, 1);
+
 
 
   }
@@ -276,7 +299,9 @@ public class RobotContainer
   public Command getAutonomousCommand()
   {
     // An example command will be run in autonomous
-    return Constants.drivebase.getAutonomousCommand("1");
+
+    String selectedAuto = m_chooser.getSelected();
+    return Constants.drivebase.getAutonomousCommand(selectedAuto);
   }
 
   public void setDriveMode()
