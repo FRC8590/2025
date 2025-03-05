@@ -13,13 +13,7 @@
         {
           "type": "named",
           "data": {
-            "name": "RemoveAlgae"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "UniversalLeftBot"
+            "name": "UniversalLeftTopRemoveAlgae"
           }
         }
       ]
