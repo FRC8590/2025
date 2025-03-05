@@ -3,16 +3,16 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 15.8,
-        "y": 7.3
+        "x": 16.25,
+        "y": 7.9
       },
       "prevControl": null,
       "nextControl": {
-        "x": 15.255804494003701,
-        "y": 6.797342310830518
+        "x": 15.705804494003694,
+        "y": 7.397342310830573
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Red feed"
     },
     {
       "anchor": {
@@ -25,7 +25,7 @@
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Red 1"
     }
   ],
   "rotationTargets": [],
@@ -45,7 +45,7 @@
     "rotation": -119.99999999999999
   },
   "reversed": false,
-  "folder": null,
+  "folder": "Red Side Paths",
   "idealStartingState": {
     "velocity": 0,
     "rotation": -125.00000000000001

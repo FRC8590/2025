@@ -8,24 +8,24 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.72446195280027,
-        "y": 1.6279643517378375
+        "x": 2.8162558673746263,
+        "y": 1.653964963826669
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Blue 7"
     },
     {
       "anchor": {
-        "x": 1.775,
-        "y": 0.75
+        "x": 1.39,
+        "y": 0.2
       },
       "prevControl": {
-        "x": 3.0227551952435814,
-        "y": 1.8707833941554188
+        "x": 2.495369940043651,
+        "y": 1.242841053365799
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "feed Lower"
     }
   ],
   "rotationTargets": [],

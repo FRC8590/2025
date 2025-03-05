@@ -49,6 +49,7 @@ public class RobotContainer
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
   final         CommandXboxController driverXbox = new CommandXboxController(0);
+  final         CommandXboxController operatorController = new CommandXboxController(1);
   // The robot's subsystems and commands are defined here...
   // Applies deadbands and inverts controls because joysticks
   // are back-right positive while robot
@@ -217,17 +218,30 @@ public class RobotContainer
       // driverXbox.x().whileTrue(new Three());
       // driverXbox.y().whileTrue(new Four());
 
-      driverXbox.leftTrigger().whileTrue(new UniversalLeftTop());
-      driverXbox.rightTrigger().whileTrue(new UniversalRightTop());
-      driverXbox.leftBumper().whileTrue(new UniversalLeftBot());
-      driverXbox.rightBumper().whileTrue(new UniversalRightBot());
 
+      //driver controls
+      driverXbox.leftTrigger().whileTrue(new UniversalLeftTop()); //score on the left top
+      driverXbox.rightTrigger().whileTrue(new UniversalRightTop().handleInterrupt(()-> Constants.vision.setStatus(1, true))); //score on the right top
+      driverXbox.leftBumper().whileTrue(new UniversalLeftBot()); //score on the left bottom
+      driverXbox.rightBumper().whileTrue(new UniversalRightBot().handleInterrupt(()-> Constants.vision.setStatus(1,true))); //score on the right bottom
+      driverXbox.x().onTrue(new MoveElevator(0)); // reset elevator
+      driverXbox.a().whileTrue(Commands.run(() -> Constants.LEDSystem.setYellow(), Constants.LEDSystem)); //flash leds yellow (to get human player's attention)
+      driverXbox.povUp().onTrue(Commands.runOnce(() -> Constants.scaleFactor = 0.2)); //slow mode on back left top button (or up d-pad)
+      driverXbox.povUp().onFalse(Commands.runOnce(() -> Constants.scaleFactor = 1)); //slow mode on back left top button (or up d-pad)
+      driverXbox.y().onTrue(new ActiveRemover()); //remove algae
+      driverXbox.y().onFalse(new InactiveRemover()); //remove algae
+      driverXbox.start().whileTrue(driveRobotOrientedAngular);//drive robot oriented (doesn't work)
 
-      driverXbox.x().onTrue(new MoveElevator(0));
+      //operator controls
+      operatorController.a().onTrue(new MoveElevator(0)); //operator can zero the elevator
+      operatorController.b().onTrue(new MoveElevator(0.37)); //operator can lift up the elevator
+      operatorController.x().whileTrue(Commands.run(() -> Constants.LEDSystem.setYellow(), Constants.LEDSystem)); //operator can flash the lights too
+      operatorController.y().onTrue(new MoveElevator(0.2));
 
-      driverXbox.leftBumper().whileTrue(Commands.run(() -> Constants.LEDSystem.setYellow(), Constants.LEDSystem));
+      
 
-      driverXbox.start().whileTrue(driveRobotOrientedAngular);
+      
+
       // driverXbox.leftBumper().onTrue(Commands.runOnce(() -> Constants.scaleFactor = 0.2));
       // driverXbox.leftBumper().onFalse(Commands.runOnce(() -> Constants.scaleFactor = 1));
 

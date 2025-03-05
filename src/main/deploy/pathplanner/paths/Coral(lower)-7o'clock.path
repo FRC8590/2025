@@ -3,16 +3,16 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.775,
-        "y": 0.75
+        "x": 1.39,
+        "y": 0.2
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.421105824226962,
-        "y": 1.3358424127025437
+        "x": 2.0361058242269623,
+        "y": 0.7858424127025436
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "feed Lower"
     },
     {
       "anchor": {
@@ -25,7 +25,7 @@
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Blue 7"
     }
   ],
   "rotationTargets": [],

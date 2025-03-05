@@ -12,20 +12,20 @@
         "y": 5.712015781922526
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Red 3"
     },
     {
       "anchor": {
-        "x": 15.85,
-        "y": 7.3
+        "x": 16.25,
+        "y": 7.9
       },
       "prevControl": {
-        "x": 15.246090387374458,
-        "y": 5.926040172166427
+        "x": 15.646090387374464,
+        "y": 6.526040172166382
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Red feed"
     }
   ],
   "rotationTargets": [],
@@ -45,7 +45,7 @@
     "rotation": -125.00000000000001
   },
   "reversed": false,
-  "folder": null,
+  "folder": "Red Side Paths",
   "idealStartingState": {
     "velocity": 0,
     "rotation": 180.0

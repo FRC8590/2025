@@ -8,11 +8,11 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 3.0809999999999995,
-        "y": 6.131
+        "x": 4.255635245901639,
+        "y": 6.06890368852459
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Blue Top"
     },
     {
       "anchor": {
@@ -20,20 +20,15 @@
         "y": 4.0
       },
       "prevControl": {
-        "x": 2.68125,
-        "y": 6.0335
+        "x": 3.1887295081967215,
+        "y": 6.06890368852459
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Blue 9"
     }
   ],
-  "rotationTargets": [
-    {
-      "waypointRelativePos": 0.6414937759336218,
-      "rotationDegrees": 0.0
-    }
-  ],
+  "rotationTargets": [],
   "constraintZones": [],
   "pointTowardsZones": [],
   "eventMarkers": [],
@@ -53,7 +48,7 @@
   "folder": "Blue Side Paths",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 179.31116232862948
+    "rotation": 180.0
   },
   "useDefaultConstraints": true
 }

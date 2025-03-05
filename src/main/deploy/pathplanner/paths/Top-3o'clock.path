@@ -8,24 +8,24 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.5325,
-        "y": 6.3065
+        "x": 6.425409836065573,
+        "y": 6.152817622950819
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Blue Top"
     },
     {
       "anchor": {
         "x": 6.19125,
-        "y": 3.966
+        "y": 4.0
       },
       "prevControl": {
         "x": 6.327750000000001,
-        "y": 4.9415
+        "y": 4.975499999999999
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Blue 3"
     }
   ],
   "rotationTargets": [],
@@ -48,7 +48,7 @@
   "folder": "Blue Side Paths",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 179.31116232862948
+    "rotation": 180.0
   },
   "useDefaultConstraints": true
 }

@@ -9,23 +9,23 @@
       "prevControl": null,
       "nextControl": {
         "x": 14.815138381063498,
-        "y": 6.227505209478819
+        "y": 6.227505209478818
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Red 1"
     },
     {
       "anchor": {
-        "x": 15.85,
-        "y": 7.3
+        "x": 16.25,
+        "y": 7.9
       },
       "prevControl": {
-        "x": 14.979414093914245,
-        "y": 6.563557968056799
+        "x": 15.379414093914242,
+        "y": 7.163557968056785
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Red feed"
     }
   ],
   "rotationTargets": [],
@@ -45,7 +45,7 @@
     "rotation": -125.00000000000001
   },
   "reversed": false,
-  "folder": null,
+  "folder": "Red Side Paths",
   "idealStartingState": {
     "velocity": 0,
     "rotation": -119.99999999999999
