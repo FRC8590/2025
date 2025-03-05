@@ -41,7 +41,7 @@ public class UniversalRightTop extends SequentialCommandGroup {
 
       new ParallelCommandGroup(
         moveToScore,
-        new MoveElevator(0.700)
+        new MoveElevator(0.7000)
       ),
       new ScoreCoral()
     );

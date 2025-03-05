@@ -66,7 +66,7 @@ public class Elevator extends SubsystemBase {
   /** Creates a new Elevator. */
   
   // Define limits in meters
-  private static final double MAX_HEIGHT_METERS = 0.70000;  // 10cm up
+  private static final double MAX_HEIGHT_METERS = 0.7100;  // 10cm up
   private static final double MIN_HEIGHT_METERS = 0.00001; // 10cm down
   private static final double MAX_VELOCITY_METERS = 3; // ~0.5 inches per second
 
