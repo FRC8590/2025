@@ -13,13 +13,7 @@
         {
           "type": "named",
           "data": {
-            "name": "RemoveAlgae"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "UniversalLeftBot"
+            "name": "UniversalLeftTopRemoveAlgae"
           }
         },
         {
@@ -56,7 +50,7 @@
         {
           "type": "named",
           "data": {
-            "name": "UniversalRightBot"
+            "name": "UniversalRightTop"
           }
         },
         {
@@ -87,7 +81,7 @@
         {
           "type": "named",
           "data": {
-            "name": "UniversalLeftTop"
+            "name": "UniversalLeftBot"
           }
         }
       ]
