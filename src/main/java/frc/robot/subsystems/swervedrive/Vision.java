@@ -419,14 +419,14 @@ public class Vision
      VecBuilder.fill(4, 4, 8), VecBuilder.fill(4, 4, 8)),
 
     RIGHT_CAM("right",
-              new Rotation3d(0, 0, Units.degreesToRadians(5)),
+              new Rotation3d(0, 0, Units.degreesToRadians(0)),
               new Translation3d(Units.inchesToMeters(-11),
                                 Units.inchesToMeters(10),
                                 Units.inchesToMeters(9.5)),
               VecBuilder.fill(4, 4, 8), VecBuilder.fill(4, 4, 8)),
 
     LEFT_CAM("left",
-              new Rotation3d(0, 0, Units.degreesToRadians(31)),
+              new Rotation3d(0, 0, Units.degreesToRadians(35)),
               new Translation3d(Units.inchesToMeters(-15.5),
                                 Units.inchesToMeters(2.5),
                                 Units.inchesToMeters(14)),

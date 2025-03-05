@@ -49,16 +49,16 @@ public class AutoAlignment extends SequentialCommandGroup {
             new ProfiledPIDController(4, 0, 0, 
                 new TrapezoidProfile.Constraints(3, 6))); 
         smallHolonomicDriveController = new HolonomicDriveController(
-                new PIDController(10, 0, 0),  // X controller 
-                new PIDController(15, 0, 0),  // Y controller - increased P, added I and D terms
+                new PIDController(13, 0, 0),  // X controller 
+                new PIDController(13, 0, 0),  // Y controller - increased P, added I and D terms
                 new ProfiledPIDController(10, 0, 0, 
                         new TrapezoidProfile.Constraints(3, 6))); 
             
 
             
         // Tighter tolerance for Y direction
-        smallHolonomicDriveController.setTolerance(new Pose2d(0.01, 0.01, Rotation2d.fromDegrees(1)));
-        roughHolonomicDriveController.setTolerance(new Pose2d(0.05, 0.05, Rotation2d.fromDegrees(1)));
+        smallHolonomicDriveController.setTolerance(new Pose2d(0.02, 0.02, Rotation2d.fromDegrees(1)));
+        roughHolonomicDriveController.setTolerance(new Pose2d(0.15, 0.15, Rotation2d.fromDegrees(1)));
 
         final Command
                 pathFindToTargetRough = AutoBuilder.pathfindToPose(targetPose, constraints, 0),
