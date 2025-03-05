@@ -22,7 +22,25 @@ public record ScoringConstants(
     Pose2d left21,
 
     Pose2d right22, 
-    Pose2d left22
+    Pose2d left22,
+
+    Pose2d right6,
+    Pose2d left6,
+
+    Pose2d right7,
+    Pose2d left7,
+
+    Pose2d right8,
+    Pose2d left8,
+
+    Pose2d right9,
+    Pose2d left9,
+
+    Pose2d right10,
+    Pose2d left10,
+
+    Pose2d right11,
+    Pose2d left11
 
 ) {
 
@@ -49,7 +67,31 @@ public record ScoringConstants(
 
         //22
         new Pose2d(new Translation2d(5.56, 3.14), new Rotation2d(Units.degreesToRadians(123))), //done
-        new Pose2d(new Translation2d(5.06, 3.00), new Rotation2d(Units.degreesToRadians(120.4))) //done
+        new Pose2d(new Translation2d(5.06, 3.00), new Rotation2d(Units.degreesToRadians(120.4))), //done
+
+        //6
+        new Pose2d(new Translation2d(0, 0), new Rotation2d(Units.degreesToRadians(0))), //done
+        new Pose2d(new Translation2d(0, 0), new Rotation2d(Units.degreesToRadians(0))), 
+
+        //7
+        new Pose2d(new Translation2d(0, 0), new Rotation2d(Units.degreesToRadians(0))), //done
+        new Pose2d(new Translation2d(0, 0), new Rotation2d(Units.degreesToRadians(0))), 
+
+        //8
+        new Pose2d(new Translation2d(0, 0), new Rotation2d(Units.degreesToRadians(0))), //done
+        new Pose2d(new Translation2d(0, 0), new Rotation2d(Units.degreesToRadians(0))), 
+
+        //9
+        new Pose2d(new Translation2d(0, 0), new Rotation2d(Units.degreesToRadians(0))), //done
+        new Pose2d(new Translation2d(0, 0), new Rotation2d(Units.degreesToRadians(0))), //done
+
+        //10
+        new Pose2d(new Translation2d(0, 0), new Rotation2d(Units.degreesToRadians(0))), //done
+        new Pose2d(new Translation2d(0, 0), new Rotation2d(Units.degreesToRadians(0))), //done
+
+        //11
+        new Pose2d(new Translation2d(0, 0), new Rotation2d(Units.degreesToRadians(0))), //done
+        new Pose2d(new Translation2d(0, 0), new Rotation2d(Units.degreesToRadians(0))) //done
 
     );
 } 
