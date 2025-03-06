@@ -36,6 +36,8 @@ import frc.robot.subsystems.Shooter.*;
 import java.io.File;
 
 import frc.robot.commands.*;
+import frc.robot.commands.Algae.RemoveBotAlgae;
+import frc.robot.commands.Algae.RemoveTopAlgae;
 
 import org.photonvision.targeting.PhotonPipelineResult;
 
@@ -241,7 +243,10 @@ public class RobotContainer
       operatorController.y().onTrue(new MoveElevator(0.7));
       operatorController.leftBumper().whileTrue(new ScoreCoral()); //operator can intake coral
       operatorController.rightBumper().onTrue(new StopShooter());
-      
+
+      operatorController.leftTrigger().whileTrue(new RemoveBotAlgae()); //operator can remove algae
+      operatorController.rightTrigger().whileTrue(new RemoveTopAlgae()); //operator can remove algae
+
 
       // driverXbox.leftBumper().onTrue(Commands.runOnce(() -> Constants.scaleFactor = 0.2));
       // driverXbox.leftBumper().onFalse(Commands.runOnce(() -> Constants.scaleFactor = 1));
