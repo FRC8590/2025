@@ -185,7 +185,7 @@ public class AlgaeRemover extends SubsystemBase {
    */
   public Command setActiveCommand() {
     return run(this::setActive)
-        .until(() -> atPosition(Constants.ALGAE_REMOVER_CONSTANTS.activeGoal(), 0.1).getAsBoolean());
+        .until(() -> atPosition(Constants.ALGAE_REMOVER_CONSTANTS.activeGoal(), 0.1).getAsBoolean()).finallyDo(() -> setInactiveCommand());
   }
   
   /**
