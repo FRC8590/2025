@@ -42,7 +42,7 @@ public class AutoLeftBotRemoveAlgae extends SequentialCommandGroup {
     
     addCommands(
       new RemoveBotAlgae(),
-      new MoveElevator(0.37),
+      new MoveElevator(0.7),
       new ScoreCoral()
 
     );
