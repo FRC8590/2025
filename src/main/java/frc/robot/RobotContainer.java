@@ -40,6 +40,8 @@ import frc.robot.commands.Algae.RemoveBotAlgae;
 import frc.robot.commands.Algae.RemoveTopAlgae;
 import frc.robot.commands.Auto.AutoLeftBotRemoveAlgae;
 import frc.robot.commands.Auto.AutoLeftTopRemoveAlgae;
+import frc.robot.commands.Auto.AutoRightBotRemoveAlgae;
+import frc.robot.commands.Auto.AutoRightTopRemoveAlgae;
 
 import org.photonvision.targeting.PhotonPipelineResult;
 
@@ -161,6 +163,12 @@ public class RobotContainer
     NamedCommands.registerCommand("UniversalLeftBot", new UniversalLeftBot());
     NamedCommands.registerCommand("UniversalLeftTop", new UniversalLeftTop());
     NamedCommands.registerCommand("UniversalRightTop", new UniversalRightTop());
+
+    NamedCommands.registerCommand("UniversalLeftBotRemoveAlgae", new AutoLeftBotRemoveAlgae());
+    NamedCommands.registerCommand("UniversalRightTopRemoveAlgae", new AutoRightTopRemoveAlgae());
+    NamedCommands.registerCommand("UniversalRightBotRemoveAlgae", new AutoRightBotRemoveAlgae());
+    NamedCommands.registerCommand("UniversalLeftTopRemoveAlgae", new AutoLeftTopRemoveAlgae());
+
     NamedCommands.registerCommand("WaitForCoralIntake", new WaitForCoralIntake());
     NamedCommands.registerCommand("ZeroElevator", new ZeroElevator());
 
@@ -232,6 +240,7 @@ public class RobotContainer
       driverXbox.rightBumper().whileTrue(new UniversalRightBot()); //score on the right bottom
       driverXbox.x().onTrue(new MoveElevator(0)); // reset elevator
       driverXbox.a().whileTrue(Commands.run(() -> Constants.LEDSystem.setYellow(), Constants.LEDSystem)); //flash leds yellow (to get human player's attention)
+      driverXbox.b().whileTrue(new ScoreCoral());
       driverXbox.povUp().onTrue(Commands.runOnce(() -> Constants.scaleFactor = 0.2)); //slow mode on back left top button (or up d-pad)
       driverXbox.povUp().onFalse(Commands.runOnce(() -> Constants.scaleFactor = 1)); //slow mode on back left top button (or up d-pad)
 

@@ -63,6 +63,8 @@ import frc.robot.Constants.ElevatorState;
 import com.revrobotics.spark.ClosedLoopSlot;
 import java.util.function.BooleanSupplier;
 
+import org.dyn4j.exception.SameObjectException;
+
 public class Elevator extends SubsystemBase {
   /** Creates a new Elevator. */
   
@@ -84,6 +86,8 @@ public class Elevator extends SubsystemBase {
   private final SparkClosedLoopController closedLoopController;
   private ElevatorState currState = ElevatorState.DISABLED;
   private double setpoint = 0.0;
+
+  private double goalMeters;
 
   ShuffleboardTab tab;
 
@@ -230,13 +234,14 @@ public class Elevator extends SubsystemBase {
    * @return {@link edu.wpi.first.wpilibj2.command.Command}
    */
   public Command setGoal(double goalMeters) {
-    if(atHeight(goalMeters, 0.1).getAsBoolean() && goalMeters !=0){
-      return new PrintCommand("");
-    }
-    else{
+    // if(atHeight(goalMeters, 0.1).getAsBoolean()){
+    //   return new PrintCommand("");
+    // }
+    // else{
+      this.goalMeters = goalMeters;
       return run(() -> reachGoal(goalMeters))
       .until(() -> atHeight(goalMeters, 0.01).getAsBoolean()); // Stop when at target with 2mm tolerance
-    }
+    // }
   }
 
   
@@ -282,16 +287,19 @@ public class Elevator extends SubsystemBase {
    * Prints data to Smart Dashboard with values in meters
    */
   public void log() {
-    SmartDashboard.putNumber("Elevator Position (m)", getElevatorHeightEncoder());
-    SmartDashboard.putNumber("Elevator Velocity (m/s)", getElevatorVelocity());
-    SmartDashboard.putNumber("Elevator Setpoint (m)", setpoint);
-    SmartDashboard.putNumber("Elevator Error (m)", setpoint - getElevatorHeightEncoder());
-    SmartDashboard.putString("Elevator State", getState());
-    SmartDashboard.putNumber("Motor Output", elevatorMaster.getAppliedOutput());
-    SmartDashboard.putBoolean("At Min Limit", atMin.getAsBoolean());
-    SmartDashboard.putBoolean("At Max Limit", atMax.getAsBoolean());
-    SmartDashboard.putNumber("Current Pulled", elevatorMaster.getOutputCurrent());
-    SmartDashboard.putNumber("distance in meters", getElevatorHeightLaser());
+    // SmartDashboard.putNumber("Elevator Position (m)", getElevatorHeightEncoder());
+    // SmartDashboard.putNumber("Elevator Velocity (m/s)", getElevatorVelocity());
+    // SmartDashboard.putNumber("Elevator Setpoint (m)", setpoint);
+    // SmartDashboard.putNumber("Elevator Error (m)", setpoint - getElevatorHeightEncoder());
+    // SmartDashboard.putString("Elevator State", getState());
+    // SmartDashboard.putNumber("Motor Output", elevatorMaster.getAppliedOutput());
+    // SmartDashboard.putBoolean("At Min Limit", atMin.getAsBoolean());
+    // SmartDashboard.putBoolean("At Max Limit", atMax.getAsBoolean());
+    // SmartDashboard.putNumber("Current Pulled", elevatorMaster.getOutputCurrent());
+    // SmartDashboard.putNumber("distance in meters", getElevatorHeightLaser());
+    SmartDashboard.putNumber("GOAL METERS", goalMeters);
+    SmartDashboard.putNumber("current POSITION", getElevatorHeightEncoder());
+    SmartDashboard.putBoolean("AT HEIGH", atHeight(goalMeters, 0.1).getAsBoolean());
 
   }
 
