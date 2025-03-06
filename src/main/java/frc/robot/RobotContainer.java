@@ -164,6 +164,9 @@ public class RobotContainer
     NamedCommands.registerCommand("UniversalLeftTop", new UniversalLeftTop());
     NamedCommands.registerCommand("UniversalRightTop", new UniversalRightTop());
 
+    NamedCommands.registerCommand("RemoveBotAlgae", new RemoveBotAlgae());
+    NamedCommands.registerCommand("RemoveTopAlgae", new RemoveTopAlgae());
+
     NamedCommands.registerCommand("UniversalLeftBotRemoveAlgae", new AutoLeftBotRemoveAlgae());
     NamedCommands.registerCommand("UniversalRightTopRemoveAlgae", new AutoRightTopRemoveAlgae());
     NamedCommands.registerCommand("UniversalRightBotRemoveAlgae", new AutoRightBotRemoveAlgae());
