@@ -41,7 +41,7 @@ public class RemoveTopAlgae extends SequentialCommandGroup {
     addCommands(
       new ParallelCommandGroup(
         moveToScore,
-        new MoveElevator(0.5),
+        new MoveElevator(0.7),
         new SequentialCommandGroup(
             new ActiveRemover(),
             new WaitCommand(3),

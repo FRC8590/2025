@@ -41,7 +41,7 @@ public class RemoveBotAlgae extends SequentialCommandGroup {
     addCommands(
       new ParallelCommandGroup(
         moveToScore,
-        new MoveElevator(0.3),
+        new MoveElevator(0.37),
         new SequentialCommandGroup(
             new ActiveRemover(),
             new WaitCommand(3),

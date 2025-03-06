@@ -239,7 +239,8 @@ public class RobotContainer
       driverXbox.y().onFalse(new InactiveRemover()); //remove algae
       driverXbox.start().whileTrue(driveRobotOrientedAngular);//drive robot oriented (doesn't work)
 
-      driverXbox.povDown().whileTrue(new AutoLeftTopRemoveAlgae());
+      driverXbox.povLeft().whileTrue(new AutoLeftTopRemoveAlgae());
+      driverXbox.povRight().whileTrue(new AutoLeftBotRemoveAlgae());
 
       //operator controls
       operatorController.a().onTrue(new MoveElevator(0)); //operator can zero the elevator
