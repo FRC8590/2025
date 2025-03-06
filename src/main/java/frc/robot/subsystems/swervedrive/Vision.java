@@ -442,10 +442,10 @@ public class Vision
      *
      */
     FRONT_CAM("center",
-     new Rotation3d(0, 0, Units.degreesToRadians(0)),
+     new Rotation3d(0, Units.degreesToRadians(10), Units.degreesToRadians(0)),
      new Translation3d(Units.inchesToMeters(10.25),
                        Units.inchesToMeters(1),
-                       Units.inchesToMeters(7.75)),
+                       Units.inchesToMeters(8.5)),
                        VecBuilder.fill(4, 4, 8), VecBuilder.fill(4, 4, 8), true),
 
     RIGHT_CAM("right",
