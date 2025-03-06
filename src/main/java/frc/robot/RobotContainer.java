@@ -38,6 +38,8 @@ import java.io.File;
 import frc.robot.commands.*;
 import frc.robot.commands.Algae.RemoveBotAlgae;
 import frc.robot.commands.Algae.RemoveTopAlgae;
+import frc.robot.commands.Auto.AutoLeftBotRemoveAlgae;
+import frc.robot.commands.Auto.AutoLeftTopRemoveAlgae;
 
 import org.photonvision.targeting.PhotonPipelineResult;
 
@@ -232,10 +234,12 @@ public class RobotContainer
       driverXbox.a().whileTrue(Commands.run(() -> Constants.LEDSystem.setYellow(), Constants.LEDSystem)); //flash leds yellow (to get human player's attention)
       driverXbox.povUp().onTrue(Commands.runOnce(() -> Constants.scaleFactor = 0.2)); //slow mode on back left top button (or up d-pad)
       driverXbox.povUp().onFalse(Commands.runOnce(() -> Constants.scaleFactor = 1)); //slow mode on back left top button (or up d-pad)
-      
+
       driverXbox.y().onTrue(new ActiveRemover()); //remove algae
       driverXbox.y().onFalse(new InactiveRemover()); //remove algae
       driverXbox.start().whileTrue(driveRobotOrientedAngular);//drive robot oriented (doesn't work)
+
+      driverXbox.povDown().whileTrue(new AutoLeftTopRemoveAlgae());
 
       //operator controls
       operatorController.a().onTrue(new MoveElevator(0)); //operator can zero the elevator
@@ -246,6 +250,7 @@ public class RobotContainer
       operatorController.rightBumper().onTrue(new StopShooter());
       operatorController.leftTrigger().whileTrue(new RemoveBotAlgae()); //operator can remove algae
       operatorController.rightTrigger().whileTrue(new RemoveTopAlgae()); //operator can remove algae
+      
 
 
       // driverXbox.leftBumper().onTrue(Commands.runOnce(() -> Constants.scaleFactor = 0.2));
