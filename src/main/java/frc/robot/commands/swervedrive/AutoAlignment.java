@@ -44,21 +44,21 @@ public class AutoAlignment extends SequentialCommandGroup {
     ) {
 
         roughHolonomicDriveController = new HolonomicDriveController(
-            new PIDController(5, 0, 0),  // X controller 
-            new PIDController(5, 0, 0),  // Y controller - increased P, added I and D terms
+            new PIDController(3, 0, 0),  // X controller 
+            new PIDController(3, 0, 0),  // Y controller - increased P, added I and D terms
             new ProfiledPIDController(4, 0, 0, 
                 new TrapezoidProfile.Constraints(3, 6))); 
         smallHolonomicDriveController = new HolonomicDriveController(
-                new PIDController(10, 0, 0),  // X controller 
-                new PIDController(15, 0, 0),  // Y controller - increased P, added I and D terms
-                new ProfiledPIDController(13, 0, 0, 
+                new PIDController(13, 0, 0),  // X controller 
+                new PIDController(13, 0, 0),  // Y controller - increased P, added I and D terms
+                new ProfiledPIDController(10, 0, 0, 
                         new TrapezoidProfile.Constraints(3, 6))); 
             
 
             
         // Tighter tolerance for Y direction
-        smallHolonomicDriveController.setTolerance(new Pose2d(0.005, 0.005, Rotation2d.fromDegrees(1)));
-        roughHolonomicDriveController.setTolerance(new Pose2d(0.005, 0.005, Rotation2d.fromDegrees(1)));
+        smallHolonomicDriveController.setTolerance(new Pose2d(0.02, 0.02, Rotation2d.fromDegrees(1)));
+        roughHolonomicDriveController.setTolerance(new Pose2d(0.15, 0.15, Rotation2d.fromDegrees(1)));
 
         final Command
                 pathFindToTargetRough = AutoBuilder.pathfindToPose(targetPose, constraints, 0),
@@ -94,33 +94,15 @@ public class AutoAlignment extends SequentialCommandGroup {
                                 (interrupted) ->
                                         robotRelativeSpeedsOutput.accept(new ChassisSpeeds()),
                                         smallHolonomicDriveController::atReference        
-                                ),
-                preciseAlignment2 = new FunctionalCommand(
-                        () -> {},
-                        () -> {
-                                Pose2d currentPose = robotPoseSupplier.get(); 
-                                robotRelativeSpeedsOutput.accept(smallHolonomicDriveController.calculate(
-                                        currentPose,
-                                        targetPose,
-                                        0,
-                                        targetPose.getRotation()
-                                ));
-                        },
-                        (interrupted) ->
-                                robotRelativeSpeedsOutput.accept(new ChassisSpeeds()),
-                                smallHolonomicDriveController::atReference        
-                        );
-        
+                                );
         
 
         
         // super.addCommands(new DriveToPose(targetPose));
-        super.addCommands(roughAlignment.withTimeout(2));
+        super.addCommands(roughAlignment);
         super.addCommands(new WaitCommand(0.15));
-        super.addCommands(preciseAlignment);
-
         // super.addCommands(new PrintCommand("DONEEE"));
-        super.addCommands(preciseAlignment2);
+        super.addCommands(preciseAlignment);
 
 
         super.addRequirements(driveSubsystem);

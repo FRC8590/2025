@@ -40,6 +40,7 @@ public class UniversalRightTop extends SequentialCommandGroup {
     addCommands(
 
       new ParallelCommandGroup(
+        
         moveToScore,
         new MoveElevator(0.7000)
       ),

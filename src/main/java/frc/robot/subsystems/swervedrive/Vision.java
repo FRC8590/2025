@@ -760,41 +760,19 @@ public class Vision
         {
           // One or more tags visible, run the full heuristic.
           avgDist /= numTags;
-          
-          // Check if this is a side camera and distance is greater than 1 meter
-          boolean isSideCamera = (this == Cameras.LEFT_CAM || this == Cameras.RIGHT_CAM);
-          
-          if (isSideCamera && avgDist > 1.0) {
-            // Don't trust side cameras beyond 1 meter
-            estStdDevs = VecBuilder.fill(Double.MAX_VALUE, Double.MAX_VALUE, Double.MAX_VALUE);
-          } else {
-            // For center camera or any camera within 1 meter
-            // Decrease std devs if multiple targets are visible
-            if (numTags > 1)
-            {
-              estStdDevs = multiTagStdDevs;
-            }
-            
-            // Increase std devs based on (average) distance
-            if (numTags == 1) {
-              // For single tag, scale trust based on distance
-              if (avgDist > 6) {
-                // Beyond 6 meters, don't trust single tag at all
-                estStdDevs = VecBuilder.fill(Double.MAX_VALUE, Double.MAX_VALUE, Double.MAX_VALUE);
-              } else if (avgDist > 4) {
-                // Between 4-6 meters, very low trust
-                estStdDevs = singleTagStdDevs.times(5);
-              } else if (avgDist > 2) {
-                // Between 2-4 meters, moderate trust
-                estStdDevs = singleTagStdDevs.times(1 + (avgDist - 2));
-              }
-              // Under 2 meters, use base single tag std devs
-            } else if (numTags > 1) {
-              // For multiple tags, we can trust more but still scale with distance
-              estStdDevs = multiTagStdDevs.times(1 + (avgDist * avgDist / 40));
-            }
+          // Decrease std devs if multiple targets are visible
+          if (numTags > 1)
+          {
+            estStdDevs = multiTagStdDevs;
           }
-          
+          // Increase std devs based on (average) distance
+          if (numTags == 1 && avgDist > 4)
+          {
+            estStdDevs = VecBuilder.fill(Double.MAX_VALUE, Double.MAX_VALUE, Double.MAX_VALUE);
+          } else
+          {
+            estStdDevs = estStdDevs.times(1 + (avgDist * avgDist / 30));
+          }
           curStdDevs = estStdDevs;
         }
       }

@@ -91,7 +91,7 @@ public final class Constants
 
     public static double scaleFactor = 1;
 
-    public static int[] SCORING_IDS = {17, 18, 19, 20, 21, 22};
+    public static int[] SCORING_IDS = {17, 18, 19, 20, 21, 22, 6, 7, 8, 9, 10, 11};
 
     // Constants Records
     public static final IntakeConstants INTAKE_CONSTANTS = IntakeConstants.DEFAULT;

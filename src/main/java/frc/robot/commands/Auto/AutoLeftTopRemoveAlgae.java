@@ -40,7 +40,6 @@ public class AutoLeftTopRemoveAlgae extends SequentialCommandGroup {
     
     addCommands(
       new RemoveTopAlgae(),
-      new MoveElevator(0.70),
       new ScoreCoral()
     );
     addRequirements(Constants.drivebase);

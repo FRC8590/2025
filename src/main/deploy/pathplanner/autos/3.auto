@@ -13,7 +13,7 @@
         {
           "type": "named",
           "data": {
-            "name": "UniversalLeftTopRemoveAlgae"
+            "name": "UniversalLeftBotRemoveAlgae"
           }
         },
         {
@@ -73,6 +73,12 @@
           }
         },
         {
+          "type": "named",
+          "data": {
+            "name": "WaitForCoralIntake"
+          }
+        },
+        {
           "type": "path",
           "data": {
             "pathName": "coral-11o'clock"
@@ -81,7 +87,7 @@
         {
           "type": "named",
           "data": {
-            "name": "UniversalLeftBot"
+            "name": "UniversalLeftTop"
           }
         }
       ]

@@ -20,6 +20,7 @@ import frc.robot.commands.ActiveRemover;
 import frc.robot.commands.InactiveRemover;
 import frc.robot.commands.MoveElevator;
 import frc.robot.commands.Algae.RemoveBotAlgae;
+import frc.robot.commands.Algae.RemoveTopAlgae;
 import frc.robot.commands.Scoring.ScoreCoral;
 import frc.robot.constants.ScoringConstants;
 
@@ -42,7 +43,6 @@ public class AutoLeftBotRemoveAlgae extends SequentialCommandGroup {
     
     addCommands(
       new RemoveBotAlgae(),
-      new MoveElevator(0.7),
       new ScoreCoral()
 
     );

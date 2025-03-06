@@ -4,6 +4,7 @@
 
 package frc.robot.commands.Scoring;
 
+import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.WaitUntilCommand;
 import frc.robot.Constants;
@@ -26,6 +27,7 @@ public class WaitForCoralIntake extends Command {
   @Override
   public void execute() {
     System.out.println("running");
+    Constants.drivebase.setChassisSpeeds(new ChassisSpeeds(0,0,0));
     Constants.SHOOTER.processIntakeCoral();
   }
 

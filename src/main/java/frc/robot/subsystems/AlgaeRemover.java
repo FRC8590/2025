@@ -169,7 +169,7 @@ public class AlgaeRemover extends SubsystemBase {
    * Run the remover motor
    */
   public void runRemover() {
-    removerMotor.set(-0.4);
+    removerMotor.set(-0.8);
   }
   
   /**
@@ -184,9 +184,8 @@ public class AlgaeRemover extends SubsystemBase {
    * @return Command
    */
   public Command setActiveCommand() {
-    return run(this::setActive)
-        .until(() -> atPosition(Constants.ALGAE_REMOVER_CONSTANTS.activeGoal(), 0.1).getAsBoolean()).finallyDo(() -> setInactiveCommand());
-  }
+    return run(this::setActive).withTimeout(2);
+    }
   
   /**
    * Command to set the algae remover to inactive position
