@@ -232,6 +232,7 @@ public class RobotContainer
       driverXbox.a().whileTrue(Commands.run(() -> Constants.LEDSystem.setYellow(), Constants.LEDSystem)); //flash leds yellow (to get human player's attention)
       driverXbox.povUp().onTrue(Commands.runOnce(() -> Constants.scaleFactor = 0.2)); //slow mode on back left top button (or up d-pad)
       driverXbox.povUp().onFalse(Commands.runOnce(() -> Constants.scaleFactor = 1)); //slow mode on back left top button (or up d-pad)
+      
       driverXbox.y().onTrue(new ActiveRemover()); //remove algae
       driverXbox.y().onFalse(new InactiveRemover()); //remove algae
       driverXbox.start().whileTrue(driveRobotOrientedAngular);//drive robot oriented (doesn't work)
@@ -239,11 +240,10 @@ public class RobotContainer
       //operator controls
       operatorController.a().onTrue(new MoveElevator(0)); //operator can zero the elevator
       operatorController.b().onTrue(new MoveElevator(0.37)); //operator can lift up the elevator
-      operatorController.x().whileTrue(Commands.run(() -> Constants.LEDSystem.setYellow(), Constants.LEDSystem)); //operator can flash the lights too
+      operatorController.x().onTrue(new InactiveRemover()); //stop algae remover
       operatorController.y().onTrue(new MoveElevator(0.7));
       operatorController.leftBumper().whileTrue(new ScoreCoral()); //operator can intake coral
       operatorController.rightBumper().onTrue(new StopShooter());
-
       operatorController.leftTrigger().whileTrue(new RemoveBotAlgae()); //operator can remove algae
       operatorController.rightTrigger().whileTrue(new RemoveTopAlgae()); //operator can remove algae
 
