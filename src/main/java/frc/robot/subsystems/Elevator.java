@@ -230,7 +230,7 @@ public class Elevator extends SubsystemBase {
    * @return {@link edu.wpi.first.wpilibj2.command.Command}
    */
   public Command setGoal(double goalMeters) {
-    if(atHeight(goalMeters, 0.1).getAsBoolean()){
+    if(atHeight(goalMeters, 0.1).getAsBoolean() && goalMeters !=0){
       return new PrintCommand("");
     }
     else{
