@@ -230,7 +230,7 @@ public class Elevator extends SubsystemBase {
    */
   public Command setGoal(double goalMeters) {
     return run(() -> reachGoal(goalMeters))
-        .until(() -> atHeight(goalMeters, 0.002).getAsBoolean()); // Stop when at target with 2mm tolerance
+        .until(() -> atHeight(goalMeters, 0.01).getAsBoolean()); // Stop when at target with 2mm tolerance
   }
 
   
