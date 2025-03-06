@@ -16,6 +16,8 @@ import edu.wpi.first.wpilibj2.command.SelectCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.Constants;
+import frc.robot.commands.ActiveRemover;
+import frc.robot.commands.InactiveRemover;
 import frc.robot.commands.MoveElevator;
 import frc.robot.constants.ScoringConstants;
 
@@ -27,19 +29,19 @@ import java.util.Map;
 import com.fasterxml.jackson.databind.ser.std.StdKeySerializers.Default;
 
 /** Command to score a coral by ejecting it */
-public class UniversalLeftTop extends SequentialCommandGroup {
+public class UniversalLeftBotRemoveAlgae extends SequentialCommandGroup {
 
   // Define the AprilTag IDs we're interested in
   
   /**
    * Creates a new ScoreCoral command that ejects the coral
    */
-  public UniversalLeftTop() {
+  public UniversalLeftBotRemoveAlgae() {
     
     addCommands(
       new ParallelCommandGroup(
         moveToScore,
-        new MoveElevator(0.7000)
+        new MoveElevator(0.37)
       ),
       new ScoreCoral()
     );
@@ -68,13 +70,7 @@ public class UniversalLeftTop extends SequentialCommandGroup {
               Map.entry(19, Constants.drivebase.driveToPose(Constants.SCORING_CONSTANTS.left19())),
               Map.entry(20, Constants.drivebase.driveToPose(Constants.SCORING_CONSTANTS.left20())),
               Map.entry(21, Constants.drivebase.driveToPose(Constants.SCORING_CONSTANTS.left21())),
-              Map.entry(22, Constants.drivebase.driveToPose(Constants.SCORING_CONSTANTS.left22())),
-              Map.entry(6, Constants.drivebase.driveToPose(Constants.SCORING_CONSTANTS.left6())),
-              Map.entry(7, Constants.drivebase.driveToPose(Constants.SCORING_CONSTANTS.left7())),
-              Map.entry(8, Constants.drivebase.driveToPose(Constants.SCORING_CONSTANTS.left8())),
-              Map.entry(9, Constants.drivebase.driveToPose(Constants.SCORING_CONSTANTS.left9())),
-              Map.entry(10, Constants.drivebase.driveToPose(Constants.SCORING_CONSTANTS.left10())),
-              Map.entry(11, Constants.drivebase.driveToPose(Constants.SCORING_CONSTANTS.left11()))),
+              Map.entry(22, Constants.drivebase.driveToPose(Constants.SCORING_CONSTANTS.left22()))),
           this::getClosestTag);
 }
 
