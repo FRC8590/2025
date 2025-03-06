@@ -49,6 +49,7 @@ import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.system.plant.DCMotor;
 import edu.wpi.first.math.trajectory.TrapezoidProfile.Constraints;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.PrintCommand;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
@@ -229,8 +230,13 @@ public class Elevator extends SubsystemBase {
    * @return {@link edu.wpi.first.wpilibj2.command.Command}
    */
   public Command setGoal(double goalMeters) {
-    return run(() -> reachGoal(goalMeters))
-        .until(() -> atHeight(goalMeters, 0.01).getAsBoolean()); // Stop when at target with 2mm tolerance
+    if(atHeight(goalMeters, 0.1).getAsBoolean()){
+      return new PrintCommand("");
+    }
+    else{
+      return run(() -> reachGoal(goalMeters))
+      .until(() -> atHeight(goalMeters, 0.01).getAsBoolean()); // Stop when at target with 2mm tolerance
+    }
   }
 
   
