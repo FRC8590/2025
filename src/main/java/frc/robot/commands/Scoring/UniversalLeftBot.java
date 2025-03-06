@@ -67,7 +67,13 @@ public class UniversalLeftBot extends SequentialCommandGroup {
               Map.entry(19, Constants.drivebase.driveToPose(Constants.SCORING_CONSTANTS.left19())),
               Map.entry(20, Constants.drivebase.driveToPose(Constants.SCORING_CONSTANTS.left20())),
               Map.entry(21, Constants.drivebase.driveToPose(Constants.SCORING_CONSTANTS.left21())),
-              Map.entry(22, Constants.drivebase.driveToPose(Constants.SCORING_CONSTANTS.left22()))),
+              Map.entry(22, Constants.drivebase.driveToPose(Constants.SCORING_CONSTANTS.left22())),
+              Map.entry(6, Constants.drivebase.driveToPose(Constants.SCORING_CONSTANTS.left6())),
+              Map.entry(7, Constants.drivebase.driveToPose(Constants.SCORING_CONSTANTS.left7())),
+              Map.entry(8, Constants.drivebase.driveToPose(Constants.SCORING_CONSTANTS.left8())),
+              Map.entry(9, Constants.drivebase.driveToPose(Constants.SCORING_CONSTANTS.left9())),
+              Map.entry(10, Constants.drivebase.driveToPose(Constants.SCORING_CONSTANTS.left10())),
+              Map.entry(11, Constants.drivebase.driveToPose(Constants.SCORING_CONSTANTS.left11()))),
           this::getClosestTag);
 }
 
