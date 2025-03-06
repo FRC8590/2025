@@ -446,7 +446,7 @@ public class Vision
      new Translation3d(Units.inchesToMeters(10.25),
                        Units.inchesToMeters(1),
                        Units.inchesToMeters(7.75)),
-                       VecBuilder.fill(4, 4, 8), VecBuilder.fill(0.5, 0.5, 1), true),
+                       VecBuilder.fill(4, 4, 8), VecBuilder.fill(4, 4, 8), true),
 
     RIGHT_CAM("right",
               new Rotation3d(0, 0, Units.degreesToRadians(0)),

@@ -64,18 +64,18 @@ public class UniversalRightTop extends SequentialCommandGroup {
       new SelectCommand<>(
           // Maps selector values to commands
           Map.ofEntries(
-              Map.entry(17, Constants.drivebase.driveToPose(Constants.SCORING_CONSTANTS.left17())),
-              Map.entry(18, Constants.drivebase.driveToPose(Constants.SCORING_CONSTANTS.left18())),
-              Map.entry(19, Constants.drivebase.driveToPose(Constants.SCORING_CONSTANTS.left19())),
-              Map.entry(20, Constants.drivebase.driveToPose(Constants.SCORING_CONSTANTS.left20())),
-              Map.entry(21, Constants.drivebase.driveToPose(Constants.SCORING_CONSTANTS.left21())),
-              Map.entry(22, Constants.drivebase.driveToPose(Constants.SCORING_CONSTANTS.left22())),
-              Map.entry(6, Constants.drivebase.driveToPose(Constants.SCORING_CONSTANTS.left6())),
-              Map.entry(7, Constants.drivebase.driveToPose(Constants.SCORING_CONSTANTS.left7())),
-              Map.entry(8, Constants.drivebase.driveToPose(Constants.SCORING_CONSTANTS.left8())),
-              Map.entry(9, Constants.drivebase.driveToPose(Constants.SCORING_CONSTANTS.left9())),
-              Map.entry(10, Constants.drivebase.driveToPose(Constants.SCORING_CONSTANTS.left10())),
-              Map.entry(11, Constants.drivebase.driveToPose(Constants.SCORING_CONSTANTS.left11()))),
+              Map.entry(17, Constants.drivebase.driveToPose(Constants.SCORING_CONSTANTS.right17())),
+              Map.entry(18, Constants.drivebase.driveToPose(Constants.SCORING_CONSTANTS.right18())),
+              Map.entry(19, Constants.drivebase.driveToPose(Constants.SCORING_CONSTANTS.right19())),
+              Map.entry(20, Constants.drivebase.driveToPose(Constants.SCORING_CONSTANTS.right20())),
+              Map.entry(21, Constants.drivebase.driveToPose(Constants.SCORING_CONSTANTS.right21())),
+              Map.entry(22, Constants.drivebase.driveToPose(Constants.SCORING_CONSTANTS.right22())),
+              Map.entry(6, Constants.drivebase.driveToPose(Constants.SCORING_CONSTANTS.right6())),
+              Map.entry(7, Constants.drivebase.driveToPose(Constants.SCORING_CONSTANTS.right7())),
+              Map.entry(8, Constants.drivebase.driveToPose(Constants.SCORING_CONSTANTS.right8())),
+              Map.entry(9, Constants.drivebase.driveToPose(Constants.SCORING_CONSTANTS.right9())),
+              Map.entry(10, Constants.drivebase.driveToPose(Constants.SCORING_CONSTANTS.right10())),
+              Map.entry(11, Constants.drivebase.driveToPose(Constants.SCORING_CONSTANTS.right11()))),
           this::getClosestTag);
 }
 
