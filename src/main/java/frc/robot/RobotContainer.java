@@ -265,6 +265,7 @@ public class RobotContainer
 
       driverXbox.back().onTrue(Commands.runOnce(()-> Constants.drivebase.zeroGyroWithAlliance()));
       operatorController.povUp().onTrue(new RemoveTopAlgae());
+      driverXbox.povUp().whileTrue(new ScoreCoral());
       driverXbox.povDown().whileTrue(new RemoveBotAlgae());
       driverXbox.povRight().onTrue(new MoveElevator(0));
       driverXbox.povLeft().whileTrue(Commands.run(() -> Constants.LEDSystem.setYellow(), Constants.LEDSystem)); //flash leds yellow (to get human player's attention)
@@ -273,6 +274,9 @@ public class RobotContainer
 
       operatorController.rightBumper().whileTrue(new ScoreCoral());
       operatorController.leftBumper().whileTrue(new StopShooter());
+
+      operatorController.a().onTrue(new ActiveRemover());
+      operatorController.b().onTrue(new InactiveRemover());
 
 
 
