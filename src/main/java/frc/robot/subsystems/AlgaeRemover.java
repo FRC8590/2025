@@ -152,7 +152,8 @@ public class AlgaeRemover extends SubsystemBase {
    */
   private void setActive() {
     currentState = AlgaeRemoverState.ACTIVE;
-    reachGoal(Constants.ALGAE_REMOVER_CONSTANTS.activeGoal());
+    pivotMotor.set(0.15);
+    //reachGoal(Constants.ALGAE_REMOVER_CONSTANTS.activeGoal());
     runRemover();
   }
   
