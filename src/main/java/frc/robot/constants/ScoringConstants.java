@@ -53,7 +53,7 @@ public record ScoringConstants(
         new Pose2d(new Translation2d(3.29, 4.08), new Rotation2d(Units.degreesToRadians(-1))),
         //19
         new Pose2d(new Translation2d(3.48, 4.80), new Rotation2d(Units.degreesToRadians(-63))), //done
-        new Pose2d(new Translation2d(3.93, 5.09), new Rotation2d(Units.degreesToRadians(-62))),
+        new Pose2d(new Translation2d(3.85, 5.07), new Rotation2d(Units.degreesToRadians(-59.23))),
         //20
         new Pose2d(new Translation2d(4.70, 5.29), new Rotation2d(Units.degreesToRadians(-123))), //done
         new Pose2d(new Translation2d(5.13, 5.04), new Rotation2d(Units.degreesToRadians(-123))), //done
