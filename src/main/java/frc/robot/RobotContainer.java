@@ -215,7 +215,6 @@ public class RobotContainer
       // Create a default command for the shooter to always run the intake logic
       Constants.SHOOTER.setDefaultCommand(new IntakeCoral());
       Constants.LEDSystem.setDefaultCommand(new SetLED());
-      Constants.ALGAE_REMOVER.setDefaultCommand(new HoldRemoverPosition());
 
       // Update the scoring button to temporarily interrupt the default command
       // driverXbox.a().whileTrue(new ScoreCoral());
