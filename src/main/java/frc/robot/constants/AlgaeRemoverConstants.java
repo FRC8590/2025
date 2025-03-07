@@ -32,7 +32,7 @@ public record AlgaeRemoverConstants(
         double kI,
         double kD
     ) {
-        public static final PIDConstants DEFAULT = new PIDConstants(0.1, 0.01, 0.001);
+        public static final PIDConstants DEFAULT = new PIDConstants(0.6, 0, 0);
     }
     
     public record FeedforwardConstants(

@@ -12,18 +12,19 @@ import frc.robot.Constants;
 import java.util.function.BooleanSupplier;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
-public class InactiveRemover extends Command {
+public class HoldRemoverPosition extends Command {
   /** Creates a new WaitForCoralIntake. */
 
 
-  public InactiveRemover() {
+  public HoldRemoverPosition() {
     // Use addRequirements() here to declare subsystem dependencies.
+    addRequirements(Constants.ALGAE_REMOVER);
+
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    addRequirements(Constants.ALGAE_REMOVER);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -44,6 +45,6 @@ public class InactiveRemover extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return Constants.ALGAE_REMOVER.getPivotPosition() < 0;
+    return Constants.ALGAE_REMOVER.getPivotPosition() < 0.1;
   }
 }

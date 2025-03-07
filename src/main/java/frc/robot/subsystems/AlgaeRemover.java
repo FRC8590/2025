@@ -98,6 +98,8 @@ public class AlgaeRemover extends SubsystemBase {
     // Apply configurations
     pivotMotor.configure(pivotConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
     removerMotor.configure(removerConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
+
+
     
     // Zero encoder
     pivotEncoder.setPosition(0);
@@ -150,20 +152,22 @@ public class AlgaeRemover extends SubsystemBase {
   /**
    * Set the algae remover to active position
    */
-  private void setActive() {
-    currentState = AlgaeRemoverState.ACTIVE;
-    reachGoal(Constants.ALGAE_REMOVER_CONSTANTS.activeGoal());
-    runRemover();
+  public void runDown() {
+    pivotMotor.set(0.1);
   }
   
   /**
    * Set the algae remover to inactive position
    */
-  private void setInactive() {
-    currentState = AlgaeRemoverState.INACTIVE;
-    reachGoal(Constants.ALGAE_REMOVER_CONSTANTS.inactiveGoal());
-    stopRemover();
+  public void runUp() {
+    pivotMotor.set(-0.1);
   }
+
+  public void holdPosition() {
+    pivotMotor.setVoltage(0.3);
+  }
+
+
   
   /**
    * Run the remover motor
@@ -178,23 +182,12 @@ public class AlgaeRemover extends SubsystemBase {
   public void stopRemover() {
     removerMotor.set(0);
   }
-  
-  /**
-   * Command to set the algae remover to active position
-   * @return Command
-   */
-  public Command setActiveCommand() {
-    return run(this::setActive).withTimeout(2);
-    }
-  
-  /**
-   * Command to set the algae remover to inactive position
-   * @return Command
-   */
-  public Command setInactiveCommand() {
-    return run(this::setInactive)
-        .until(() -> atPosition(Constants.ALGAE_REMOVER_CONSTANTS.inactiveGoal(), 0.1).getAsBoolean());
+  public void stopPivot(){
+    pivotMotor.set(0);
   }
+  
+
+  
   
   /**
    * Command to run the remover motor
