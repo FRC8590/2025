@@ -31,6 +31,7 @@ import frc.robot.constants.OperatorConstants;
 import frc.robot.commands.swervedrive.AlignToAprilTag;
 import frc.robot.subsystems.swervedrive.SwerveSubsystem;
 import frc.robot.subsystems.swervedrive.Vision;
+import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.Shooter.*;
 import java.io.File;
@@ -85,7 +86,7 @@ public class RobotContainer
                                                                 () -> driverXbox.getLeftX() * Constants.scaleFactor)
                                                             .withControllerRotationAxis(() -> -driverXbox.getRightX() * 0.6 * Constants.scaleFactor)
                                                             .deadband(Constants.OPERATOR_CONSTANTS.deadband())
-                                                            .allianceRelativeControl(false);
+                                                            .allianceRelativeControl(true);
 
   SwerveInputStream driveRobotOriented = SwerveInputStream.of(Constants.drivebase.getSwerveDrive(),
                                                                 () -> -driverXbox.getLeftY() * Constants.scaleFactor,
@@ -94,7 +95,7 @@ public class RobotContainer
                                                             .deadband(Constants.OPERATOR_CONSTANTS.deadband())
                                                             .robotRelative(true)
                                                             .scaleTranslation(Constants.scaleFactor)
-                                                            .allianceRelativeControl(false);
+                                                            .allianceRelativeControl(true);
   
   
    /**
@@ -198,18 +199,6 @@ public class RobotContainer
     if (Robot.isSimulation())
     {
       driverXbox.start().onTrue(Commands.runOnce(() -> Constants.drivebase.resetOdometry(new Pose2d(2, 2, new Rotation2d()))));
-    }
-    if (DriverStation.isTest())
-    {
-      Constants.drivebase.setDefaultCommand(driveFieldOrientedAnglularVelocity); // Overrides drive command above!
-
-      driverXbox.b().whileTrue(Constants.drivebase.sysIdDriveMotorCommand());
-      driverXbox.x().whileTrue(new AlignToAprilTag(Constants.drivebase, driveAngularVelocity));
-      driverXbox.y().whileTrue(Constants.drivebase.driveToDistanceCommand(1.0, 0.2));
-      driverXbox.start().onTrue((Commands.runOnce(Constants.drivebase::zeroGyro)));
-      driverXbox.back().whileTrue(Constants.drivebase.centerModulesCommand());
-      driverXbox.leftBumper().onTrue(Commands.none());
-      driverXbox.rightBumper().onTrue(Commands.none());
     } else
     {
       // Create a default command for the shooter to always run the intake logic
@@ -237,38 +226,50 @@ public class RobotContainer
       // driverXbox.y().whileTrue(new Four());
 
 
-      // driver controls
+      // // driver controls
+      // driverXbox.leftTrigger().whileTrue(new UniversalLeftTop()); //score on the left top
+      // driverXbox.rightTrigger().whileTrue(new UniversalRightTop()); //score on the right top
+      // driverXbox.leftBumper().whileTrue(new UniversalLeftBot()); //score on the left bottom
+      // driverXbox.rightBumper().whileTrue(new UniversalRightBot()); //score on the right bottom
+      // driverXbox.x().onTrue(new MoveElevator(0)); // reset elevator
+      // driverXbox.a().whileTrue(Commands.run(() -> Constants.LEDSystem.setYellow(), Constants.LEDSystem)); //flash leds yellow (to get human player's attention)
+      // driverXbox.b().whileTrue(new ScoreCoral());
+      // driverXbox.povUp().onTrue(Commands.runOnce(() -> Constants.scaleFactor = 0.2)); //slow mode on back left top button (or up d-pad)
+      // driverXbox.povUp().onFalse(Commands.runOnce(() -> Constants.scaleFactor = 1)); //slow mode on back left top button (or up d-pad)
+
+      // driverXbox.y().onTrue(new ActiveRemover()); //remove algae
+      // driverXbox.y().onFalse(new InactiveRemover()); //remove algae
+
+      // // driverXbox.povLeft().whileTrue(new AutoLeftTopRemoveAlgae());
+      // // driverXbox.povRight().whileTrue(new AutoLeftBotRemoveAlgae());
+      // driverXbox.povLeft().whileTrue(driveRobotOrientedAngular);
+
+      // //operator controls
+      // operatorController.a().onTrue(new MoveElevator(0)); //operator can zero the elevator
+      // operatorController.b().onTrue(new MoveElevator(0.37)); //operator can lift up the elevator
+      // // operatorController.y().onTrue(new MoveElevator(0.7));
+      // operatorController.leftBumper().whileTrue(new ScoreCoral()); //operator can intake coral
+      // operatorController.rightBumper().onTrue(new StopShooter());
+      // operatorController.leftTrigger().whileTrue(new RemoveBotAlgae()); //operator can remove algae
+      // operatorController.rightTrigger().whileTrue(new RemoveTopAlgae()); //operator can remove algae
+    
+
+      // operatorController.x().whileTrue(new ActiveRemover()); //stop algae remover
+      // operatorController.x().onFalse(new InactiveRemover()); //stop algae remover
+
+
       driverXbox.leftTrigger().whileTrue(new UniversalLeftTop()); //score on the left top
       driverXbox.rightTrigger().whileTrue(new UniversalRightTop()); //score on the right top
       driverXbox.leftBumper().whileTrue(new UniversalLeftBot()); //score on the left bottom
       driverXbox.rightBumper().whileTrue(new UniversalRightBot()); //score on the right bottom
-      driverXbox.x().onTrue(new MoveElevator(0)); // reset elevator
-      driverXbox.a().whileTrue(Commands.run(() -> Constants.LEDSystem.setYellow(), Constants.LEDSystem)); //flash leds yellow (to get human player's attention)
+
+      driverXbox.back().onTrue(Commands.runOnce(()-> Constants.drivebase.zeroGyroWithAlliance()));
+      driverXbox.povUp().onTrue(new RemoveTopAlgae());
+      driverXbox.povDown().whileTrue(new RemoveBotAlgae());
+      driverXbox.povRight().onTrue(new MoveElevator(0));
+      driverXbox.povLeft().whileTrue(Commands.run(() -> Constants.LEDSystem.setYellow(), Constants.LEDSystem)); //flash leds yellow (to get human player's attention)
+
       driverXbox.b().whileTrue(new ScoreCoral());
-      driverXbox.povUp().onTrue(Commands.runOnce(() -> Constants.scaleFactor = 0.2)); //slow mode on back left top button (or up d-pad)
-      driverXbox.povUp().onFalse(Commands.runOnce(() -> Constants.scaleFactor = 1)); //slow mode on back left top button (or up d-pad)
-
-      driverXbox.y().onTrue(new ActiveRemover()); //remove algae
-      driverXbox.y().onFalse(new InactiveRemover()); //remove algae
-
-      // driverXbox.povLeft().whileTrue(new AutoLeftTopRemoveAlgae());
-      // driverXbox.povRight().whileTrue(new AutoLeftBotRemoveAlgae());
-      driverXbox.povLeft().whileTrue(driveRobotOrientedAngular);
-
-      //operator controls
-      operatorController.a().onTrue(new MoveElevator(0)); //operator can zero the elevator
-      operatorController.b().onTrue(new MoveElevator(0.37)); //operator can lift up the elevator
-      // operatorController.y().onTrue(new MoveElevator(0.7));
-      operatorController.leftBumper().whileTrue(new ScoreCoral()); //operator can intake coral
-      operatorController.rightBumper().onTrue(new StopShooter());
-      operatorController.leftTrigger().whileTrue(new RemoveBotAlgae()); //operator can remove algae
-      operatorController.rightTrigger().whileTrue(new RemoveTopAlgae()); //operator can remove algae
-    
-
-      operatorController.x().whileTrue(new ActiveRemover()); //stop algae remover
-      operatorController.x().onFalse(new InactiveRemover()); //stop algae remover
-
-
 
 
 
