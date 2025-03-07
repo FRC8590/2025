@@ -26,7 +26,6 @@ public class WaitForCoralIntake extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    System.out.println("running");
     Constants.drivebase.setChassisSpeeds(new ChassisSpeeds(0,0,0));
     Constants.SHOOTER.processIntakeCoral();
   }
