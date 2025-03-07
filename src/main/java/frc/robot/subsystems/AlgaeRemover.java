@@ -28,9 +28,14 @@ import frc.robot.constants.AlgaeRemoverConstants;
 public class AlgaeRemover extends SubsystemBase {
   
   // Define limits in rotations/meters
-  private static final double MAX_POSITION = 5.5;  
-  private static final double MIN_POSITION = 0.0;
+  private static final double EXTENDED_POSITION = 5.0;  // Down position
+  private static final double RETRACTED_POSITION = 0.0; // Up position
   private static final double MAX_VELOCITY = 0.1;
+  
+  // Motor speeds for manual control
+  private static final double UP_POWER = 0.4;    // More power needed against gravity
+  private static final double DOWN_POWER = 0.1;  // Less power needed with gravity
+  private static final double HOLD_POWER = 0.15; // Power to hold position
   
   private final SparkMax pivotMotor;
   private final SparkMax removerMotor;
@@ -48,13 +53,15 @@ public class AlgaeRemover extends SubsystemBase {
   
   // Triggers for position limits
   public final Trigger atMin = new Trigger(() -> 
-      getPivotPosition() <= MIN_POSITION + 0.001);
+      getPivotPosition() <= RETRACTED_POSITION + 0.001);
 
   public final Trigger atMax = new Trigger(() -> 
-      getPivotPosition() >= MAX_POSITION - 0.001);
+      getPivotPosition() >= EXTENDED_POSITION - 0.001);
       
   // Feedforward for gravity compensation
   private final ElevatorFeedforward feedforward;
+
+  private boolean isExtended = false;
 
   /** Creates a new AlgaeRemoverSubsystem. */
   public AlgaeRemover() {
@@ -72,11 +79,11 @@ public class AlgaeRemover extends SubsystemBase {
         AlgaeRemoverConstants.FeedforwardConstants.DEFAULT.kA()
     );
     
-    // Configure pivot motor
+    // Configure pivot motor - update for holding position
     SparkMaxConfig pivotConfig = new SparkMaxConfig();
     pivotConfig
         .inverted(true)
-        .idleMode(IdleMode.kBrake)
+        .idleMode(IdleMode.kBrake)  // Important for holding position
         .smartCurrentLimit(35)
         .closedLoopRampRate(Constants.ALGAE_REMOVER_CONSTANTS.rampRate());
     
@@ -112,7 +119,7 @@ public class AlgaeRemover extends SubsystemBase {
     double currentPos = getPivotPosition();
     
     // Bound goal to valid range
-    goalPosition = MathUtil.clamp(goalPosition, MIN_POSITION, MAX_POSITION);
+    goalPosition = MathUtil.clamp(goalPosition, RETRACTED_POSITION, EXTENDED_POSITION);
     
     setpoint = goalPosition;
     
@@ -186,7 +193,7 @@ public class AlgaeRemover extends SubsystemBase {
    */
   public Command setActiveCommand() {
     return run(this::setActive)
-        .until(() -> atPosition(Constants.ALGAE_REMOVER_CONSTANTS.activeGoal(), 0.1).getAsBoolean()).finallyDo(() -> setInactiveCommand());
+        .until(() -> atPosition(EXTENDED_POSITION, 0.1).getAsBoolean()).finallyDo(() -> setInactiveCommand());
   }
   
   /**
@@ -195,7 +202,7 @@ public class AlgaeRemover extends SubsystemBase {
    */
   public Command setInactiveCommand() {
     return run(this::setInactive)
-        .until(() -> atPosition(Constants.ALGAE_REMOVER_CONSTANTS.inactiveGoal(), 0.1).getAsBoolean());
+        .until(() -> atPosition(RETRACTED_POSITION, 0.1).getAsBoolean());
   }
   
   /**
@@ -250,7 +257,41 @@ public class AlgaeRemover extends SubsystemBase {
 
   @Override
   public void periodic() {
-    // This method will be called once per scheduler run
+    // Position holding logic
+    if (!isExtended && atMin.getAsBoolean()) {
+      // Hold at top position
+      pivotMotor.set(HOLD_POWER);
+    } else if (isExtended && atMax.getAsBoolean()) {
+      // Let gravity help hold at bottom
+      pivotMotor.set(0);
+    }
+    
     log();
+  }
+
+  /**
+   * Toggle the algae remover between extended and retracted positions
+   */
+  public void toggle() {
+    if (isExtended) {
+      // If extended, retract (move up)
+      pivotMotor.set(UP_POWER);
+      stopRemover();
+      isExtended = false;
+    } else {
+      // If retracted, extend (move down)
+      pivotMotor.set(-DOWN_POWER);
+      runRemover();
+      isExtended = true;
+    }
+  }
+
+  /**
+   * Command to toggle the algae remover
+   * @return Command
+   */
+  public Command toggleCommand() {
+    return runOnce(this::toggle)
+           .until(() -> isExtended ? atMax.getAsBoolean() : atMin.getAsBoolean());
   }
 }
