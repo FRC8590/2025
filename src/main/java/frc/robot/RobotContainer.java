@@ -258,17 +258,17 @@ public class RobotContainer
       // operatorController.x().onFalse(new InactiveRemover()); //stop algae remover
 
 
-      driverXbox.leftTrigger().whileTrue(new UniversalLeftTop()); //score on the left top
-      driverXbox.rightTrigger().whileTrue(new UniversalRightTop()); //score on the right top
-      driverXbox.leftBumper().whileTrue(new UniversalLeftBot()); //score on the left bottom
-      driverXbox.rightBumper().whileTrue(new UniversalRightBot()); //score on the right bottom
+      driverXbox.povUp().whileTrue(new UniversalLeftTop()); //score on the left top
+      driverXbox.povLeft().whileTrue(new UniversalRightTop()); //score on the right top
+      driverXbox.povDown().whileTrue(new UniversalLeftBot()); //score on the left bottom
+      driverXbox.povRight().whileTrue(new UniversalRightBot()); //score on the right bottom
 
       driverXbox.back().onTrue(Commands.runOnce(()-> Constants.drivebase.zeroGyroWithAlliance()));
       operatorController.povUp().onTrue(new RemoveTopAlgae());
-      driverXbox.povUp().whileTrue(new ScoreCoral());
-      driverXbox.povDown().whileTrue(new RemoveBotAlgae());
-      driverXbox.povRight().onTrue(new MoveElevator(0));
-      driverXbox.povLeft().whileTrue(Commands.run(() -> Constants.LEDSystem.setYellow(), Constants.LEDSystem)); //flash leds yellow (to get human player's attention)
+      driverXbox.leftTrigger().whileTrue(new ScoreCoral());
+      driverXbox.leftBumper().whileTrue(new RemoveBotAlgae());
+      driverXbox.rightBumper().onTrue(new MoveElevator(0));
+      driverXbox.rightTrigger().whileTrue(Commands.run(() -> Constants.LEDSystem.setYellow(), Constants.LEDSystem)); //flash leds yellow (to get human player's attention)
 
       driverXbox.b().whileTrue(new ScoreCoral());
 
