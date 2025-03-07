@@ -19,6 +19,7 @@ import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.Constants;
 import frc.robot.commands.MoveElevator;
 import frc.robot.constants.ScoringConstants;
+import frc.robot.utils.ScoringPositionCalculator;
 
 import java.io.Console;
 import java.security.AllPermission;
@@ -65,18 +66,18 @@ public class UniversalRightTop extends SequentialCommandGroup {
       new SelectCommand<>(
           // Maps selector values to commands
           Map.ofEntries(
-              Map.entry(17, Constants.drivebase.driveToPose(Constants.SCORING_CONSTANTS.right17())),
-              Map.entry(18, Constants.drivebase.driveToPose(Constants.SCORING_CONSTANTS.right18())),
-              Map.entry(19, Constants.drivebase.driveToPose(Constants.SCORING_CONSTANTS.right19())),
-              Map.entry(20, Constants.drivebase.driveToPose(Constants.SCORING_CONSTANTS.right20())),
-              Map.entry(21, Constants.drivebase.driveToPose(Constants.SCORING_CONSTANTS.right21())),
-              Map.entry(22, Constants.drivebase.driveToPose(Constants.SCORING_CONSTANTS.right22())),
-              Map.entry(6, Constants.drivebase.driveToPose(Constants.SCORING_CONSTANTS.right6())),
-              Map.entry(7, Constants.drivebase.driveToPose(Constants.SCORING_CONSTANTS.right7())),
-              Map.entry(8, Constants.drivebase.driveToPose(Constants.SCORING_CONSTANTS.right8())),
-              Map.entry(9, Constants.drivebase.driveToPose(Constants.SCORING_CONSTANTS.right9())),
-              Map.entry(10, Constants.drivebase.driveToPose(Constants.SCORING_CONSTANTS.right10())),
-              Map.entry(11, Constants.drivebase.driveToPose(Constants.SCORING_CONSTANTS.right11()))),
+              Map.entry(17, Constants.drivebase.driveToPose(ScoringPositionCalculator.calculateScoringPosition(17, false))),
+              Map.entry(18, Constants.drivebase.driveToPose(ScoringPositionCalculator.calculateScoringPosition(18, false))),
+              Map.entry(19, Constants.drivebase.driveToPose(ScoringPositionCalculator.calculateScoringPosition(19, false))),
+              Map.entry(20, Constants.drivebase.driveToPose(ScoringPositionCalculator.calculateScoringPosition(20, false))),
+              Map.entry(21, Constants.drivebase.driveToPose(ScoringPositionCalculator.calculateScoringPosition(21, false))),
+              Map.entry(22, Constants.drivebase.driveToPose(ScoringPositionCalculator.calculateScoringPosition(22, false))),
+              Map.entry(6, Constants.drivebase.driveToPose(ScoringPositionCalculator.calculateScoringPosition(6, false))),
+              Map.entry(7, Constants.drivebase.driveToPose(ScoringPositionCalculator.calculateScoringPosition(7, false))),
+              Map.entry(8, Constants.drivebase.driveToPose(ScoringPositionCalculator.calculateScoringPosition(8, false))),
+              Map.entry(9, Constants.drivebase.driveToPose(ScoringPositionCalculator.calculateScoringPosition(9, false))),
+              Map.entry(10, Constants.drivebase.driveToPose(ScoringPositionCalculator.calculateScoringPosition(10, false))),
+              Map.entry(11, Constants.drivebase.driveToPose(ScoringPositionCalculator.calculateScoringPosition(11, false)))),
           this::getClosestTag);
 }
 
