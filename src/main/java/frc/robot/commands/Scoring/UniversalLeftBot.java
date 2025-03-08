@@ -39,7 +39,7 @@ public class UniversalLeftBot extends SequentialCommandGroup {
     addCommands(
       new ParallelCommandGroup(
         moveToScore,
-        new MoveElevator(0.33)
+        new MoveElevator(0.31)
       ),
       new ScoreCoral()
     );

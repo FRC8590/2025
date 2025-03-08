@@ -45,7 +45,6 @@ public record ScoringConstants(
 ) {
 
     public static final ScoringConstants DEFAULT = new ScoringConstants(
-    public static final ScoringConstants DEFAULT = new ScoringConstants(
         //17
         new Pose2d(new Translation2d(4.36, 2.80), new Rotation2d(Units.degreesToRadians(58.4))),
         new Pose2d(new Translation2d(3.94, 3.00), new Rotation2d(Units.degreesToRadians(60.2))),
@@ -81,6 +80,6 @@ public record ScoringConstants(
         new Pose2d(new Translation2d(11.89, 3.99), new Rotation2d(Units.degreesToRadians(1.1))),
         //11
         new Pose2d(new Translation2d(12.94, 2.81), new Rotation2d(Units.degreesToRadians(59.5))),
-        new Pose2d(new Translation2d(12.52, 2.99), new Rotation2d(Units.degreesToRadians(61.3))),
+        new Pose2d(new Translation2d(12.52, 2.99), new Rotation2d(Units.degreesToRadians(61.3)))
     );
 } 
