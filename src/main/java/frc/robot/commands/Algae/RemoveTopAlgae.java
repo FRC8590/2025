@@ -39,11 +39,15 @@ public class RemoveTopAlgae extends SequentialCommandGroup {
   public RemoveTopAlgae() {
     
     addCommands(
-      new ParallelCommandGroup(
+      new SequentialCommandGroup(
         moveToScore,
-        new MoveElevator(0.7),
-        new ActiveRemover()
-        ),
+        new ParallelCommandGroup(
+          new MoveElevator(0.7),
+          new SequentialCommandGroup(
+              new ActiveRemover()
+        )
+        )
+      ),
     new PrintCommand("Algae removed")
     );
     addRequirements(Constants.drivebase);

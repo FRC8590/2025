@@ -39,11 +39,13 @@ public class RemoveBotAlgae extends SequentialCommandGroup {
   public RemoveBotAlgae() {
     
     addCommands(
-      new ParallelCommandGroup(
+      new SequentialCommandGroup(
         moveToScore,
-        new MoveElevator(0.37),
-        new SequentialCommandGroup(
-            new ActiveRemover()
+        new ParallelCommandGroup(
+          new MoveElevator(0.37),
+          new SequentialCommandGroup(
+              new ActiveRemover()
+        )
         )
       ),
     new PrintCommand("Algae removed")
