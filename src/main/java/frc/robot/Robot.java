@@ -97,7 +97,6 @@ public class Robot extends TimedRobot
     CommandScheduler.getInstance().run();
     SmartDashboard.putBoolean("right camrea status", Constants.vision.getEnabled(1));
 
-
   }
 
   /**
@@ -173,6 +172,8 @@ public class Robot extends TimedRobot
   @Override
   public void teleopPeriodic()
   {
+
+    SmartDashboard.putBoolean("algaeee", Constants.ALGAE_REMOVER.isExtended);
 
     SmartDashboard.putString("LED COLOR", Constants.LEDSystem.currentColor);
     SmartDashboard.putBoolean("Right Camera Enabled", Constants.vision.getEnabled(1));

@@ -146,6 +146,10 @@ public class AlgaeRemover extends SubsystemBase {
    * Stop the remover motor
    */
   public void stopRemover() {
+    if(getPivotPosition() > 2){
+      removerMotor.set(-0.4);
+      return;
+    }
     removerMotor.set(0);
   }
   
@@ -220,5 +224,16 @@ public class AlgaeRemover extends SubsystemBase {
    */
   public Command toggleCommand() {
     return run(this::toggle);
+  }
+
+  public void updateState(){
+    System.out.println("UPDATED");
+    if(isExtended){
+      isExtended = false;
+    }
+    else{
+      isExtended = true;
+    }
+
   }
 }

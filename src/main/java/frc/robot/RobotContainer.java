@@ -42,6 +42,7 @@ import java.io.File;
 import frc.robot.commands.*;
 import frc.robot.commands.Algae.RemoveBotAlgae;
 import frc.robot.commands.Algae.RemoveTopAlgae;
+import frc.robot.commands.Algae.StateUpdateAlgae;
 import frc.robot.commands.Auto.AutoLeftBotRemoveAlgae;
 import frc.robot.commands.Auto.AutoLeftTopRemoveAlgae;
 import frc.robot.commands.Auto.AutoRightBotRemoveAlgae;
@@ -99,6 +100,7 @@ public class RobotContainer
                                                                 () -> driverXbox.getLeftX() * Constants.scaleFactor)
                                                             .withControllerRotationAxis(() -> -driverXbox.getRightX() * 0.6 * Constants.scaleFactor)
                                                             .deadband(Constants.OPERATOR_CONSTANTS.deadband())
+                                                            .robotRelative(false)
                                                             .allianceRelativeControl(true);
   
   SwerveInputStream driveRobotOriented = SwerveInputStream.of(Constants.drivebase.getSwerveDrive(),
@@ -107,9 +109,7 @@ public class RobotContainer
                                                             .withControllerRotationAxis(() -> -driverXbox.getRightX() * 0.6 * Constants.scaleFactor)
                                                             .deadband(Constants.OPERATOR_CONSTANTS.deadband())
                                                             .robotRelative(true)
-                                                            .scaleTranslation(Constants.scaleFactor)
-                                                            .allianceRelativeControl(true);
-  
+                                                            .scaleTranslation(Constants.scaleFactor);  
   
    /**
    * Clone's the angular velocity input stream and converts it to a fieldRelative input stream.
@@ -282,10 +282,12 @@ public class RobotContainer
       driverXbox.rightTrigger().whileTrue(Commands.run(() -> Constants.LEDSystem.setYellow(), Constants.LEDSystem)); //flash leds yellow (to get human player's attention)
 
       driverXbox.rightBumper().onTrue(new MoveElevator(0));
-      driverXbox.leftBumper().onTrue(Commands.runOnce(() -> Constants.ALGAE_REMOVER.isExtended = !Constants.ALGAE_REMOVER.isExtended));
+      driverXbox.leftBumper().whileTrue(Commands.run( () -> Constants.ALGAE_REMOVER.isExtended = true));
+      driverXbox.leftBumper().whileFalse(Commands.run( () -> Constants.ALGAE_REMOVER.isExtended = false));
 
       driverXbox.b().whileTrue(new ScoreCoral());
       driverXbox.a().whileTrue(new StopShooter());
+      driverXbox.y().whileTrue(driveRobotOrientedAngular);
 
 
       operatorController.rightBumper().whileTrue(new ScoreCoral());
@@ -293,7 +295,7 @@ public class RobotContainer
       operatorController.leftTrigger().whileTrue(new MoveElevator(Constants.ELEVATOR.getElevatorHeightEncoder() - 0.1));
       operatorController.rightTrigger().whileTrue(new MoveElevator(Constants.ELEVATOR.getElevatorHeightEncoder() + 0.1));
 
-
+      
   }
 }
 
