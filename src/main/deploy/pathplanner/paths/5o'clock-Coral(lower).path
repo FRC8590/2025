@@ -8,20 +8,20 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 4.1919236444925865,
-        "y": 1.7281643092658547
+        "x": 4.161625123710632,
+        "y": 1.9799914951628395
       },
       "isLocked": false,
       "linkedName": "Blue 5"
     },
     {
       "anchor": {
-        "x": 1.39,
-        "y": 0.2
+        "x": 0.9,
+        "y": 0.9
       },
       "prevControl": {
-        "x": 2.5340504459988598,
-        "y": 0.9620977784753639
+        "x": 2.2257055076057575,
+        "y": 1.391519127794966
       },
       "nextControl": null,
       "isLocked": false,
@@ -42,7 +42,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 55.0
+    "rotation": 52.1
   },
   "reversed": false,
   "folder": "Blue Side Paths",
