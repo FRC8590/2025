@@ -244,107 +244,33 @@ public class RobotContainer
       // Create a default command for the shooter to always run the intake logic
       Constants.SHOOTER.setDefaultCommand(new IntakeCoral());
       Constants.LEDSystem.setDefaultCommand(new SetLED());
+      Constants.ALGAE_REMOVER.setDefaultCommand(Constants.ALGAE_REMOVER.toggleCommand());
 
-      // Update the scoring button to temporarily interrupt the default command
-      // driverXbox.a().whileTrue(new ScoreCoral());
-
-      // //change to arbitrary heights and press again to return down to base
-      // driverXbox.rightBumper().onTrue(new MoveElevator(0.330)); //L2
-      // driverXbox.leftBumper().onTrue(new MoveElevator(0.330)); //L2
-
-      // driverXbox.x().onTrue(new MoveElevator(0));
-
-      // driverXbox.rightTrigger().onTrue(new MoveElevator(0.69420));
-      // driverXbox.leftTrigger().onTrue(new MoveElevator(0.69420));
       
-
-      // driverXbox.back().onTrue(Commands.runOnce(Constants.drivebase::zeroGyro));
-      // driverXbox.start().onTrue((Commands.runOnce(Constants.drivebase::zeroGyro)));
-      // driverXbox.a().whileTrue(new One());
-      // driverXbox.b().whileTrue(new Two());
-      // driverXbox.x().whileTrue(new Three());
-      // driverXbox.y().whileTrue(new Four());
-
-
-      // // driver controls
-      // driverXbox.leftTrigger().whileTrue(new UniversalLeftTop()); //score on the left top
-      // driverXbox.rightTrigger().whileTrue(new UniversalRightTop()); //score on the right top
-      // driverXbox.leftBumper().whileTrue(new UniversalLeftBot()); //score on the left bottom
-      // driverXbox.rightBumper().whileTrue(new UniversalRightBot()); //score on the right bottom
-      // driverXbox.x().onTrue(new MoveElevator(0)); // reset elevator
-      // driverXbox.a().whileTrue(Commands.run(() -> Constants.LEDSystem.setYellow(), Constants.LEDSystem)); //flash leds yellow (to get human player's attention)
-      // driverXbox.b().whileTrue(new ScoreCoral());
-      // driverXbox.povUp().onTrue(Commands.runOnce(() -> Constants.scaleFactor = 0.2)); //slow mode on back left top button (or up d-pad)
-      // driverXbox.povUp().onFalse(Commands.runOnce(() -> Constants.scaleFactor = 1)); //slow mode on back left top button (or up d-pad)
-
-      // driverXbox.y().onTrue(new ActiveRemover()); //remove algae
-      // driverXbox.y().onFalse(new InactiveRemover()); //remove algae
-
-      // // driverXbox.povLeft().whileTrue(new AutoLeftTopRemoveAlgae());
-      // // driverXbox.povRight().whileTrue(new AutoLeftBotRemoveAlgae());
-      // driverXbox.povLeft().whileTrue(driveRobotOrientedAngular);
-
-      // //operator controls
-      // operatorController.a().onTrue(new MoveElevator(0)); //operator can zero the elevator
-      // operatorController.b().onTrue(new MoveElevator(0.37)); //operator can lift up the elevator
-      // // operatorController.y().onTrue(new MoveElevator(0.7));
-      // operatorController.leftBumper().whileTrue(new ScoreCoral()); //operator can intake coral
-      // operatorController.rightBumper().onTrue(new StopShooter());
-      // operatorController.leftTrigger().whileTrue(new RemoveBotAlgae()); //operator can remove algae
-      // operatorController.rightTrigger().whileTrue(new RemoveTopAlgae()); //operator can remove algae
-    
-
-      // operatorController.x().whileTrue(new ActiveRemover()); //stop algae remover
-      // operatorController.x().onFalse(new InactiveRemover()); //stop algae remover
-
-
       driverXbox.povUp().whileTrue(new UniversalLeftTop()); //score on the left top
       driverXbox.povLeft().whileTrue(new UniversalRightTop()); //score on the right top
       driverXbox.povDown().whileTrue(new UniversalLeftBot()); //score on the left bottom
       driverXbox.povRight().whileTrue(new UniversalRightBot()); //score on the right bottom
 
       driverXbox.back().onTrue(Commands.runOnce(()-> Constants.drivebase.zeroGyroWithAlliance()));
-      operatorController.povUp().onTrue(new RemoveTopAlgae());
       driverXbox.leftTrigger().whileTrue(new ScoreCoral());
-      driverXbox.leftBumper().whileTrue(new RemoveBotAlgae());
-      driverXbox.rightBumper().onTrue(new MoveElevator(0));
       driverXbox.rightTrigger().whileTrue(Commands.run(() -> Constants.LEDSystem.setYellow(), Constants.LEDSystem)); //flash leds yellow (to get human player's attention)
 
+      driverXbox.rightBumper().onTrue(new MoveElevator(0));
+      driverXbox.leftBumper().onTrue(Commands.runOnce(() -> Constants.ALGAE_REMOVER.isExtended = !Constants.ALGAE_REMOVER.isExtended));
+
       driverXbox.b().whileTrue(new ScoreCoral());
+      driverXbox.a().whileTrue(new StopShooter());
+
 
       operatorController.rightBumper().whileTrue(new ScoreCoral());
       operatorController.leftBumper().whileTrue(new StopShooter());
-
-      operatorController.a().whileTrue(Commands.run(() -> Constants.ALGAE_REMOVER.reachGoalDown()));
-      operatorController.b().whileFalse(Commands.run(() -> Constants.ALGAE_REMOVER.reachGoalUp()));
-
+      operatorController.leftTrigger().whileTrue(new MoveElevator(Constants.ELEVATOR.getElevatorHeightEncoder() - 0.1));
+      operatorController.rightTrigger().whileTrue(new MoveElevator(Constants.ELEVATOR.getElevatorHeightEncoder() + 0.1));
 
 
-      // driverXbox.leftBumper().onTrue(Commands.runOnce(() -> Constants.scaleFactor = 0.2));
-      // driverXbox.leftBumper().onFalse(Commands.runOnce(() -> Constants.scaleFactor = 1));
-
-      // driverXbox.leftTrigger().onTrue(new UniversalLeft());
-      // driverXbox.rightTrigger().onTrue(new UniversalRight());
-
-
-   // For tag-based accuracy test, you'll need to create this command manually with measurements
-      
-      // driverXbox.rightBumper().onTrue(new MoveElevator(0));
-      // driverXbox.a().onTrue(new CameraCalibrationTest(Constants.drivebase, Constants.vision, driverXbox.getHID()));
-
-
-      // driverXbox.y().onTrue(new DriveTest(Constants.drivebase));
-      // driverXbox.a().whileTrue(new MoveElevator(0.330));
-      // driverXbox.b().whileTrue(new MoveElevator(0.69));
-      // driverXbox.x().whileTrue(new MoveElevator(0));
-      // driverXbox.leftTrigger().whileTrue(Commands.runOnce(Constants.drivebase::lock, Constants.drivebase).repeatedly());
-      // driverXbox.rightBumper().whileTrue(new IntakeCoral());
-      // driverXbox.leftBumper().whileTrue(new ScoreCoral());
-    }
-
-    // Update the X button binding to use the existing driveAngularVelocity input stream
-    // driverXbox.rightTrigger(0.3).whileTrue(new AlignToAprilTag(Constants.drivebase, driveAngularVelocity));
   }
+}
 
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.

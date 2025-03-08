@@ -61,7 +61,7 @@ public class AlgaeRemover extends SubsystemBase {
       getPivotPosition() >= EXTENDED_POSITION - 0.001);
       
   // Feedforward for gravity compensation
-  private boolean isExtended = false;
+  public boolean isExtended = false;
 
   /** Creates a new AlgaeRemoverSubsystem. */
   public AlgaeRemover() {
@@ -105,20 +105,11 @@ public class AlgaeRemover extends SubsystemBase {
    * @param goalPosition the position to maintain
    */
   public void reachGoalUp() {
-    
-
-
-    // Bound goal to valid range
-    
-    
-    
     pivotMotor.set(upController.calculate(getPivotPosition(), 0));
     stopRemover();
   }
 
   public void reachGoalDown() {
-
-    
     pivotMotor.set(upController.calculate(getPivotPosition(), 5));   
     runRemover();
  
@@ -142,23 +133,7 @@ public class AlgaeRemover extends SubsystemBase {
   }
   
 
-  /**
-   * Set the algae remover to active position
-   */
-  public void setActive() {
-    currentState = AlgaeRemoverState.ACTIVE;
-    //pivotMotor.set(0.15);
-    reachGoalDown();
-    runRemover();
-  }
-  
-  /**
-   * Set the algae remover to inactive position
-   */
-  public void setInactive() {
-    reachGoalDown();
-    stopRemover();
-  }
+ 
   
   /**
    * Run the remover motor
@@ -174,39 +149,7 @@ public class AlgaeRemover extends SubsystemBase {
     removerMotor.set(0);
   }
   
-  /**
-   * Command to set the algae remover to active position
-   * @return Command
-   */
-  public Command setActiveCommand() {
-    return run(this::setActive)
-        .until(() -> atPosition(EXTENDED_POSITION, 0.1).getAsBoolean()).finallyDo(() -> setInactiveCommand());
-  }
-  
-  /**
-   * Command to set the algae remover to inactive position
-   * @return Command
-   */
-  public Command setInactiveCommand() {
-    return run(this::setInactive)
-        .until(() -> atPosition(RETRACTED_POSITION, 0.1).getAsBoolean());
-  }
-  
-  /**
-   * Command to run the remover motor
-   * @return Command
-   */
-  public Command runRemoverCommand() {
-    return runOnce(this::runRemover);
-  }
-  
-  /**
-   * Command to stop the remover motor
-   * @return Command
-   */
-  public Command stopRemoverCommand() {
-    return runOnce(this::stopRemover);
-  }
+
   
   /**
    * A trigger for when the position is at an acceptable tolerance
@@ -252,24 +195,30 @@ public class AlgaeRemover extends SubsystemBase {
    */
   public void toggle() {
     if (isExtended) {
-      // If extended, retract (move up)
-      pivotMotor.set(UP_POWER);
-      stopRemover();
-      isExtended = false;
+      reachGoalDown();
     } else {
-      // If retracted, extend (move down)
-      pivotMotor.set(-DOWN_POWER);
-      runRemover();
-      isExtended = true;
+      reachGoalUp();
     }
   }
-
+  /**
+   * Command to toggle the algae remover
+   * @return Command
+   */
+  public Command reachGoalDownCommand() {
+    return run(this::reachGoalDown);
+  }
+  /**
+   * Command to toggle the algae remover
+   * @return Command
+   */
+  public Command reachGoalUpCommand() {
+    return runOnce(this::reachGoalUp);
+  }
   /**
    * Command to toggle the algae remover
    * @return Command
    */
   public Command toggleCommand() {
-    return runOnce(this::toggle)
-           .until(() -> isExtended ? atMax.getAsBoolean() : atMin.getAsBoolean());
+    return run(this::toggle);
   }
 }

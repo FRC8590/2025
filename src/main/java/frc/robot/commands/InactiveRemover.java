@@ -21,7 +21,7 @@ public class InactiveRemover extends SequentialCommandGroup {
    */
   public InactiveRemover() {
     addCommands(
-        Constants.ALGAE_REMOVER.setInactiveCommand()
+        Constants.ALGAE_REMOVER.reachGoalUpCommand()
     );
 
     addRequirements(Constants.ALGAE_REMOVER);
