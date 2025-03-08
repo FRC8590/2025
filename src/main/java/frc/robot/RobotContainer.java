@@ -13,6 +13,9 @@ import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.RobotBase;
+import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
@@ -45,6 +48,8 @@ import org.photonvision.targeting.PhotonPipelineResult;
 
 import swervelib.SwerveInputStream;
 
+
+
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a "declarative" paradigm, very
  * little robot logic should actually be handled in the {@link Robot} periodic methods (other than the scheduler calls).
@@ -56,6 +61,10 @@ public class RobotContainer
   // Replace with CommandPS4Controller or CommandJoystick if needed
   final         CommandXboxController driverXbox = new CommandXboxController(0);
   final         CommandXboxController operatorController = new CommandXboxController(1);
+
+  //auto list object
+  private final SendableChooser<String> m_chooser = new SendableChooser<>();
+
   // The robot's subsystems and commands are defined here...
   // Applies deadbands and inverts controls because joysticks
   // are back-right positive while robot
@@ -155,6 +164,39 @@ public class RobotContainer
     // Configure the trigger bindings
     configureBindings();
     DriverStation.silenceJoystickConnectionWarning(true);
+
+    //set up the shuffleboard tab
+    Shuffleboard.getTab("Autonomous")
+        .add("Auto Selector", m_chooser)
+        .withWidget(BuiltInWidgets.kComboBoxChooser)
+        .withPosition(0, 0)
+        .withSize(2, 1);
+
+    //set up auto and add options
+    m_chooser.setDefaultOption("3", "3");
+    m_chooser.addOption("1", "1");
+    m_chooser.addOption("2", "2");
+    m_chooser.addOption("4", "4");
+    m_chooser.addOption("5", "5");
+    m_chooser.addOption("6", "6");
+    m_chooser.addOption("7", "7");
+    m_chooser.addOption("8", "8");
+    m_chooser.addOption("9", "9");
+    m_chooser.addOption("10", "10");
+    m_chooser.addOption("11", "11");
+    m_chooser.addOption("12", "12");
+    m_chooser.addOption("13", "13");
+    m_chooser.addOption("14", "14");
+    m_chooser.addOption("15", "15");
+    m_chooser.addOption("16", "16");
+    m_chooser.addOption("17", "17");
+    m_chooser.addOption("18", "18");
+    m_chooser.addOption("19", "19");
+    m_chooser.addOption("20", "20");
+
+    
+    SmartDashboard.putData("Auto choices", m_chooser);
+  
     
     // Initialize with proper alliance orientation
     Constants.drivebase.zeroGyroWithAlliance();
@@ -312,7 +354,9 @@ public class RobotContainer
   public Command getAutonomousCommand()
   {
     // An example command will be run in autonomous
-    return Constants.drivebase.getAutonomousCommand("3");
+    String selectedAuto = m_chooser.getSelected();
+    return Constants.drivebase.getAutonomousCommand(selectedAuto);
+
   }
 
   public void setDriveMode()
