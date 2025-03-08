@@ -18,6 +18,7 @@ import com.revrobotics.spark.ClosedLoopSlot;
 
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.ElevatorFeedforward;
+import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -40,8 +41,9 @@ public class AlgaeRemover extends SubsystemBase {
   private final SparkMax pivotMotor;
   private final SparkMax removerMotor;
   private final RelativeEncoder pivotEncoder;
-  private final SparkClosedLoopController closedLoopController;
-  
+  private final PIDController downController;
+  private final PIDController upController;
+
   private double setpoint = 0.0;
   
   // State tracking
@@ -59,8 +61,6 @@ public class AlgaeRemover extends SubsystemBase {
       getPivotPosition() >= EXTENDED_POSITION - 0.001);
       
   // Feedforward for gravity compensation
-  private final ElevatorFeedforward feedforward;
-
   private boolean isExtended = false;
 
   /** Creates a new AlgaeRemoverSubsystem. */
@@ -70,37 +70,23 @@ public class AlgaeRemover extends SubsystemBase {
     removerMotor = new SparkMax(Constants.ALGAE_REMOVER_CONSTANTS.removerID(), MotorType.kBrushless);
     
     pivotEncoder = pivotMotor.getEncoder();
-    closedLoopController = pivotMotor.getClosedLoopController();
     
-    feedforward = new ElevatorFeedforward(
-        AlgaeRemoverConstants.FeedforwardConstants.DEFAULT.kS(),
-        AlgaeRemoverConstants.FeedforwardConstants.DEFAULT.kG(),
-        AlgaeRemoverConstants.FeedforwardConstants.DEFAULT.kV(),
-        AlgaeRemoverConstants.FeedforwardConstants.DEFAULT.kA()
-    );
     
     // Configure pivot motor - update for holding position
     SparkMaxConfig pivotConfig = new SparkMaxConfig();
     pivotConfig
         .inverted(true)
         .idleMode(IdleMode.kBrake)  // Important for holding position
-        .smartCurrentLimit(35)
+        .smartCurrentLimit(10)
         .closedLoopRampRate(Constants.ALGAE_REMOVER_CONSTANTS.rampRate());
     
     pivotConfig.encoder
         .positionConversionFactor(Constants.ALGAE_REMOVER_CONSTANTS.distancePerRotation());
-    
-    pivotConfig.closedLoop
-        .p(Constants.ALGAE_REMOVER_CONSTANTS.kP())
-        .i(Constants.ALGAE_REMOVER_CONSTANTS.kI())
-        .d(Constants.ALGAE_REMOVER_CONSTANTS.kD())
-        .outputRange(-1, 1);
-    
     // Configure remover motor
     SparkMaxConfig removerConfig = new SparkMaxConfig();
     removerConfig
         .idleMode(IdleMode.kBrake)
-        .smartCurrentLimit(35);
+        .smartCurrentLimit(5);
     
     // Apply configurations
     pivotMotor.configure(pivotConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
@@ -108,6 +94,9 @@ public class AlgaeRemover extends SubsystemBase {
     
     // Zero encoder
     pivotEncoder.setPosition(0);
+
+    upController = new PIDController(0.3, 0, 0);
+    downController = new PIDController(0.1, 0, 0);
   }
   
 
@@ -115,26 +104,25 @@ public class AlgaeRemover extends SubsystemBase {
    * Run control loop to reach and maintain goal position
    * @param goalPosition the position to maintain
    */
-  public void reachGoal(double goalPosition) {
-    double currentPos = getPivotPosition();
+  public void reachGoalUp() {
     
+
+
     // Bound goal to valid range
-    goalPosition = MathUtil.clamp(goalPosition, RETRACTED_POSITION, EXTENDED_POSITION);
     
-    setpoint = goalPosition;
     
-    // Add velocity limiting
-    double error = goalPosition - currentPos;
-    double maxDelta = MAX_VELOCITY; // Max change per cycle
     
-    double limitedGoal = currentPos + MathUtil.clamp(error, -maxDelta, maxDelta);
+    pivotMotor.set(upController.calculate(getPivotPosition(), 0));
+    stopRemover();
+  }
+
+  public void reachGoalDown() {
+
     
-    closedLoopController.setReference(
-        limitedGoal,
-        ControlType.kPosition,
-        ClosedLoopSlot.kSlot0,
-        AlgaeRemoverConstants.FeedforwardConstants.DEFAULT.kG() // Gravity compensation
-    );
+    pivotMotor.set(upController.calculate(getPivotPosition(), 5));   
+    runRemover();
+ 
+    
   }
   
   /**
@@ -157,19 +145,18 @@ public class AlgaeRemover extends SubsystemBase {
   /**
    * Set the algae remover to active position
    */
-  private void setActive() {
+  public void setActive() {
     currentState = AlgaeRemoverState.ACTIVE;
-    pivotMotor.set(0.15);
-    //reachGoal(Constants.ALGAE_REMOVER_CONSTANTS.activeGoal());
+    //pivotMotor.set(0.15);
+    reachGoalDown();
     runRemover();
   }
   
   /**
    * Set the algae remover to inactive position
    */
-  private void setInactive() {
-    currentState = AlgaeRemoverState.INACTIVE;
-    pivotMotor.set(-0.1);
+  public void setInactive() {
+    reachGoalDown();
     stopRemover();
   }
   
@@ -257,15 +244,6 @@ public class AlgaeRemover extends SubsystemBase {
 
   @Override
   public void periodic() {
-    // Position holding logic
-    if (!isExtended && atMin.getAsBoolean()) {
-      // Hold at top position
-      pivotMotor.set(HOLD_POWER);
-    } else if (isExtended && atMax.getAsBoolean()) {
-      // Let gravity help hold at bottom
-      pivotMotor.set(0);
-    }
-    
     log();
   }
 

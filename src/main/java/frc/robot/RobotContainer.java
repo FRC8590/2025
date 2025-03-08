@@ -273,8 +273,8 @@ public class RobotContainer
       operatorController.rightBumper().whileTrue(new ScoreCoral());
       operatorController.leftBumper().whileTrue(new StopShooter());
 
-      operatorController.a().onTrue(Constants.ALGAE_REMOVER.toggleCommand());
-      operatorController.b().onTrue(new InactiveRemover());
+      operatorController.a().whileTrue(Commands.run(() -> Constants.ALGAE_REMOVER.reachGoalDown()));
+      operatorController.b().whileFalse(Commands.run(() -> Constants.ALGAE_REMOVER.reachGoalUp()));
 
 
 
