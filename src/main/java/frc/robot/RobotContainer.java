@@ -10,7 +10,9 @@ import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.util.Units;
+import edu.wpi.first.util.sendable.Sendable;
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.RobotBase;
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
@@ -64,6 +66,7 @@ public class RobotContainer
 
   //auto list object
   private final SendableChooser<String> m_chooser = new SendableChooser<>();
+  //red or blue side object
 
   // The robot's subsystems and commands are defined here...
   // Applies deadbands and inverts controls because joysticks
@@ -88,13 +91,16 @@ public class RobotContainer
   /**
    * Converts driver input into a field-relative ChassisSpeeds that is controlled by angular velocity.
    */
+
+  
+  
   SwerveInputStream driveAngularVelocity = SwerveInputStream.of(Constants.drivebase.getSwerveDrive(),
-                                                                () -> -driverXbox.getLeftY() * Constants.scaleFactor,
-                                                                () -> -driverXbox.getLeftX() * Constants.scaleFactor)
+                                                                () -> driverXbox.getLeftY() * Constants.scaleFactor,
+                                                                () -> driverXbox.getLeftX() * Constants.scaleFactor)
                                                             .withControllerRotationAxis(() -> -driverXbox.getRightX() * 0.6 * Constants.scaleFactor)
                                                             .deadband(Constants.OPERATOR_CONSTANTS.deadband())
                                                             .allianceRelativeControl(true);
-
+  
   SwerveInputStream driveRobotOriented = SwerveInputStream.of(Constants.drivebase.getSwerveDrive(),
                                                                 () -> -driverXbox.getLeftY() * Constants.scaleFactor,
                                                                 () -> -driverXbox.getLeftX() * Constants.scaleFactor)
@@ -133,9 +139,10 @@ public class RobotContainer
 
   Command driveSetpointGen = Constants.drivebase.driveWithSetpointGeneratorFieldRelative(driveDirectAngle);
 
+
   SwerveInputStream driveAngularVelocitySim = SwerveInputStream.of(Constants.drivebase.getSwerveDrive(),
-                                                                   () -> driverXbox.getLeftY(),
-                                                                   () -> driverXbox.getLeftX())
+                                                                   () -> driverXbox.getLeftY() * getSide(), //getSide will invert if on Red side
+                                                                   () -> driverXbox.getLeftX() * getSide())
                                                                .withControllerRotationAxis(() -> -driverXbox.getRightX())
                                                                .deadband(Constants.OPERATOR_CONSTANTS.deadband())
                                                                .scaleTranslation(0.8)
@@ -171,6 +178,12 @@ public class RobotContainer
         .withWidget(BuiltInWidgets.kComboBoxChooser)
         .withPosition(0, 0)
         .withSize(2, 1);
+        
+
+    Shuffleboard.getTab("Autonomous")
+        .add("On Red Side?", true)
+        .withWidget(BuiltInWidgets.kBooleanBox)
+        .getEntry();
 
     //set up auto and add options
     m_chooser.setDefaultOption("3", "3");
@@ -194,8 +207,10 @@ public class RobotContainer
     m_chooser.addOption("19", "19");
     m_chooser.addOption("20", "20");
 
+
     
     SmartDashboard.putData("Auto choices", m_chooser);
+    
   
     
     // Initialize with proper alliance orientation
@@ -220,7 +235,17 @@ public class RobotContainer
 
   }
 
-  
+  public int getSide(){
+
+    if(DriverStation.getAlliance().isPresent() && DriverStation.getAlliance().get() == Alliance.Red){
+      return -1;
+    }
+    else{
+      return 1;
+    }
+    
+
+  }
 
   /**
    * Use this method to define your trigger->command mappings. Triggers can be created via the
