@@ -51,6 +51,8 @@ public class RemoveTopAlgae extends SequentialCommandGroup {
     new PrintCommand("Algae removed")
     );
     addRequirements(Constants.drivebase);
+
+    
     addRequirements(Constants.SHOOTER);
     addRequirements(Constants.ELEVATOR);
   }
