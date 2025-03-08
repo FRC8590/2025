@@ -98,12 +98,12 @@ public class RobotContainer
   
   
   SwerveInputStream driveAngularVelocity = SwerveInputStream.of(Constants.drivebase.getSwerveDrive(),
-                                                                () -> driverXbox.getLeftY() * getSide()* Constants.scaleFactor,
-                                                                () -> driverXbox.getLeftX() * getSide()* Constants.scaleFactor)
+                                                                () -> driverXbox.getLeftY() * getSide() * Constants.scaleFactor,
+                                                                () -> driverXbox.getLeftX() * getSide() * Constants.scaleFactor)
                                                             .withControllerRotationAxis(() -> -driverXbox.getRightX() * 0.6 * Constants.scaleFactor)
                                                             .deadband(Constants.OPERATOR_CONSTANTS.deadband())
                                                             .robotRelative(false)
-                                                            .allianceRelativeControl(true);
+                                                            .allianceRelativeControl(false);
   
   SwerveInputStream driveRobotOriented = SwerveInputStream.of(Constants.drivebase.getSwerveDrive(),
                                                                 () -> -driverXbox.getLeftY() * Constants.scaleFactor,
@@ -240,10 +240,10 @@ public class RobotContainer
   public int getSide(){
 
     if(DriverStation.getAlliance().isPresent() && DriverStation.getAlliance().get() == Alliance.Red){
-      return -1;
+      return 1;
     }
     else{
-      return 1;
+      return -1;
     }
     
 
