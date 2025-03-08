@@ -188,9 +188,10 @@ public class RobotContainer
         .getEntry();
 
     //set up auto and add options
-    m_chooser.setDefaultOption("3", "3");
+    m_chooser.setDefaultOption("21", "21");
     m_chooser.addOption("1", "1");
     m_chooser.addOption("2", "2");
+    m_chooser.addOption("3", "3");
     m_chooser.addOption("4", "4");
     m_chooser.addOption("5", "5");
     m_chooser.addOption("6", "6");
@@ -208,6 +209,9 @@ public class RobotContainer
     m_chooser.addOption("18", "18");
     m_chooser.addOption("19", "19");
     m_chooser.addOption("20", "20");
+    m_chooser.addOption("22", "22");
+    m_chooser.addOption("23", "23");
+    m_chooser.addOption("24", "24");
 
 
     
