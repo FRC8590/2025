@@ -3,37 +3,32 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 6.95175,
-        "y": 6.25
+        "x": 7.83691075884546,
+        "y": 5.0
       },
       "prevControl": null,
       "nextControl": {
-        "x": 7.081898340248963,
-        "y": 4.962577800829874
+        "x": 7.692196827182959,
+        "y": 5.203857494301242
       },
       "isLocked": false,
-      "linkedName": "Blue Top Push Out End"
+      "linkedName": "Blue Top Push Out Start"
     },
     {
       "anchor": {
-        "x": 5.353,
-        "y": 5.556
+        "x": 6.95175,
+        "y": 6.25
       },
       "prevControl": {
-        "x": 5.962266597510373,
-        "y": 5.37219917012448
+        "x": 7.096336617432937,
+        "y": 6.046052187902636
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Blue 1"
+      "linkedName": "Blue Top Push Out End"
     }
   ],
-  "rotationTargets": [
-    {
-      "waypointRelativePos": 0.5613297669086694,
-      "rotationDegrees": -82.80435468917024
-    }
-  ],
+  "rotationTargets": [],
   "constraintZones": [],
   "pointTowardsZones": [],
   "eventMarkers": [],
@@ -47,7 +42,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -119.99999999999999
+    "rotation": -55.0
   },
   "reversed": false,
   "folder": "Blue Side Paths",

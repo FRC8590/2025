@@ -3,37 +3,32 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 6.95175,
-        "y": 6.25
+        "x": 10.163,
+        "y": 5.0
       },
       "prevControl": null,
       "nextControl": {
-        "x": 7.081898340248963,
-        "y": 4.962577800829874
+        "x": 10.8039301488591,
+        "y": 5.913768656043359
       },
       "isLocked": false,
-      "linkedName": "Blue Top Push Out End"
+      "linkedName": "Red Top Push Out Start"
     },
     {
       "anchor": {
-        "x": 5.353,
-        "y": 5.556
+        "x": 11.048,
+        "y": 6.25
       },
       "prevControl": {
-        "x": 5.962266597510373,
-        "y": 5.37219917012448
+        "x": 10.781191203746038,
+        "y": 5.904393073065755
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Blue 1"
+      "linkedName": "Red Top Push Out End"
     }
   ],
-  "rotationTargets": [
-    {
-      "waypointRelativePos": 0.5613297669086694,
-      "rotationDegrees": -82.80435468917024
-    }
-  ],
+  "rotationTargets": [],
   "constraintZones": [],
   "pointTowardsZones": [],
   "eventMarkers": [],
@@ -47,13 +42,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -119.99999999999999
+    "rotation": -125.00000000000001
   },
   "reversed": false,
-  "folder": "Blue Side Paths",
+  "folder": "Red Side Paths",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": -55.0
+    "rotation": -125.00000000000001
   },
   "useDefaultConstraints": true
 }
