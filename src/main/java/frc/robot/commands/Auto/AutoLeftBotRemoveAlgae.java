@@ -10,6 +10,7 @@ import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.PrintCommand;
 import edu.wpi.first.wpilibj2.command.SelectCommand;
@@ -42,12 +43,12 @@ public class AutoLeftBotRemoveAlgae extends SequentialCommandGroup {
   public AutoLeftBotRemoveAlgae() {
     
     addCommands(
-      new RemoveBotAlgae(),
-      new ScoreCoral()
-
+      new ParallelCommandGroup(
+        moveToScore,
+        Commands.run(() -> Constants.ALGAE_REMOVER.reachGoalDown()).withTimeout(2)
+      ),
+      new MoveElevator(0.7)
     );
-    addRequirements(Constants.drivebase);
-    addRequirements(Constants.SHOOTER);
     addRequirements(Constants.ELEVATOR);
     addRequirements(Constants.ALGAE_REMOVER);
   }
