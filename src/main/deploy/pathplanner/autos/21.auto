@@ -71,18 +71,6 @@
               }
             ]
           }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "coral-11o'clock"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "UniversalLeftTopRemoveAlgae"
-          }
         }
       ]
     }

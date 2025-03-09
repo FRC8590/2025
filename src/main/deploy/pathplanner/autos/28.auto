@@ -7,13 +7,13 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Bottom-5o'clock"
+            "pathName": "RED bottom-5o'clock"
           }
         },
         {
           "type": "named",
           "data": {
-            "name": "UniversalLeftBot"
+            "name": "UniversalLeftTopRemoveAlgae"
           }
         },
         {
@@ -21,15 +21,15 @@
           "data": {
             "commands": [
               {
-                "type": "path",
-                "data": {
-                  "pathName": "5o'clock-Coral(lower)"
-                }
-              },
-              {
                 "type": "named",
                 "data": {
                   "name": "ZeroElevator"
+                }
+              },
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "RED 5o'clock-coral (bottom)"
                 }
               }
             ]
@@ -44,13 +44,13 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Coral(lower)-5o'clock"
+            "pathName": "RED coral (bottom)-5o'clock"
           }
         },
         {
           "type": "named",
           "data": {
-            "name": "UniversalRightBot"
+            "name": "UniversalRightTop"
           }
         },
         {
@@ -58,15 +58,15 @@
           "data": {
             "commands": [
               {
-                "type": "path",
-                "data": {
-                  "pathName": "5o'clock-Coral(lower)"
-                }
-              },
-              {
                 "type": "named",
                 "data": {
                   "name": "ZeroElevator"
+                }
+              },
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "RED 5o'clock-coral (bottom)"
                 }
               }
             ]

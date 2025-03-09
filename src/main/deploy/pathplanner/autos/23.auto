@@ -71,18 +71,6 @@
               }
             ]
           }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "RED coral-1o'clock"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "UniversalLeftTopRemoveAlgae"
-          }
         }
       ]
     }

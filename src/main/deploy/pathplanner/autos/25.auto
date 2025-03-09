@@ -7,13 +7,13 @@
         {
           "type": "path",
           "data": {
-            "pathName": "RED top-11o'clock"
+            "pathName": "Top-11o'clock"
           }
         },
         {
           "type": "named",
           "data": {
-            "name": "UniversalLeftTop"
+            "name": "UniversalLeftTopRemoveAlgae"
           }
         },
         {
@@ -29,7 +29,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "RED 11o'clock-Coral Wonky"
+                  "pathName": "11o'clock-coral"
                 }
               }
             ]
@@ -44,25 +44,32 @@
         {
           "type": "path",
           "data": {
-            "pathName": "RED coral-1o'clock"
+            "pathName": "coral-11o'clock"
           }
         },
         {
           "type": "named",
           "data": {
-            "name": "UniversalLeftBotRemoveAlgae"
+            "name": "UniversalRightTop"
           }
         },
         {
-          "type": "path",
+          "type": "parallel",
           "data": {
-            "pathName": "RED 1o'clock-loopdeloop"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "UniversalLeftTop"
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "ZeroElevator"
+                }
+              },
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "11o'clock-coral"
+                }
+              }
+            ]
           }
         }
       ]
