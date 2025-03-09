@@ -42,7 +42,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -127.00000000000001
+    "rotation": -128.0
   },
   "reversed": false,
   "folder": "Red Side Paths",

@@ -48,7 +48,7 @@
   "folder": "Red Side Paths",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": -127.00000000000001
+    "rotation": -128.0
   },
   "useDefaultConstraints": true
 }

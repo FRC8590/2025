@@ -4,12 +4,12 @@
     {
       "anchor": {
         "x": 16.6,
-        "y": 0.9
+        "y": 0.96
       },
       "prevControl": null,
       "nextControl": {
         "x": 17.249477693859944,
-        "y": 0.6632465916409704
+        "y": 0.7232465916409704
       },
       "isLocked": false,
       "linkedName": "Red feed lower"
@@ -48,7 +48,7 @@
   "folder": "Red Side Paths",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 127.9
+    "rotation": 125.80000000000001
   },
   "useDefaultConstraints": true
 }
