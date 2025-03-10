@@ -481,10 +481,11 @@ public class SwerveSubsystem extends SubsystemBase
 
   public Command driveToDistanceCommand(double distanceInMeters, double speedInMetersPerSecond)
   {
-    
+  
     Pose2d startingPose2d = swerveDrive.getPose();
 
-      
+    SmartDashboard.putNumber("starting pose difference", swerveDrive.getPose().getTranslation().getDistance(startingPose2d.getTranslation()));
+
     return run(() -> drive(new ChassisSpeeds(speedInMetersPerSecond, 0, 0)))
         .until(() -> swerveDrive.getPose().getTranslation().getDistance(startingPose2d.getTranslation()) >
                      distanceInMeters)

@@ -19,6 +19,7 @@ import frc.robot.Constants;
 import frc.robot.commands.ActiveRemover;
 import frc.robot.commands.InactiveRemover;
 import frc.robot.commands.MoveElevator;
+import frc.robot.commands.Scoring.ScoreCoral;
 import frc.robot.constants.ScoringConstants;
 
 import java.io.Console;
@@ -39,16 +40,11 @@ public class RemoveTopAlgae extends SequentialCommandGroup {
   public RemoveTopAlgae() {
     
     addCommands(
-      new SequentialCommandGroup(
-        moveToScore,
-        new ParallelCommandGroup(
-          new MoveElevator(0.7),
-          new SequentialCommandGroup(
-              new ActiveRemover()
-        )
-        )
-      ),
-    new PrintCommand("Algae removed")
+        // moveToScore,
+        // new ActiveRemover(),
+        // new MoveElevator(0.7),
+        // new ScoreCoral(),
+        Constants.drivebase.driveToDistanceCommand(2, 1)
     );
     addRequirements(Constants.drivebase);
 
