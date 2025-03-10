@@ -139,7 +139,7 @@ public class AlgaeRemover extends SubsystemBase {
    * Run the remover motor
    */
   public void runRemover() {
-    removerMotor.set(-0.4);
+    removerMotor.set(-0.8);
   }
   
   /**

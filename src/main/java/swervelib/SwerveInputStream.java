@@ -77,6 +77,8 @@ public class SwerveInputStream implements Supplier<ChassisSpeeds>
    * Angular velocity axis scalar value, should be between (0, 1]
    */
   private Optional<Double>          omegaAxisScale       = Optional.empty();
+
+  private boolean reallyRobotRelative = false;
   /**
    * Target to aim at.
    */
@@ -230,6 +232,8 @@ public class SwerveInputStream implements Supplier<ChassisSpeeds>
   public SwerveInputStream robotRelative(boolean enabled)
   {
     robotRelative = enabled ? Optional.of(() -> enabled) : Optional.empty();
+    reallyRobotRelative();
+    reallyRobotRelative = true;
     return this;
   }
 
@@ -244,6 +248,7 @@ public class SwerveInputStream implements Supplier<ChassisSpeeds>
     allianceRelative = Optional.of(enabled);
     return this;
   }
+
 
   /**
    * Modify the output {@link ChassisSpeeds} so that it is always relative to your alliance.
@@ -602,6 +607,16 @@ public class SwerveInputStream implements Supplier<ChassisSpeeds>
     return axisValue;
   }
 
+  public void reallyRobotRelative(){
+
+    if(reallyRobotRelative){
+      reallyRobotRelative = false;
+    }
+    else{
+      reallyRobotRelative = true;
+    }
+  }
+
   /**
    * Scale the translational axis by the {@link SwerveInputStream#translationAxisScale} if it exists.
    *
@@ -660,10 +675,29 @@ public class SwerveInputStream implements Supplier<ChassisSpeeds>
   {
     if (robotRelative.isPresent() && robotRelative.get().getAsBoolean())
     {
-      return ChassisSpeeds.fromFieldRelativeSpeeds(fieldRelativeSpeeds, swerveDrive.getOdometryHeading());
+      System.out.println("robot relative");
+      return ChassisSpeeds.fromRobotRelativeSpeeds(fieldRelativeSpeeds, swerveDrive.getOdometryHeading());
     }
+    System.out.println("field relative");
     return fieldRelativeSpeeds;
   }
+
+
+//  private ChassisSpeeds applyRobotRelativeTranslation(ChassisSpeeds robotRelativeSpeeds)
+// {
+//   if (robotRelative.isPresent() && robotRelative.get().getAsBoolean())
+//   {
+
+//     // If robot-relative control is requested, return the speeds as-is
+//     return robotRelativeSpeeds;
+//   }
+//   System.out.println("not robot relative");
+//   // Otherwise, convert from robot-relative to field-relative
+//   return ChassisSpeeds.fromRobotRelativeSpeeds(
+//       robotRelativeSpeeds, 
+//       swerveDrive.getOdometryHeading());
+// }
+  
 
   /**
    * Apply alliance aware translation which flips the {@link Translation2d} if the robot is on the Blue alliance.

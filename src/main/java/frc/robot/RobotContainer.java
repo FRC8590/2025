@@ -111,7 +111,7 @@ public class RobotContainer
                                                             .withControllerRotationAxis(() -> -driverXbox.getRightX() * 0.6 * Constants.scaleFactor)
                                                             .deadband(Constants.OPERATOR_CONSTANTS.deadband())
                                                             .robotRelative(true)
-                                                            .scaleTranslation(Constants.scaleFactor);  
+                                                            .scaleTranslation(Constants.scaleFactor);
   
    /**
    * Clone's the angular velocity input stream and converts it to a fieldRelative input stream.
@@ -127,6 +127,7 @@ public class RobotContainer
   // left stick controls translation
   // right stick controls the desired angle NOT angular rotation
   Command driveFieldOrientedDirectAngle = Constants.drivebase.driveFieldOriented(driveDirectAngle);
+
   Command driveRobotOrientedAngular = Constants.drivebase.driveRobotRelative(driveRobotOriented);
 
   // Applies deadbands and inverts controls because joysticks
