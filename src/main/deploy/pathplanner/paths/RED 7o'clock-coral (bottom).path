@@ -8,8 +8,8 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 14.373258196721311,
-        "y": 1.357735655737705
+        "x": 14.281597402230808,
+        "y": 1.6404130783981539
       },
       "isLocked": false,
       "linkedName": "Red 7"
@@ -20,8 +20,8 @@
         "y": 0.96
       },
       "prevControl": {
-        "x": 13.138524590163936,
-        "y": 4.714354508196721
+        "x": 15.478774184510284,
+        "y": 1.501958248797328
       },
       "nextControl": null,
       "isLocked": false,
@@ -30,8 +30,8 @@
   ],
   "rotationTargets": [
     {
-      "waypointRelativePos": 0.5,
-      "rotationDegrees": 119.99999999999999
+      "waypointRelativePos": 0.6,
+      "rotationDegrees": 125.00000000000001
     }
   ],
   "constraintZones": [],
