@@ -110,7 +110,7 @@ public class AlgaeRemover extends SubsystemBase {
   }
 
   public void reachGoalDown() {
-    pivotMotor.set(upController.calculate(getPivotPosition(), 5));   
+    pivotMotor.set(upController.calculate(getPivotPosition(), 3));   
     runRemover();
  
     
@@ -209,14 +209,14 @@ public class AlgaeRemover extends SubsystemBase {
    * @return Command
    */
   public Command reachGoalDownCommand() {
-    return run(this::reachGoalDown);
+    return run(this::reachGoalDown).until(atPosition(3, 0.2));
   }
   /**
    * Command to toggle the algae remover
    * @return Command
    */
   public Command reachGoalUpCommand() {
-    return runOnce(this::reachGoalUp);
+    return run(this::reachGoalUp).until(atPosition(0, 0.2));
   }
   /**
    * Command to toggle the algae remover
