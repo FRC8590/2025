@@ -68,7 +68,11 @@ public class Shooter extends SubsystemBase {
 
     shooterMotor.set(1);
   }
+  
+  public void slowCoral() {
 
+    shooterMotor.set(0.2);
+  }
 
   public void stopShooter() {
     shooterMotor.set(0);
@@ -133,6 +137,14 @@ public class Shooter extends SubsystemBase {
 
   public Command scoreCoral(){
     return run(() -> ejectCoral())
+        .until(noCoral())
+        .andThen(new WaitCommand(0.2))
+        .finallyDo(() -> stopShooter());
+  }
+
+  
+  public Command trouoghCoral(){
+    return run(() -> slowCoral())
         .until(noCoral())
         .andThen(new WaitCommand(0.2))
         .finallyDo(() -> stopShooter());

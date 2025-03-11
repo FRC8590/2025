@@ -44,8 +44,11 @@ public class RemoveTopAlgaeScoreTop extends SequentialCommandGroup {
         new ActiveRemover(),
         new MoveElevator(0.7),
         new ScoreCoral(),
-        moveBack
-    );
+        new ParallelCommandGroup(
+          moveBack,
+          new MoveElevator(0)
+        )
+      );
     addRequirements(Constants.drivebase);
 
     
