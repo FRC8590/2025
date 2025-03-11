@@ -8,8 +8,8 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 3.512397540983606,
-        "y": 1.0100922131147538
+        "x": 4.531352459016393,
+        "y": 2.0650102459016386
       },
       "isLocked": false,
       "linkedName": "Blue 5"
@@ -20,8 +20,8 @@
         "y": 0.7
       },
       "prevControl": {
-        "x": 5.044959016393442,
-        "y": 4.298514344262294
+        "x": 2.2297131147540985,
+        "y": 1.2618340163934432
       },
       "nextControl": null,
       "isLocked": false,
@@ -30,8 +30,8 @@
   ],
   "rotationTargets": [
     {
-      "waypointRelativePos": 0.6759061833688712,
-      "rotationDegrees": 45.0
+      "waypointRelativePos": 0.7576675501703913,
+      "rotationDegrees": 59.822
     }
   ],
   "constraintZones": [],

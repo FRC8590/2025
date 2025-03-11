@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 9.96,
+        "x": 10.49,
         "y": 6.19
       },
       "prevControl": null,
       "nextControl": {
-        "x": 10.615917535714189,
-        "y": 5.145961288519815
+        "x": 10.742986205367764,
+        "y": 5.179742565645146
       },
       "isLocked": false,
       "linkedName": "Red Top"
@@ -20,8 +20,8 @@
         "y": 4.0
       },
       "prevControl": {
-        "x": 10.857424332376262,
-        "y": 4.7751908007774695
+        "x": 10.983652392337618,
+        "y": 5.000992538669913
       },
       "nextControl": null,
       "isLocked": false,
@@ -47,8 +47,8 @@
   "reversed": false,
   "folder": "Red Side Paths",
   "idealStartingState": {
-    "velocity": 0,
-    "rotation": 0.0
+    "velocity": 0.0,
+    "rotation": -59.99999999999999
   },
   "useDefaultConstraints": true
 }
