@@ -44,7 +44,7 @@ public record AlgaeConstants(
 
 ) {
 
-    public static final AlgaeConstants DEFAULT = new ScoringConstants(
+    public static final AlgaeConstants DEFAULT = new AlgaeConstants(
         //17
         new Pose2d(new Translation2d(4.26, 2.52), new Rotation2d(Units.degreesToRadians(58.4))),
         new Pose2d(new Translation2d(3.84, 2.72), new Rotation2d(Units.degreesToRadians(60.2))),
