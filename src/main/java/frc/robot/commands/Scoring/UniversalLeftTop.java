@@ -45,7 +45,6 @@ public class UniversalLeftTop extends SequentialCommandGroup {
       new MoveElevator(0)
 
     );
-    addRequirements(Constants.drivebase);
     addRequirements(Constants.SHOOTER);
     addRequirements(Constants.ELEVATOR);
     addRequirements(Constants.ALGAE_REMOVER);

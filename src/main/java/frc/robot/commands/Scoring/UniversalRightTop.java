@@ -47,7 +47,6 @@ public class UniversalRightTop extends SequentialCommandGroup {
       new ScoreCoral(),
       new MoveElevator(0)
     );
-    addRequirements(Constants.drivebase);
     addRequirements(Constants.SHOOTER);
     addRequirements(Constants.ELEVATOR);
   }
