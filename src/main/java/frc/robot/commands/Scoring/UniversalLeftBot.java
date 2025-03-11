@@ -41,7 +41,8 @@ public class UniversalLeftBot extends SequentialCommandGroup {
         moveToScore,
         new MoveElevator(0.31)
       ),
-      new ScoreCoral()
+      new ScoreCoral(),
+      new MoveElevator(0)
     );
     addRequirements(Constants.drivebase);
     addRequirements(Constants.SHOOTER);

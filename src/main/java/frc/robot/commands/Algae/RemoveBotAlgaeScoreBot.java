@@ -30,25 +30,26 @@ import java.util.Map;
 import com.fasterxml.jackson.databind.ser.std.StdKeySerializers.Default;
 
 /** Command to score a coral by ejecting it */
-public class RemoveTopAlgae extends SequentialCommandGroup {
+public class RemoveBotAlgaeScoreBot extends SequentialCommandGroup {
 
   // Define the AprilTag IDs we're interested in
   
   /**
    * Creates a new ScoreCoral command that ejects the coral
    */
-  public RemoveTopAlgae() {
+  public RemoveBotAlgaeScoreBot() {
     
     addCommands(
-        moveToScore,
-        new ActiveRemover(),
-        new MoveElevator(0.7),
-        new ScoreCoral(),
-        moveBack
-    );
+      new ActiveRemover(),
+      moveToScore,
+      new MoveElevator(0.33),
+      new ScoreCoral(),
+      new ParallelCommandGroup(
+        moveBack,
+        new MoveElevator(0)
+      )
+  );
     addRequirements(Constants.drivebase);
-
-    
     addRequirements(Constants.SHOOTER);
     addRequirements(Constants.ELEVATOR);
   }
@@ -81,7 +82,7 @@ public class RemoveTopAlgae extends SequentialCommandGroup {
               Map.entry(11, Constants.drivebase.driveToPose(Constants.SCORING_CONSTANTS.left11()))),
           this::getClosestTag);
 
-  private final Command moveBack =
+    private final Command moveBack =
       new SelectCommand<>(
           // Maps selector values to commands
           Map.ofEntries(
@@ -98,6 +99,6 @@ public class RemoveTopAlgae extends SequentialCommandGroup {
               Map.entry(10, Constants.drivebase.driveToPose(Constants.ALGAE_CONSTANTS.left10())),
               Map.entry(11, Constants.drivebase.driveToPose(Constants.ALGAE_CONSTANTS.left11()))),
           this::getClosestTag);
-    
+
 }
 

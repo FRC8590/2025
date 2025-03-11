@@ -40,8 +40,9 @@ import frc.robot.subsystems.Shooter.*;
 import java.io.File;
 
 import frc.robot.commands.*;
-import frc.robot.commands.Algae.RemoveBotAlgae;
-import frc.robot.commands.Algae.RemoveTopAlgae;
+import frc.robot.commands.Algae.RemoveBotAlgaeScoreBot;
+import frc.robot.commands.Algae.RemoveBotAlgaeScoreTop;
+import frc.robot.commands.Algae.RemoveTopAlgaeScoreTop;
 import frc.robot.commands.Algae.StateUpdateAlgae;
 import frc.robot.commands.Auto.AutoLeftBotRemoveAlgae;
 import frc.robot.commands.Auto.AutoLeftTopRemoveAlgae;
@@ -233,8 +234,8 @@ public class RobotContainer
     NamedCommands.registerCommand("UniversalLeftTop", new UniversalLeftTop());
     NamedCommands.registerCommand("UniversalRightTop", new UniversalRightTop());
 
-    NamedCommands.registerCommand("RemoveBotAlgae", new RemoveBotAlgae());
-    NamedCommands.registerCommand("RemoveTopAlgae", new RemoveTopAlgae());
+    NamedCommands.registerCommand("RemoveBotAlgae", new RemoveBotAlgaeScoreBot());
+    NamedCommands.registerCommand("RemoveTopAlgae", new RemoveTopAlgaeScoreTop());
 
     NamedCommands.registerCommand("UniversalLeftBotRemoveAlgae", new AutoLeftBotRemoveAlgae());
     NamedCommands.registerCommand("UniversalRightTopRemoveAlgae", new AutoRightTopRemoveAlgae());
@@ -301,14 +302,15 @@ public class RobotContainer
       driverXbox.a().whileTrue(new StopShooter());
       driverXbox.y().whileTrue(driveRobotOrientedAngular);
 
-
       operatorController.rightBumper().whileTrue(new ScoreCoral());
       operatorController.leftBumper().whileTrue(new StopShooter());
       operatorController.leftTrigger().whileTrue(new MoveElevator(Constants.ELEVATOR.getElevatorHeightEncoder() - 0.1));
       operatorController.rightTrigger().whileTrue(new MoveElevator(Constants.ELEVATOR.getElevatorHeightEncoder() + 0.1));
 
 
-      operatorController.b().whileTrue(new RemoveTopAlgae());
+      operatorController.b().whileTrue(new RemoveTopAlgaeScoreTop());
+      operatorController.a().whileTrue(new RemoveBotAlgaeScoreBot());
+      operatorController.y().whileTrue(new RemoveBotAlgaeScoreTop());
 
       
   }

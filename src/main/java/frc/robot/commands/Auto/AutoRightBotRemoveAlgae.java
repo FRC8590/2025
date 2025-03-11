@@ -19,7 +19,7 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.Constants;
 import frc.robot.commands.MoveElevator;
-import frc.robot.commands.Algae.RemoveBotAlgae;
+import frc.robot.commands.Algae.RemoveBotAlgaeScoreBot;
 import frc.robot.commands.Scoring.ScoreCoral;
 import frc.robot.constants.ScoringConstants;
 
@@ -41,7 +41,7 @@ public class AutoRightBotRemoveAlgae extends SequentialCommandGroup {
   public AutoRightBotRemoveAlgae() {
     
     addCommands(
-      new RemoveBotAlgae(),
+      new RemoveBotAlgaeScoreBot(),
       new ParallelCommandGroup(
         moveToScore,
         new MoveElevator(0.7)
