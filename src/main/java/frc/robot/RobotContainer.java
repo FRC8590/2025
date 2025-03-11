@@ -219,6 +219,10 @@ public class RobotContainer
     m_chooser.addOption("28", "28");
     m_chooser.addOption("29", "29");
     m_chooser.addOption("30", "30");
+    m_chooser.addOption("31", "31");
+    m_chooser.addOption("32", "32");
+    m_chooser.addOption("33", "33");
+    m_chooser.addOption("34", "34");
 
 
     
@@ -241,6 +245,11 @@ public class RobotContainer
     NamedCommands.registerCommand("UniversalRightTopRemoveAlgae", new AutoRightTopRemoveAlgae());
     NamedCommands.registerCommand("UniversalRightBotRemoveAlgae", new AutoRightBotRemoveAlgae());
     NamedCommands.registerCommand("UniversalLeftTopRemoveAlgae", new AutoLeftTopRemoveAlgae());
+
+    NamedCommands.registerCommand("RemoveBotAlgaeScoreBot", new RemoveBotAlgaeScoreBot());
+    //NamedCommands.registerCommand("RemoveTopAlgaeScoreBot", new RemoveTopAlgaeScoreBot());
+    NamedCommands.registerCommand("RemoveBotAlgaeScoreTop", new RemoveBotAlgaeScoreTop());
+    NamedCommands.registerCommand("RemoveTopAlgaeScoreTop", new RemoveTopAlgaeScoreTop());
 
     NamedCommands.registerCommand("WaitForCoralIntake", new WaitForCoralIntake());
     NamedCommands.registerCommand("ZeroElevator", new ZeroElevator());
@@ -300,6 +309,7 @@ public class RobotContainer
 
       driverXbox.b().whileTrue(new ScoreCoral());
       driverXbox.a().whileTrue(new StopShooter());
+      driverXbox.x().whileTrue(new TroughCoral());
       driverXbox.y().whileTrue(driveRobotOrientedAngular);
 
       operatorController.rightBumper().whileTrue(new ScoreCoral());
