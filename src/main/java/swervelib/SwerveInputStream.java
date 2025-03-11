@@ -660,10 +660,13 @@ public class SwerveInputStream implements Supplier<ChassisSpeeds>
   {
     if (robotRelative.isPresent() && robotRelative.get().getAsBoolean())
     {
-      return ChassisSpeeds.fromFieldRelativeSpeeds(fieldRelativeSpeeds, swerveDrive.getOdometryHeading());
+      return fieldRelativeSpeeds;
     }
     return fieldRelativeSpeeds;
   }
+
+ 
+
 
   /**
    * Apply alliance aware translation which flips the {@link Translation2d} if the robot is on the Blue alliance.

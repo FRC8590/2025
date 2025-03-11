@@ -19,6 +19,7 @@ import frc.robot.Constants;
 import frc.robot.commands.ActiveRemover;
 import frc.robot.commands.InactiveRemover;
 import frc.robot.commands.MoveElevator;
+import frc.robot.commands.Scoring.ScoreCoral;
 import frc.robot.constants.ScoringConstants;
 
 import java.io.Console;
@@ -29,26 +30,22 @@ import java.util.Map;
 import com.fasterxml.jackson.databind.ser.std.StdKeySerializers.Default;
 
 /** Command to score a coral by ejecting it */
-public class RemoveBotAlgae extends SequentialCommandGroup {
+public class RemoveBotAlgaeScoreTop extends SequentialCommandGroup {
 
   // Define the AprilTag IDs we're interested in
   
   /**
    * Creates a new ScoreCoral command that ejects the coral
    */
-  public RemoveBotAlgae() {
+  public RemoveBotAlgaeScoreTop() {
     
     addCommands(
-      new SequentialCommandGroup(
-        moveToScore,
-        new ParallelCommandGroup(
-          new MoveElevator(0.5),
-          new ActiveRemover()
-        ),
-        Constants.drivebase.driveToDistanceCommand(-1, 1)
-      ),
-    new PrintCommand("Algae removed")
-    );
+      new ActiveRemover(),
+      moveToScore,
+      new MoveElevator(0.7),
+      new ScoreCoral(),
+      moveBack
+  );
     addRequirements(Constants.drivebase);
     addRequirements(Constants.SHOOTER);
     addRequirements(Constants.ELEVATOR);
@@ -81,5 +78,24 @@ public class RemoveBotAlgae extends SequentialCommandGroup {
               Map.entry(10, Constants.drivebase.driveToPose(Constants.SCORING_CONSTANTS.left10())),
               Map.entry(11, Constants.drivebase.driveToPose(Constants.SCORING_CONSTANTS.left11()))),
           this::getClosestTag);
+
+    private final Command moveBack =
+      new SelectCommand<>(
+          // Maps selector values to commands
+          Map.ofEntries(
+              Map.entry(17, Constants.drivebase.driveToPose(Constants.ALGAE_CONSTANTS.left17())),
+              Map.entry(18, Constants.drivebase.driveToPose(Constants.ALGAE_CONSTANTS.left18())),
+              Map.entry(19, Constants.drivebase.driveToPose(Constants.ALGAE_CONSTANTS.left19())),
+              Map.entry(20, Constants.drivebase.driveToPose(Constants.ALGAE_CONSTANTS.left20())),
+              Map.entry(21, Constants.drivebase.driveToPose(Constants.ALGAE_CONSTANTS.left21())),
+              Map.entry(22, Constants.drivebase.driveToPose(Constants.ALGAE_CONSTANTS.left22())),
+              Map.entry(6, Constants.drivebase.driveToPose(Constants.ALGAE_CONSTANTS.left6())),
+              Map.entry(7, Constants.drivebase.driveToPose(Constants.ALGAE_CONSTANTS.left7())),
+              Map.entry(8, Constants.drivebase.driveToPose(Constants.ALGAE_CONSTANTS.left8())),
+              Map.entry(9, Constants.drivebase.driveToPose(Constants.ALGAE_CONSTANTS.left9())),
+              Map.entry(10, Constants.drivebase.driveToPose(Constants.ALGAE_CONSTANTS.left10())),
+              Map.entry(11, Constants.drivebase.driveToPose(Constants.ALGAE_CONSTANTS.left11()))),
+          this::getClosestTag);
+
 }
 
