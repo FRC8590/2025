@@ -299,11 +299,11 @@ public class RobotContainer
       driverXbox.povDown().whileTrue(new UniversalLeftBot()); //score on the left bottom
       driverXbox.povRight().whileTrue(new UniversalRightBot()); //score on the right bottom
 
-      driverXbox.back().onTrue(Commands.runOnce(()-> Constants.drivebase.zeroGyroWithAlliance()));
-      driverXbox.leftTrigger().whileTrue(new ScoreCoral());
+      driverXbox.back().onTrue(Commands.runOnce(()-> Constants.drivebase.zeroGyroWithAlliance())); //zero the gyro
+      driverXbox.leftTrigger().whileTrue(new ScoreCoral()); //shoot out coral
       driverXbox.rightTrigger().whileTrue(Commands.run(() -> Constants.LEDSystem.setYellow(), Constants.LEDSystem)); //flash leds yellow (to get human player's attention)
 
-      driverXbox.rightBumper().onTrue(new MoveElevator(0));
+      driverXbox.rightBumper().onTrue(new MoveElevator(0)); //zero the elevator
       driverXbox.leftBumper().whileTrue(Commands.run( () -> Constants.ALGAE_REMOVER.isExtended = true));
       driverXbox.leftBumper().whileFalse(Commands.run( () -> Constants.ALGAE_REMOVER.isExtended = false));
 
