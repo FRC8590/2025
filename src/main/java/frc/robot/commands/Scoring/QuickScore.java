@@ -16,11 +16,11 @@ public class QuickScore extends SequentialCommandGroup {
         if (isCloseToScoringPosition()) {
             addCommands(
                 new ParallelCommandGroup(
-                    getDriveToNearestScoreCommand(),
-                    new MoveElevator(0.7000)
+                    getDriveToNearestScoreCommand()//,
+                    //new MoveElevator(0.7000)
                 ),
-                new ScoreCoral(),
-                new MoveElevator(0)
+                new ScoreCoral()//,
+                //new MoveElevator(0)
             );
         }
         

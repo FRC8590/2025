@@ -14,7 +14,6 @@ import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Rotation3d;
 import edu.wpi.first.math.geometry.Transform2d;
 import edu.wpi.first.math.geometry.Transform3d;
-import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.geometry.Translation3d;
 import edu.wpi.first.math.numbers.N1;
 import edu.wpi.first.math.numbers.N3;
@@ -80,14 +79,13 @@ public class Vision
   public              EstimatedRobotPose  estimatedVisionPose;
 
 
-
   /**
    * Constructor for the Vision class.
    *
    * @param currentPose Current pose supplier, should reference {@link SwerveDrive#getPose()}
    * @param field       Current field, should be {@link SwerveDrive#field}
    */
-  public Vision(Supplier<Pose2d> currentPose, Field2d field) // Modify constructor
+  public Vision(Supplier<Pose2d> currentPose, Field2d field)
   {
     this.currentPose = currentPose;
     this.field2d = field;
@@ -163,23 +161,18 @@ public class Vision
         if (!c.resultsList.isEmpty()){
           for(PhotonPipelineResult result : c.resultsList){
 
-            if(result.hasTargets()){
-
-              int tester = result.getBestTarget().getFiducialId();
-              //double degreesOfFreedom = 15; //technically not what a degree of freedom is but I'm calling it that anyway :) -Connor
-              PhotonTrackedTarget targetTest = result.getBestTarget();
-              //change later if needed
-              if (getDistanceFromAprilTag(tester)<4.5)// && targetTest.getYaw() < swerveDrive.getYaw().getDegrees() + degreesOfFreedom && targetTest.getYaw() > swerveDrive.getYaw().getDegrees() - degreesOfFreedom) // Replace 20 with robot's yaw
-              {
-                return result.getBestTarget().getFiducialId();
-              }
+            int tester = result.getBestTarget().getFiducialId();
+            PhotonTrackedTarget targetTest = result.getBestTarget();
+            //change later if needed
+            if (getDistanceFromAprilTag(tester)<4.5 && targetTest.getYaw()< 20)
+            {
+              return result.getBestTarget().getFiducialId();
             }
           }
         }
       }
       return -1;
     }
-
 
 
 
@@ -203,22 +196,22 @@ public class Vision
     }
     for (Cameras camera : Cameras.values())
     {
+      Optional<EstimatedRobotPose> poseEst = getEstimatedGlobalPose(camera);
 
-      if(camera.enabled){
-        Optional<EstimatedRobotPose> poseEst = getEstimatedGlobalPose(camera);
+      if (poseEst.isPresent())
+      {
 
-        if (poseEst != null && poseEst.isPresent())
-        {
-  
-  
-          estimatedVisionPose = poseEst.get();
-          
-          var pose = poseEst.get();
-          swerveDrive.addVisionMeasurement(pose.estimatedPose.toPose2d(),
-                                           pose.timestampSeconds,
-                                           camera.curStdDevs);
-  
-      }
+
+        estimatedVisionPose = poseEst.get();
+        
+        var pose = poseEst.get();
+        swerveDrive.addVisionMeasurement(pose.estimatedPose.toPose2d(),
+                                         pose.timestampSeconds,
+                                         camera.curStdDevs);
+        // System.out.println("vision estimation added");
+        SmartDashboard.putNumber("poseX",pose.estimatedPose.toPose2d().getX());
+        SmartDashboard.putNumber("poseY", pose.estimatedPose.toPose2d().getY());
+
       }
     }
 
@@ -400,38 +393,6 @@ public class Vision
     field2d.getObject("tracked targets").setPoses(poses);
   }
 
-
-  
-  /**
-   * Gets whether the camera is enabled
-   * @param id Front = 0, Right = 1, Left = 2
-   */
-  public boolean getEnabled(int id){
-
-    switch(id){
-      case 0: return Cameras.FRONT_CAM.getEnabled();
-      case 1: return Cameras.RIGHT_CAM.getEnabled();
-      case 2: return Cameras.LEFT_CAM.getEnabled();
-      default: return false;
-    }
-  }
-
-    
-  /**
-   * Sets the camera's status
-   * @param id Front = 0, Right = 1, Left = 2
-   */
-  public void setStatus(int id, boolean status){
-
-    switch(id){
-      case 0: Cameras.FRONT_CAM.setStatus(status);
-      case 1: Cameras.RIGHT_CAM.setStatus(status);
-      case 2: Cameras.LEFT_CAM.setStatus(status);
-    }
-  }
-
-
-
   /**
    * Camera Enum to select each camera
    */
@@ -442,31 +403,25 @@ public class Vision
      *
      */
     FRONT_CAM("center",
-     new Rotation3d(0, Units.degreesToRadians(10), Units.degreesToRadians(0)),
-     new Translation3d(Units.inchesToMeters(10.25),
+     new Rotation3d(0, 0, Units.degreesToRadians(0)),
+     new Translation3d(Units.inchesToMeters(11),
                        Units.inchesToMeters(1),
-                       Units.inchesToMeters(8.5)),
-                       VecBuilder.fill(4, 4, 8), VecBuilder.fill(4, 4, 8), true),
+                       Units.inchesToMeters(6)),
+     VecBuilder.fill(4, 4, 8), VecBuilder.fill(0.5, 0.5, 1)),
 
     RIGHT_CAM("right",
-              new Rotation3d(0, 0, Units.degreesToRadians(0)),
+              new Rotation3d(0, 0, Units.degreesToRadians(5)),
               new Translation3d(Units.inchesToMeters(-11),
                                 Units.inchesToMeters(10),
-                                Units.inchesToMeters(7.9375)),
-              VecBuilder.fill(4, 4, 8), VecBuilder.fill(4, 4, 8), true),
+                                Units.inchesToMeters(9.5)),
+              VecBuilder.fill(4, 4, 8), VecBuilder.fill(0.5, 0.5, 1)),
 
     LEFT_CAM("left",
-              new Rotation3d(0, 0, Units.degreesToRadians(35)),
+              new Rotation3d(0, 0, Units.degreesToRadians(31)),
               new Translation3d(Units.inchesToMeters(-15.5),
                                 Units.inchesToMeters(2.5),
                                 Units.inchesToMeters(14)),
-                                VecBuilder.fill(4, 4, 8), VecBuilder.fill(4, 4, 8), true);
-                                // BACK_CAM("back",
-    //           new Rotation3d(0, Units.degreesToRadians(-5)^, Units.degreesToRadians(180)),
-    //           new Translation3d(Units.inchesToMeters(-15.5),
-    //                             Units.inchesToMeters(2.5),
-    //                             Units.inchesToMeters(17)),
-    //           VecBuilder.fill(4, 4, 8), VecBuilder.fill(0.5, 0.5, 1));
+              VecBuilder.fill(4, 4, 8), VecBuilder.fill(0.5, 0.5, 1));
 
     /**
      * Latency alert to use when high latency is detected.
@@ -513,8 +468,6 @@ public class Vision
      */
     private       double                       lastReadTimestamp = Microseconds.of(NetworkTablesJNI.now()).in(Seconds);
 
-    private boolean enabled;
-
     private boolean hasSetOffset = false;
 
     private double timerOffset = 0;
@@ -527,10 +480,9 @@ public class Vision
      * @param robotToCamTranslation {@link Translation3d} relative to the center of the robot.
      * @param singleTagStdDevs      Single AprilTag standard deviations of estimated poses from the camera.
      * @param multiTagStdDevsMatrix Multi AprilTag standard deviations of estimated poses from the camera.
-     * @param enabled               Boolean to tell whether camera is enabled for scoring
      */
     Cameras(String name, Rotation3d robotToCamRotation, Translation3d robotToCamTranslation,
-            Matrix<N3, N1> singleTagStdDevs, Matrix<N3, N1> multiTagStdDevsMatrix, boolean enabled)
+            Matrix<N3, N1> singleTagStdDevs, Matrix<N3, N1> multiTagStdDevsMatrix)
     {
       latencyAlert = new Alert("'" + name + "' Camera is experiencing high latency.", AlertType.kWarning);
 
@@ -554,7 +506,6 @@ public class Vision
 
       this.singleTagStdDevs = singleTagStdDevs;
       this.multiTagStdDevs = multiTagStdDevsMatrix;
-      this.enabled = enabled;
 
       if (Robot.isSimulation())
       {
@@ -623,14 +574,6 @@ public class Vision
     public Optional<PhotonPipelineResult> getLatestResult()
     {
       return resultsList.isEmpty() ? Optional.empty() : Optional.of(resultsList.get(0));
-    }
-
-    public boolean getEnabled(){
-      return enabled;
-    }
-
-    public void setStatus(boolean status){
-      enabled = status;
     }
 
     /**

@@ -43,8 +43,8 @@ public class AutoRightBotRemoveAlgae extends SequentialCommandGroup {
     addCommands(
       new RemoveBotAlgaeScoreBot(),
       new ParallelCommandGroup(
-        moveToScore,
-        new MoveElevator(0.7)
+        moveToScore//,
+        //new MoveElevator(0.7)
       ),
       new ScoreCoral()
     );

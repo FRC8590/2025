@@ -17,7 +17,7 @@ public class TroughCoral extends SequentialCommandGroup {
    */
   public TroughCoral() {
     addCommands(
-      new MoveElevator(0.22),
+      //new MoveElevator(0.22),
       Constants.SHOOTER.troughCoral() // Eject coral for 5 seconds
     );
 

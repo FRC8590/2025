@@ -95,7 +95,7 @@ public class Robot extends TimedRobot
     // and running subsystem periodic() methods.  This must be called from the robot's periodic
     // block in order for anything in the Command-based framework to work.
     CommandScheduler.getInstance().run();
-    SmartDashboard.putBoolean("right camrea status", Constants.vision.getEnabled(1));
+    //SmartDashboard.putBoolean("right camrea status", Constants.vision.getEnabled(1));
 
   }
 
@@ -176,7 +176,7 @@ public class Robot extends TimedRobot
     SmartDashboard.putBoolean("algaeee", Constants.ALGAE_REMOVER.isExtended);
 
     SmartDashboard.putString("LED COLOR", Constants.LEDSystem.currentColor);
-    SmartDashboard.putBoolean("Right Camera Enabled", Constants.vision.getEnabled(1));
+    //SmartDashboard.putBoolean("Right Camera Enabled", Constants.vision.getEnabled(1));
     
 
 
