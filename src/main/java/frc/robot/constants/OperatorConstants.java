@@ -7,9 +7,9 @@ public record OperatorConstants(
     double turnConstant
 ) {
     public static final OperatorConstants DEFAULT = new OperatorConstants(
-        0.05,    // deadband
-        0.05,    // leftYDeadband
-        0.05,    // rightXDeadband
+        0.01,    // deadband
+        0.01,    // leftYDeadband
+        0.01,    // rightXDeadband
         6.0     // turnConstant
     );
 } 

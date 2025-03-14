@@ -265,9 +265,24 @@ public class RobotContainer
     else{
       return -1;
     }
-    
 
   }
+
+  public void autoLock(){
+    double leftX = driverXbox.getLeftX();
+    double leftY = driverXbox.getLeftY();
+    double rightX = driverXbox.getRightX();
+
+    if(leftX < Constants.OPERATOR_CONSTANTS.deadband() && leftY < Constants.OPERATOR_CONSTANTS.deadband() && rightX < Constants.OPERATOR_CONSTANTS.deadband()){
+      Constants.lockTimer++;
+      if(Constants.lockTimer > 25){
+        Constants.drivebase.lock();
+        Constants.lockTimer = 0;
+      }
+    }
+
+  }
+
 
   /**
    * Use this method to define your trigger->command mappings. Triggers can be created via the
@@ -299,11 +314,11 @@ public class RobotContainer
       driverXbox.povDown().whileTrue(new UniversalLeftBot()); //score on the left bottom
       driverXbox.povRight().whileTrue(new UniversalRightBot()); //score on the right bottom
 
-      driverXbox.back().onTrue(Commands.runOnce(()-> Constants.drivebase.zeroGyroWithAlliance())); //zero the gyro
-      driverXbox.leftTrigger().whileTrue(new ScoreCoral()); //shoot out coral
+      driverXbox.back().onTrue(Commands.runOnce(()-> Constants.drivebase.zeroGyroWithAlliance()));
+      driverXbox.leftTrigger().whileTrue(new ScoreCoral());
       driverXbox.rightTrigger().whileTrue(Commands.run(() -> Constants.LEDSystem.setYellow(), Constants.LEDSystem)); //flash leds yellow (to get human player's attention)
 
-      driverXbox.rightBumper().onTrue(new MoveElevator(0)); //zero the elevator
+      driverXbox.rightBumper().onTrue(new MoveElevator(0));
       driverXbox.leftBumper().whileTrue(Commands.run( () -> Constants.ALGAE_REMOVER.isExtended = true));
       driverXbox.leftBumper().whileFalse(Commands.run( () -> Constants.ALGAE_REMOVER.isExtended = false));
 
@@ -320,8 +335,9 @@ public class RobotContainer
 
       operatorController.b().whileTrue(new RemoveTopAlgaeScoreTop());
       operatorController.a().whileTrue(new RemoveBotAlgaeScoreBot());
-      operatorController.y().whileTrue(new RemoveBotAlgaeScoreTop());
+      operatorController.y().onTrue(new RemoveBotAlgaeScoreTop());
 
+      operatorController.x().whileTrue(Commands.run(()-> Constants.ELEVATOR.runMotors()));
       
   }
 }
