@@ -335,9 +335,8 @@ public class RobotContainer
 
       operatorController.b().whileTrue(new RemoveTopAlgaeScoreTop());
       operatorController.a().whileTrue(new RemoveBotAlgaeScoreBot());
-      operatorController.y().onTrue(new RemoveBotAlgaeScoreTop());
+      operatorController.y().whileTrue(new RemoveBotAlgaeScoreTop());
 
-      operatorController.x().whileTrue(Commands.run(()-> Constants.ELEVATOR.runMotors()));
       
   }
 }
