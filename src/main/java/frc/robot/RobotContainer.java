@@ -329,8 +329,6 @@ public class RobotContainer
 
       operatorController.rightBumper().whileTrue(new ScoreCoral());
       operatorController.leftBumper().whileTrue(new StopShooter());
-      operatorController.leftTrigger().whileTrue(new MoveElevator(Constants.ELEVATOR.getElevatorHeightEncoder() - 0.1));
-      operatorController.rightTrigger().whileTrue(new MoveElevator(Constants.ELEVATOR.getElevatorHeightEncoder() + 0.1));
 
 
       operatorController.b().whileTrue(new RemoveTopAlgaeScoreTop());
