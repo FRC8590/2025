@@ -38,11 +38,10 @@ public class UniversalLeftBot extends SequentialCommandGroup {
     
     addCommands(
       new ParallelCommandGroup(
-        moveToScore//,
-       // new MoveElevator(0.31)
+        moveToScore,
+       new MoveElevator(0.31)
       ),
-      new ScoreCoral()//,
-      //new MoveElevator(0)
+      new ScoreCoral()
     );
     addRequirements(Constants.SHOOTER);
     addRequirements(Constants.ELEVATOR);

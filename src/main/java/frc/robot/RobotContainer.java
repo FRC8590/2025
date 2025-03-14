@@ -27,6 +27,8 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.*;
 import frc.robot.commands.Scoring.*;
+import frc.robot.commands.TeleAlgae.TeleBotAlgae;
+import frc.robot.commands.TeleAlgae.TeleTopAlgae;
 import frc.robot.commands.swervedrive.*;
 import frc.robot.commands.swervedrive.auto.AutoBalanceCommand;
 import frc.robot.commands.swervedrive.drivebase.AbsoluteDriveAdv;
@@ -309,10 +311,10 @@ public class RobotContainer
       Constants.ALGAE_REMOVER.setDefaultCommand(Constants.ALGAE_REMOVER.toggleCommand());
 
       
-      driverXbox.povUp().whileTrue(new UniversalLeftTop()); //score on the left top
-      driverXbox.povLeft().whileTrue(new UniversalRightTop()); //score on the right top
-      driverXbox.povDown().whileTrue(new UniversalLeftBot()); //score on the left bottom
-      driverXbox.povRight().whileTrue(new UniversalRightBot()); //score on the right bottom
+      driverXbox.povUp().whileTrue(new TeleLeftTop()); //score on the left top
+      driverXbox.povLeft().whileTrue(new TeleRightTop()); //score on the right top
+      driverXbox.povDown().whileTrue(new TeleLeftBot()); //score on the left bottom
+      driverXbox.povRight().whileTrue(new TeleRightBot()); //score on the right bottom
 
       driverXbox.back().onTrue(Commands.runOnce(()-> Constants.drivebase.zeroGyroWithAlliance()));
       driverXbox.leftTrigger().whileTrue(new ScoreCoral());
@@ -329,6 +331,9 @@ public class RobotContainer
 
       operatorController.rightBumper().whileTrue(new ScoreCoral());
       operatorController.leftBumper().whileTrue(new StopShooter());
+
+      driverXbox.leftStick().whileTrue(new TeleBotAlgae());
+      driverXbox.rightStick().whileTrue(new TeleTopAlgae());
 
 
       operatorController.b().whileTrue(new RemoveTopAlgaeScoreTop());

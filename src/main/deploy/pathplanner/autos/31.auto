@@ -21,15 +21,15 @@
           "data": {
             "commands": [
               {
-                "type": "path",
-                "data": {
-                  "pathName": "11o'clock-coral"
-                }
-              },
-              {
                 "type": "named",
                 "data": {
                   "name": "ZeroElevator"
+                }
+              },
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "11o'clock-coral"
                 }
               }
             ]
@@ -58,15 +58,15 @@
           "data": {
             "commands": [
               {
-                "type": "path",
-                "data": {
-                  "pathName": "11o'clock-coral"
-                }
-              },
-              {
                 "type": "named",
                 "data": {
                   "name": "ZeroElevator"
+                }
+              },
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "11o'clock-coral"
                 }
               }
             ]

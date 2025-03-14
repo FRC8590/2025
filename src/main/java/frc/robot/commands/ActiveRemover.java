@@ -21,7 +21,7 @@ public class ActiveRemover extends SequentialCommandGroup {
    */
   public ActiveRemover() {
     addCommands(
-        Constants.ALGAE_REMOVER.reachGoalDownCommand().withTimeout(2)
+        Constants.ALGAE_REMOVER.reachGoalDownCommand()
     );
 
     addRequirements(Constants.ALGAE_REMOVER);

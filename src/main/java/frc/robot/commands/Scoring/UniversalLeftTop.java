@@ -38,11 +38,10 @@ public class UniversalLeftTop extends SequentialCommandGroup {
     
     addCommands(
       new ParallelCommandGroup(
-        moveToScore//,
-        //new MoveElevator(0.7000)
+        moveToScore,
+        new MoveElevator(0.7000)
       ),
-      new ScoreCoral()//,
-      //new MoveElevator(0)
+      new ScoreCoral()
 
     );
     addRequirements(Constants.SHOOTER);

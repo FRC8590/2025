@@ -42,13 +42,12 @@ public class RemoveTopAlgaeScoreTop extends SequentialCommandGroup {
     addCommands(
       new ActiveRemover(),
        moveToScore,
-       //new MoveElevator(0.7),
-       new ScoreCoral(),
-       new InactiveRemover()
-
-      //  moveBack
-  );
-    addRequirements(Constants.drivebase);
+       new MoveElevator(0.7),
+       new ParallelCommandGroup(
+        new ScoreCoral(),
+        new InactiveRemover()  
+      ));
+addRequirements(Constants.drivebase);
 
     
     addRequirements(Constants.SHOOTER);
@@ -102,4 +101,3 @@ public class RemoveTopAlgaeScoreTop extends SequentialCommandGroup {
           this::getClosestTag);
     
 }
-

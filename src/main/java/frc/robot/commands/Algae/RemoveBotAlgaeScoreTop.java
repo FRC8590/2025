@@ -42,11 +42,12 @@ public class RemoveBotAlgaeScoreTop extends SequentialCommandGroup {
     addCommands(
         new ActiveRemover(),
           moveToScore,
+          new PrintCommand("DONE DRIVING"),
           new MoveElevator(0.7),
-          new ScoreCoral(),
-          new InactiveRemover(),
-          moveBack   
-  );
+          new ParallelCommandGroup(
+            new ScoreCoral(),
+            new InactiveRemover()  
+          ));
     addRequirements(Constants.drivebase);
     addRequirements(Constants.SHOOTER);
     addRequirements(Constants.ELEVATOR);

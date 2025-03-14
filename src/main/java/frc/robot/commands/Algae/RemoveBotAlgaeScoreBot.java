@@ -42,11 +42,11 @@ public class RemoveBotAlgaeScoreBot extends SequentialCommandGroup {
     addCommands(
       new ActiveRemover(),
        moveToScore,
-       //new MoveElevator(0.33),
-       new ScoreCoral(),
-       new InactiveRemover()
-      //  moveBack
-  );
+       new MoveElevator(0.33),
+       new ParallelCommandGroup(
+        new ScoreCoral(),
+        new InactiveRemover()  
+      ));
     addRequirements(Constants.drivebase);
     addRequirements(Constants.SHOOTER);
     addRequirements(Constants.ELEVATOR);
@@ -99,4 +99,3 @@ public class RemoveBotAlgaeScoreBot extends SequentialCommandGroup {
           this::getClosestTag);
 
 }
-
