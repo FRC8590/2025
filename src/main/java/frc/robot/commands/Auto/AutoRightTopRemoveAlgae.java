@@ -42,8 +42,8 @@ public class AutoRightTopRemoveAlgae extends SequentialCommandGroup {
     addCommands(
       new RemoveTopAlgaeScoreTop(),
       new ParallelCommandGroup(
-        moveToScore,
-        new MoveElevator(0.70)
+        moveToScore//,
+        //new MoveElevator(0.70)
       ),
       new ScoreCoral()
     );

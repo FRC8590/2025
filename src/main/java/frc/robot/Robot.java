@@ -20,6 +20,8 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.commands.InactiveRemover;
 import frc.robot.commands.swervedrive.AutoAlignment;
 import frc.robot.subsystems.swervedrive.Vision;
+import frc.robot.subsystems.swervedrive.AutoDetection.Cameras;
+import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.util.Units;
@@ -44,6 +46,7 @@ public class Robot extends TimedRobot
   public Robot()
   {
     instance = this;
+    CameraServer.startAutomaticCapture();
   }
 
   public static Robot getInstance()
@@ -95,7 +98,7 @@ public class Robot extends TimedRobot
     // and running subsystem periodic() methods.  This must be called from the robot's periodic
     // block in order for anything in the Command-based framework to work.
     CommandScheduler.getInstance().run();
-    SmartDashboard.putBoolean("right camrea status", Constants.vision.getEnabled(1));
+    //SmartDashboard.putBoolean("right camrea status", Constants.vision.getEnabled(1));
 
   }
 
@@ -173,10 +176,13 @@ public class Robot extends TimedRobot
   public void teleopPeriodic()
   {
 
+    m_robotContainer.autoLock();
+
+
     SmartDashboard.putBoolean("algaeee", Constants.ALGAE_REMOVER.isExtended);
 
     SmartDashboard.putString("LED COLOR", Constants.LEDSystem.currentColor);
-    SmartDashboard.putBoolean("Right Camera Enabled", Constants.vision.getEnabled(1));
+    //SmartDashboard.putBoolean("Right Camera Enabled", Constants.vision.getEnabled(1));
     
 
 

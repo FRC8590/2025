@@ -90,6 +90,7 @@ public final class Constants
     public static Vision vision;
 
 
+
     public static double scaleFactor = 1;
 
     public static int[] SCORING_IDS = {17, 18, 19, 20, 21, 22, 6, 7, 8, 9, 10, 11};
@@ -108,6 +109,7 @@ public final class Constants
     public static double distancePerRotation = 1/14.36; //meters per rotations
 
     public static final LaserCan laserCan = new LaserCan(8);
+    public static int lockTimer = 0;
 
 
     // Enums

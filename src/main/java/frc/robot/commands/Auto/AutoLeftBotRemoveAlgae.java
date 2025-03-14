@@ -46,8 +46,8 @@ public class AutoLeftBotRemoveAlgae extends SequentialCommandGroup {
       new ParallelCommandGroup(
         moveToScore,
         Commands.run(() -> Constants.ALGAE_REMOVER.reachGoalDown()).withTimeout(2)
-      ),
-      new MoveElevator(0.7)
+      )//,
+      //new MoveElevator(0.7)
     );
     addRequirements(Constants.ELEVATOR);
     addRequirements(Constants.ALGAE_REMOVER);
