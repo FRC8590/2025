@@ -71,7 +71,7 @@ public class Elevator extends SubsystemBase {
   // Define limits in meters
   private static final double MAX_HEIGHT_METERS = 0.7100;  // 10cm up
   private static final double MIN_HEIGHT_METERS = 0.00001; // 10cm down
-  private static final double MAX_VELOCITY_METERS = 7; // ~0.5 inches per second
+  private static final double MAX_VELOCITY_METERS = 3; // ~0.5 inches per second <- I don't think Joseph updated the "0.5" value
 
   // Fix trigger definitions with small tolerance
   public final Trigger atMin = new Trigger(() -> 
@@ -116,7 +116,7 @@ public class Elevator extends SubsystemBase {
     masterConfig
         .inverted(true)
         .idleMode(IdleMode.kCoast)
-        .smartCurrentLimit(50)
+        .smartCurrentLimit(35)
         .closedLoopRampRate(Constants.rampRate);
 
     masterConfig.alternateEncoder

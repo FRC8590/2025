@@ -146,7 +146,7 @@ public final class Constants
     public static double maxVelocity = 0.0;
     public static double maxAcceleration = 0.0;
 
-    public static double rampRate = 0.01;
+    public static double rampRate = 0.3;
 
 
 
