@@ -209,14 +209,14 @@ public class AlgaeRemover extends SubsystemBase {
    * @return Command
    */
   public Command reachGoalDownCommand() {
-    return run(this::reachGoalDown).until(atPosition(3, 0.2));
+    return run(this::reachGoalDown);
   }
   /**
    * Command to toggle the algae remover
    * @return Command
    */
   public Command reachGoalUpCommand() {
-    return run(this::reachGoalUp).withTimeout(0.5);
+    return run(this::reachGoalUp);
   }
   /**
    * Command to toggle the algae remover
