@@ -318,13 +318,14 @@ public class RobotContainer
 
       driverXbox.back().onTrue(Commands.runOnce(()-> Constants.drivebase.zeroGyroWithAlliance()));
       driverXbox.leftTrigger().whileTrue(new ScoreCoral());
-      // driverXbox.rightTrigger().onTrue(Constants.drivebase.speedSlow()); //flash leds yellow (to get human player's attention)
-      // driverXbox.rightTrigger().onFalse(Constants.drivebase.speedFast()); //flash leds yellow (to get human player's attention)
+      driverXbox.rightTrigger().whileTrue(Constants.drivebase.speedSlow()); //flash leds yellow (to get human player's attention)
+      driverXbox.rightTrigger().whileTrue(Commands.runOnce(() -> Constants.scaleFactor = 0.5)); //flash leds yellow (to get human player's attention)
+      driverXbox.rightTrigger().whileFalse(Commands.runOnce(() -> Constants.scaleFactor = 1)); //flash leds yellow (to get human player's attention)
 
       driverXbox.rightBumper().onTrue(new MoveElevator(0));
       driverXbox.leftBumper().whileTrue(Commands.run( () -> Constants.ALGAE_REMOVER.isExtended = true));
       driverXbox.leftBumper().whileFalse(Commands.run( () -> Constants.ALGAE_REMOVER.isExtended = false));
-      
+
       driverXbox.b().whileTrue(new ScoreCoral());
       driverXbox.a().whileTrue(new StopShooter());
       driverXbox.x().whileTrue(new TroughCoral());
@@ -332,6 +333,8 @@ public class RobotContainer
 
       operatorController.rightBumper().whileTrue(new ScoreCoral());
       operatorController.leftBumper().whileTrue(new StopShooter());
+
+
 
       driverXbox.leftStick().whileTrue(new TeleBotAlgae());
       driverXbox.rightStick().whileTrue(new TeleTopAlgae());
