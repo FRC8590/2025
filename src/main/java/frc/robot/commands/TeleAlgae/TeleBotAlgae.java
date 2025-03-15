@@ -41,12 +41,17 @@ public class TeleBotAlgae extends SequentialCommandGroup {
     
     addCommands(
         new ActiveRemover(),
+        new ParallelCommandGroup(
           moveToScore.withTimeout(2),
-          new MoveElevator(0.7),
+          new MoveElevator(0.1)
+        ),
+        new MoveElevator(0.7),
+        new ParallelCommandGroup(
           new ScoreCoral(),
-          new InactiveRemover(),
-          moveBack,
-          new MoveElevator(0)
+          new InactiveRemover()  
+        ),
+        moveBack,
+        new MoveElevator(0)
 
   );
     addRequirements(Constants.drivebase);

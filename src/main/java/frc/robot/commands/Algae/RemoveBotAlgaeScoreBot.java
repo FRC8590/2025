@@ -41,9 +41,12 @@ public class RemoveBotAlgaeScoreBot extends SequentialCommandGroup {
     
     addCommands(
       new ActiveRemover(),
-       moveToScore.withTimeout(2),
-       new MoveElevator(0.33),
-       new ParallelCommandGroup(
+      new ParallelCommandGroup(
+        moveToScore.withTimeout(2),
+        new MoveElevator(0.1)
+      ),
+      new MoveElevator(0.33),
+      new ParallelCommandGroup(
         new ScoreCoral(),
         new InactiveRemover()  
       ));
