@@ -46,7 +46,7 @@ public class Robot extends TimedRobot
   public Robot()
   {
     instance = this;
-    CameraServer.startAutomaticCapture();
+    // CameraServer.startAutomaticCapture();
   }
 
   public static Robot getInstance()
