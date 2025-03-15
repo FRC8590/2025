@@ -318,7 +318,8 @@ public class RobotContainer
 
       driverXbox.back().onTrue(Commands.runOnce(()-> Constants.drivebase.zeroGyroWithAlliance()));
       driverXbox.leftTrigger().whileTrue(new ScoreCoral());
-      driverXbox.rightTrigger().whileTrue(Commands.run(() -> Constants.LEDSystem.setYellow(), Constants.LEDSystem)); //flash leds yellow (to get human player's attention)
+      driverXbox.rightTrigger().onTrue(Constants.drivebase.speedSlow()); //flash leds yellow (to get human player's attention)
+      driverXbox.rightTrigger().onFalse(Constants.drivebase.speedFast()); //flash leds yellow (to get human player's attention)
 
       driverXbox.rightBumper().onTrue(new MoveElevator(0));
       driverXbox.leftBumper().whileTrue(Commands.run( () -> Constants.ALGAE_REMOVER.isExtended = true));

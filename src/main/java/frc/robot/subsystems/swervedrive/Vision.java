@@ -198,7 +198,7 @@ public class Vision
     {
       Optional<EstimatedRobotPose> poseEst = getEstimatedGlobalPose(camera);
 
-      if (poseEst.isPresent())
+      if (poseEst != null && poseEst.isPresent())
       {
 
 
