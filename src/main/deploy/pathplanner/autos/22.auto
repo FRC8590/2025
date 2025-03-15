@@ -13,7 +13,7 @@
         {
           "type": "named",
           "data": {
-            "name": "RemoveTopAlgaeScoreTop"
+            "name": "UniversalLeftBot"
           }
         },
         {
@@ -50,7 +50,7 @@
         {
           "type": "named",
           "data": {
-            "name": "UniversalRightTop"
+            "name": "UniversalRightBot"
           }
         },
         {
