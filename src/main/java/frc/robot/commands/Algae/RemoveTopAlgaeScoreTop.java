@@ -38,6 +38,8 @@ public class RemoveTopAlgaeScoreTop extends SequentialCommandGroup {
    * Creates a new ScoreCoral command that ejects the coral
    */
   public RemoveTopAlgaeScoreTop() {
+
+    
     
     addCommands(
       new ActiveRemover(),
@@ -47,7 +49,7 @@ public class RemoveTopAlgaeScoreTop extends SequentialCommandGroup {
         new ScoreCoral(),
         new InactiveRemover()  
       ));
-addRequirements(Constants.drivebase);
+    addRequirements(Constants.drivebase);
 
     
     addRequirements(Constants.SHOOTER);
