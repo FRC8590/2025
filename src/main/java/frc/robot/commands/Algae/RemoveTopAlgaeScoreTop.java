@@ -41,7 +41,7 @@ public class RemoveTopAlgaeScoreTop extends SequentialCommandGroup {
     
     addCommands(
       new ActiveRemover(),
-       moveToScore,
+       moveToScore.withTimeout(2),
        new MoveElevator(0.7),
        new ParallelCommandGroup(
         new ScoreCoral(),
