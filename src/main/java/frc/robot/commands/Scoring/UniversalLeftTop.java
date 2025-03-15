@@ -38,7 +38,7 @@ public class UniversalLeftTop extends SequentialCommandGroup {
     
     addCommands(
       new ParallelCommandGroup(
-        moveToScore,
+        moveToScore.withTimeout(2),
         new MoveElevator(0.7000)
       ),
       new ScoreCoral()

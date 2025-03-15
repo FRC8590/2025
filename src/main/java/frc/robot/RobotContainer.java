@@ -311,15 +311,15 @@ public class RobotContainer
       Constants.ALGAE_REMOVER.setDefaultCommand(Constants.ALGAE_REMOVER.toggleCommand());
 
       
-      driverXbox.povUp().whileTrue(new TeleLeftTop()); //score on the left top
+      driverXbox.povDown().whileTrue(new TeleLeftTop()); //score on the left top
       driverXbox.povLeft().whileTrue(new TeleRightTop()); //score on the right top
-      driverXbox.povDown().whileTrue(new TeleLeftBot()); //score on the left bottom
+      driverXbox.povUp().whileTrue(new TeleLeftBot()); //score on the left bottom
       driverXbox.povRight().whileTrue(new TeleRightBot()); //score on the right bottom
 
       driverXbox.back().onTrue(Commands.runOnce(()-> Constants.drivebase.zeroGyroWithAlliance()));
       driverXbox.leftTrigger().whileTrue(new ScoreCoral());
-      driverXbox.rightTrigger().onTrue(Constants.drivebase.speedSlow()); //flash leds yellow (to get human player's attention)
-      driverXbox.rightTrigger().onFalse(Constants.drivebase.speedFast()); //flash leds yellow (to get human player's attention)
+      // driverXbox.rightTrigger().onTrue(Constants.drivebase.speedSlow()); //flash leds yellow (to get human player's attention)
+      // driverXbox.rightTrigger().onFalse(Constants.drivebase.speedFast()); //flash leds yellow (to get human player's attention)
 
       driverXbox.rightBumper().onTrue(new MoveElevator(0));
       driverXbox.leftBumper().whileTrue(Commands.run( () -> Constants.ALGAE_REMOVER.isExtended = true));

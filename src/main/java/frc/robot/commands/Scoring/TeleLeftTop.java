@@ -38,8 +38,8 @@ public class TeleLeftTop extends SequentialCommandGroup {
     
     addCommands(
       new ParallelCommandGroup(
-        moveToScore,
-       new MoveElevator(0.31)
+        moveToScore.withTimeout(2),
+       new MoveElevator(0.7)
       ),
       new ScoreCoral(),
       new MoveElevator(0)
