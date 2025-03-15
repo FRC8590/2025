@@ -80,6 +80,6 @@ public record ScoringConstants(
         new Pose2d(new Translation2d(11.92, 3.57), new Rotation2d(Units.degreesToRadians(1.6))),
         //11
         new Pose2d(new Translation2d(12.45, 3.04), new Rotation2d(Units.degreesToRadians(64.2))),
-        new Pose2d(new Translation2d(12.89, 2.81), new Rotation2d(Units.degreesToRadians(61.8))),
+        new Pose2d(new Translation2d(12.89, 2.81), new Rotation2d(Units.degreesToRadians(61.8)))
     );
 } 
