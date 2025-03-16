@@ -11,6 +11,12 @@
           }
         },
         {
+          "type": "wait",
+          "data": {
+            "waitTime": 0.5
+          }
+        },
+        {
           "type": "named",
           "data": {
             "name": "UniversalLeftBot"
@@ -45,6 +51,12 @@
           "type": "path",
           "data": {
             "pathName": "Coral(lower)-5o'clock"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 0.5
           }
         },
         {

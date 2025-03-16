@@ -9,7 +9,7 @@
       "prevControl": null,
       "nextControl": {
         "x": 15.299590043923864,
-        "y": 0.9071083455344066
+        "y": 0.9071083455344067
       },
       "isLocked": false,
       "linkedName": "Red feed lower"
@@ -34,7 +34,7 @@
   "eventMarkers": [],
   "globalConstraints": {
     "maxVelocity": 3.0,
-    "maxAcceleration": 2.0,
+    "maxAcceleration": 1.8,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0,
     "nominalVoltage": 12.0,
