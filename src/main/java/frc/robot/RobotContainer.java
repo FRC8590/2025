@@ -282,8 +282,18 @@ public class RobotContainer
         Constants.lockTimer = 0;
       }
     }
-
   }
+
+    public void slowMode(){
+      SmartDashboard.putNumber("scale factor", Constants.scaleFactor);
+      boolean rightTrigger = driverXbox.getRightTriggerAxis() > 0.3;
+      if(rightTrigger){
+        Constants.scaleFactor = 0.4;
+      }
+      else{
+        Constants.scaleFactor = 1;
+      }
+    }
 
 
   /**
@@ -318,9 +328,6 @@ public class RobotContainer
 
       driverXbox.back().onTrue(Commands.runOnce(()-> Constants.drivebase.zeroGyroWithAlliance()));
       driverXbox.leftTrigger().whileTrue(new ScoreCoral());
-      driverXbox.rightTrigger().whileTrue(Constants.drivebase.speedSlow()); //flash leds yellow (to get human player's attention)
-      driverXbox.rightTrigger().whileTrue(Commands.runOnce(() -> Constants.scaleFactor = 0.5)); //flash leds yellow (to get human player's attention)
-      driverXbox.rightTrigger().whileFalse(Commands.runOnce(() -> Constants.scaleFactor = 1)); //flash leds yellow (to get human player's attention)
 
       driverXbox.rightBumper().onTrue(new MoveElevator(0));
       driverXbox.leftBumper().whileTrue(Commands.run( () -> Constants.ALGAE_REMOVER.isExtended = true));

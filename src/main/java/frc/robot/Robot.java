@@ -46,7 +46,7 @@ public class Robot extends TimedRobot
   public Robot()
   {
     instance = this;
-    // CameraServer.startAutomaticCapture();
+    CameraServer.startAutomaticCapture();
   }
 
   public static Robot getInstance()
@@ -177,6 +177,7 @@ public class Robot extends TimedRobot
   {
 
     m_robotContainer.autoLock();
+    m_robotContainer.slowMode();
 
 
     SmartDashboard.putBoolean("algaeee", Constants.ALGAE_REMOVER.isExtended);
