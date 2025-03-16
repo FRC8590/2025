@@ -11,12 +11,6 @@
           }
         },
         {
-          "type": "wait",
-          "data": {
-            "waitTime": 0.5
-          }
-        },
-        {
           "type": "named",
           "data": {
             "name": "UniversalLeftBot"
@@ -51,12 +45,6 @@
           "type": "path",
           "data": {
             "pathName": "RED coral (bottom) - 7o'clock"
-          }
-        },
-        {
-          "type": "wait",
-          "data": {
-            "waitTime": 0.5
           }
         },
         {
