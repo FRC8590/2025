@@ -21,10 +21,7 @@ import edu.wpi.first.math.geometry.Translation3d;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.Filesystem;
 import swervelib.math.Matter;
-import frc.robot.constants.IntakeConstants;
 import frc.robot.constants.LEDConstants;
-import frc.robot.constants.ElevatorConstants;
-import frc.robot.constants.AlgaeConstants;
 import frc.robot.constants.AlgaeRemoverConstants;
 import frc.robot.constants.DriveConstants;
 import frc.robot.constants.OperatorConstants;
@@ -96,13 +93,10 @@ public final class Constants
     public static int[] SCORING_IDS = {17, 18, 19, 20, 21, 22, 6, 7, 8, 9, 10, 11};
 
     // Constants Records
-    public static final IntakeConstants INTAKE_CONSTANTS = IntakeConstants.DEFAULT;
-    public static final ElevatorConstants ELEVATOR_CONSTANTS = ElevatorConstants.DEFAULT;
     public static final DriveConstants DRIVE_CONSTANTS = DriveConstants.DEFAULT;
     public static final OperatorConstants OPERATOR_CONSTANTS = OperatorConstants.DEFAULT;
     public static final ShooterConstants SHOOTER_CONSTANTS = ShooterConstants.DEFAULT;
     public static final ScoringConstants SCORING_CONSTANTS = ScoringConstants.DEFAULT;
-    public static final AlgaeConstants ALGAE_CONSTANTS = AlgaeConstants.DEFAULT;
     public static final AlgaeRemoverConstants ALGAE_REMOVER_CONSTANTS = AlgaeRemoverConstants.DEFAULT;
     public static final LEDConstants LED_CONSTANTS = LEDConstants.DEFAULT;
 
