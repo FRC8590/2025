@@ -27,10 +27,7 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.*;
 import frc.robot.commands.Scoring.*;
-import frc.robot.commands.Scoring.TeleBotAlgae;
-import frc.robot.commands.Scoring.TeleTopAlgae;
 import frc.robot.commands.swervedrive.*;
-import frc.robot.commands.swervedrive.auto.AutoBalanceCommand;
 import frc.robot.commands.swervedrive.drivebase.AbsoluteDriveAdv;
 import frc.robot.constants.OperatorConstants;
 import frc.robot.commands.swervedrive.AlignToAprilTag;
@@ -42,14 +39,6 @@ import frc.robot.subsystems.Shooter.*;
 import java.io.File;
 
 import frc.robot.commands.*;
-import frc.robot.commands.Algae.RemoveBotAlgaeScoreBot;
-import frc.robot.commands.Algae.RemoveBotAlgaeScoreTop;
-import frc.robot.commands.Algae.RemoveTopAlgaeScoreTop;
-import frc.robot.commands.Algae.StateUpdateAlgae;
-import frc.robot.commands.Auto.AutoLeftBotRemoveAlgae;
-import frc.robot.commands.Auto.AutoLeftTopRemoveAlgae;
-import frc.robot.commands.Auto.AutoRightBotRemoveAlgae;
-import frc.robot.commands.Auto.AutoRightTopRemoveAlgae;
 import org.photonvision.targeting.PhotonPipelineResult;
 
 import swervelib.SwerveInputStream;
@@ -240,18 +229,6 @@ public class RobotContainer
     NamedCommands.registerCommand("UniversalLeftTop", new UniversalLeftTop());
     NamedCommands.registerCommand("UniversalRightTop", new UniversalRightTop());
 
-    NamedCommands.registerCommand("RemoveBotAlgae", new RemoveBotAlgaeScoreBot());
-    NamedCommands.registerCommand("RemoveTopAlgae", new RemoveTopAlgaeScoreTop());
-
-    NamedCommands.registerCommand("UniversalLeftBotRemoveAlgae", new AutoLeftBotRemoveAlgae());
-    NamedCommands.registerCommand("UniversalRightTopRemoveAlgae", new AutoRightTopRemoveAlgae());
-    NamedCommands.registerCommand("UniversalRightBotRemoveAlgae", new AutoRightBotRemoveAlgae());
-    NamedCommands.registerCommand("UniversalLeftTopRemoveAlgae", new AutoLeftTopRemoveAlgae());
-
-    NamedCommands.registerCommand("RemoveBotAlgaeScoreBot", new RemoveBotAlgaeScoreBot());
-    //NamedCommands.registerCommand("RemoveTopAlgaeScoreBot", new RemoveTopAlgaeScoreBot());
-    NamedCommands.registerCommand("RemoveBotAlgaeScoreTop", new RemoveBotAlgaeScoreTop());
-    NamedCommands.registerCommand("RemoveTopAlgaeScoreTop", new RemoveTopAlgaeScoreTop());
 
     NamedCommands.registerCommand("WaitForCoralIntake", new WaitForCoralIntake());
     NamedCommands.registerCommand("ZeroElevator", new ZeroElevator());
@@ -321,11 +298,7 @@ public class RobotContainer
       Constants.ALGAE_REMOVER.setDefaultCommand(Constants.ALGAE_REMOVER.toggleCommand());
 
       
-      driverXbox.povDown().whileTrue(new TeleLeftTop()); //score on the left top
-      driverXbox.povLeft().whileTrue(new TeleRightTop()); //score on the right top
-      driverXbox.povUp().whileTrue(new TeleLeftBot()); //score on the left bottom
-      driverXbox.povRight().whileTrue(new TeleRightBot()); //score on the right bottom
-
+                        
       driverXbox.back().onTrue(Commands.runOnce(()-> Constants.drivebase.zeroGyroWithAlliance()));
       driverXbox.leftTrigger().whileTrue(new ScoreCoral());
 
@@ -339,19 +312,7 @@ public class RobotContainer
       driverXbox.y().whileTrue(driveRobotOrientedAngular);
 
       operatorController.rightBumper().whileTrue(new ScoreCoral());
-      operatorController.leftBumper().whileTrue(new StopShooter());
-
-
-
-      driverXbox.leftStick().whileTrue(new TeleBotAlgae());
-      driverXbox.rightStick().whileTrue(new TeleTopAlgae());
-
-
-      operatorController.b().whileTrue(new RemoveTopAlgaeScoreTop());
-      operatorController.a().whileTrue(new RemoveBotAlgaeScoreBot());
-      operatorController.y().whileTrue(new RemoveBotAlgaeScoreTop());
-
-      
+      operatorController.leftBumper().whileTrue(new StopShooter());   
   }
 }
 
