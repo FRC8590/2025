@@ -27,13 +27,14 @@ import java.util.Map;
 
 import com.fasterxml.jackson.databind.ser.std.StdKeySerializers.Default;
 
-/** Command to score a coral by ejecting it */
+/** Changes color of LEDs depending on if it has a coral or not */
 public class SetLED extends SequentialCommandGroup {
 
   // Define the AprilTag IDs we're interested in
   
   /**
-   * Creates a new ScoreCoral command that ejects the coral
+   * Currelty will set LEDs to red if coral is absent
+   * will set LEDs to green if coral is present
    */
   public SetLED() {
     

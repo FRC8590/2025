@@ -27,13 +27,14 @@ import java.util.Map;
 
 import com.fasterxml.jackson.databind.ser.std.StdKeySerializers.Default;
 
-/** Command to score a coral by ejecting it */
+/** Universal command to score coral on right L3 */
 public class UniversalRightTop extends SequentialCommandGroup {
 
   // Define the AprilTag IDs we're interested in
   
   /**
-   * Creates a new ScoreCoral command that ejects the coral
+   * Moves up to reef and moves elevator up to 0.31.
+   * Scores a coral on right L3
    */
   public UniversalRightTop() {
     

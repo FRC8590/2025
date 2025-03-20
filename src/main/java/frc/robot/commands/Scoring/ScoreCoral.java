@@ -8,11 +8,11 @@ import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.Constants;
 
-/** Command to score a coral by ejecting it */
+/** Ejects coral from intake for 5 seconds */
 public class ScoreCoral extends SequentialCommandGroup {
 
   /**
-   * Creates a new ScoreCoral command that ejects the coral
+   * Ejects coral from intake for 5 seconds
    */
   public ScoreCoral() {
     addCommands(

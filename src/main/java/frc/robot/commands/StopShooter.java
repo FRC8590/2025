@@ -13,11 +13,11 @@ import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.Constants;
 import frc.robot.Constants.ScoreLocation;
 
-/** An example command that uses an example subsystem. */
+/** Stops the shooter. */
 public class StopShooter extends SequentialCommandGroup {
 
   /**
-   * Creates a new CoralScore command that drives to the scoring position and moves the elevator.
+   * 
    *
    * @param scoreLocation The desired scoring location (LEFT, CENTER, RIGHT)
    */

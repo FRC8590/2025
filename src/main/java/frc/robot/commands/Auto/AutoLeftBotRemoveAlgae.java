@@ -32,13 +32,13 @@ import java.util.Map;
 
 import com.fasterxml.jackson.databind.ser.std.StdKeySerializers.Default;
 
-/** Command to score a coral by ejecting it */
+/** Removes the bottom algae */
 public class AutoLeftBotRemoveAlgae extends SequentialCommandGroup {
 
   // Define the AprilTag IDs we're interested in
   
   /**
-   * Creates a new ScoreCoral command that ejects the coral
+   * Removes the bottom algae
    */
   public AutoLeftBotRemoveAlgae() {
     

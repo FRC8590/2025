@@ -13,11 +13,11 @@ import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.Constants;
 import frc.robot.Constants.ScoreLocation;
 
-/** Command to run the coral intake system */
+/** Start the algae remover */
 public class ActiveRemover extends SequentialCommandGroup {
 
   /**
-   * Creates a new IntakeCoral command that runs the intake system
+   * Sets algae remover to its down state and activates it
    */
   public ActiveRemover() {
     addCommands(

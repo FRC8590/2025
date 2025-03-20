@@ -10,11 +10,11 @@ import frc.robot.Constants;
 import frc.robot.commands.MoveElevator;
 import frc.robot.commands.StopShooter;
 
-/** Command to score a coral by ejecting it */
+/** Sets elevator position to 0 and stops intake motors */
 public class ResetElevatorAndIntake extends ParallelCommandGroup {
 
   /**
-   * Creates a new ScoreCoral command that ejects the coral
+   * Sets elevator position to 0 and stops intake motors
    */
   public ResetElevatorAndIntake() {
     addCommands(

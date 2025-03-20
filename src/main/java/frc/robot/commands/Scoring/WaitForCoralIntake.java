@@ -11,9 +11,12 @@ import frc.robot.Constants;
 
 import java.util.function.BooleanSupplier;
 
-/* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
+/* Use for autos, wait for coral before leaving station */
 public class WaitForCoralIntake extends Command {
-  /** Creates a new WaitForCoralIntake. */
+  /** Creates a new WaitForCoralIntake.
+   * Used in autos. Checks if the intake has a coral.
+   * In autos, used to make the bot not leave untill is reseives a coral
+  */
 
   public WaitForCoralIntake() {
     // Use addRequirements() here to declare subsystem dependencies.

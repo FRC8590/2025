@@ -17,7 +17,7 @@ import frc.robot.Constants.ScoreLocation;
 public class InactiveRemover extends SequentialCommandGroup {
 
   /**
-   * Creates a new IntakeCoral command that runs the intake system
+   * Turn off algae remover and raise it back up
    */
   public InactiveRemover() {
     addCommands(

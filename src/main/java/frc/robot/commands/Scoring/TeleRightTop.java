@@ -27,13 +27,13 @@ import java.util.Map;
 
 import com.fasterxml.jackson.databind.ser.std.StdKeySerializers.Default;
 
-/** Command to score a coral by ejecting it */
+/** Scores a coral on L3 */
 public class TeleRightTop extends SequentialCommandGroup {
 
   // Define the AprilTag IDs we're interested in
   
   /**
-   * Creates a new ScoreCoral command that ejects the coral
+   * Scores a coral on L3
    */
   public TeleRightTop() {
     
@@ -42,7 +42,7 @@ public class TeleRightTop extends SequentialCommandGroup {
       new ParallelCommandGroup(
         
         moveToScore.withTimeout(2),
-        new MoveElevator(0.7000)
+        new MoveElevator(0.7)
       ),
       new ScoreCoral(),
       new MoveElevator(0)

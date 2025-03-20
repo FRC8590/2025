@@ -9,11 +9,12 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.Constants;
 import frc.robot.commands.MoveElevator;
 
-/** Command to score a coral by ejecting it */
+/**  Attempts to score a coral on L1. */
 public class TroughCoral extends SequentialCommandGroup {
 
   /**
-   * Creates a new ScoreCoral command that ejects the coral
+   * Attempts to score a coral on L1.
+   * Move selevator to 0.22, and ejects coral before moving elevator back to 0.
    */
   public TroughCoral() {
     addCommands(

@@ -13,11 +13,11 @@ import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.Constants;
 import frc.robot.Constants.ScoreLocation;
 
-/** Command to run the coral intake system */
+/** Intakes coral*/
 public class IntakeCoral extends SequentialCommandGroup {
 
   /**
-   * Creates a new IntakeCoral command that runs the intake system
+   * Activates coral intake
    */
   public IntakeCoral() {
     addCommands(

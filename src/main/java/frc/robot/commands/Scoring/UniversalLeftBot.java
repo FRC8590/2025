@@ -26,13 +26,14 @@ import java.util.Map;
 
 import com.fasterxml.jackson.databind.ser.std.StdKeySerializers.Default;
 
-/** Command to score a coral by ejecting it */
+/** Universal command to score coral on left L2 */
 public class UniversalLeftBot extends SequentialCommandGroup {
 
   // Define the AprilTag IDs we're interested in
   
   /**
-   * Creates a new ScoreCoral command that ejects the coral
+   * Moves up to reef and moves elevator to 0.31.
+   * Scores coral on left L2
    */
   public UniversalLeftBot() {
     
