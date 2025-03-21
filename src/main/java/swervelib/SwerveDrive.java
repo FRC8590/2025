@@ -45,6 +45,9 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.constants.DriveConstants;
+import frc.robot.subsystems.QuestNav;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -77,6 +80,7 @@ import swervelib.telemetry.SwerveDriveTelemetry.TelemetryVerbosity;
  */
 public class SwerveDrive
 {
+  private QuestNav questNav = new QuestNav();
 
   /**
    * Swerve Kinematics object.
@@ -283,6 +287,7 @@ public class SwerveDrive
       imu.factoryDefault();
       imuReadingCache = new Cache<>(imu::getRotation3d, 5L);
     }
+    questNav.getPose().getRotation();
 
     //    odometry = new SwerveDriveOdometry(kinematics, getYaw(), getModulePositions());
     swerveDrivePoseEstimator =
@@ -595,6 +600,10 @@ public class SwerveDrive
    */
   public void drive(ChassisSpeeds robotRelativeVelocity, boolean isOpenLoop, Translation2d centerOfRotationMeters)
   {
+
+    double oculusYaw = questNav.getPose().getRotation().getDegrees();
+    SmartDashboard.putNumber("OculusYaw", oculusYaw);
+
     SwerveDriveTelemetry.startCtrlCycle();
     robotRelativeVelocity = movementOptimizations(robotRelativeVelocity,
                                                   chassisVelocityCorrection,
@@ -898,6 +907,7 @@ public class SwerveDrive
    */
   public void resetOdometry(Pose2d pose)
   {
+    questNav.zeroPosition();
     odometryLock.lock();
     swerveDrivePoseEstimator.resetPosition(getYaw(), getModulePositions(), pose);
     if (SwerveDriveTelemetry.isSimulation)
@@ -1009,7 +1019,8 @@ public class SwerveDrive
   public Rotation2d getYaw()
   {
     // Read the imu if the robot is real or the accumulator if the robot is simulated.
-    return Rotation2d.fromRadians(imuReadingCache.getValue().getZ());
+    // return Rotation2d.fromRadians(imuReadingCache.getValue().getZ());
+    return questNav.getPose().getRotation();
   }
 
   /**
@@ -1557,4 +1568,23 @@ public class SwerveDrive
     }
     return kinematics.toSwerveModuleStates(robotRelativeVelocity);
   }
+
+    // Return the robot heading in degrees, between -180 and 180 degrees
+  public double getHeading() {
+    return questNav.getPose().getRotation().getDegrees();
+  }
+
+  public void zeroPosition() {
+    questNav.zeroPosition();
+  }
+
+  public void cleanupQuestNavMessages() {
+    questNav.processHeartbeat();
+    questNav.cleanUpQuestNavMessages();
+  }
+
+  public void zeroHeading() {
+    questNav.zeroHeading();
+  }
+
 }
