@@ -355,7 +355,7 @@ public class SwerveSubsystem extends SubsystemBase
 
 
     PathConstraints constraints = new PathConstraints(
-        swerveDrive.getMaximumChassisVelocity(), 0.5,
+        swerveDrive.getMaximumChassisVelocity(), 2,
         swerveDrive.getMaximumChassisAngularVelocity(), Units.degreesToRadians(720));
 
         
