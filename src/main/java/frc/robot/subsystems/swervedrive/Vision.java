@@ -408,14 +408,13 @@ public class Vision
               new Translation3d(Units.inchesToMeters(4),
                                 Units.inchesToMeters(0),
                                 Units.inchesToMeters(11)),
-              VecBuilder.fill(4, 4, 8), VecBuilder.fill(0.5, 0.5, 1)),
-
-    LEFT_CAM("left",
-              new Rotation3d(0, 0, Units.degreesToRadians(0)),
-              new Translation3d(Units.inchesToMeters(4),
-                                Units.inchesToMeters(14),
-                                Units.inchesToMeters(11)),
               VecBuilder.fill(4, 4, 8), VecBuilder.fill(0.5, 0.5, 1));
+    // LEFT_CAM("left",
+    //           new Rotation3d(0, 0, Units.degreesToRadians(0)),
+    //           new Translation3d(Units.inchesToMeters(4),
+    //                             Units.inchesToMeters(14),
+    //                             Units.inchesToMeters(11)),
+    //           VecBuilder.fill(4, 4, 8), VecBuilder.fill(0.5, 0.5, 1));
 
     /**
      * Latency alert to use when high latency is detected.
