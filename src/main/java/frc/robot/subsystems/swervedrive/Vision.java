@@ -14,6 +14,7 @@ import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Rotation3d;
 import edu.wpi.first.math.geometry.Transform2d;
 import edu.wpi.first.math.geometry.Transform3d;
+import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.geometry.Translation3d;
 import edu.wpi.first.math.numbers.N1;
 import edu.wpi.first.math.numbers.N3;
@@ -717,6 +718,128 @@ public class Vision
 
   }
 
+  /**
+   * Gets a pose estimate using a single AprilTag based on tx/ty angles and distance.
+   * This is more stable for precision alignment than multi-tag pose estimation.
+   * 
+   * @param tagId The ID of the AprilTag to use
+   * @param camera The camera that sees the tag
+   * @return Optional containing the estimated robot pose, or empty if the tag isn't visible
+   */
+  public Optional<Pose2d> getSingleTagPoseEstimate(int tagId, Cameras camera) {
+    // Check if the camera can see the tag
+    Optional<PhotonTrackedTarget> targetOpt = Optional.empty();
+    for (PhotonPipelineResult result : camera.resultsList) {
+      if (result.hasTargets()) {
+        for (PhotonTrackedTarget target : result.getTargets()) {
+          if (target.getFiducialId() == tagId) {
+            targetOpt = Optional.of(target);
+            break;
+          }
+        }
+      }
+    }
+    
+    if (targetOpt.isEmpty()) {
+      return Optional.empty();
+    }
+    
+    PhotonTrackedTarget target = targetOpt.get();
+    
+    // Get the tag's position in the field
+    Optional<Pose3d> tagPoseOpt = fieldLayout.getTagPose(tagId);
+    if (tagPoseOpt.isEmpty()) {
+      return Optional.empty();
+    }
+    Pose3d tagPose = tagPoseOpt.get();
+    
+    // Get camera position relative to robot
+    Transform3d robotToCamera = camera.robotToCamTransform;
+    
+    // Calculate horizontal angle (tx) and vertical angle (ty)
+    double tx = target.getYaw();
+    double ty = target.getPitch();
+    
+    // Get 3D distance from target
+    // This is more reliable than the ambiguous pose from SolvePNP
+    double distance3d = target.getBestCameraToTarget().getTranslation().getNorm();
+    
+    // Calculate 2D distance (projected to the ground plane)
+    // Use camera mounting angle and ty
+    double cameraPitchRadians = robotToCamera.getRotation().getY();
+    double distance2d = distance3d * Math.cos(Math.toRadians(ty) + cameraPitchRadians);
+    
+    // Calculate robot angle relative to tag
+    Rotation2d robotAngle = currentPose.get().getRotation();
+    Rotation2d cameraAngle = Rotation2d.fromDegrees(robotToCamera.getRotation().getZ());
+    Rotation2d totalAngle = robotAngle.plus(cameraAngle);
+    
+    // Calculate angle to tag
+    Rotation2d tagAngle = totalAngle.plus(Rotation2d.fromDegrees(-tx));
+    
+    // Calculate robot position
+    // Start at tag position, move distance at the calculated angle, and account for camera offset
+    Translation2d tagTranslation = tagPose.toPose2d().getTranslation();
+    Translation2d cameraTranslation = tagTranslation.plus(
+        new Translation2d(
+            -distance2d * Math.cos(tagAngle.getRadians()),
+            -distance2d * Math.sin(tagAngle.getRadians())
+        )
+    );
+    
+    // Adjust for camera position on robot
+    Translation2d robotTranslation = cameraTranslation.minus(
+        new Translation2d(
+            robotToCamera.getX() * Math.cos(robotAngle.getRadians()) - 
+            robotToCamera.getY() * Math.sin(robotAngle.getRadians()),
+            robotToCamera.getX() * Math.sin(robotAngle.getRadians()) + 
+            robotToCamera.getY() * Math.cos(robotAngle.getRadians())
+        )
+    );
+    
+    // Return robot pose with original rotation (we use the gyro for rotation)
+    return Optional.of(new Pose2d(robotTranslation, robotAngle));
+  }
   
+  /**
+   * Gets best single-tag pose estimate from all cameras.
+   * Prioritizes closer tags for better accuracy.
+   * 
+   * @param tagId The ID of the AprilTag to use
+   * @return Optional containing the estimated robot pose, or empty if the tag isn't visible
+   */
+  public Optional<Pose2d> getBestSingleTagPoseEstimate(int tagId) {
+    Optional<Pose2d> bestPose = Optional.empty();
+    double bestDistance = Double.MAX_VALUE;
+    
+    for (Cameras camera : Cameras.values()) {
+      // Get the target from this camera if it exists
+      Optional<PhotonTrackedTarget> targetOpt = Optional.empty();
+      for (PhotonPipelineResult result : camera.resultsList) {
+        if (result.hasTargets()) {
+          for (PhotonTrackedTarget target : result.getTargets()) {
+            if (target.getFiducialId() == tagId) {
+              double distance = target.getBestCameraToTarget().getTranslation().getNorm();
+              // Only process if this is closer than the current best
+              if (distance < bestDistance) {
+                bestDistance = distance;
+                targetOpt = Optional.of(target);
+              }
+              break;
+            }
+          }
+        }
+      }
+      
+      if (targetOpt.isPresent()) {
+        Optional<Pose2d> pose = getSingleTagPoseEstimate(tagId, camera);
+        if (pose.isPresent()) {
+          bestPose = pose;
+        }
+      }
+    }
+    
+    return bestPose;
+  }
 
 }
