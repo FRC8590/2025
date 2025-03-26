@@ -26,6 +26,7 @@ import frc.robot.constants.LEDConstants;
 import frc.robot.constants.ElevatorConstants;
 import frc.robot.constants.AlgaeConstants;
 import frc.robot.constants.AlgaeRemoverConstants;
+import frc.robot.constants.DeepClimbConstants;
 import frc.robot.constants.DriveConstants;
 import frc.robot.constants.OperatorConstants;
 import frc.robot.constants.ScoringConstants;
@@ -105,6 +106,7 @@ public final class Constants
     public static final AlgaeConstants ALGAE_CONSTANTS = AlgaeConstants.DEFAULT;
     public static final AlgaeRemoverConstants ALGAE_REMOVER_CONSTANTS = AlgaeRemoverConstants.DEFAULT;
     public static final LEDConstants LED_CONSTANTS = LEDConstants.DEFAULT;
+    public static final DeepClimbConstants DEEP_CLIMB_CONSTANTS = DeepClimbConstants.DEFAULT;
 
     public static double distancePerRotation = 1/14.36; //meters per rotations
 
