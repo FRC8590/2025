@@ -53,12 +53,14 @@ public class DeepClimb extends SubsystemBase
         rightMotor.configure(motorConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
     }
 
+    // Used to set the speeds of the motors
     public void setSpeed (double speed)
     {
         leftMotor.set(speed);
         rightMotor.set(-speed);
     }
 
+    // Stop the motors
     public void stopClimb ()
     {
         leftMotor.set(0);
