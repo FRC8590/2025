@@ -12,7 +12,7 @@ public record DeepClimbConstants(
 )
 {
     public static final DeepClimbConstants DEFAULT = new DeepClimbConstants (
-        99, // Left Motor
-        98 // Right motor
+        14, // Left Motor
+        15 // Right motor
     );
 }
