@@ -27,7 +27,11 @@ public class DeepClimb extends SubsystemBase
     // Initiates the motors' config options
     private final SparkMaxConfig motorConfig = new SparkMaxConfig();
 
-    // Creates 2 new motors, with the ID's from DeepClimbConstants.java, Not configured yet
+    /**
+     * Creates 2 new motors,
+     * with the ID's from DeepClimbConstants.java,
+     * Not configured yet
+     */
     private final SparkMax leftMotor = new SparkMax(Constants.DEEP_CLIMB_CONSTANTS.kLeftMotorID(), MotorType.kBrushless);
     private final SparkMax rightMotor = new SparkMax(Constants.DEEP_CLIMB_CONSTANTS.kRightMotorID(), MotorType.kBrushless);
 
@@ -48,4 +52,20 @@ public class DeepClimb extends SubsystemBase
         // Aply config to the right motor
         rightMotor.configure(motorConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
     }
+
+    public void setSpeed (double speed)
+    {
+        leftMotor.set(speed);
+        rightMotor.set(-speed);
+    }
+
+    public void stopClimb ()
+    {
+        leftMotor.set(0);
+        rightMotor.set(0);
+    }
+
+    // Called once per scheduler run
+    @Override
+    public void periodic () {/** Nothing for now */}
 }
