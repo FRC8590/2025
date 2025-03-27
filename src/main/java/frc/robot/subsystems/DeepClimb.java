@@ -58,7 +58,7 @@ public class DeepClimb extends SubsystemBase
     public void setSpeed (double speed)
     {
         leftMotor.set(speed);
-        rightMotor.set(-speed);
+        rightMotor.set(speed);
     }
 
     // Stop the motors
