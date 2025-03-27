@@ -26,6 +26,7 @@ public class DeepClimb extends SubsystemBase
 {
     // Initiates the motors' config options
     private final SparkMaxConfig motorConfig = new SparkMaxConfig();
+    private boolean toggled = false; // Toggles the motors on and off
 
     /**
      * Creates 2 new motors,
@@ -67,7 +68,27 @@ public class DeepClimb extends SubsystemBase
         rightMotor.set(0);
     }
 
-    // Called once per scheduler run
-    @Override
-    public void periodic () {/** Nothing for now */}
+    public void toggleClimb ()
+    {
+        toggled = !toggled;
+
+        if (toggled)
+        {
+            setSpeed(0.5);
+        }
+        else
+        {
+            setSpeed(-0.5);
+        }
+    }
+
+    public Command toggle ()
+    {
+        return run(() -> toggleClimb());
+    }
+
+    public Command stop ()
+    {
+        return run(() -> stopClimb());
+    }
 }

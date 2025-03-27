@@ -32,6 +32,7 @@ import frc.robot.constants.OperatorConstants;
 import frc.robot.constants.ScoringConstants;
 import frc.robot.constants.ShooterConstants;
 import frc.robot.subsystems.AlgaeRemover;
+import frc.robot.subsystems.DeepClimb;
 import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.LEDSubsystem;
 import frc.robot.subsystems.Shooter;
@@ -158,5 +159,6 @@ public final class Constants
     public static final Shooter SHOOTER = new Shooter();
     public static final AlgaeRemover ALGAE_REMOVER = new AlgaeRemover();
     public static final LEDSubsystem LEDSystem = new LEDSubsystem();
+    public static final DeepClimb DEEP_CLIMB = new DeepClimb();
 
 }
