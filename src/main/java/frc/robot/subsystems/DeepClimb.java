@@ -57,7 +57,7 @@ public class DeepClimb extends SubsystemBase
     public void setSpeed (double speed)
     {
         leftMotor.set(speed);
-        rightMotor.set(-speed);
+        rightMotor.set(speed);
     }
 
     // Stop the motors
@@ -69,5 +69,5 @@ public class DeepClimb extends SubsystemBase
 
     // Called once per scheduler run
     @Override
-    public void periodic () {/** Nothing for now */}
+    public void periodic () {/** Nothing for now */} //<-Why not? Why is there nothing for now? Riley you need to get yourself together and start making GOOD CODE!! Your future employers WILL NOT settle for MEDIOCRITY!!!! LOCK TF IN
 }
