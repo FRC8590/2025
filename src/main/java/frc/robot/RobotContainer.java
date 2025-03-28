@@ -36,6 +36,7 @@ import frc.robot.constants.OperatorConstants;
 import frc.robot.commands.swervedrive.AlignToAprilTag;
 import frc.robot.subsystems.swervedrive.SwerveSubsystem;
 import frc.robot.subsystems.swervedrive.Vision;
+import frc.robot.subsystems.DeepClimb;
 import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.Shooter.*;
@@ -67,8 +68,8 @@ public class RobotContainer
   
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
-  final         CommandXboxController driverXbox = new CommandXboxController(0);
-  final         CommandXboxController operatorController = new CommandXboxController(1);
+  public final         CommandXboxController driverXbox = new CommandXboxController(0);
+  public final         CommandXboxController operatorController = new CommandXboxController(1);
 
   //auto list object
   private final SendableChooser<String> m_chooser = new SendableChooser<>();
@@ -319,7 +320,7 @@ public class RobotContainer
       Constants.SHOOTER.setDefaultCommand(new IntakeCoral());
       Constants.LEDSystem.setDefaultCommand(new SetLED());
       Constants.ALGAE_REMOVER.setDefaultCommand(Constants.ALGAE_REMOVER.toggleCommand());
-
+      Constants.DEEP_CLIMB.setDefaultCommand(new DeepClimbCommand());
       
       driverXbox.povDown().whileTrue(new TeleLeftTop()); //score on the left top
       driverXbox.povLeft().whileTrue(new TeleRightTop()); //score on the right top
@@ -338,8 +339,8 @@ public class RobotContainer
       driverXbox.x().whileTrue(new TroughCoral());
       driverXbox.y().whileTrue(driveRobotOrientedAngular);
 
-      operatorController.rightBumper().whileTrue(new ScoreCoral());
-      operatorController.leftBumper().whileTrue(new StopShooter());
+      // operatorController.rightBumper().whileTrue(new ScoreCoral());
+      // operatorController.leftBumper().whileTrue(new StopShooter());
 
 
 
