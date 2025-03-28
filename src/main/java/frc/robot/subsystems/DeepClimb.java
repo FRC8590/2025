@@ -26,7 +26,6 @@ public class DeepClimb extends SubsystemBase
 {
     // Initiates the motors' config options
     private final SparkMaxConfig motorConfig = new SparkMaxConfig();
-    private boolean toggled = false; // Toggles the motors on and off
 
     /**
      * Creates 2 new motors,
@@ -68,23 +67,14 @@ public class DeepClimb extends SubsystemBase
         rightMotor.set(0);
     }
 
-    public void toggleClimb ()
+    public Command climbUp ()
     {
-        toggled = !toggled;
-
-        if (toggled)
-        {
-            setSpeed(0.5);
-        }
-        else
-        {
-            setSpeed(-0.5);
-        }
+        return run(() -> setSpeed(0.5));
     }
 
-    public Command toggle ()
+    public Command climbDown ()
     {
-        return run(() -> toggleClimb());
+        return run(() -> setSpeed(-0.5));
     }
 
     public Command stop ()

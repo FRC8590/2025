@@ -9,14 +9,14 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.Constants;
 
 /**
- * Toggles the deep climb motors
+ * Make deepclimb motors pull the robot up
  */
-public class ToggleDeepClimb extends SequentialCommandGroup {
-  /** Creates a new ToggleDeepClimb. */
-  public ToggleDeepClimb() {
+public class ClimbUp extends SequentialCommandGroup {
+  /** Creates a new ClimbUp. */
+  public ClimbUp() {
     addCommands(
       new ParallelCommandGroup(
-        Constants.DEEP_CLIMB.toggle()  // Toggle the motors on the deep climb up and down
+        Constants.DEEP_CLIMB.climbUp()  // Toggle the motors on the deep climb up and down
       )
     );
 
