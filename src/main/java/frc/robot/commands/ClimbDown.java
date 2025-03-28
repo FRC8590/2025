@@ -9,14 +9,14 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.Constants;
 
 /**
- * Make deepclimb motors pull the robot up
+ * Make deepclimb motors move the robot down
  */
 public class ClimbDown extends SequentialCommandGroup {
   /** Creates a new ClimbDown. */
   public ClimbDown() {
     addCommands(
       new ParallelCommandGroup(
-        Constants.DEEP_CLIMB.climbDown()  // Toggle the motors on the deep climb up and down
+        Constants.DEEP_CLIMB.climbDown()  // Set motors to move robot down
       )
     );
 

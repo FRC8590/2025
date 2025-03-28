@@ -16,7 +16,7 @@ public class ClimbUp extends SequentialCommandGroup {
   public ClimbUp() {
     addCommands(
       new ParallelCommandGroup(
-        Constants.DEEP_CLIMB.climbUp()  // Toggle the motors on the deep climb up and down
+        Constants.DEEP_CLIMB.climbUp()  // Set motors to move robot up
       )
     );
 
