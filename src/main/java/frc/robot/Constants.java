@@ -25,6 +25,7 @@ import frc.robot.constants.IntakeConstants;
 import frc.robot.constants.LEDConstants;
 import frc.robot.constants.ElevatorConstants;
 import frc.robot.constants.AlgaeConstants;
+import frc.robot.constants.AlgaePositionConstants;
 import frc.robot.constants.AlgaeRemoverConstants;
 import frc.robot.constants.DriveConstants;
 import frc.robot.constants.OperatorConstants;
@@ -102,6 +103,7 @@ public final class Constants
     public static final OperatorConstants OPERATOR_CONSTANTS = OperatorConstants.DEFAULT;
     public static final ShooterConstants SHOOTER_CONSTANTS = ShooterConstants.DEFAULT;
     public static final ScoringConstants SCORING_CONSTANTS = ScoringConstants.DEFAULT;
+    public static final AlgaePositionConstants ALGAE_POSITION_CONSTANTS = AlgaePositionConstants.DEFAULT;
     public static final AlgaeConstants ALGAE_CONSTANTS = AlgaeConstants.DEFAULT;
     public static final AlgaeRemoverConstants ALGAE_REMOVER_CONSTANTS = AlgaeRemoverConstants.DEFAULT;
     public static final LEDConstants LED_CONSTANTS = LEDConstants.DEFAULT;
