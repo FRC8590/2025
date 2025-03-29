@@ -405,16 +405,16 @@ public class Vision
      */
     RIGHT_CAM("right",
               new Rotation3d(0, 0, Units.degreesToRadians(0)),
-              new Translation3d(Units.inchesToMeters(4),
-                                Units.inchesToMeters(0),
-                                Units.inchesToMeters(11)),
+              new Translation3d(Units.inchesToMeters(5),
+                                Units.inchesToMeters(-1.5),
+                                Units.inchesToMeters(12.5)),
+              VecBuilder.fill(4, 4, 8), VecBuilder.fill(0.5, 0.5, 1)),
+    LEFT_CAM("left",
+              new Rotation3d(0, 0, Units.degreesToRadians(0)),
+              new Translation3d(Units.inchesToMeters(5.5),
+                                Units.inchesToMeters(11),
+                                Units.inchesToMeters(12.5)),
               VecBuilder.fill(4, 4, 8), VecBuilder.fill(0.5, 0.5, 1));
-    // LEFT_CAM("left",
-    //           new Rotation3d(0, 0, Units.degreesToRadians(0)),
-    //           new Translation3d(Units.inchesToMeters(4),
-    //                             Units.inchesToMeters(14),
-    //                             Units.inchesToMeters(11)),
-    //           VecBuilder.fill(4, 4, 8), VecBuilder.fill(0.5, 0.5, 1));
 
     /**
      * Latency alert to use when high latency is detected.
@@ -840,5 +840,7 @@ public class Vision
     
     return bestPose;
   }
+
+  
 
 }
