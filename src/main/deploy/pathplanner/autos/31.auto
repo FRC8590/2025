@@ -71,24 +71,6 @@
               }
             ]
           }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "WaitForCoralIntake"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Coral-1o'clock"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "UniversalRightBot"
-          }
         }
       ]
     }

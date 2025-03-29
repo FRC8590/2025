@@ -43,17 +43,17 @@ public class RemoveBotAlgaeScoreBot extends SequentialCommandGroup {
     
     addCommands(
       new ParallelCommandGroup(
-        Commands.run( () -> Constants.ALGAE_REMOVER.isExtended = true).withTimeout(.25),
+        Commands.run( () -> Constants.ALGAE_REMOVER.isExtended = true).withTimeout(.1),
         new ZeroElevator()
       ),
       new ParallelCommandGroup(
         moveToScore.withTimeout(2)
       ),
-      new WaitCommand(1),
+      new WaitCommand(.5),
       new MoveElevator(0.33),
       new ParallelCommandGroup(
         new ScoreCoral(),
-        Commands.run( () -> Constants.ALGAE_REMOVER.isExtended = false)
+        Commands.run( () -> Constants.ALGAE_REMOVER.isExtended = false).withTimeout(0.1)
       ));
     addRequirements(Constants.drivebase);
     addRequirements(Constants.SHOOTER);

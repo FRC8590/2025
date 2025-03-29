@@ -55,7 +55,7 @@ public class RemoveTopAlgaeScoreTop extends SequentialCommandGroup {
       new MoveElevator(0.7),
       new ParallelCommandGroup(
         new ScoreCoral(),
-        Commands.run( () -> Constants.ALGAE_REMOVER.isExtended = false)
+        Commands.run( () -> Constants.ALGAE_REMOVER.isExtended = false).withTimeout(0.25)
       ));
     addRequirements(Constants.drivebase);
     addRequirements(Constants.SHOOTER);
