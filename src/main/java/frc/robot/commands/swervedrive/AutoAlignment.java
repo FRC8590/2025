@@ -17,6 +17,7 @@ import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.networktables.DoublePublisher;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.FunctionalCommand;
 import edu.wpi.first.wpilibj2.command.PrintCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
@@ -53,7 +54,7 @@ public class AutoAlignment extends SequentialCommandGroup {
                 new PIDController(13, 0, 0),  // Y controller - increased P, added I and D terms
                 new ProfiledPIDController(10, 0, 0, 
                         new TrapezoidProfile.Constraints(3, 6))); 
-            
+
 
             
         // Tighter tolerance for Y direction
@@ -61,50 +62,53 @@ public class AutoAlignment extends SequentialCommandGroup {
         roughHolonomicDriveController.setTolerance(new Pose2d(0.15, 0.15, Rotation2d.fromDegrees(1)));
 
         final Command
-                pathFindToTargetRough = AutoBuilder.pathfindToPose(targetPose, constraints, 0);
 
+                resetOdom = Commands.runOnce(()-> AutoBuilder.resetOdom(robotPoseSupplier.get())),
+                pathFindToTargetRough = AutoBuilder.pathfindToPose(targetPose, constraints, 0),
+        
+                roughAlignment = new FunctionalCommand(
+                        () -> {},
+                        () -> {
+                                Pose2d currentPose = robotPoseSupplier.get(); 
+                                robotRelativeSpeedsOutput.accept(roughHolonomicDriveController.calculate(
+                                        currentPose,
+                                        targetPose,
+                                        0,
+                                        targetPose.getRotation()
+                                ));
+                        },
+                        (interrupted) ->
+                                robotRelativeSpeedsOutput.accept(new ChassisSpeeds()),
+                                roughHolonomicDriveController::atReference        
+                        ),
+                preciseAlignment = new FunctionalCommand(
+                                () -> {},
+                                () -> {
+                                        Pose2d currentPose = robotPoseSupplier.get(); 
+                                        robotRelativeSpeedsOutput.accept(smallHolonomicDriveController.calculate(
+                                                currentPose,
+                                                targetPose,
+                                                0,
+                                                targetPose.getRotation()
+                                        ));
+                                },
+                                (interrupted) ->
+                                        robotRelativeSpeedsOutput.accept(new ChassisSpeeds()),
+                                        smallHolonomicDriveController::atReference        
+                                );
+        
 
-        
-        //         roughAlignment = new FunctionalCommand(
-        //                 () -> {},
-        //                 () -> {
-        //                         Pose2d currentPose = robotPoseSupplier.get(); 
-        //                         robotRelativeSpeedsOutput.accept(roughHolonomicDriveController.calculate(
-        //                                 currentPose,
-        //                                 targetPose,
-        //                                 0,
-        //                                 targetPose.getRotation()
-        //                         ));
-        //                 },
-        //                 (interrupted) ->
-        //                         robotRelativeSpeedsOutput.accept(new ChassisSpeeds()),
-        //                         roughHolonomicDriveController::atReference        
-        //                 ),
-        //         preciseAlignment = new FunctionalCommand(
-        //                         () -> {},
-        //                         () -> {
-        //                                 Pose2d currentPose = robotPoseSupplier.get(); 
-        //                                 robotRelativeSpeedsOutput.accept(smallHolonomicDriveController.calculate(
-        //                                         currentPose,
-        //                                         targetPose,
-        //                                         0,
-        //                                         targetPose.getRotation()
-        //                                 ));
-        //                         },
-        //                         (interrupted) ->
-        //                                 robotRelativeSpeedsOutput.accept(new ChassisSpeeds()),
-        //                                 smallHolonomicDriveController::atReference        
-        //                         );
-        
-
-        
+        super.addCommands(resetOdom);
+        super.addCommands(new WaitCommand(0.15));
         super.addCommands(pathFindToTargetRough);
         // super.addCommands(roughAlignment);
-        // super.addCommands(new WaitCommand(0.15));
         // // super.addCommands(new PrintCommand("DONEEE"));
-        // super.addCommands(preciseAlignment);
+        super.addCommands(new WaitCommand(0.15));
+        super.addCommands(preciseAlignment);
 
 
-        super.addRequirements(driveSubsystem);
+        // super.addRequirements(driveSubsystem);
     }
 }
+
+
