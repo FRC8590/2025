@@ -320,15 +320,14 @@ public class RobotContainer
       Constants.LEDSystem.setDefaultCommand(new SetLED());
       Constants.ALGAE_REMOVER.setDefaultCommand(Constants.ALGAE_REMOVER.toggleCommand());
 
-      driverXbox.povDown().whileTrue(new RemoveBotAlgaeScoreTop()); //score on the left top
-      driverXbox.povLeft().whileTrue(new TeleRightTop()); //score on the right top
-      driverXbox.povUp().whileTrue(new RemoveBotAlgaeScoreBot()); //score on the left bottom
-      driverXbox.povRight().whileTrue(new TeleRightBot()); //score on the right bottom
+      operatorController.x().whileTrue(new RemoveBotAlgaeScoreTop()); //score on the left top
+      operatorController.y().whileTrue(new RemoveTopAlgaeScoreTop()); //score on the right top
+      operatorController.a().whileTrue(new RemoveBotAlgaeScoreBot()); //score on the left bottom
 
-      // driverXbox.povDown().whileTrue(new TeleLeftTop()); //score on the left top
-      // driverXbox.povLeft().whileTrue(new TeleRightTop()); //score on the right top
-      // driverXbox.povUp().whileTrue(new TeleLeftBot()); //score on the left bottom
-      // driverXbox.povRight().whileTrue(new TeleRightBot()); //score on the right bottom
+      driverXbox.povDown().whileTrue(new TeleLeftTop()); //score on the left top
+      driverXbox.povLeft().whileTrue(new TeleRightTop()); //score on the right top
+      driverXbox.povUp().whileTrue(new TeleLeftBot()); //score on the left bottom
+      driverXbox.povRight().whileTrue(new TeleRightBot()); //score on the right bottom
 
       driverXbox.back().onTrue(Commands.runOnce(()-> Constants.drivebase.zeroGyroWithAlliance()));
       driverXbox.leftTrigger().whileTrue(new ScoreCoral());

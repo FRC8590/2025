@@ -50,7 +50,7 @@ public class Shooter extends SubsystemBase {
 
   public void processIntakeCoral() {
 
-      System.out.println("Intaking coral, senioritis is so fake");
+      
 
       if(firstIntakePhotoElectricSensor.getVoltage() > 3){
         stopShooter(); 

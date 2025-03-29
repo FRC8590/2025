@@ -7,13 +7,13 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Top-11o'clock"
+            "pathName": "Top-1o'clock"
           }
         },
         {
           "type": "named",
           "data": {
-            "name": "RemoveBotAlgaeScoreTop"
+            "name": "RemoveTopAlgaeScoreTop"
           }
         },
         {
@@ -29,7 +29,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "11o'clock-coral"
+                  "pathName": "1o'clock-coral"
                 }
               }
             ]
@@ -44,7 +44,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "coral-11o'clock"
+            "pathName": "Coral-1o'clock"
           }
         },
         {
@@ -66,7 +66,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "11o'clock-coral"
+                  "pathName": "1o'clock-coral"
                 }
               }
             ]

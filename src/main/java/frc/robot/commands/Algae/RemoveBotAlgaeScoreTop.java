@@ -10,6 +10,7 @@ import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.PrintCommand;
 import edu.wpi.first.wpilibj2.command.SelectCommand;
@@ -20,6 +21,7 @@ import frc.robot.commands.ActiveRemover;
 import frc.robot.commands.InactiveRemover;
 import frc.robot.commands.MoveElevator;
 import frc.robot.commands.Scoring.ScoreCoral;
+import frc.robot.commands.Scoring.ZeroElevator;
 import frc.robot.constants.ScoringConstants;
 
 import java.io.Console;
@@ -41,8 +43,8 @@ public class RemoveBotAlgaeScoreTop extends SequentialCommandGroup {
     
     addCommands(
       new ParallelCommandGroup(
-        new ActiveRemover(),
-        new MoveElevator(0)
+        Commands.run( () -> Constants.ALGAE_REMOVER.isExtended = true).withTimeout(.25),
+        new ZeroElevator()
       ),
       new ParallelCommandGroup(
         moveToScore.withTimeout(2)
@@ -51,7 +53,7 @@ public class RemoveBotAlgaeScoreTop extends SequentialCommandGroup {
       new MoveElevator(0.7),
       new ParallelCommandGroup(
         new ScoreCoral(),
-        new InactiveRemover()  
+        Commands.run( () -> Constants.ALGAE_REMOVER.isExtended = false)
       ));
     addRequirements(Constants.drivebase);
     addRequirements(Constants.SHOOTER);
