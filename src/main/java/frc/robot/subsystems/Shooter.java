@@ -55,9 +55,20 @@ public class Shooter extends SubsystemBase {
       }
       else if (firstIntakePhotoElectricSensor.getVoltage() < 3 && secondIntakePhotoElectricSensor.getVoltage() > 3) {
         shooterMotor.set(0.6);
+        System.out.println("0.6");
+        System.out.println("0.6");
+        System.out.println("0.6");
+        System.out.println("0.6");
+
       } 
       else if (secondIntakePhotoElectricSensor.getVoltage() < 3) {
         shooterMotor.set(0.2); 
+        System.out.println("0.2");
+        System.out.println("0.2");
+        System.out.println("0.2");
+        System.out.println("0.2");
+
+
       }
       else {
         shooterMotor.set(0); // Default state - motors off

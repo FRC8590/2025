@@ -41,8 +41,7 @@ public class AlgaeRemover extends SubsystemBase {
   private final SparkMax pivotMotor;
   private final SparkMax removerMotor;
   private final RelativeEncoder pivotEncoder;
-  private final PIDController downController;
-  private final PIDController upController;
+  private final PIDController pidController;
 
   private double setpoint = 0.0;
   
@@ -95,8 +94,7 @@ public class AlgaeRemover extends SubsystemBase {
     // Zero encoder
     pivotEncoder.setPosition(0);
 
-    upController = new PIDController(0.3, 0, 0);
-    downController = new PIDController(0.1, 0, 0);
+    pidController = new PIDController(0.4, 0, 0);
   }
   
 
@@ -105,13 +103,13 @@ public class AlgaeRemover extends SubsystemBase {
    * @param goalPosition the position to maintain
    */
   public void reachGoalUp() {
-    pivotMotor.set(upController.calculate(getPivotPosition(), 0));
-    stopRemover();
+    pivotMotor.set(pidController.calculate(getPivotPosition(), 0));
+    // stopRemover();
   }
 
   public void reachGoalDown() {
-    pivotMotor.set(upController.calculate(getPivotPosition(), 3));   
-    runRemover();
+    pivotMotor.set(pidController.calculate(getPivotPosition(), 3));   
+    // runRemover();
  
     
   }

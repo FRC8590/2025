@@ -69,7 +69,7 @@ public final class Constants
     //     3.6068   // Field width (meters)
     // );
 
-    public static final AprilTagFieldLayout layout = AprilTagFieldLayout.loadField(AprilTagFields.k2025Reefscape);
+    public static final AprilTagFieldLayout layout = AprilTagFieldLayout.loadField(AprilTagFields.k2025ReefscapeAndyMark);
 
     // Robot Physical Properties
     public static final double ROBOT_MASS = Units.lbsToKilograms(85);
@@ -140,7 +140,7 @@ public final class Constants
     }
 
     public final class pid{
-        public static final double kP = 6;
+        public static final double kP = 1;
         public static final double kI = 0;
         public static final double kD = 1;
     }
