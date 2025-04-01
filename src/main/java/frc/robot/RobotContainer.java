@@ -27,8 +27,6 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.*;
 import frc.robot.commands.Scoring.*;
-import frc.robot.commands.Scoring.TeleBotAlgae;
-import frc.robot.commands.Scoring.TeleTopAlgae;
 import frc.robot.commands.swervedrive.*;
 import frc.robot.commands.swervedrive.auto.AutoBalanceCommand;
 import frc.robot.commands.swervedrive.drivebase.AbsoluteDriveAdv;
@@ -46,9 +44,9 @@ import frc.robot.commands.Algae.RemoveBotAlgaeScoreBot;
 import frc.robot.commands.Algae.RemoveBotAlgaeScoreTop;
 import frc.robot.commands.Algae.RemoveTopAlgaeScoreTop;
 import frc.robot.commands.Algae.StateUpdateAlgae;
-import frc.robot.commands.Auto.AutoLeftBotRemoveAlgae;
-import frc.robot.commands.Auto.AutoLeftTopRemoveAlgae;
-import frc.robot.commands.Auto.AutoRightBotRemoveAlgae;
+import frc.robot.commands.Auto.AutoBotAlgae;
+import frc.robot.commands.Auto.AutoTopAlgae;
+import frc.robot.commands.Auto.AutoRightTop;
 import frc.robot.commands.Auto.AutoRightTopRemoveAlgae;
 import org.photonvision.targeting.PhotonPipelineResult;
 
@@ -235,18 +233,20 @@ public class RobotContainer
     // Initialize with proper alliance orientation
     Constants.drivebase.zeroGyroWithAlliance();
     
-    NamedCommands.registerCommand("UniversalRightBot", new UniversalRightBot());
-    NamedCommands.registerCommand("UniversalLeftBot", new UniversalLeftBot());
-    NamedCommands.registerCommand("UniversalLeftTop", new UniversalLeftTop());
-    NamedCommands.registerCommand("UniversalRightTop", new UniversalRightTop());
 
     NamedCommands.registerCommand("TeleTopAlgae", new TeleTopAlgae());
     NamedCommands.registerCommand("TeleBotAlgae", new TeleBotAlgae());
 
-    NamedCommands.registerCommand("UniversalLeftBotRemoveAlgae", new AutoLeftBotRemoveAlgae());
+    NamedCommands.registerCommand("AutoBotAlgae", new AutoBotAlgae());
+    NamedCommands.registerCommand("AutoTopAlgae", new AutoTopAlgae());
+
+
+    NamedCommands.registerCommand("AutoRightTop", new AutoRightTop());
+    NamedCommands.registerCommand("TeleLeftBot", new TeleLeftBot());
+
     NamedCommands.registerCommand("UniversalRightTopRemoveAlgae", new AutoRightTopRemoveAlgae());
-    NamedCommands.registerCommand("UniversalRightBotRemoveAlgae", new AutoRightBotRemoveAlgae());
-    NamedCommands.registerCommand("UniversalLeftTopRemoveAlgae", new AutoLeftTopRemoveAlgae());
+    NamedCommands.registerCommand("UniversalRightBotRemoveAlgae", new AutoRightTop());
+    NamedCommands.registerCommand("UniversalLeftTopRemoveAlgae", new AutoTopAlgae());
 
     NamedCommands.registerCommand("RemoveBotAlgaeScoreBot", new RemoveBotAlgaeScoreBot());
     //NamedCommands.registerCommand("RemoveTopAlgaeScoreBot", new RemoveTopAlgaeScoreBot());
@@ -255,6 +255,7 @@ public class RobotContainer
 
     NamedCommands.registerCommand("WaitForCoralIntake", new WaitForCoralIntake());
     NamedCommands.registerCommand("ZeroElevator", new ZeroElevator());
+    NamedCommands.registerCommand("InactiveRemover", new InactiveRemover());
 
 
   }

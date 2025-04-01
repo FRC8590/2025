@@ -99,10 +99,10 @@ public class AutoAlignment extends SequentialCommandGroup {
                                 );
         
 
-        super.addCommands(resetOdom);
-        super.addCommands(new WaitCommand(0.03));
-        super.addCommands(pathFindToTargetRough);
-        // super.addCommands(roughAlignment);
+        // super.addCommands(resetOdom);
+        // super.addCommands(new WaitCommand(0.03));
+        // super.addCommands(pathFindToTargetRough);
+        super.addCommands(roughAlignment);
         // // super.addCommands(new PrintCommand("DONEEE"));
         super.addCommands(new WaitCommand(0.05));
         super.addCommands(preciseAlignment);

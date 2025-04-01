@@ -38,8 +38,8 @@ public class TeleLeftBot extends SequentialCommandGroup {
     
     addCommands(
       new ParallelCommandGroup(
-        moveToScore.withTimeout(2)
-        // new MoveElevator(0.29)
+        moveToScore.withTimeout(2),
+        new MoveElevator(0.29)
       ),
       new ScoreCoral(),
       new MoveElevator(0)
