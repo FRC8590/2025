@@ -240,8 +240,8 @@ public class RobotContainer
     NamedCommands.registerCommand("UniversalLeftTop", new UniversalLeftTop());
     NamedCommands.registerCommand("UniversalRightTop", new UniversalRightTop());
 
-    NamedCommands.registerCommand("RemoveBotAlgae", new RemoveBotAlgaeScoreBot());
-    NamedCommands.registerCommand("RemoveTopAlgae", new RemoveTopAlgaeScoreTop());
+    NamedCommands.registerCommand("TeleTopAlgae", new TeleTopAlgae());
+    NamedCommands.registerCommand("TeleBotAlgae", new TeleBotAlgae());
 
     NamedCommands.registerCommand("UniversalLeftBotRemoveAlgae", new AutoLeftBotRemoveAlgae());
     NamedCommands.registerCommand("UniversalRightTopRemoveAlgae", new AutoRightTopRemoveAlgae());
@@ -333,7 +333,7 @@ public class RobotContainer
       driverXbox.leftBumper().whileTrue(Commands.run( () -> Constants.ALGAE_REMOVER.isExtended = true));
       driverXbox.leftBumper().whileFalse(Commands.run( () -> Constants.ALGAE_REMOVER.isExtended = false));
 
-      driverXbox.b().whileTrue(new MoveElevator(.4));
+      driverXbox.b().whileTrue(new MoveElevator(.5));
       driverXbox.a().whileTrue(new StopShooter());
       driverXbox.x().whileTrue(new TroughCoral());
       driverXbox.y().whileTrue(driveRobotOrientedAngular);

@@ -80,7 +80,7 @@ public final class Constants
     
     // Control Loop Timing
     public static final double LOOP_TIME = 0.05; // seconds
-    public static final double MAX_SPEED = 4.0;  // meters per second
+    public static final double MAX_SPEED = 5.0;  // meters per second
     public static double visionTimerOffset = 0;
 
     // Subsystem Instances
@@ -133,22 +133,22 @@ public final class Constants
     public static final int followerMotorID = 10;
 
     public final class feedforward{
-        public static final double kS = 0;
-        public static final double kG = 0.4;
+        public static final double kS = 3;
+        public static final double kG = 0.8;
         public static final double kV = 0.1;
         public static final double kA = 0.0;
     }
 
     public final class pid{
-        public static final double kP = 1;
+        public static final double kP = 2;
         public static final double kI = 0;
-        public static final double kD = 1;
+        public static final double kD = 0.01;
     }
 
     public static double maxVelocity = 0.0;
     public static double maxAcceleration = 0.0;
 
-    public static double rampRate = 0.3;
+    public static double rampRate = 0.01;
 
 
 

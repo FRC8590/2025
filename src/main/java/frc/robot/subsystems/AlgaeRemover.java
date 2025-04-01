@@ -94,7 +94,7 @@ public class AlgaeRemover extends SubsystemBase {
     // Zero encoder
     pivotEncoder.setPosition(0);
 
-    pidController = new PIDController(0.4, 0, 0);
+    pidController = new PIDController(0.25, 0, 0);
   }
   
 
@@ -104,12 +104,12 @@ public class AlgaeRemover extends SubsystemBase {
    */
   public void reachGoalUp() {
     pivotMotor.set(pidController.calculate(getPivotPosition(), 0));
-    // stopRemover();
+    stopRemover();
   }
 
   public void reachGoalDown() {
-    pivotMotor.set(pidController.calculate(getPivotPosition(), 3));   
-    // runRemover();
+    pivotMotor.set(pidController.calculate(getPivotPosition(), 2));   
+    runRemover();
  
     
   }
@@ -207,7 +207,7 @@ public class AlgaeRemover extends SubsystemBase {
    * @return Command
    */
   public Command reachGoalDownCommand() {
-    return run(this::reachGoalDown).until(atPosition(3, 0.2));
+    return run(this::reachGoalDown);
   }
   /**
    * Command to toggle the algae remover

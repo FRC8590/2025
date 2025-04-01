@@ -70,8 +70,8 @@ public class Elevator extends SubsystemBase {
   
   // Define limits in meters
   private static final double MAX_HEIGHT_METERS = 0.7100;  // 10cm up
-  private static final double MIN_HEIGHT_METERS = 0.00001; // 10cm down
-  private static final double MAX_VELOCITY_METERS = 3; // ~0.5 inches per second <- I don't think Joseph updated the "0.5" value
+  private static final double MIN_HEIGHT_METERS = -0.01; // 10cm down
+  private static final double MAX_VELOCITY_METERS = 5; // ~0.5 inches per second <- I don't think Joseph updated the "0.5" value
 
   // Fix trigger definitions with small tolerance
   public final Trigger atMin = new Trigger(() -> 
@@ -115,8 +115,8 @@ public class Elevator extends SubsystemBase {
     SparkMaxConfig masterConfig = new SparkMaxConfig();
     masterConfig
         .inverted(true)
-        .idleMode(IdleMode.kCoast)
-        .smartCurrentLimit(35)
+        .idleMode(IdleMode.kBrake)
+        .smartCurrentLimit(50)
         .closedLoopRampRate(Constants.rampRate);
 
     masterConfig.alternateEncoder
@@ -125,14 +125,21 @@ public class Elevator extends SubsystemBase {
 
     masterConfig.closedLoop
         .feedbackSensor(FeedbackSensor.kAlternateOrExternalEncoder)
-        .p(Constants.pid.kP)
-        .i(Constants.pid.kI)
-        .d(Constants.pid.kD)
+        .p(Constants.pid.kP, ClosedLoopSlot.kSlot0)
+        .i(Constants.pid.kI, ClosedLoopSlot.kSlot0)
+        .d(Constants.pid.kD, ClosedLoopSlot.kSlot0)
+        .outputRange(-1, 1);
+
+    masterConfig.closedLoop
+        .feedbackSensor(FeedbackSensor.kAlternateOrExternalEncoder)
+        .p(2.2, ClosedLoopSlot.kSlot1)
+        .i(0, ClosedLoopSlot.kSlot1)
+        .d(1, ClosedLoopSlot.kSlot1)
         .outputRange(-1, 1);
 
     SparkMaxConfig followerConfig = new SparkMaxConfig();
     followerConfig
-        .idleMode(IdleMode.kCoast)
+        .idleMode(IdleMode.kBrake)
         .smartCurrentLimit(50)
         .closedLoopRampRate(Constants.rampRate)
         .follow(elevatorMaster, true);
@@ -159,6 +166,8 @@ public class Elevator extends SubsystemBase {
       return;
     }
 
+    boolean goingDown = goalMeters < currentPos;
+
     // Bound goal to valid range
     goalMeters = MathUtil.clamp(goalMeters, MIN_HEIGHT_METERS, MAX_HEIGHT_METERS);
     
@@ -171,12 +180,23 @@ public class Elevator extends SubsystemBase {
     
     double limitedGoal = currentPos + MathUtil.clamp(error, -maxDelta, maxDelta);
 
-    closedLoopController.setReference(
+
+    if(goingDown){
+      closedLoopController.setReference(
+        limitedGoal, // Convert meters to encoder units
+        ControlType.kPosition,
+        ClosedLoopSlot.kSlot1,
+        Constants.feedforward.kG // Gravity compensation
+    );
+    }
+    else{
+      closedLoopController.setReference(
         limitedGoal, // Convert meters to encoder units
         ControlType.kPosition,
         ClosedLoopSlot.kSlot0,
         Constants.feedforward.kG // Gravity compensation
     );
+    }
 
     SmartDashboard.putNumber("error", closedLoopController.getIAccum());
   }
@@ -292,10 +312,10 @@ public class Elevator extends SubsystemBase {
     SmartDashboard.putNumber("Elevator Setpoint (m)", setpoint);
     SmartDashboard.putNumber("Elevator Error (m)", setpoint - getElevatorHeightEncoder());
     SmartDashboard.putString("Elevator State", getState());
-    SmartDashboard.putNumber("Motor Output", elevatorMaster.getAppliedOutput());
+    SmartDashboard.putNumber("Elevator Motor Output", elevatorMaster.getAppliedOutput());
     SmartDashboard.putBoolean("At Min Limit", atMin.getAsBoolean());
     SmartDashboard.putBoolean("At Max Limit", atMax.getAsBoolean());
-    SmartDashboard.putNumber("Current Pulled", elevatorMaster.getOutputCurrent());
+    SmartDashboard.putNumber("Elevator Current Pulled", elevatorMaster.getOutputCurrent());
     SmartDashboard.putNumber("distance in meters", getElevatorHeightLaser());
     SmartDashboard.putNumber("GOAL METERS", goalMeters);
     SmartDashboard.putNumber("current POSITION", getElevatorHeightEncoder());

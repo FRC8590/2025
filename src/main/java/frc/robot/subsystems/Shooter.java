@@ -32,14 +32,15 @@ public class Shooter extends SubsystemBase {
   public final AnalogInput secondIntakePhotoElectricSensor = new AnalogInput(Constants.SHOOTER_CONSTANTS.secondIntakePhotoElectricSensorID()); //the second sensor the coral hits
 
   public int counter;
+  int timer = 0;
 
   public Shooter() {
 
     shooterConfig
     .inverted(true)
     .idleMode(IdleMode.kCoast)
-    .smartCurrentLimit(10)
-    .closedLoopRampRate(0.1);
+    .smartCurrentLimit(40)
+    .closedLoopRampRate(0.001);
     shooterMotor.configure(shooterConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
 
   }
@@ -50,25 +51,16 @@ public class Shooter extends SubsystemBase {
 
   public void processIntakeCoral() {
 
-      System.out.println("Intaking coral, senioritis is so fake");
 
       if(firstIntakePhotoElectricSensor.getVoltage() > 3){
         stopShooter(); 
       }
       else if (firstIntakePhotoElectricSensor.getVoltage() < 3 && secondIntakePhotoElectricSensor.getVoltage() > 3) {
         shooterMotor.set(0.6);
-        System.out.println("0.6");
-        System.out.println("0.6");
-        System.out.println("0.6");
-        System.out.println("0.6");
 
       } 
       else if (secondIntakePhotoElectricSensor.getVoltage() < 3) {
         shooterMotor.set(0.2); 
-        System.out.println("0.2");
-        System.out.println("0.2");
-        System.out.println("0.2");
-        System.out.println("0.2");
 
 
       }
