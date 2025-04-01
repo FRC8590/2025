@@ -182,18 +182,6 @@ public class Elevator extends SubsystemBase {
   }
 
 
-
-  /**
-   * Returns {@code true} if the limit switch is pressed, based on the selected polarity.
-   *
-   * <p>This method works even if the limit switch is not enabled for controller shutdown.
-   *
-   * @return {@code true} if the limit switch is pressed
-   */
-
-
-
-
   /**
    * Returns the height of the elevator currently based on the laser can
    * @return the rotations of the alternate encoder multiplied by the {@link Constants.Elevator} kDistancePeraTick
@@ -204,7 +192,7 @@ public class Elevator extends SubsystemBase {
     LaserCan.Measurement measurement = Constants.laserCan.getMeasurement();
     if (measurement != null && measurement.status == LaserCan.LASERCAN_STATUS_VALID_MEASUREMENT){
       return (measurement.distance_mm/1000.0) - 0.055;
-    } else {
+    } else { 
       return -1;
     }
   
