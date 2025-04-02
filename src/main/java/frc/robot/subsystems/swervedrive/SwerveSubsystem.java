@@ -6,6 +6,7 @@ package frc.robot.subsystems.swervedrive;
 
 import static edu.wpi.first.units.Units.Meter;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility;
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.commands.PathPlannerAuto;
 import com.pathplanner.lib.commands.PathfindingCommand;
@@ -38,6 +39,7 @@ import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Config;
 import frc.robot.Constants;
+import frc.robot.commands.Scoring.DriveToPose;
 import frc.robot.commands.swervedrive.AutoAlignment;
 import frc.robot.subsystems.swervedrive.Vision.Cameras;
 import java.io.File;
@@ -358,6 +360,7 @@ public class SwerveSubsystem extends SubsystemBase
         swerveDrive.getMaximumChassisVelocity(), 2,
         swerveDrive.getMaximumChassisAngularVelocity(), Units.degreesToRadians(720));
 
+
         
     
     return new AutoAlignment(
@@ -368,6 +371,28 @@ public class SwerveSubsystem extends SubsystemBase
         pose   // targetPose
     );
   }
+
+
+  public Command driveToPose(Pose2d pose, boolean isRight, int tag){
+
+    Vision.Cameras cam;
+
+    
+
+    if(isRight){
+      cam = Vision.Cameras.RIGHT_CAM;
+    }
+    else{
+      cam = Vision.Cameras.LEFT_CAM;
+    }
+
+    return new DriveToPose(pose, cam, tag);
+
+
+
+  }
+
+
 
   /**
    * Drive with {@link SwerveSetpointGenerator} from 254, implemented by PathPlanner.

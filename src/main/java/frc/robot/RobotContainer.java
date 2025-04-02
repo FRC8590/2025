@@ -333,7 +333,7 @@ public class RobotContainer
       driverXbox.leftBumper().whileTrue(Commands.run( () -> Constants.ALGAE_REMOVER.isExtended = true));
       driverXbox.leftBumper().whileFalse(Commands.run( () -> Constants.ALGAE_REMOVER.isExtended = false));
 
-      driverXbox.b().whileTrue(new ScoreCoral());
+      driverXbox.b().whileTrue(new MoveElevator(.4));
       driverXbox.a().whileTrue(new StopShooter());
       driverXbox.x().whileTrue(new TroughCoral());
       driverXbox.y().whileTrue(driveRobotOrientedAngular);
