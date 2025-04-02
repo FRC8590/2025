@@ -276,13 +276,13 @@ public class RobotContainer
     double leftY = driverXbox.getLeftY();
     double rightX = driverXbox.getRightX();
 
-    if(leftX < Constants.OPERATOR_CONSTANTS.deadband() && leftY < Constants.OPERATOR_CONSTANTS.deadband() && rightX < Constants.OPERATOR_CONSTANTS.deadband()){
-      Constants.lockTimer++;
-      if(Constants.lockTimer > 25){
-        Constants.drivebase.lock();
-        Constants.lockTimer = 0;
-      }
-    }
+    // if(leftX < Constants.OPERATOR_CONSTANTS.deadband() && leftY < Constants.OPERATOR_CONSTANTS.deadband() && rightX < Constants.OPERATOR_CONSTANTS.deadband()){
+    //   Constants.lockTimer++;
+    //   if(Constants.lockTimer > 25){
+    //     Constants.drivebase.lock();
+    //     Constants.lockTimer = 0;
+    //   }
+    // }
   }
 
     public void slowMode(){
@@ -330,7 +330,7 @@ public class RobotContainer
       driverXbox.back().onTrue(Commands.runOnce(()-> Constants.drivebase.zeroGyroWithAlliance()));
       driverXbox.leftTrigger().whileTrue(new ScoreCoral());
 
-      driverXbox.rightBumper().onTrue(new MoveElevator(0));
+      driverXbox.rightBumper().onTrue(new MoveElevator(0.005));
       driverXbox.leftBumper().whileTrue(Commands.run( () -> Constants.ALGAE_REMOVER.isExtended = true));
       driverXbox.leftBumper().whileFalse(Commands.run( () -> Constants.ALGAE_REMOVER.isExtended = false));
 

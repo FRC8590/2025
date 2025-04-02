@@ -27,7 +27,7 @@ import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.subsystems.swervedrive.SwerveSubsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-public class AutoAlignment extends SequentialCommandGroup {
+public class AutoAlignmentAuto extends SequentialCommandGroup {
 
     private HolonomicDriveController roughHolonomicDriveController, smallHolonomicDriveController;
     /**
@@ -37,7 +37,7 @@ public class AutoAlignment extends SequentialCommandGroup {
      * 1. path-find to the target pose, roughly
      * 2. accurate auto alignment
      * */
-    public AutoAlignment(
+    public AutoAlignmentAuto(
             PathConstraints constraints,
             Supplier<Pose2d> robotPoseSupplier,
             Consumer<ChassisSpeeds> robotRelativeSpeedsOutput,
@@ -99,11 +99,11 @@ public class AutoAlignment extends SequentialCommandGroup {
                                 );
         
 
-        super.addCommands(resetOdom);
-        super.addCommands(new WaitCommand(0.03));
-        super.addCommands(pathFindToTargetRough);
-        // super.addCommands(roughAlignment);
-        // // // super.addCommands(new PrintCommand("DONEEE"));
+        // super.addCommands(resetOdom);
+        // super.addCommands(new WaitCommand(0.03));
+        // super.addCommands(pathFindToTargetRough);
+        super.addCommands(roughAlignment);
+        // // super.addCommands(new PrintCommand("DONEEE"));
         super.addCommands(new WaitCommand(0.05));
         super.addCommands(preciseAlignment);
 

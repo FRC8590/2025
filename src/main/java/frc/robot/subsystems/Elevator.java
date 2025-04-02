@@ -49,6 +49,7 @@ import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.system.plant.DCMotor;
 import edu.wpi.first.math.trajectory.TrapezoidProfile.Constraints;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.PrintCommand;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
@@ -70,8 +71,8 @@ public class Elevator extends SubsystemBase {
   
   // Define limits in meters
   private static final double MAX_HEIGHT_METERS = 0.7100;  // 10cm up
-  private static final double MIN_HEIGHT_METERS = -0.01; // 10cm down
-  private static final double MAX_VELOCITY_METERS = 5; // ~0.5 inches per second <- I don't think Joseph updated the "0.5" value
+  private static final double MIN_HEIGHT_METERS = 0; // 10cm down
+  private static final double MAX_VELOCITY_METERS = 0.3; // ~0.5 inches per second <- I don't think Joseph updated the "0.5" value
 
   // Fix trigger definitions with small tolerance
   public final Trigger atMin = new Trigger(() -> 
@@ -86,6 +87,7 @@ public class Elevator extends SubsystemBase {
   private final SparkClosedLoopController closedLoopController;
   private ElevatorState currState = ElevatorState.DISABLED;
   private double setpoint = 0.0;
+  private int timer;
 
   private double goalMeters;
 
@@ -132,9 +134,9 @@ public class Elevator extends SubsystemBase {
 
     masterConfig.closedLoop
         .feedbackSensor(FeedbackSensor.kAlternateOrExternalEncoder)
-        .p(2.2, ClosedLoopSlot.kSlot1)
-        .i(0, ClosedLoopSlot.kSlot1)
-        .d(1, ClosedLoopSlot.kSlot1)
+        .p(1.8, ClosedLoopSlot.kSlot1)
+        .i(0.0001, ClosedLoopSlot.kSlot1)
+        .d(0, ClosedLoopSlot.kSlot1)
         .outputRange(-1, 1);
 
     SparkMaxConfig followerConfig = new SparkMaxConfig();
@@ -235,6 +237,9 @@ public class Elevator extends SubsystemBase {
    * @return the rotations of the alternate encoder multiplied by the {@link Constants.Elevator} kDistancePeraTick
    */
   public double getElevatorHeightEncoder(){
+    // if(tbEncoder.getPosition() < 0.01 && elevatorMaster.getOutputCurrent() > 1.5){
+    //   tbEncoder.setPosition(0);
+    // }
     return tbEncoder.getPosition();
   }
 
@@ -260,7 +265,7 @@ public class Elevator extends SubsystemBase {
     // else{
       this.goalMeters = goalMeters;
       return run(() -> reachGoal(goalMeters))
-      .until(() -> atHeight(goalMeters, 0.01).getAsBoolean()); // Stop when at target with 2mm tolerance
+      .until(() -> atHeight(goalMeters, 0.005).getAsBoolean());
     // }
   }
 

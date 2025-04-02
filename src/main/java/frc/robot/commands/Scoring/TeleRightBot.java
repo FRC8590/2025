@@ -42,7 +42,7 @@ public class TeleRightBot extends SequentialCommandGroup {
     addCommands(
       new ParallelCommandGroup(
         moveToScore.withTimeout(2),
-        new MoveElevator(0.29)
+        new MoveElevator(0.31)
       ),
       new ScoreCoral(),
       new MoveElevator(0)
