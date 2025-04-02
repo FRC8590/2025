@@ -17,6 +17,7 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import edu.wpi.first.wpilibj2.command.Commands;
 import frc.robot.commands.InactiveRemover;
 import frc.robot.commands.swervedrive.AutoAlignment;
 import frc.robot.subsystems.swervedrive.Vision;
@@ -109,6 +110,7 @@ public class Robot extends TimedRobot
   public void disabledInit()
   {
 
+    Commands.run(() -> Constants.LEDSystem.setGOAT(), Constants.LEDSystem);
     disabledTimer.reset();
     disabledTimer.start();
     
