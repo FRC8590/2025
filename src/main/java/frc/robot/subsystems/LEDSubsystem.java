@@ -39,7 +39,7 @@ public class LEDSubsystem extends SubsystemBase {
   private final LEDPattern fullYellow = LEDPattern.solid(Color.kYellow);
   private final LEDPattern rainbow = LEDPattern.rainbow(255, 128);
   private final LEDPattern scrollingRainbow = rainbow.scrollAtAbsoluteSpeed(MetersPerSecond.of(1), kLedSpacing);
-  private LEDPattern yellowPurple = LEDPattern.gradient(LEDPattern.GradientType.kContinuous, Color.kYellow, Color.kPurple);
+  private LEDPattern yellowPurple = LEDPattern.gradient(LEDPattern.GradientType.kContinuous, Color.kGold, Color.kDarkMagenta);
   private final LEDPattern lebron = yellowPurple.scrollAtAbsoluteSpeed(MetersPerSecond.of(1), kLedSpacing);
 
   public LEDSubsystem(){
@@ -101,7 +101,7 @@ public class LEDSubsystem extends SubsystemBase {
     }
     else if(desiredPattern.equals(fullGreen)){
 
-      fullGreen.applyTo(m_LEDBuffer);
+      lebron.applyTo(m_LEDBuffer);
       m_LED.setData(m_LEDBuffer);
 
     }

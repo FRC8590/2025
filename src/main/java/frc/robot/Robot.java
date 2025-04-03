@@ -112,7 +112,7 @@ public class Robot extends TimedRobot
   public void disabledInit()
   {
 
-    Commands.run(() -> Constants.LEDSystem.setGOAT(), Constants.LEDSystem);
+    
     disabledTimer.reset();
     disabledTimer.start();
     
@@ -121,6 +121,8 @@ public class Robot extends TimedRobot
   @Override
   public void disabledPeriodic()
   {
+
+    Commands.run(() -> Constants.LEDSystem.setGOAT(), Constants.LEDSystem);
 
     if (disabledTimer.hasElapsed(Constants.DRIVE_CONSTANTS.wheelLockTime()))
     {
