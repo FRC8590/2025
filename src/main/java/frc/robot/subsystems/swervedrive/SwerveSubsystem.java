@@ -224,7 +224,7 @@ public class SwerveSubsystem extends SubsystemBase
               // new PIDConstants(0.1, 0.0, 0.0)
               // new PIDConstants(4, 0, 0.1),
 
-              new PIDConstants(3.5, 0, 0.5)
+              new PIDConstants(2, 0, 0)
 
 
 

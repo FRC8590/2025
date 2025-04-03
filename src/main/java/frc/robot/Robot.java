@@ -19,6 +19,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.Commands;
 import frc.robot.commands.InactiveRemover;
+import frc.robot.commands.Scoring.WaitForCoralIntake;
 import frc.robot.commands.swervedrive.AutoAlignment;
 import frc.robot.subsystems.swervedrive.Vision;
 import frc.robot.subsystems.swervedrive.AutoDetection.Cameras;
@@ -47,6 +48,7 @@ public class Robot extends TimedRobot
   public Robot()
   {
     instance = this;
+
     // CameraServer.startAutomaticCapture();
   }
 
@@ -143,6 +145,7 @@ public class Robot extends TimedRobot
       m_autonomousCommand.schedule();
     }
 
+
   }
 
   /**
@@ -151,6 +154,7 @@ public class Robot extends TimedRobot
   @Override
   public void autonomousPeriodic()
   {
+    // Constants.SHOOTER.processIntakeCoralAuto();
   }
 
   @Override
@@ -169,6 +173,7 @@ public class Robot extends TimedRobot
       CommandScheduler.getInstance().cancelAll();
     }
     m_robotContainer.setDriveMode();
+    Constants.ELEVATOR.setGoal(Constants.ELEVATOR.getElevatorHeightEncoder());
   }
 
   /**

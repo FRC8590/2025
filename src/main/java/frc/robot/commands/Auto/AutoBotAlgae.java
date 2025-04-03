@@ -43,7 +43,7 @@ public class AutoBotAlgae extends SequentialCommandGroup {
       new ParallelRaceGroup(
         new ActiveRemover(),
         new SequentialCommandGroup(
-          moveToScore.withTimeout(2),
+          moveToScore.withTimeout(3),
           new MoveElevator(0.7),
           new ScoreCoral()
         ) 

@@ -21,12 +21,18 @@ import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.ElevatorFeedforward;
 import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.trajectory.TrapezoidProfile.Constraints;
+import edu.wpi.first.wpilibj.RobotState;
+import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants;
 import frc.robot.Constants.ElevatorState;
+import frc.robot.Constants.feedforward;
+import frc.robot.Constants.pid;
 
 /**
  * Elevator subsystem that controls vertical motion using profiled PID with feedforward.
@@ -37,9 +43,9 @@ public class Elevator extends SubsystemBase {
   
   // Physical limits
   private static final double MAX_HEIGHT_METERS = 0.7100;
-  private static final double MIN_HEIGHT_METERS = 0;
-  private static final double MAX_VELOCITY_METERS = 0.2; // m/s
-  private static final double MAX_ACCELERATION = 0.1; // m/s²
+  private static final double MIN_HEIGHT_METERS = 0.01;
+  private static final double MAX_VELOCITY_METERS = 5; // m/s
+  private static final double MAX_ACCELERATION = 6; // m/s²
   
   // ------------------- Hardware Components -------------------
   
@@ -119,7 +125,9 @@ public class Elevator extends SubsystemBase {
   
     // Zero encoder
     tbEncoder.setPosition(0);
+
   }
+
 
   // ------------------- Control Methods -------------------
   
@@ -148,7 +156,10 @@ public class Elevator extends SubsystemBase {
     double accelerationDesired = 0.0; // Can be calculated if needed
     
     // Add feedforward to PID output (including gravity compensation)
-    double output = pidOutput + m_feedforward.calculate(velocityDesired, accelerationDesired);
+    double output = pidOutput;
+    output = MathUtil.clamp(output, -1, 1);
+
+
     
     // Apply control output to motor
     elevatorMaster.set(output);
@@ -160,13 +171,8 @@ public class Elevator extends SubsystemBase {
    * @return Command that runs until the elevator reaches the goal
    */
   public Command setGoal(double goalMeters) {
-    this.goalMeters = goalMeters;
-    
-    // Reset the controller when setting a new goal
-    elevatorController.reset(getElevatorHeightEncoder());
-    
-    return run(() -> reachGoal(goalMeters))
-        .until(() -> atHeight(goalMeters, 0.005).getAsBoolean());
+
+    return Commands.runOnce(() -> this.goalMeters = goalMeters);
   }
 
   /**
@@ -270,11 +276,20 @@ public class Elevator extends SubsystemBase {
       SmartDashboard.putNumber("ProfiledPID Setpoint Position", elevatorController.getSetpoint().position);
       SmartDashboard.putNumber("ProfiledPID Setpoint Velocity", elevatorController.getSetpoint().velocity);
     }
+  
   }
+
   
   @Override
   public void periodic() {
+    if(RobotState.isEnabled()){
+      reachGoal(goalMeters);
+    }
+
+
+
     // Update telemetry
     log();
+
   }
 }

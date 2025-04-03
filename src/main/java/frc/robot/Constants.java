@@ -134,16 +134,16 @@ public final class Constants
 
     public final class feedforward{
         public static final double kS = 0;
-        public static final double kG = 0.5;
+        public static final double kG = 0.02;
         public static final double kV = 0;
         public static final double kA = 0.0;
     }
 
     public final class pid{
-        public static final double kP = 0.5;
+        public static final double kP = 3.8;
         public static final double kI = 0;
-        public static final double kD = 1;
-    }
+        public static final double kD = 0.04;
+    }   
 
     public static double maxVelocity = 0.0;
     public static double maxAcceleration = 0.0;

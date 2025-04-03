@@ -69,6 +69,15 @@ public class Shooter extends SubsystemBase {
       }
   }
 
+  public void processIntakeCoralAuto() {
+
+
+    if(firstIntakePhotoElectricSensor.getVoltage() > 3 && secondIntakePhotoElectricSensor.getVoltage() > 3){
+      shooterMotor.set(0.2);
+    }
+}
+
+
   public void ejectCoral() {
 
     shooterMotor.set(1);
