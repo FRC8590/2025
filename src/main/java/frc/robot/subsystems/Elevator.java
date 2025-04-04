@@ -44,7 +44,7 @@ public class Elevator extends SubsystemBase {
   // Physical limits
   private static final double MAX_HEIGHT_METERS = 0.7100;
   private static final double MIN_HEIGHT_METERS = 0.01;
-  private static final double MAX_VELOCITY_METERS = 5; // m/s
+  private static final double MAX_VELOCITY_METERS = 6; // m/s
   private static final double MAX_ACCELERATION = 6; // m/s²
   
   // ------------------- Hardware Components -------------------

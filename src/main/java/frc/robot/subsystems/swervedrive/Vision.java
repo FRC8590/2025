@@ -404,7 +404,7 @@ public class Vision
      *
      */
     RIGHT_CAM("right",
-              new Rotation3d(0, 0, Units.degreesToRadians(-5)),
+              new Rotation3d(0, 0, Units.degreesToRadians(0)),
               new Translation3d(Units.inchesToMeters(5),
                                 Units.inchesToMeters(-1.5),
                                 Units.inchesToMeters(12.5)),
