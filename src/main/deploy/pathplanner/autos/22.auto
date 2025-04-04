@@ -7,23 +7,66 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Bottom-5o'clock"
+            "pathName": "Bottom-7o'clock"
           }
         },
         {
           "type": "named",
           "data": {
-            "name": "UniversalLeftBot"
+            "name": "AutoBotAlgae"
           }
         },
         {
-          "type": "parallel",
+          "type": "deadline",
           "data": {
             "commands": [
               {
                 "type": "path",
                 "data": {
-                  "pathName": "5o'clock-Coral(lower)"
+                  "pathName": "7o'clock-Coral(lower)"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "ZeroElevator"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "InactiveRemover"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "WaitForCoralIntake"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Coral(lower)-7o'clock"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "AutoRightTop"
+          }
+        },
+        {
+          "type": "deadline",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "7o'clock-Coral(lower)"
                 }
               },
               {
@@ -44,32 +87,13 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Coral(lower)-5o'clock"
+            "pathName": "Coral(lower)-7o'clock"
           }
         },
         {
           "type": "named",
           "data": {
-            "name": "UniversalRightBot"
-          }
-        },
-        {
-          "type": "parallel",
-          "data": {
-            "commands": [
-              {
-                "type": "path",
-                "data": {
-                  "pathName": "5o'clock-Coral(lower)"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "ZeroElevator"
-                }
-              }
-            ]
+            "name": "TeleLeftBot"
           }
         }
       ]
