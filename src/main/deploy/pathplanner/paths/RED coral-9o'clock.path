@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 16.99,
-        "y": 7.38
+        "x": 16.54,
+        "y": 7.15
       },
       "prevControl": null,
       "nextControl": {
-        "x": 15.074938524590161,
-        "y": 7.0082274590163935
+        "x": 14.624938524590162,
+        "y": 6.778227459016394
       },
       "isLocked": false,
       "linkedName": "Red feed"
@@ -48,7 +48,7 @@
   "folder": "Red Side Paths",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": -124.12000000000002
+    "rotation": -126.0
   },
   "useDefaultConstraints": true
 }

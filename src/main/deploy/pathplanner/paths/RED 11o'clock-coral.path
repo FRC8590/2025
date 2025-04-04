@@ -16,12 +16,12 @@
     },
     {
       "anchor": {
-        "x": 16.99,
-        "y": 7.38
+        "x": 16.54,
+        "y": 7.15
       },
       "prevControl": {
-        "x": 15.957557705250085,
-        "y": 6.905577993182761
+        "x": 15.507557705250086,
+        "y": 6.6755779931827615
       },
       "nextControl": null,
       "isLocked": false,
@@ -42,7 +42,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -124.12000000000002
+    "rotation": -126.0
   },
   "reversed": false,
   "folder": "Red Side Paths",

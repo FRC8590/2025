@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.282684426229508,
-        "y": 7.615317622950819
+        "x": 1.12,
+        "y": 7.19
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.3840604289237115,
-        "y": 5.875875093771014
+        "x": 2.2213760026942033,
+        "y": 5.450557470820195
       },
       "isLocked": false,
       "linkedName": "feed"
@@ -48,7 +48,7 @@
   "folder": "Blue Side Paths",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": -55.88
+    "rotation": -55.5
   },
   "useDefaultConstraints": false
 }

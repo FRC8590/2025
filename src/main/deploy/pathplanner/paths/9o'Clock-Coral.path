@@ -16,12 +16,12 @@
     },
     {
       "anchor": {
-        "x": 1.282684426229508,
-        "y": 7.615317622950819
+        "x": 1.12,
+        "y": 7.19
       },
       "prevControl": {
-        "x": 1.4740359049009715,
-        "y": 7.258379048632258
+        "x": 1.3113514786714635,
+        "y": 6.833061425681439
       },
       "nextControl": null,
       "isLocked": false,
@@ -42,7 +42,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -55.88
+    "rotation": -55.5
   },
   "reversed": false,
   "folder": "Blue Side Paths",
