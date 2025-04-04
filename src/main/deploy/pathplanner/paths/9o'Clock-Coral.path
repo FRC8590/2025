@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 2.789,
-        "y": 4.0
+        "x": 2.7763226141078836,
+        "y": 4.134232365145228
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.9249999999999994,
-        "y": 6.512448770491804
+        "x": 2.912322614107883,
+        "y": 6.6466811356370314
       },
       "isLocked": false,
       "linkedName": "Blue 9"
@@ -34,7 +34,7 @@
   "eventMarkers": [],
   "globalConstraints": {
     "maxVelocity": 5.0,
-    "maxAcceleration": 5.0,
+    "maxAcceleration": 3.5,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0,
     "nominalVoltage": 12.0,

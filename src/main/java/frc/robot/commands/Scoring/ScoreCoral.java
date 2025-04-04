@@ -6,6 +6,7 @@ package frc.robot.commands.Scoring;
 
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.Constants;
 
 /** Ejects coral from intake for 5 seconds */
@@ -17,6 +18,7 @@ public class ScoreCoral extends SequentialCommandGroup {
   public ScoreCoral() {
     addCommands(
       new ParallelCommandGroup(
+        new WaitCommand(1.25),
         Constants.SHOOTER.scoreCoral()  // Eject coral for 5 seconds
       )
     );

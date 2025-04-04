@@ -16,16 +16,16 @@
     },
     {
       "anchor": {
-        "x": 14.75,
-        "y": 4.0
+        "x": 14.773677385892118,
+        "y": 3.7883298755186723
       },
       "prevControl": {
-        "x": 14.944299486213962,
-        "y": 4.857290365819071
+        "x": 14.96797687210608,
+        "y": 4.645620241337744
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Red 3"
     }
   ],
   "rotationTargets": [],

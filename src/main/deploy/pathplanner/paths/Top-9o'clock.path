@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 7.192622950819672,
-        "y": 6.788165983606557
+        "x": 7.081898340248962,
+        "y": 6.810425311203319
       },
       "prevControl": null,
       "nextControl": {
-        "x": 3.8822581967213114,
-        "y": 6.667069672131147
+        "x": 3.7715335861506016,
+        "y": 6.689328999727908
       },
       "isLocked": false,
       "linkedName": "Blue Top"
     },
     {
       "anchor": {
-        "x": 2.789,
-        "y": 4.0
+        "x": 2.7763226141078836,
+        "y": 4.134232365145228
       },
       "prevControl": {
-        "x": 3.1887295081967215,
-        "y": 6.06890368852459
+        "x": 3.176052122304605,
+        "y": 6.203136053669818
       },
       "nextControl": null,
       "isLocked": false,
@@ -48,7 +48,7 @@
   "folder": "Blue Side Paths",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": -102.72435568542238
+    "rotation": -122.55133817017867
   },
   "useDefaultConstraints": true
 }
