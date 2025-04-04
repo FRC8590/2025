@@ -383,6 +383,35 @@ public class SwerveSubsystem extends SubsystemBase
     );
     }
   }
+  public Command driveToPose(Pose2d pose, boolean auto)
+  {
+
+
+    PathConstraints constraints = new PathConstraints(
+        swerveDrive.getMaximumChassisVelocity(), 2,
+        swerveDrive.getMaximumChassisAngularVelocity(), Units.degreesToRadians(720));
+
+  
+        
+    if(auto){
+      return new AutoAlignmentAuto(
+        constraints,
+        this::getPose,  // robotPoseSupplier
+        this::setChassisSpeeds,  // robotRelativeSpeedsOutput
+        this,  // driveSubsystem
+        pose   // targetPose
+    );
+    }
+    else{
+      return new AutoAlignment(
+        constraints,
+        this::getPose,  // robotPoseSupplier
+        this::setChassisSpeeds,  // robotRelativeSpeedsOutput
+        this,  // driveSubsystem
+        pose   // targetPose
+    );
+    }
+  }
 
 
   public Command driveToPose(Pose2d pose, boolean isRight, int tag){
