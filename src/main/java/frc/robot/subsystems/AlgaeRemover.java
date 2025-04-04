@@ -117,8 +117,8 @@ public class AlgaeRemover extends SubsystemBase {
   }
   
   public void reachGoalMoreDown() {
-    pivotMotor.set(pidController.calculate(getPivotPosition(), 0.35));   
-    runRemover();
+    pivotMotor.set(pidController.calculate(getPivotPosition(), 0.7));   
+    invertRemover();
   }
 
   /**
@@ -147,6 +147,15 @@ public class AlgaeRemover extends SubsystemBase {
     removerMotor.set(-0.9);
   }
   
+
+    /**
+   * Run the remover motor
+   */
+  public void invertRemover() {
+    removerMotor.set(0.5);
+  }
+  
+
   /**
    * Stop the remover motor
    */
