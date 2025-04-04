@@ -183,7 +183,7 @@ public class Elevator extends SubsystemBase {
       closedLoopController.setReference(
         limitedGoal, // Convert meters to encoder units
         ControlType.kMAXMotionPositionControl,
-        ClosedLoopSlot.kSlot1,
+        ClosedLoopSlot.kSlot0,
         Constants.feedforward.kG // Gravity compensation
     );
 
