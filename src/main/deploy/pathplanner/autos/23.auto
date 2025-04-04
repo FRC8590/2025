@@ -7,23 +7,66 @@
         {
           "type": "path",
           "data": {
-            "pathName": "RED top-11o'clock"
+            "pathName": "RED top-1o'clock"
           }
         },
         {
           "type": "named",
           "data": {
-            "name": "UniversalLeftBot"
+            "name": "AutoBotAlgae"
           }
         },
         {
-          "type": "parallel",
+          "type": "deadline",
           "data": {
             "commands": [
               {
                 "type": "path",
                 "data": {
-                  "pathName": "RED 11o'clock-coral"
+                  "pathName": "RED 1o'clock-coral"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "ZeroElevator"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "InactiveRemover"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "WaitForCoralIntake"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "RED coral-1o'clock"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "AutoRightTop"
+          }
+        },
+        {
+          "type": "deadline",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "RED 1o'clock-coral"
                 }
               },
               {
@@ -44,32 +87,13 @@
         {
           "type": "path",
           "data": {
-            "pathName": "RED coral-11o'clock"
+            "pathName": "RED coral-1o'clock"
           }
         },
         {
           "type": "named",
           "data": {
-            "name": "UniversalRightBot"
-          }
-        },
-        {
-          "type": "parallel",
-          "data": {
-            "commands": [
-              {
-                "type": "path",
-                "data": {
-                  "pathName": "RED 11o'clock-coral"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "ZeroElevator"
-                }
-              }
-            ]
+            "name": "TeleLeftBot"
           }
         }
       ]
