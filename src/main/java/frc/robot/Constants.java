@@ -140,7 +140,7 @@ public final class Constants
     }
 
     public final class pid{
-        public static final double kP = 3.8;
+        public static final double kP = 3.6;
         public static final double kI = 0;
         public static final double kD = 0.04;
     }   

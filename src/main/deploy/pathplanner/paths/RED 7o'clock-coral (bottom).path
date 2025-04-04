@@ -28,12 +28,7 @@
       "linkedName": "Red feed lower"
     }
   ],
-  "rotationTargets": [
-    {
-      "waypointRelativePos": 0.6,
-      "rotationDegrees": 125.00000000000001
-    }
-  ],
+  "rotationTargets": [],
   "constraintZones": [],
   "pointTowardsZones": [],
   "eventMarkers": [],

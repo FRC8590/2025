@@ -8,8 +8,8 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.8555574056049908,
-        "y": 2.5511183390975596
+        "x": 2.901024590163934,
+        "y": 2.3167520491803284
       },
       "isLocked": false,
       "linkedName": "feed Lower"
@@ -20,8 +20,8 @@
         "y": 4.0
       },
       "prevControl": {
-        "x": 2.2665001784794203,
-        "y": 3.113718040601011
+        "x": 2.7931352459016394,
+        "y": 3.083965163934426
       },
       "nextControl": null,
       "isLocked": false,
