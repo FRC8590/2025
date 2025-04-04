@@ -69,8 +69,8 @@ public class ElevatorMaxMotion extends SubsystemBase {
   /** Creates a new Elevator. */
   
   // Define limits in meters
-  private static final double MAX_HEIGHT_METERS = 0.7100;  // 10cm up
-  private static final double MIN_HEIGHT_METERS = -0.01; // 10cm down
+  private static final double MAX_HEIGHT_METERS = 0.5;  // 10cm up
+  private static final double MIN_HEIGHT_METERS = 0.01; // 10cm down
   private static final double MAX_VELOCITY_METERS = 5; // ~0.5 inches per second <- I don't think Joseph updated the "0.5" value
 
   // Fix trigger definitions with small tolerance
@@ -125,21 +125,15 @@ public class ElevatorMaxMotion extends SubsystemBase {
 
     masterConfig.closedLoop
         .feedbackSensor(FeedbackSensor.kAlternateOrExternalEncoder)
-        .p(Constants.pid.kP, ClosedLoopSlot.kSlot0)
-        .i(Constants.pid.kI, ClosedLoopSlot.kSlot0)
-        .d(Constants.pid.kD, ClosedLoopSlot.kSlot0)
+        .p(1, ClosedLoopSlot.kSlot0)
+        .i(0, ClosedLoopSlot.kSlot0)
+        .d(0, ClosedLoopSlot.kSlot0)
         .outputRange(-1, 1);
 
-    masterConfig.closedLoop
-        .feedbackSensor(FeedbackSensor.kAlternateOrExternalEncoder)
-        .p(2.2, ClosedLoopSlot.kSlot1)
-        .i(0, ClosedLoopSlot.kSlot1)
-        .d(1, ClosedLoopSlot.kSlot1)
-        .outputRange(-1, 1);
 
     masterConfig.closedLoop.maxMotion
-        .maxVelocity(6)
-        .maxAcceleration(6);
+        .maxVelocity(3)
+        .maxAcceleration(3);
 
     SparkMaxConfig followerConfig = new SparkMaxConfig();
     followerConfig
