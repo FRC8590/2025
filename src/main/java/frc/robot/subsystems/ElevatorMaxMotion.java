@@ -137,6 +137,10 @@ public class ElevatorMaxMotion extends SubsystemBase {
         .d(1, ClosedLoopSlot.kSlot1)
         .outputRange(-1, 1);
 
+    masterConfig.closedLoop.maxMotion
+        .maxVelocity(6)
+        .maxAcceleration(6);
+
     SparkMaxConfig followerConfig = new SparkMaxConfig();
     followerConfig
         .idleMode(IdleMode.kBrake)
@@ -184,7 +188,7 @@ public class ElevatorMaxMotion extends SubsystemBase {
     if(goingDown){
       closedLoopController.setReference(
         limitedGoal, // Convert meters to encoder units
-        ControlType.kPosition,
+        ControlType.kMAXMotionPositionControl,
         ClosedLoopSlot.kSlot1,
         Constants.feedforward.kG // Gravity compensation
     );
