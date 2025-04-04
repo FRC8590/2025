@@ -185,22 +185,13 @@ public class ElevatorMaxMotion extends SubsystemBase {
     double limitedGoal = currentPos + MathUtil.clamp(error, -maxDelta, maxDelta);
 
 
-    if(goingDown){
+
       closedLoopController.setReference(
         limitedGoal, // Convert meters to encoder units
         ControlType.kMAXMotionPositionControl,
         ClosedLoopSlot.kSlot1,
         Constants.feedforward.kG // Gravity compensation
     );
-    }
-    else{
-      closedLoopController.setReference(
-        limitedGoal, // Convert meters to encoder units
-        ControlType.kPosition,
-        ClosedLoopSlot.kSlot0,
-        Constants.feedforward.kG // Gravity compensation
-    );
-    }
 
     SmartDashboard.putNumber("error", closedLoopController.getIAccum());
   }
