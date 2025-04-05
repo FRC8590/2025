@@ -78,7 +78,7 @@ public class AlgaeRemover extends SubsystemBase {
     pivotConfig
         .inverted(true)
         .idleMode(IdleMode.kBrake)  // Important for holding position
-        .smartCurrentLimit(10)
+        .smartCurrentLimit(40)
         .closedLoopRampRate(Constants.ALGAE_REMOVER_CONSTANTS.rampRate());
   
         
@@ -197,6 +197,9 @@ public class AlgaeRemover extends SubsystemBase {
   }
 
   /**
+   * 
+   * 
+   * 
    * Toggle the algae remover between extended and retracted positions
    */
   public void toggle() {

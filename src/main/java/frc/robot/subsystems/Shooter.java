@@ -30,6 +30,7 @@ public class Shooter extends SubsystemBase {
   private final SparkMax shooterMotor = new SparkMax(Constants.SHOOTER_CONSTANTS.kShooterMotorID(), MotorType.kBrushless);
   private final AnalogInput firstIntakePhotoElectricSensor = new AnalogInput(Constants.SHOOTER_CONSTANTS.firstIntakePhotoElectricSensorID()); //the first sensor the coral hits
   public final AnalogInput secondIntakePhotoElectricSensor = new AnalogInput(Constants.SHOOTER_CONSTANTS.secondIntakePhotoElectricSensorID()); //the second sensor the coral hits
+  public double firstIntakeVoltage, secondIntakeVoltage;
 
   public int counter;
   int timer = 0;
@@ -49,17 +50,23 @@ public class Shooter extends SubsystemBase {
     shooterMotor.set(speed);
   }
 
+  public void updateSensorStatus(){
+    firstIntakeVoltage = firstIntakePhotoElectricSensor.getVoltage();
+    secondIntakeVoltage = secondIntakePhotoElectricSensor.getVoltage();
+    
+  }
+
   public void processIntakeCoral() {
 
 
-      if(firstIntakePhotoElectricSensor.getVoltage() > 3){
+      if(firstIntakeVoltage > 3){
         stopShooter(); 
       }
-      else if (firstIntakePhotoElectricSensor.getVoltage() < 3 && secondIntakePhotoElectricSensor.getVoltage() > 3) {
-        shooterMotor.set(0.45);
+      else if (firstIntakeVoltage < 3 && secondIntakeVoltage > 3) {
+        shooterMotor.set(0.35);
 
       } 
-      else if (secondIntakePhotoElectricSensor.getVoltage() < 3) {
+      else if (secondIntakeVoltage < 3) {
         shooterMotor.set(0.2); 
 
 
@@ -72,7 +79,7 @@ public class Shooter extends SubsystemBase {
   public void processIntakeCoralAuto() {
 
 
-    if(firstIntakePhotoElectricSensor.getVoltage() > 3 && secondIntakePhotoElectricSensor.getVoltage() > 3){
+    if(firstIntakeVoltage > 3 && secondIntakeVoltage > 3){
       shooterMotor.set(0.2);
     }
 }
@@ -110,7 +117,7 @@ public class Shooter extends SubsystemBase {
    */
   public Trigger hasCoral() {
     return new Trigger(() -> 
-        (firstIntakePhotoElectricSensor.getVoltage() > 3 && secondIntakePhotoElectricSensor.getVoltage() < 3));
+        (firstIntakeVoltage > 3 && secondIntakeVoltage < 3));
   }
   
 
@@ -120,7 +127,7 @@ public class Shooter extends SubsystemBase {
  */
   public Trigger noCoral () {
     return new Trigger(() -> 
-        (firstIntakePhotoElectricSensor.getVoltage() > 3 && secondIntakePhotoElectricSensor.getVoltage() > 3));
+        (firstIntakeVoltage > 3 && secondIntakeVoltage > 3));
   }
 
 

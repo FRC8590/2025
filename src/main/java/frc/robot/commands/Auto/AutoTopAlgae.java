@@ -46,7 +46,7 @@ public class AutoTopAlgae extends SequentialCommandGroup {
       new SequentialCommandGroup(
         moveToScore.withTimeout(2.5),
         new MoveElevator(0.7 ),
-        new WaitCommand(0.2),
+        new WaitCommand(0.1),
         new ScoreCoral()
      ),
       new ActiveRemover()
