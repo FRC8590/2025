@@ -233,6 +233,10 @@ public class RobotContainer
     m_chooser.addOption("42", "42");
     m_chooser.addOption("43", "43");
     m_chooser.addOption("44", "44");
+    m_chooser.addOption("45", "45");
+    m_chooser.addOption("46", "46");
+    m_chooser.addOption("47", "47");
+    m_chooser.addOption("48", "48");
 
 
     
@@ -254,6 +258,8 @@ public class RobotContainer
     NamedCommands.registerCommand("AutoRightTop", new AutoRightTop());
     NamedCommands.registerCommand("TeleLeftBot", new TeleLeftBot());
     NamedCommands.registerCommand("TeleRightBot", new TeleRightBot());
+    NamedCommands.registerCommand("TeleLeftTop", new TeleLeftTop());
+    NamedCommands.registerCommand("TeleRightTop", new TeleRightTop());
 
     NamedCommands.registerCommand("UniversalRightTopRemoveAlgae", new AutoRightTopRemoveAlgae());
     NamedCommands.registerCommand("UniversalRightBotRemoveAlgae", new AutoRightTop());
