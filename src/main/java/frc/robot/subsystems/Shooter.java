@@ -56,7 +56,7 @@ public class Shooter extends SubsystemBase {
         stopShooter(); 
       }
       else if (firstIntakePhotoElectricSensor.getVoltage() < 3 && secondIntakePhotoElectricSensor.getVoltage() > 3) {
-        shooterMotor.set(0.6);
+        shooterMotor.set(0.45);
 
       } 
       else if (secondIntakePhotoElectricSensor.getVoltage() < 3) {
