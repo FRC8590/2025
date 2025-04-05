@@ -24,7 +24,7 @@ public class MoveElevator extends SequentialCommandGroup {
   public MoveElevator(double desired) {
     addCommands(
       Constants.ELEVATOR.setGoal(desired),  // Set to specific height in meters
-      new WaitCommand(0.5)
+      new WaitCommand(1)
     );
 
     addRequirements(Constants.ELEVATOR);
