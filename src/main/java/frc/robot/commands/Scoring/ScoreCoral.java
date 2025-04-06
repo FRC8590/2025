@@ -17,10 +17,7 @@ public class ScoreCoral extends SequentialCommandGroup {
    */
   public ScoreCoral() {
     addCommands(
-      new ParallelCommandGroup(
-        new WaitCommand(1.25),
         Constants.SHOOTER.scoreCoral()  // Eject coral for 5 seconds
-      )
     );
 
     addRequirements(Constants.SHOOTER);
