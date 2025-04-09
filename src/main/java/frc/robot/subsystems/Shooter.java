@@ -30,16 +30,18 @@ public class Shooter extends SubsystemBase {
   private final SparkMax shooterMotor = new SparkMax(Constants.SHOOTER_CONSTANTS.kShooterMotorID(), MotorType.kBrushless);
   private final AnalogInput firstIntakePhotoElectricSensor = new AnalogInput(Constants.SHOOTER_CONSTANTS.firstIntakePhotoElectricSensorID()); //the first sensor the coral hits
   public final AnalogInput secondIntakePhotoElectricSensor = new AnalogInput(Constants.SHOOTER_CONSTANTS.secondIntakePhotoElectricSensorID()); //the second sensor the coral hits
+  public double firstIntakeVoltage, secondIntakeVoltage;
 
   public int counter;
+  int timer = 0;
 
   public Shooter() {
 
     shooterConfig
     .inverted(true)
     .idleMode(IdleMode.kCoast)
-    .smartCurrentLimit(10)
-    .closedLoopRampRate(0.1);
+    .smartCurrentLimit(40)
+    .closedLoopRampRate(0.001);
     shooterMotor.configure(shooterConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
 
   }
@@ -48,27 +50,24 @@ public class Shooter extends SubsystemBase {
     shooterMotor.set(speed);
   }
 
+  public void updateSensorStatus(){
+    firstIntakeVoltage = firstIntakePhotoElectricSensor.getVoltage();
+    secondIntakeVoltage = secondIntakePhotoElectricSensor.getVoltage();
+    
+  }
+
   public void processIntakeCoral() {
 
-      System.out.println("Intaking coral, senioritis is so fake");
 
-      if(firstIntakePhotoElectricSensor.getVoltage() > 3){
+      if(firstIntakeVoltage > 3){
         stopShooter(); 
       }
-      else if (firstIntakePhotoElectricSensor.getVoltage() < 3 && secondIntakePhotoElectricSensor.getVoltage() > 3) {
-        shooterMotor.set(0.6);
-        System.out.println("0.6");
-        System.out.println("0.6");
-        System.out.println("0.6");
-        System.out.println("0.6");
+      else if (firstIntakeVoltage < 3 && secondIntakeVoltage > 3) {
+        shooterMotor.set(0.35);
 
       } 
-      else if (secondIntakePhotoElectricSensor.getVoltage() < 3) {
+      else if (secondIntakeVoltage < 3) {
         shooterMotor.set(0.2); 
-        System.out.println("0.2");
-        System.out.println("0.2");
-        System.out.println("0.2");
-        System.out.println("0.2");
 
 
       }
@@ -77,15 +76,30 @@ public class Shooter extends SubsystemBase {
       }
   }
 
+  public void processIntakeCoralAuto() {
+
+
+    if(firstIntakeVoltage > 3 && secondIntakeVoltage > 3){
+      shooterMotor.set(0.2);
+    }
+}
+
+
   public void ejectCoral() {
 
-    shooterMotor.set(1);
+    shooterMotor.set(0.7);
   }
   
   public void reverseCoral() {
 
     shooterMotor.set(-0.75);
   }
+
+  public void reverseyCoral() {
+
+    shooterMotor.set(-0.7);
+  }
+
 
     
   public void slowCoral() {
@@ -109,7 +123,7 @@ public class Shooter extends SubsystemBase {
    */
   public Trigger hasCoral() {
     return new Trigger(() -> 
-        (firstIntakePhotoElectricSensor.getVoltage() > 3 && secondIntakePhotoElectricSensor.getVoltage() < 3));
+        (firstIntakeVoltage > 3 && secondIntakeVoltage < 3));
   }
   
 
@@ -119,7 +133,7 @@ public class Shooter extends SubsystemBase {
  */
   public Trigger noCoral () {
     return new Trigger(() -> 
-        (firstIntakePhotoElectricSensor.getVoltage() > 3 && secondIntakePhotoElectricSensor.getVoltage() > 3));
+        (firstIntakeVoltage > 3 && secondIntakeVoltage > 3));
   }
 
 
@@ -173,7 +187,14 @@ public class Shooter extends SubsystemBase {
     .until(noCoral())
     .andThen(new WaitCommand(0.2))
     .finallyDo(() -> stopShooter());
+  }
 
+  
+  public Command troughyCoral(){
+    return run(() -> reverseCoral())
+    .until(noCoral())
+    .andThen(new WaitCommand(0.2))
+    .finallyDo(() -> stopShooter());
   }
 
 

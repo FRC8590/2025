@@ -8,20 +8,20 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 14.355912220455059,
-        "y": 2.2438301767913504
+        "x": 14.489641772764191,
+        "y": 2.1533489654324263
       },
       "isLocked": false,
       "linkedName": "Red 5"
     },
     {
       "anchor": {
-        "x": 16.99,
-        "y": 0.51
+        "x": 16.44,
+        "y": 0.87
       },
       "prevControl": {
-        "x": 16.520549810998265,
-        "y": 0.7909883313075321
+        "x": 15.948629417515543,
+        "y": 1.1959081440342063
       },
       "nextControl": null,
       "isLocked": false,
@@ -42,7 +42,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 127.98
+    "rotation": 126.0
   },
   "reversed": false,
   "folder": "Red Side Paths",

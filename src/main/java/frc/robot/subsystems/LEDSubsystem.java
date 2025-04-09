@@ -39,6 +39,8 @@ public class LEDSubsystem extends SubsystemBase {
   private final LEDPattern fullYellow = LEDPattern.solid(Color.kYellow);
   private final LEDPattern rainbow = LEDPattern.rainbow(255, 128);
   private final LEDPattern scrollingRainbow = rainbow.scrollAtAbsoluteSpeed(MetersPerSecond.of(1), kLedSpacing);
+  private LEDPattern yellowPurple = LEDPattern.gradient(LEDPattern.GradientType.kContinuous, Color.kGold, Color.kDarkMagenta);
+  private final LEDPattern lebron = yellowPurple.scrollAtAbsoluteSpeed(MetersPerSecond.of(1), kLedSpacing);
 
   public LEDSubsystem(){
     m_LED.setLength(m_LEDBuffer.getLength());
@@ -64,9 +66,16 @@ public class LEDSubsystem extends SubsystemBase {
     desiredPattern = scrollingRainbow;
   }
 
+  public void setGOAT(){
+    desiredPattern = lebron;
+    currentColor = "lebron";
+  }
+
   public LEDPattern getPattern(){
     return desiredPattern;
   }
+
+  
 
   @Override
   public void periodic() {
@@ -92,7 +101,13 @@ public class LEDSubsystem extends SubsystemBase {
     }
     else if(desiredPattern.equals(fullGreen)){
 
-      fullGreen.applyTo(m_LEDBuffer);
+      lebron.applyTo(m_LEDBuffer);
+      m_LED.setData(m_LEDBuffer);
+
+    }
+    else if(desiredPattern.equals(lebron)){
+
+      lebron.applyTo(m_LEDBuffer);
       m_LED.setData(m_LEDBuffer);
 
     }

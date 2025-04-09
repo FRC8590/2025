@@ -31,6 +31,7 @@ import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.trajectory.Trajectory;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.RobotState;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.Timer;
@@ -41,6 +42,7 @@ import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Config;
 import frc.robot.Constants;
 import frc.robot.commands.Scoring.DriveToPose;
 import frc.robot.commands.swervedrive.AutoAlignment;
+import frc.robot.commands.swervedrive.AutoAlignmentAuto;
 import frc.robot.subsystems.swervedrive.Vision.Cameras;
 import java.io.File;
 import java.io.IOException;
@@ -218,11 +220,11 @@ public class SwerveSubsystem extends SubsystemBase
           // Method that will drive the robot given ROBOT RELATIVE ChassisSpeeds. Also optionally outputs individual module feedforwards
           new PPHolonomicDriveController(
               // PPHolonomicController is the built in path following controller for holonomic drive trains
-              new PIDConstants(4,0,0),
+              new PIDConstants(4.5,0,0),
               // new PIDConstants(0.1, 0.0, 0.0)
               // new PIDConstants(4, 0, 0.1),
 
-              new PIDConstants(5, 0, 0.5)
+              new PIDConstants(2, 0, 0)
 
 
 
@@ -360,16 +362,26 @@ public class SwerveSubsystem extends SubsystemBase
         swerveDrive.getMaximumChassisVelocity(), 2,
         swerveDrive.getMaximumChassisAngularVelocity(), Units.degreesToRadians(720));
 
-
+  
         
-    
-    return new AutoAlignment(
+    if(RobotState.isAutonomous()){
+      return new AutoAlignmentAuto(
         constraints,
         this::getPose,  // robotPoseSupplier
         this::setChassisSpeeds,  // robotRelativeSpeedsOutput
         this,  // driveSubsystem
         pose   // targetPose
     );
+    }
+    else{
+      return new AutoAlignment(
+        constraints,
+        this::getPose,  // robotPoseSupplier
+        this::setChassisSpeeds,  // robotRelativeSpeedsOutput
+        this,  // driveSubsystem
+        pose   // targetPose
+    );
+    }
   }
 
 

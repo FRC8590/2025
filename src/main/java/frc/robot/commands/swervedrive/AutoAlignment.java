@@ -19,6 +19,7 @@ import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.FunctionalCommand;
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.PrintCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.Subsystem;
@@ -99,11 +100,11 @@ public class AutoAlignment extends SequentialCommandGroup {
         
 
         super.addCommands(resetOdom);
-        super.addCommands(new WaitCommand(0.15));
+        super.addCommands(new WaitCommand(0.03));
         super.addCommands(pathFindToTargetRough);
         // super.addCommands(roughAlignment);
-        // // super.addCommands(new PrintCommand("DONEEE"));
-        super.addCommands(new WaitCommand(0.15));
+        // // // super.addCommands(new PrintCommand("DONEEE"));
+        super.addCommands(new WaitCommand(0.05));
         super.addCommands(preciseAlignment);
 
 

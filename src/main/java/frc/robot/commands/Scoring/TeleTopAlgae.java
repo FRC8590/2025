@@ -40,14 +40,19 @@ public class TeleTopAlgae extends SequentialCommandGroup {
    */
   public TeleTopAlgae() {
     
-    addCommands(
+  addCommands(
+    new ParallelCommandGroup(
       new ActiveRemover(),
-       moveToScore.withTimeout(2),
-       new MoveElevator(0.7),
-       new ScoreCoral(),
-       moveBack,
-       new MoveElevator(0)
-  );
+      new SequentialCommandGroup(
+        moveToScore.withTimeout(2.5),
+        new MoveElevator(0.7),
+        new ScoreCoral(),
+        moveBack,
+        new MoveElevator(0)
+     ) 
+    )
+);
+
     addRequirements(Constants.drivebase);
 
     

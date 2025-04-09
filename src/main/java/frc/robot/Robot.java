@@ -17,7 +17,9 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import edu.wpi.first.wpilibj2.command.Commands;
 import frc.robot.commands.InactiveRemover;
+import frc.robot.commands.Scoring.WaitForCoralIntake;
 import frc.robot.commands.swervedrive.AutoAlignment;
 import frc.robot.subsystems.swervedrive.Vision;
 import frc.robot.subsystems.swervedrive.AutoDetection.Cameras;
@@ -46,7 +48,8 @@ public class Robot extends TimedRobot
   public Robot()
   {
     instance = this;
-    CameraServer.startAutomaticCapture();
+
+    // CameraServer.startAutomaticCapture();
   }
 
   public static Robot getInstance()
@@ -99,7 +102,7 @@ public class Robot extends TimedRobot
     // block in order for anything in the Command-based framework to work.
     CommandScheduler.getInstance().run();
     //SmartDashboard.putBoolean("right camrea status", Constants.vision.getEnabled(1));
-
+    Constants.SHOOTER.updateSensorStatus();
   }
 
   /**
@@ -109,6 +112,7 @@ public class Robot extends TimedRobot
   public void disabledInit()
   {
 
+    
     disabledTimer.reset();
     disabledTimer.start();
     
@@ -117,6 +121,8 @@ public class Robot extends TimedRobot
   @Override
   public void disabledPeriodic()
   {
+
+    Commands.run(() -> Constants.LEDSystem.setGOAT(), Constants.LEDSystem);
 
     if (disabledTimer.hasElapsed(Constants.DRIVE_CONSTANTS.wheelLockTime()))
     {
@@ -141,6 +147,7 @@ public class Robot extends TimedRobot
       m_autonomousCommand.schedule();
     }
 
+
   }
 
   /**
@@ -149,6 +156,7 @@ public class Robot extends TimedRobot
   @Override
   public void autonomousPeriodic()
   {
+    // Constants.SHOOTER.processIntakeCoralAuto();
   }
 
   @Override
@@ -167,6 +175,7 @@ public class Robot extends TimedRobot
       CommandScheduler.getInstance().cancelAll();
     }
     m_robotContainer.setDriveMode();
+    Constants.ELEVATOR.setGoal(Constants.ELEVATOR.getElevatorHeightEncoder());
   }
 
   /**

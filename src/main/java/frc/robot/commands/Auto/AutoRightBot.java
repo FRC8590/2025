@@ -10,18 +10,14 @@ import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.Commands;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.PrintCommand;
 import edu.wpi.first.wpilibj2.command.SelectCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.Constants;
-import frc.robot.commands.ActiveRemover;
-import frc.robot.commands.InactiveRemover;
 import frc.robot.commands.MoveElevator;
-import frc.robot.commands.Algae.RemoveBotAlgaeScoreBot;
-import frc.robot.commands.Algae.RemoveTopAlgaeScoreTop;
 import frc.robot.commands.Scoring.ScoreCoral;
 import frc.robot.constants.ScoringConstants;
 
@@ -32,25 +28,27 @@ import java.util.Map;
 
 import com.fasterxml.jackson.databind.ser.std.StdKeySerializers.Default;
 
-/** Removes the bottom algae */
-public class AutoLeftBotRemoveAlgae extends SequentialCommandGroup {
+/** Scores a coral on L3 */
+public class AutoRightBot extends SequentialCommandGroup {
 
   // Define the AprilTag IDs we're interested in
   
   /**
-   * Removes the bottom algae
+   * Scores a coral on L3
    */
-  public AutoLeftBotRemoveAlgae() {
+  public AutoRightBot() {
     
     addCommands(
+
       new ParallelCommandGroup(
-        moveToScore,
-        Commands.run(() -> Constants.ALGAE_REMOVER.reachGoalDown()).withTimeout(2)
+        
+        moveToScore.withTimeout(3),
+        new MoveElevator(0.29)
       ),
-      new MoveElevator(0.7)
+      new ScoreCoral()
     );
+    addRequirements(Constants.SHOOTER);
     addRequirements(Constants.ELEVATOR);
-    addRequirements(Constants.ALGAE_REMOVER);
   }
 
 
@@ -67,12 +65,17 @@ public class AutoLeftBotRemoveAlgae extends SequentialCommandGroup {
       new SelectCommand<>(
           // Maps selector values to commands
           Map.ofEntries(
-              Map.entry(17, Constants.drivebase.driveToPose(Constants.SCORING_CONSTANTS.left17())),
-              Map.entry(18, Constants.drivebase.driveToPose(Constants.SCORING_CONSTANTS.left18())),
-              Map.entry(19, Constants.drivebase.driveToPose(Constants.SCORING_CONSTANTS.left19())),
-              Map.entry(20, Constants.drivebase.driveToPose(Constants.SCORING_CONSTANTS.left20())),
-              Map.entry(21, Constants.drivebase.driveToPose(Constants.SCORING_CONSTANTS.left21())),
-              Map.entry(22, Constants.drivebase.driveToPose(Constants.SCORING_CONSTANTS.left22()))),
-          this::getClosestTag);
+            Map.entry(17, Constants.drivebase.driveToPose(Constants.SCORING_CONSTANTS.right17())),
+            Map.entry(18, Constants.drivebase.driveToPose(Constants.SCORING_CONSTANTS.right18())),
+            Map.entry(19, Constants.drivebase.driveToPose(Constants.SCORING_CONSTANTS.right19())),
+            Map.entry(20, Constants.drivebase.driveToPose(Constants.SCORING_CONSTANTS.right20())),
+            Map.entry(21, Constants.drivebase.driveToPose(Constants.SCORING_CONSTANTS.right21())),
+            Map.entry(22, Constants.drivebase.driveToPose(Constants.SCORING_CONSTANTS.right22())),
+            Map.entry(6, Constants.drivebase.driveToPose(Constants.SCORING_CONSTANTS.right6())),
+            Map.entry(7, Constants.drivebase.driveToPose(Constants.SCORING_CONSTANTS.right7())),
+            Map.entry(8, Constants.drivebase.driveToPose(Constants.SCORING_CONSTANTS.right8())),
+            Map.entry(9, Constants.drivebase.driveToPose(Constants.SCORING_CONSTANTS.right9())),
+            Map.entry(10, Constants.drivebase.driveToPose(Constants.SCORING_CONSTANTS.right10())),
+            Map.entry(11, Constants.drivebase.driveToPose(Constants.SCORING_CONSTANTS.right11()))),
+        this::getClosestTag);
 }
-

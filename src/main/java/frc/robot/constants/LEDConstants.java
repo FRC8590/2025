@@ -6,6 +6,6 @@ public record LEDConstants(
 ) {
     public static final LEDConstants DEFAULT = new LEDConstants(
         0,    // LED Port
-        150
+        169
     );
 } 

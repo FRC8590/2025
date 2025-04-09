@@ -9,6 +9,7 @@ import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.config.SparkMaxConfig;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import com.revrobotics.spark.config.ClosedLoopConfig.FeedbackSensor;
+import com.revrobotics.AbsoluteEncoder;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.spark.SparkClosedLoopController;
 import com.revrobotics.spark.SparkBase.ControlType;
@@ -40,8 +41,9 @@ public class AlgaeRemover extends SubsystemBase {
   
   private final SparkMax pivotMotor;
   private final SparkMax removerMotor;
-  private final RelativeEncoder pivotEncoder;
   private final PIDController pidController;
+  private final AbsoluteEncoder tbEncoder;
+  private double encoderOffset = 0;
 
   private double setpoint = 0.0;
   
@@ -68,7 +70,7 @@ public class AlgaeRemover extends SubsystemBase {
     pivotMotor = new SparkMax(Constants.ALGAE_REMOVER_CONSTANTS.pivotMotorID(), MotorType.kBrushless);
     removerMotor = new SparkMax(Constants.ALGAE_REMOVER_CONSTANTS.removerID(), MotorType.kBrushless);
     
-    pivotEncoder = pivotMotor.getEncoder();
+    tbEncoder = removerMotor.getAbsoluteEncoder();
     
     
     // Configure pivot motor - update for holding position
@@ -76,25 +78,27 @@ public class AlgaeRemover extends SubsystemBase {
     pivotConfig
         .inverted(true)
         .idleMode(IdleMode.kBrake)  // Important for holding position
-        .smartCurrentLimit(10)
+        .smartCurrentLimit(40)
         .closedLoopRampRate(Constants.ALGAE_REMOVER_CONSTANTS.rampRate());
-    
-    pivotConfig.encoder
-        .positionConversionFactor(Constants.ALGAE_REMOVER_CONSTANTS.distancePerRotation());
+  
+        
     // Configure remover motor
     SparkMaxConfig removerConfig = new SparkMaxConfig();
     removerConfig
         .idleMode(IdleMode.kBrake)
         .smartCurrentLimit(5);
     
+    removerConfig.absoluteEncoder
+      .setSparkMaxDataPortConfig()
+      .positionConversionFactor(1);
+  
     // Apply configurations
     pivotMotor.configure(pivotConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
     removerMotor.configure(removerConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
     
-    // Zero encoder
-    pivotEncoder.setPosition(0);
 
-    pidController = new PIDController(0.4, 0, 0);
+    pidController = new PIDController(2,0, 0);
+    pidController.enableContinuousInput(0,1);
   }
   
 
@@ -104,12 +108,12 @@ public class AlgaeRemover extends SubsystemBase {
    */
   public void reachGoalUp() {
     pivotMotor.set(pidController.calculate(getPivotPosition(), 0));
-    // stopRemover();
+    stopRemover();
   }
 
   public void reachGoalDown() {
-    pivotMotor.set(pidController.calculate(getPivotPosition(), 3));   
-    // runRemover();
+    pivotMotor.set(pidController.calculate(getPivotPosition(), 0.16));   
+    runRemover();
  
     
   }
@@ -119,7 +123,7 @@ public class AlgaeRemover extends SubsystemBase {
    * @return the position in rotations/meters
    */
   public double getPivotPosition() {
-    return pivotEncoder.getPosition();
+    return tbEncoder.getPosition();
   }
   
   /**
@@ -127,7 +131,7 @@ public class AlgaeRemover extends SubsystemBase {
    * @return the velocity in rotations per second or meters per second
    */
   public double getPivotVelocity() {
-    return pivotEncoder.getVelocity();
+    return tbEncoder.getVelocity();
   }
   
 
@@ -144,7 +148,7 @@ public class AlgaeRemover extends SubsystemBase {
    * Stop the remover motor
    */
   public void stopRemover() {
-    if(getPivotPosition() > 2){
+    if(getPivotPosition() > 0.08 && getPivotPosition() < 0.2){
       removerMotor.set(-0.4);
       return;
     }
@@ -193,6 +197,9 @@ public class AlgaeRemover extends SubsystemBase {
   }
 
   /**
+   * 
+   * 
+   * 
    * Toggle the algae remover between extended and retracted positions
    */
   public void toggle() {
@@ -207,14 +214,14 @@ public class AlgaeRemover extends SubsystemBase {
    * @return Command
    */
   public Command reachGoalDownCommand() {
-    return run(this::reachGoalDown).until(atPosition(3, 0.2));
+    return run(this::reachGoalDown);
   }
   /**
    * Command to toggle the algae remover
    * @return Command
    */
   public Command reachGoalUpCommand() {
-    return run(this::reachGoalUp).until(atPosition(0, 0.2));
+    return run(this::reachGoalUp).until(atPosition(0, 0.01));
   }
   /**
    * Command to toggle the algae remover

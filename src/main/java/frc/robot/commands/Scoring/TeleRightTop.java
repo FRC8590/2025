@@ -42,7 +42,7 @@ public class TeleRightTop extends SequentialCommandGroup {
       new ParallelCommandGroup(
         
         moveToScore.withTimeout(2),
-        new MoveElevator(0.7)
+        new MoveElevator(0.71)
       ),
       new ScoreCoral(),
       new MoveElevator(0)

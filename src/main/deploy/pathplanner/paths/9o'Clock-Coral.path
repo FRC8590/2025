@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 2.789,
-        "y": 4.0
+        "x": 2.469467213114754,
+        "y": 4.198821721311475
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.3717024936899316,
-        "y": 4.707125541124581
+        "x": 2.6054672131147534,
+        "y": 6.711270491803279
       },
       "isLocked": false,
       "linkedName": "Blue 9"
     },
     {
       "anchor": {
-        "x": 1.09,
-        "y": 7.39
+        "x": 1.12,
+        "y": 7.19
       },
       "prevControl": {
-        "x": 1.2813514786714635,
-        "y": 7.0330614256814385
+        "x": 1.3113514786714635,
+        "y": 6.833061425681439
       },
       "nextControl": null,
       "isLocked": false,
@@ -34,7 +34,7 @@
   "eventMarkers": [],
   "globalConstraints": {
     "maxVelocity": 5.0,
-    "maxAcceleration": 5.0,
+    "maxAcceleration": 3.5,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0,
     "nominalVoltage": 12.0,
@@ -42,7 +42,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -55.88
+    "rotation": -55.5
   },
   "reversed": false,
   "folder": "Blue Side Paths",

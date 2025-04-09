@@ -27,8 +27,6 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.*;
 import frc.robot.commands.Scoring.*;
-import frc.robot.commands.Scoring.TeleBotAlgae;
-import frc.robot.commands.Scoring.TeleTopAlgae;
 import frc.robot.commands.swervedrive.*;
 import frc.robot.commands.swervedrive.auto.AutoBalanceCommand;
 import frc.robot.commands.swervedrive.drivebase.AbsoluteDriveAdv;
@@ -46,9 +44,9 @@ import frc.robot.commands.Algae.RemoveBotAlgaeScoreBot;
 import frc.robot.commands.Algae.RemoveBotAlgaeScoreTop;
 import frc.robot.commands.Algae.RemoveTopAlgaeScoreTop;
 import frc.robot.commands.Algae.StateUpdateAlgae;
-import frc.robot.commands.Auto.AutoLeftBotRemoveAlgae;
-import frc.robot.commands.Auto.AutoLeftTopRemoveAlgae;
-import frc.robot.commands.Auto.AutoRightBotRemoveAlgae;
+import frc.robot.commands.Auto.AutoBotAlgae;
+import frc.robot.commands.Auto.AutoTopAlgae;
+import frc.robot.commands.Auto.AutoRightTop;
 import frc.robot.commands.Auto.AutoRightTopRemoveAlgae;
 import org.photonvision.targeting.PhotonPipelineResult;
 
@@ -103,7 +101,7 @@ public class RobotContainer
   SwerveInputStream driveAngularVelocity = SwerveInputStream.of(Constants.drivebase.getSwerveDrive(),
                                                                 () -> driverXbox.getLeftY() * getSide() * Constants.scaleFactor,
                                                                 () -> driverXbox.getLeftX() * getSide() * Constants.scaleFactor)
-                                                            .withControllerRotationAxis(() -> -driverXbox.getRightX() * 0.6 * Constants.scaleFactor)
+                                                            .withControllerRotationAxis(() -> -driverXbox.getRightX() * 0.72 * Constants.scaleFactor)
                                                             .deadband(Constants.OPERATOR_CONSTANTS.deadband())
                                                             .robotRelative(false)
                                                             .allianceRelativeControl(false);
@@ -225,6 +223,20 @@ public class RobotContainer
     m_chooser.addOption("32", "32");
     m_chooser.addOption("33", "33");
     m_chooser.addOption("34", "34");
+    m_chooser.addOption("35", "35");
+    m_chooser.addOption("36", "36");
+    m_chooser.addOption("37", "37");
+    m_chooser.addOption("38", "38");
+    m_chooser.addOption("39", "39");
+
+    m_chooser.addOption("41", "41");
+    m_chooser.addOption("42", "42");
+    m_chooser.addOption("43", "43");
+    m_chooser.addOption("44", "44");
+    m_chooser.addOption("45", "45");
+    m_chooser.addOption("46", "46");
+    m_chooser.addOption("47", "47");
+    m_chooser.addOption("48", "48");
 
 
     
@@ -235,18 +247,23 @@ public class RobotContainer
     // Initialize with proper alliance orientation
     Constants.drivebase.zeroGyroWithAlliance();
     
-    NamedCommands.registerCommand("UniversalRightBot", new UniversalRightBot());
-    NamedCommands.registerCommand("UniversalLeftBot", new UniversalLeftBot());
-    NamedCommands.registerCommand("UniversalLeftTop", new UniversalLeftTop());
-    NamedCommands.registerCommand("UniversalRightTop", new UniversalRightTop());
 
-    NamedCommands.registerCommand("RemoveBotAlgae", new RemoveBotAlgaeScoreBot());
-    NamedCommands.registerCommand("RemoveTopAlgae", new RemoveTopAlgaeScoreTop());
+    NamedCommands.registerCommand("TeleTopAlgae", new TeleTopAlgae());
+    NamedCommands.registerCommand("TeleBotAlgae", new TeleBotAlgae());
 
-    NamedCommands.registerCommand("UniversalLeftBotRemoveAlgae", new AutoLeftBotRemoveAlgae());
+    NamedCommands.registerCommand("AutoBotAlgae", new AutoBotAlgae());
+    NamedCommands.registerCommand("AutoTopAlgae", new AutoTopAlgae());
+
+
+    NamedCommands.registerCommand("AutoRightTop", new AutoRightTop());
+    NamedCommands.registerCommand("TeleLeftBot", new TeleLeftBot());
+    NamedCommands.registerCommand("TeleRightBot", new TeleRightBot());
+    NamedCommands.registerCommand("TeleLeftTop", new TeleLeftTop());
+    NamedCommands.registerCommand("TeleRightTop", new TeleRightTop());
+
     NamedCommands.registerCommand("UniversalRightTopRemoveAlgae", new AutoRightTopRemoveAlgae());
-    NamedCommands.registerCommand("UniversalRightBotRemoveAlgae", new AutoRightBotRemoveAlgae());
-    NamedCommands.registerCommand("UniversalLeftTopRemoveAlgae", new AutoLeftTopRemoveAlgae());
+    NamedCommands.registerCommand("UniversalRightBotRemoveAlgae", new AutoRightTop());
+    NamedCommands.registerCommand("UniversalLeftTopRemoveAlgae", new AutoTopAlgae());
 
     NamedCommands.registerCommand("RemoveBotAlgaeScoreBot", new RemoveBotAlgaeScoreBot());
     //NamedCommands.registerCommand("RemoveTopAlgaeScoreBot", new RemoveTopAlgaeScoreBot());
@@ -255,6 +272,7 @@ public class RobotContainer
 
     NamedCommands.registerCommand("WaitForCoralIntake", new WaitForCoralIntake());
     NamedCommands.registerCommand("ZeroElevator", new ZeroElevator());
+    NamedCommands.registerCommand("InactiveRemover", new InactiveRemover());
 
 
   }
@@ -275,13 +293,13 @@ public class RobotContainer
     double leftY = driverXbox.getLeftY();
     double rightX = driverXbox.getRightX();
 
-    if(leftX < Constants.OPERATOR_CONSTANTS.deadband() && leftY < Constants.OPERATOR_CONSTANTS.deadband() && rightX < Constants.OPERATOR_CONSTANTS.deadband()){
-      Constants.lockTimer++;
-      if(Constants.lockTimer > 25){
-        Constants.drivebase.lock();
-        Constants.lockTimer = 0;
-      }
-    }
+    // if(leftX < Constants.OPERATOR_CONSTANTS.deadband() && leftY < Constants.OPERATOR_CONSTANTS.deadband() && rightX < Constants.OPERATOR_CONSTANTS.deadband()){
+    //   Constants.lockTimer++;
+    //   if(Constants.lockTimer > 25){
+    //     Constants.drivebase.lock();
+    //     Constants.lockTimer = 0;
+    //   }
+    // }
   }
 
     public void slowMode(){
@@ -329,11 +347,11 @@ public class RobotContainer
       driverXbox.back().onTrue(Commands.runOnce(()-> Constants.drivebase.zeroGyroWithAlliance()));
       driverXbox.leftTrigger().whileTrue(new ScoreCoral());
 
-      driverXbox.rightBumper().onTrue(new MoveElevator(0));
+      driverXbox.rightBumper().onTrue(new MoveElevator(0.005));
       driverXbox.leftBumper().whileTrue(Commands.run( () -> Constants.ALGAE_REMOVER.isExtended = true));
       driverXbox.leftBumper().whileFalse(Commands.run( () -> Constants.ALGAE_REMOVER.isExtended = false));
 
-      driverXbox.b().whileTrue(new MoveElevator(.4));
+      driverXbox.b().onTrue(new TroughyCoral());
       driverXbox.a().whileTrue(new StopShooter());
       driverXbox.x().whileTrue(new TroughCoral());
       driverXbox.y().whileTrue(driveRobotOrientedAngular);
