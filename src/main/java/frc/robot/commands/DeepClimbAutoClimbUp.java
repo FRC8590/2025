@@ -4,6 +4,8 @@
 
 package frc.robot.commands;
 
+import java.util.function.BooleanSupplier;
+
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
@@ -21,7 +23,11 @@ public class DeepClimbAutoClimbUp extends SequentialCommandGroup {
       new ParallelCommandGroup(
         Constants.DEEP_CLIMB.climbUp()
 
-      ).until(null) // Runs the commands in the ParallelCommandGroup until the robot is 90 degrees
+      ).until(new BooleanSupplier() {
+        public boolean getAsBoolean() {
+          return Math.abs(Math.toDegrees(Constants.drivebase.swerveDrive.imuReadingCache.getValue().getX())) > 85;
+        }
+      }) // Runs the commands in the ParallelCommandGroup until the robot is 90 degrees
     );
 
     addRequirements(Constants.DEEP_CLIMB);
