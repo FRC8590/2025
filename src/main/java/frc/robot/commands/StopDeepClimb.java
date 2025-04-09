@@ -12,7 +12,7 @@ import frc.robot.Constants;
  * Stop the deep climb motors
  */
 public class StopDeepClimb extends SequentialCommandGroup {
-  /** Creates a new StopDeepClimb. */
+  /** Stop the deep climb motors */
   public StopDeepClimb() {
     addCommands(
       new ParallelCommandGroup(

@@ -335,8 +335,12 @@ public class RobotContainer
 
       driverXbox.b().whileTrue(new ScoreCoral());
       driverXbox.a().whileTrue(new StopShooter());
-      driverXbox.x().whileTrue(new TroughCoral());
-      driverXbox.y().whileTrue(driveRobotOrientedAngular);
+      // driverXbox.x().whileTrue(new TroughCoral());
+      // driverXbox.y().whileTrue(driveRobotOrientedAngular);
+
+      // DEEP CLIMB TEST BINDS
+      driverXbox.y().whileTrue(new ClimbUp()).onFalse(new StopDeepClimb());
+      driverXbox.x().whileTrue(new ClimbDown()).onFalse(new StopDeepClimb());
 
       operatorController.rightBumper().whileTrue(new ScoreCoral());
       operatorController.leftBumper().whileTrue(new StopShooter());

@@ -12,7 +12,7 @@ import frc.robot.Constants;
  * Make deepclimb motors move the robot down
  */
 public class ClimbDown extends SequentialCommandGroup {
-  /** Creates a new ClimbDown. */
+  /** Make deepclimb motors move the robot down */
   public ClimbDown() {
     addCommands(
       new ParallelCommandGroup(
