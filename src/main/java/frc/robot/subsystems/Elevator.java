@@ -206,7 +206,7 @@ public class Elevator extends SubsystemBase {
     LaserCan.Measurement measurement = Constants.laserCan.getMeasurement();
     if (measurement != null && measurement.status == LaserCan.LASERCAN_STATUS_VALID_MEASUREMENT) {
       return (measurement.distance_mm/1000.0) - 0.055;
-    } else {
+    } else { 
       return -1;
     }
   }
