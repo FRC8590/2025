@@ -64,7 +64,7 @@ public class DeepClimb extends SubsystemBase {
       .idleMode(IdleMode.kBrake)
       .smartCurrentLimit(30)
       .closedLoopRampRate(0.1)
-      .inverted(true);
+      .inverted(false);
 
 
     // Apply configurations
@@ -74,32 +74,32 @@ public class DeepClimb extends SubsystemBase {
 
 
   public void runFrontUp(){
-    frontMotor.set(0.3);
+    frontMotor.set(-0.5);
   }
   
   public void runBackUp(){
-    backMotor.set(0.3);
+    backMotor.set(-0.5);
     System.out.println("working");
 
   }
 
   public void runFrontDown(){
-    frontMotor.set(-0.3);
+    frontMotor.set(0.5);
   }
   
   public void runBackDown(){
-    backMotor.set(-0.3);
+    backMotor.set(0.5);
     System.out.println("working");
   }
 
   public void climbUp(){
     runFrontUp();
-    runBackUp();
+    runBackDown();
   }
 
   public void climbDown(){
     runFrontDown();
-    runBackDown();
+    runBackUp();
   }
 
   public void stop(){
