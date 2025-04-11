@@ -105,14 +105,14 @@ public class LEDSubsystem extends SubsystemBase {
 
     } else if (desiredPattern.equals(climbPattern))
     {
-      // Create an LED pattern that displays a LEBRON esk gradient,
+      // Create an LED pattern that displays a LEBRON esque gradient,
       // scrolling
       // breathing at a rate of:
       // ROBOT DEGREES / 100
       climbPattern = LEDPattern.gradient(GradientType.kContinuous, Color.kGold, Color.kDarkMagenta)
       .scrollAtAbsoluteSpeed(MetersPerSecond.of(1), kLedSpacing)
       .breathe(Seconds.of(
-        100 / Math.abs(Math.toDegrees(Constants.drivebase.swerveDrive.imuReadingCache.getValue().getX()))
+        100 / Math.abs(Math.toDegrees(Constants.drivebase.swerveDrive.imuReadingCache.getValue().getY()))
       ));
 
       climbPattern.applyTo(m_LEDBuffer);

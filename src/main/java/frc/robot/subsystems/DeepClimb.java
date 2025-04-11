@@ -63,8 +63,7 @@ public class DeepClimb extends SubsystemBase
     // Stop the motors
     public void stopClimb ()
     {
-        leftMotor.set(0);
-        rightMotor.set(0);
+        setSpeed(0);
     }
 
     public Command climbUp ()

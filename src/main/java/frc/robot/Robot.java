@@ -184,7 +184,11 @@ public class Robot extends TimedRobot
 
     SmartDashboard.putString("LED COLOR", Constants.LEDSystem.currentColor);
     //SmartDashboard.putBoolean("Right Camera Enabled", Constants.vision.getEnabled(1));
-    
+
+  SmartDashboard.putNumber("Pitch Value", 
+    Math.abs(Math.toDegrees(Constants.drivebase.swerveDrive.imuReadingCache.getValue().getY())));
+  SmartDashboard.putNumber("Roll Value", 
+    Math.abs(Math.toDegrees(Constants.drivebase.swerveDrive.imuReadingCache.getValue().getX())));
 
 
   }

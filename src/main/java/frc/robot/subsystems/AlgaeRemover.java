@@ -105,13 +105,13 @@ public class AlgaeRemover extends SubsystemBase {
    * @param goalPosition the position to maintain
    */
   public void reachGoalUp() {
-    pivotMotor.set(upController.calculate(getPivotPosition(), 0));
-    stopRemover();
+    /*pivotMotor.set(upController.calculate(getPivotPosition(), 0));
+    stopRemover();*/
   }
 
   public void reachGoalDown() {
-    pivotMotor.set(upController.calculate(getPivotPosition(), 3));   
-    runRemover();
+    /*pivotMotor.set(upController.calculate(getPivotPosition(), 3));   
+    runRemover();*/
  
     
   }
@@ -139,7 +139,7 @@ public class AlgaeRemover extends SubsystemBase {
    * Run the remover motor
    */
   public void runRemover() {
-    removerMotor.set(-0.4);
+    /*removerMotor.set(-0.4);*/
   }
   
   /**
