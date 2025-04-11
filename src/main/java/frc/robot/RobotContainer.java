@@ -46,6 +46,7 @@ import frc.robot.commands.Algae.RemoveTopAlgaeScoreTop;
 import frc.robot.commands.Algae.StateUpdateAlgae;
 import frc.robot.commands.Auto.AutoBotAlgae;
 import frc.robot.commands.Auto.AutoTopAlgae;
+import frc.robot.commands.Auto.PathAutoLeftBot;
 import frc.robot.commands.Auto.AutoRightTop;
 import frc.robot.commands.Auto.AutoRightTopRemoveAlgae;
 import org.photonvision.targeting.PhotonPipelineResult;
@@ -237,6 +238,7 @@ public class RobotContainer
     m_chooser.addOption("46", "46");
     m_chooser.addOption("47", "47");
     m_chooser.addOption("48", "48");
+    m_chooser.addOption("49", "49");
 
 
     
@@ -273,6 +275,9 @@ public class RobotContainer
     NamedCommands.registerCommand("WaitForCoralIntake", new WaitForCoralIntake());
     NamedCommands.registerCommand("ZeroElevator", new ZeroElevator());
     NamedCommands.registerCommand("InactiveRemover", new InactiveRemover());
+
+
+    NamedCommands.registerCommand("PathAutoLeftBot", new PathAutoLeftBot());
 
 
   }

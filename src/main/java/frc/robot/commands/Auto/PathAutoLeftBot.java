@@ -43,6 +43,7 @@ public class PathAutoLeftBot extends SequentialCommandGroup {
     
     addCommands(
       new MoveElevator(0.31).withTimeout(2.5),
+      new WaitCommand(.2),
       new ScoreCoral(),
       new MoveElevator(0)
 
