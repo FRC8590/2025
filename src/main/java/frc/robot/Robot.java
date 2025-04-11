@@ -189,8 +189,6 @@ public class Robot extends TimedRobot
     Math.abs(Math.toDegrees(Constants.drivebase.swerveDrive.imuReadingCache.getValue().getY())));
   SmartDashboard.putNumber("Roll Value", 
     Math.abs(Math.toDegrees(Constants.drivebase.swerveDrive.imuReadingCache.getValue().getX())));
-
-
   }
 
 
