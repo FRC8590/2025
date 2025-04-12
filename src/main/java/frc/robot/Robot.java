@@ -19,6 +19,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.Commands;
 import frc.robot.commands.InactiveRemover;
+import frc.robot.commands.SetLED;
 import frc.robot.commands.Scoring.WaitForCoralIntake;
 import frc.robot.commands.swervedrive.AutoAlignment;
 import frc.robot.subsystems.swervedrive.Vision;
@@ -129,6 +130,13 @@ public class Robot extends TimedRobot
       disabledTimer.stop();
     }
     m_robotContainer.resetAndStop();
+
+    
+    SmartDashboard.putNumber("LED/Pitch Value", 
+    Math.abs(Math.toDegrees(Constants.drivebase.swerveDrive.imuReadingCache.getValue().getY())));
+    SmartDashboard.putNumber("LED/Roll Value", 
+    Math.abs(Math.toDegrees(Constants.drivebase.swerveDrive.imuReadingCache.getValue().getX())));
+
   }
 
   /**
@@ -194,11 +202,6 @@ public class Robot extends TimedRobot
     SmartDashboard.putString("LED COLOR", Constants.LEDSystem.currentColor);
     //SmartDashboard.putBoolean("Right Camera Enabled", Constants.vision.getEnabled(1));
     
-    SmartDashboard.putNumber("Pitch Value", 
-    Math.abs(Math.toDegrees(Constants.drivebase.swerveDrive.imuReadingCache.getValue().getY())));
-    SmartDashboard.putNumber("Roll Value", 
-    Math.abs(Math.toDegrees(Constants.drivebase.swerveDrive.imuReadingCache.getValue().getX())));
-
   }
 
 

@@ -29,22 +29,23 @@ import java.util.Map;
 import com.fasterxml.jackson.databind.ser.std.StdKeySerializers.Default;
 
 /** Scores a coral on L3 */
-public class AutoRightTop extends SequentialCommandGroup {
+public class AutoLeftBot extends SequentialCommandGroup {
 
   // Define the AprilTag IDs we're interested in
   
   /**
    * Scores a coral on L3
    */
-  public AutoRightTop() {
+  public AutoLeftBot() {
     
     addCommands(
 
-    new ParallelCommandGroup(
-      moveToScore.withTimeout(1),
-      new MoveElevator(0.7)
-    ),
-    new ScoreCoral()
+      new ParallelCommandGroup(
+        
+        moveToScore.withTimeout(2),
+        new MoveElevator(0.685)
+      ),
+      new ScoreCoral()
     );
     addRequirements(Constants.SHOOTER);
     addRequirements(Constants.ELEVATOR);

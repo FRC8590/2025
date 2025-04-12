@@ -44,8 +44,10 @@ public class AutoTopAlgae extends SequentialCommandGroup {
   addCommands(
     new ParallelDeadlineGroup(
       new SequentialCommandGroup(
-        moveToScore.withTimeout(2.5),
-        new MoveElevator(0.7 ),
+        new ParallelCommandGroup(
+          moveToScore.withTimeout(1),
+          new MoveElevator(0.7)
+        ),
         new ScoreCoral()
      ),
       new ActiveRemover()
@@ -73,18 +75,18 @@ public class AutoTopAlgae extends SequentialCommandGroup {
       new SelectCommand<>(
           // Maps selector values to commands
           Map.ofEntries(
-              Map.entry(17, Constants.drivebase.driveToPose(Constants.SCORING_CONSTANTS.left17())),
-              Map.entry(18, Constants.drivebase.driveToPose(Constants.SCORING_CONSTANTS.left18())),
-              Map.entry(19, Constants.drivebase.driveToPose(Constants.SCORING_CONSTANTS.left19())),
-              Map.entry(20, Constants.drivebase.driveToPose(Constants.SCORING_CONSTANTS.left20())),
-              Map.entry(21, Constants.drivebase.driveToPose(Constants.SCORING_CONSTANTS.left21())),
-              Map.entry(22, Constants.drivebase.driveToPose(Constants.SCORING_CONSTANTS.left22())),
-              Map.entry(6, Constants.drivebase.driveToPose(Constants.SCORING_CONSTANTS.left6())),
-              Map.entry(7, Constants.drivebase.driveToPose(Constants.SCORING_CONSTANTS.left7())),
-              Map.entry(8, Constants.drivebase.driveToPose(Constants.SCORING_CONSTANTS.left8())),
-              Map.entry(9, Constants.drivebase.driveToPose(Constants.SCORING_CONSTANTS.left9())),
-              Map.entry(10, Constants.drivebase.driveToPose(Constants.SCORING_CONSTANTS.left10())),
-              Map.entry(11, Constants.drivebase.driveToPose(Constants.SCORING_CONSTANTS.left11()))),
+              Map.entry(17, Constants.drivebase.driveToPose(Constants.SCORING_CONSTANTS.left17(), true)),
+              Map.entry(18, Constants.drivebase.driveToPose(Constants.SCORING_CONSTANTS.left18(), true)),
+              Map.entry(19, Constants.drivebase.driveToPose(Constants.SCORING_CONSTANTS.left19(), true)),
+              Map.entry(20, Constants.drivebase.driveToPose(Constants.SCORING_CONSTANTS.left20(), true)),
+              Map.entry(21, Constants.drivebase.driveToPose(Constants.SCORING_CONSTANTS.left21(), true)),
+              Map.entry(22, Constants.drivebase.driveToPose(Constants.SCORING_CONSTANTS.left22(), true)),
+              Map.entry(6, Constants.drivebase.driveToPose(Constants.SCORING_CONSTANTS.left6(), true)),
+              Map.entry(7, Constants.drivebase.driveToPose(Constants.SCORING_CONSTANTS.left7(), true)),
+              Map.entry(8, Constants.drivebase.driveToPose(Constants.SCORING_CONSTANTS.left8(), true)),
+              Map.entry(9, Constants.drivebase.driveToPose(Constants.SCORING_CONSTANTS.left9(), true)),
+              Map.entry(10, Constants.drivebase.driveToPose(Constants.SCORING_CONSTANTS.left10(), true)),
+              Map.entry(11, Constants.drivebase.driveToPose(Constants.SCORING_CONSTANTS.left11(), true))),
           this::getClosestTag);
 
   private final Command moveBack =

@@ -55,15 +55,22 @@
           }
         },
         {
-          "type": "named",
+          "type": "deadline",
           "data": {
-            "name": "WaitForCoralIntake"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "coral-9o'clock"
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "coral-9o'clock"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "WaitForCoralIntake"
+                }
+              }
+            ]
           }
         },
         {

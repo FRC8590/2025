@@ -142,6 +142,7 @@ public class Elevator extends SubsystemBase {
       return;
     }
 
+
     // Bound goal to valid range
     goalMeters = MathUtil.clamp(goalMeters, MIN_HEIGHT_METERS, MAX_HEIGHT_METERS);
     

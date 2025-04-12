@@ -7,9 +7,10 @@ package frc.robot.subsystems;
 import static edu.wpi.first.units.Units.Meters;
 import static edu.wpi.first.units.Units.MetersPerSecond;
 import static edu.wpi.first.units.Units.Seconds;
-
+import static edu.wpi.first.units.Units.Percent;
 import org.ironmaple.simulation.drivesims.COTS;
 
+import edu.wpi.first.units.measure.Dimensionless;
 import edu.wpi.first.units.measure.Distance;
 import edu.wpi.first.wpilibj.AddressableLED;
 import edu.wpi.first.wpilibj.AddressableLEDBuffer;
@@ -83,6 +84,7 @@ public class LEDSubsystem extends SubsystemBase {
     desiredPattern = climbPattern;
   }
 
+ 
 
   @Override
   public void periodic() {
@@ -119,15 +121,18 @@ public class LEDSubsystem extends SubsystemBase {
 
     } else if (desiredPattern.equals(climbPattern))
     {
+
+      System.out.println("climbing led pattern");
       // Create an LED pattern that displays a LEBRON esque gradient,
       // scrolling
       // breathing at a rate of:
       // ROBOT DEGREES / 100
       climbPattern
-      .scrollAtAbsoluteSpeed(MetersPerSecond.of(1), kLedSpacing)
-      .breathe(Seconds.of(
-        100 / Math.abs(Math.toDegrees(Constants.drivebase.swerveDrive.imuReadingCache.getValue().getY()))
-      ));
+      .atBrightness(Percent.of(10 + Math.abs(Math.toDegrees(Constants.drivebase.swerveDrive.imuReadingCache.getValue().getY()))));
+      // .scrollAtAbsoluteSpeed(MetersPerSecond.of(1), kLedSpacing)
+      // .breathe(Seconds.of(
+      //   100 / Math.abs(Math.toDegrees(Constants.drivebase.swerveDrive.imuReadingCache.getValue().getY()))
+      // ));
 
       climbPattern.applyTo(m_LEDBuffer);
       m_LED.setData(m_LEDBuffer);

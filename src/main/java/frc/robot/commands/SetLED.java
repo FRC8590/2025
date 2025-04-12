@@ -44,6 +44,14 @@ public class SetLED extends SequentialCommandGroup {
     addRequirements(Constants.LEDSystem);
   }
 
+  private int ledStatus(){
+    if(Constants.isClimbing){
+      return 2;
+    }
+
+    return (hasCoral() ? 0:1);
+
+  }
 
 
   private boolean hasCoral() {
@@ -58,8 +66,9 @@ public class SetLED extends SequentialCommandGroup {
       new SelectCommand<>(
           // Maps selector values to commands
           Map.ofEntries(
-              Map.entry(true, Commands.runOnce(() -> Constants.LEDSystem.setGreen())),
-              Map.entry(false, Commands.runOnce(() -> Constants.LEDSystem.setRed()))),
-          this::hasCoral);
+              Map.entry(0, Commands.runOnce(() -> Constants.LEDSystem.setGreen())),
+              Map.entry(1, Commands.runOnce(() -> Constants.LEDSystem.setRed())),
+              Map.entry(2, Commands.runOnce(() -> Constants.LEDSystem.setClimb()))),
+          this::ledStatus);
 }
 

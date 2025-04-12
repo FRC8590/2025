@@ -13,7 +13,7 @@
         {
           "type": "named",
           "data": {
-            "name": "TeleLeftBot"
+            "name": "AutoTopAlgae"
           }
         },
         {
@@ -42,21 +42,28 @@
           }
         },
         {
-          "type": "named",
+          "type": "deadline",
           "data": {
-            "name": "WaitForCoralIntake"
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "Coral-1o'clock"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "WaitForCoralIntake"
+                }
+              }
+            ]
           }
         },
         {
-          "type": "path",
-          "data": {
-            "pathName": "Coral-1o'clock"
-          }
-        },
-        {
           "type": "named",
           "data": {
-            "name": "TeleRightBot"
+            "name": "AutoRightTop"
           }
         },
         {
@@ -76,6 +83,31 @@
                 }
               }
             ]
+          }
+        },
+        {
+          "type": "deadline",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "Coral-1o'clock"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "WaitForCoralIntake"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "AutoRightBot"
           }
         }
       ]

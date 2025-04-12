@@ -26,11 +26,13 @@ import frc.robot.constants.LEDConstants;
 import frc.robot.constants.ElevatorConstants;
 import frc.robot.constants.AlgaeConstants;
 import frc.robot.constants.AlgaeRemoverConstants;
+import frc.robot.constants.DeepClimbConstants;
 import frc.robot.constants.DriveConstants;
 import frc.robot.constants.OperatorConstants;
 import frc.robot.constants.ScoringConstants;
 import frc.robot.constants.ShooterConstants;
 import frc.robot.subsystems.AlgaeRemover;
+import frc.robot.subsystems.DeepClimb;
 import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.LEDSubsystem;
 import frc.robot.subsystems.Shooter;
@@ -72,7 +74,7 @@ public final class Constants
     public static final AprilTagFieldLayout layout = AprilTagFieldLayout.loadField(AprilTagFields.k2025ReefscapeAndyMark);
 
     // Robot Physical Properties
-    public static final double ROBOT_MASS = Units.lbsToKilograms(85);
+    public static final double ROBOT_MASS = Units.lbsToKilograms(135);
     public static final Matter CHASSIS = new Matter(
         new Translation3d(0, 0, Units.inchesToMeters(14)), 
         ROBOT_MASS
@@ -80,7 +82,7 @@ public final class Constants
     
     // Control Loop Timing
     public static final double LOOP_TIME = 0.05; // seconds
-    public static final double MAX_SPEED = 5.0;  // meters per second
+    public static final double MAX_SPEED = 6.0;  // meters per second
     public static double visionTimerOffset = 0;
 
     // Subsystem Instances
@@ -105,6 +107,7 @@ public final class Constants
     public static final AlgaeConstants ALGAE_CONSTANTS = AlgaeConstants.DEFAULT;
     public static final AlgaeRemoverConstants ALGAE_REMOVER_CONSTANTS = AlgaeRemoverConstants.DEFAULT;
     public static final LEDConstants LED_CONSTANTS = LEDConstants.DEFAULT;
+    public static final DeepClimbConstants DEEP_CLIMB_CONSTANTS = DeepClimbConstants.DEFAULT;
 
     public static double distancePerRotation = 1/14.36; //meters per rotations
 
@@ -140,7 +143,7 @@ public final class Constants
     }
 
     public final class pid{
-        public static final double kP = 3.6;
+        public static final double kP = 3.6; //heads up changing this will actually explode the robot not joking
         public static final double kI = 0;
         public static final double kD = 0.04;
     }   
@@ -150,11 +153,14 @@ public final class Constants
 
     public static double rampRate = 0.01;
 
+    public static boolean isClimbing;
+
 
 
     public static final Elevator ELEVATOR = new Elevator();
     public static final Shooter SHOOTER = new Shooter();
     public static final AlgaeRemover ALGAE_REMOVER = new AlgaeRemover();
     public static final LEDSubsystem LEDSystem = new LEDSubsystem();
+    public static final DeepClimb DeepClimb = new DeepClimb();
 
 }

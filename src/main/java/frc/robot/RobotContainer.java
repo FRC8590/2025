@@ -45,6 +45,7 @@ import frc.robot.commands.Algae.RemoveBotAlgaeScoreTop;
 import frc.robot.commands.Algae.RemoveTopAlgaeScoreTop;
 import frc.robot.commands.Algae.StateUpdateAlgae;
 import frc.robot.commands.Auto.AutoBotAlgae;
+import frc.robot.commands.Auto.AutoRightBot;
 import frc.robot.commands.Auto.AutoTopAlgae;
 import frc.robot.commands.Auto.AutoRightTop;
 import frc.robot.commands.Auto.AutoRightTopRemoveAlgae;
@@ -65,8 +66,8 @@ public class RobotContainer
   
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
-  final         CommandXboxController driverXbox = new CommandXboxController(0);
-  final         CommandXboxController operatorController = new CommandXboxController(1);
+  public final         CommandXboxController driverXbox = new CommandXboxController(0);
+  public final         CommandXboxController operatorController = new CommandXboxController(1);
 
   //auto list object
   private final SendableChooser<String> m_chooser = new SendableChooser<>();
@@ -256,6 +257,8 @@ public class RobotContainer
 
 
     NamedCommands.registerCommand("AutoRightTop", new AutoRightTop());
+    NamedCommands.registerCommand("AutoRightBot", new AutoRightBot());
+
     NamedCommands.registerCommand("TeleLeftBot", new TeleLeftBot());
     NamedCommands.registerCommand("TeleRightBot", new TeleRightBot());
     NamedCommands.registerCommand("TeleLeftTop", new TeleLeftTop());
@@ -335,9 +338,9 @@ public class RobotContainer
     {
       // Create a default command for the shooter to always run the intake logic
       Constants.SHOOTER.setDefaultCommand(new IntakeCoral());
-      Constants.LEDSystem.setDefaultCommand(new SetLED());
+      // Constants.LEDSystem.setDefaultCommand(new SetLED());
       Constants.ALGAE_REMOVER.setDefaultCommand(Constants.ALGAE_REMOVER.toggleCommand());
-
+      Constants.DeepClimb.setDefaultCommand(new RunDeepClimb());
       
       driverXbox.povDown().whileTrue(new TeleLeftTop()); //score on the left top
       driverXbox.povLeft().whileTrue(new TeleRightTop()); //score on the right top
@@ -358,7 +361,6 @@ public class RobotContainer
 
       operatorController.rightBumper().whileTrue(new ScoreCoral());
       operatorController.leftBumper().whileTrue(new StopShooter());
-
 
 
       driverXbox.leftStick().whileTrue(new TeleBotAlgae());
