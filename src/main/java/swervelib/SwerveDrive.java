@@ -1354,6 +1354,14 @@ public class SwerveDrive
     return swerveDriveConfiguration.modules;
   }
 
+  public double[][] getTemps(){
+    return new double[][]{
+      swerveDriveConfiguration.modules[0].getMotorTemperatures(),
+      swerveDriveConfiguration.modules[1].getMotorTemperatures(),
+      swerveDriveConfiguration.modules[2].getMotorTemperatures(),
+      swerveDriveConfiguration.modules[3].getMotorTemperatures()};
+  }
+
   /**
    * Get the {@link SwerveModule}'s as a {@link HashMap} where the key is the swerve module configuration name.
    *

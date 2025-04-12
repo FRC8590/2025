@@ -129,6 +129,9 @@ public abstract class SwerveMotor
    */
   public abstract double getAppliedOutput();
 
+  public abstract double getMotorTemperature();
+
+
   /**
    * Get the velocity of the integrated encoder.
    *

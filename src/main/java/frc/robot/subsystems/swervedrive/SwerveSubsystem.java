@@ -266,6 +266,10 @@ public class SwerveSubsystem extends SubsystemBase
     PathfindingCommand.warmupCommand().schedule();
   }
 
+  public double[][] getMotorTemperatures(){
+    return swerveDrive.getTemps();
+  }
+
   /**
    * Get the distance to the speaker.
    *

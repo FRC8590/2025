@@ -326,6 +326,10 @@ public class SwerveModule
     synchronizeEncoderEnabled = enabled;
   }
 
+  public double[] getMotorTemperatures(){
+    return new double[]{angleMotor.getMotorTemperature(), driveMotor.getMotorTemperature()};
+  }
+
   /**
    * Set the antiJitter functionality, if true the modules will NOT auto center. Pushes the offsets to the angle motor
    * controllers as well.

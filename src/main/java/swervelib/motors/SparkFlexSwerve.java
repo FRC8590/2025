@@ -150,6 +150,13 @@ public class SparkFlexSwerve extends SwerveMotor
     configureSparkFlex(() -> motor.configure(cfg, ResetMode.kNoResetSafeParameters, PersistMode.kPersistParameters));
   }
 
+
+  @Override
+  public double getMotorTemperature(){
+    return motor.getMotorTemperature();
+  }
+
+
   /**
    * Set the voltage compensation for the swerve module motor.
    *

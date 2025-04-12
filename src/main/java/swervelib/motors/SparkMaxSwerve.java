@@ -92,6 +92,13 @@ public class SparkMaxSwerve extends SwerveMotor
     // configureSparkMax(() -> motor.setCANTimeout(0)); // Commented out because it prevents feedback.
   }
 
+  
+  @Override
+  public double getMotorTemperature(){
+    return motor.getMotorTemperature();
+  }
+
+
 
   /**
    * Initialize the {@link SwerveMotor} as a {@link SparkMax} connected to a Brushless Motor.
