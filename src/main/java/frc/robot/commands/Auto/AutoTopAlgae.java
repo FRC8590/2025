@@ -44,10 +44,8 @@ public class AutoTopAlgae extends SequentialCommandGroup {
   addCommands(
     new ParallelDeadlineGroup(
       new SequentialCommandGroup(
-        new ParallelCommandGroup(
-          moveToScore.withTimeout(1),
-          new MoveElevator(0.7)
-        ),
+        moveToScore.withTimeout(1),
+        new MoveElevator(0.7),
         new ScoreCoral()
      ),
       new ActiveRemover()

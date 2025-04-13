@@ -8,8 +8,8 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 16.96593813864795,
-        "y": 0.6764818947531286
+        "x": 15.067335488454152,
+        "y": 1.3783756449454532
       },
       "isLocked": false,
       "linkedName": "Red feed lower"
@@ -20,8 +20,8 @@
         "y": 2.2448258196721316
       },
       "prevControl": {
-        "x": 14.866520893852575,
-        "y": 0.9835715589838736
+        "x": 12.65650317800639,
+        "y": 1.8575807747850703
       },
       "nextControl": null,
       "isLocked": false,
@@ -29,7 +29,21 @@
     }
   ],
   "rotationTargets": [],
-  "constraintZones": [],
+  "constraintZones": [
+    {
+      "name": "Constraints Zone",
+      "minWaypointRelativePos": 0,
+      "maxWaypointRelativePos": 0.75,
+      "constraints": {
+        "maxVelocity": 5.0,
+        "maxAcceleration": 5.0,
+        "maxAngularVelocity": 540.0,
+        "maxAngularAcceleration": 720.0,
+        "nominalVoltage": 12.0,
+        "unlimited": false
+      }
+    }
+  ],
   "pointTowardsZones": [],
   "eventMarkers": [],
   "globalConstraints": {
