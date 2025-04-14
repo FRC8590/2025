@@ -7,7 +7,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "RED bottom-7o'clock Left"
+            "pathName": "Top-1o'clock Left"
           }
         },
         {
@@ -23,7 +23,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "RED 7o'clock Left-coral (bottom)"
+                  "pathName": "1o'clock Left-coral"
                 }
               },
               {
@@ -48,7 +48,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "RED coral (bottom) - 7o'clock Right"
+                  "pathName": "Coral-1o'clock Right"
                 }
               },
               {
@@ -73,7 +73,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "RED 7o'clock Right-coral (bottom)"
+                  "pathName": "1o'clock Right-coral"
                 }
               },
               {
@@ -92,7 +92,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "RED coral (bottom) - 7o'clock Right"
+                  "pathName": "Coral-1o'clock Right"
                 }
               },
               {
