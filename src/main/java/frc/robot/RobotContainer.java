@@ -5,13 +5,15 @@
 package frc.robot;
 
 import com.pathplanner.lib.auto.NamedCommands;
-
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
+import edu.wpi.first.math.util.Units;
+import edu.wpi.first.util.sendable.Sendable;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
+import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.RobotBase;
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
@@ -19,33 +21,36 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
+import frc.robot.Constants.*;
+import frc.robot.commands.Scoring.*;
+import frc.robot.commands.swervedrive.*;
+import frc.robot.commands.swervedrive.auto.AutoBalanceCommand;
+import frc.robot.commands.swervedrive.drivebase.AbsoluteDriveAdv;
+import frc.robot.constants.OperatorConstants;
+import frc.robot.commands.swervedrive.AlignToAprilTag;
+import frc.robot.subsystems.swervedrive.SwerveSubsystem;
+import frc.robot.subsystems.swervedrive.Vision;
+import frc.robot.subsystems.Elevator;
+import frc.robot.subsystems.Shooter;
+import frc.robot.subsystems.Shooter.*;
+import java.io.File;
+
+import frc.robot.commands.*;
 import frc.robot.commands.Algae.RemoveBotAlgaeScoreBot;
 import frc.robot.commands.Algae.RemoveBotAlgaeScoreTop;
 import frc.robot.commands.Algae.RemoveTopAlgaeScoreTop;
+import frc.robot.commands.Algae.StateUpdateAlgae;
 import frc.robot.commands.Auto.AutoBotAlgae;
 import frc.robot.commands.Auto.AutoRightBot;
+import frc.robot.commands.Auto.AutoTopAlgae;
 import frc.robot.commands.Auto.AutoRightTop;
 import frc.robot.commands.Auto.AutoRightTopRemoveAlgae;
-import frc.robot.commands.Auto.AutoTopAlgae;
-import frc.robot.commands.InactiveRemover;
-import frc.robot.commands.IntakeCoral;
-import frc.robot.commands.MoveElevator;
-import frc.robot.commands.RunDeepClimb;
-import frc.robot.commands.Scoring.ScoreCoral;
-import frc.robot.commands.Scoring.TeleBotAlgae;
-import frc.robot.commands.Scoring.TeleLeftBot;
-import frc.robot.commands.Scoring.TeleLeftTop;
-import frc.robot.commands.Scoring.TeleRightBot;
-import frc.robot.commands.Scoring.TeleRightTop;
-import frc.robot.commands.Scoring.TeleTopAlgae;
-import frc.robot.commands.Scoring.TroughCoral;
-import frc.robot.commands.Scoring.TroughyCoral;
-import frc.robot.commands.Scoring.WaitForCoralIntake;
-import frc.robot.commands.Scoring.ZeroElevator;
-import frc.robot.commands.StopShooter;
-import frc.robot.commands.swervedrive.drivebase.AbsoluteDriveAdv;
+import org.photonvision.targeting.PhotonPipelineResult;
+
 import swervelib.SwerveInputStream;
 
 
@@ -238,10 +243,6 @@ public class RobotContainer
     m_chooser.addOption("51", "51");
     m_chooser.addOption("52", "52");
     m_chooser.addOption("53", "53");
-    m_chooser.addOption("54", "54");
-    m_chooser.addOption("55", "55");
-    m_chooser.addOption("56", "56");
-    m_chooser.addOption("57", "57");
 
 
     
