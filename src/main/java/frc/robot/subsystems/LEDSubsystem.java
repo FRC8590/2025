@@ -6,16 +6,13 @@ package frc.robot.subsystems;
 
 import static edu.wpi.first.units.Units.Meters;
 import static edu.wpi.first.units.Units.MetersPerSecond;
-import static edu.wpi.first.units.Units.Seconds;
-import static edu.wpi.first.units.Units.Percent;
+
 import org.ironmaple.simulation.drivesims.COTS;
 
-import edu.wpi.first.units.measure.Dimensionless;
 import edu.wpi.first.units.measure.Distance;
 import edu.wpi.first.wpilibj.AddressableLED;
 import edu.wpi.first.wpilibj.AddressableLEDBuffer;
 import edu.wpi.first.wpilibj.LEDPattern;
-import edu.wpi.first.wpilibj.LEDPattern.GradientType;
 import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.math.util.Units;
@@ -37,7 +34,6 @@ public class LEDSubsystem extends SubsystemBase {
 
 
   //LED States
-  private LEDPattern climbPattern = LEDPattern.gradient(GradientType.kContinuous, Color.kGold, Color.kDarkMagenta);
   private final LEDPattern fullRed = LEDPattern.solid(Color.kRed);
   private final LEDPattern fullGreen = LEDPattern.solid(Color.kGreen);
   private final LEDPattern fullYellow = LEDPattern.solid(Color.kYellow);
@@ -79,12 +75,7 @@ public class LEDSubsystem extends SubsystemBase {
     return desiredPattern;
   }
 
-  public void setClimb()
-  {
-    desiredPattern = climbPattern;
-  }
-
- 
+  
 
   @Override
   public void periodic() {
@@ -119,23 +110,6 @@ public class LEDSubsystem extends SubsystemBase {
       lebron.applyTo(m_LEDBuffer);
       m_LED.setData(m_LEDBuffer);
 
-    } else if (desiredPattern.equals(climbPattern))
-    {
-
-      System.out.println("climbing led pattern");
-      // Create an LED pattern that displays a LEBRON esque gradient,
-      // scrolling
-      // breathing at a rate of:
-      // ROBOT DEGREES / 100
-      climbPattern
-      .atBrightness(Percent.of(10 + Math.abs(Math.toDegrees(Constants.drivebase.swerveDrive.imuReadingCache.getValue().getY()))));
-      // .scrollAtAbsoluteSpeed(MetersPerSecond.of(1), kLedSpacing)
-      // .breathe(Seconds.of(
-      //   100 / Math.abs(Math.toDegrees(Constants.drivebase.swerveDrive.imuReadingCache.getValue().getY()))
-      // ));
-
-      climbPattern.applyTo(m_LEDBuffer);
-      m_LED.setData(m_LEDBuffer);
     }
 
   }

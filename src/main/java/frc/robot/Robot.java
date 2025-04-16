@@ -132,11 +132,6 @@ public class Robot extends TimedRobot
     m_robotContainer.resetAndStop();
 
     
-    SmartDashboard.putNumber("LED/Pitch Value", 
-    Math.abs(Math.toDegrees(Constants.drivebase.swerveDrive.imuReadingCache.getValue().getY())));
-    SmartDashboard.putNumber("LED/Roll Value", 
-    Math.abs(Math.toDegrees(Constants.drivebase.swerveDrive.imuReadingCache.getValue().getX())));
-
   }
 
   /**

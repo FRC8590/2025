@@ -35,8 +35,6 @@ public class DeepClimb extends SubsystemBase {
   private double encoderOffset = 0;
 
   private double setpoint = 0.0;
-
-  private double timer = 0;
   
   // State tracking
   private enum AlgaeRemoverState {
@@ -76,37 +74,33 @@ public class DeepClimb extends SubsystemBase {
 
 
   public void runFrontUp(){
-    frontMotor.set(0.4);
+    frontMotor.set(0.6);
   }
   
   public void runBackUp(){
-    backMotor.set(0.4);
+    backMotor.set(0.6);
 
   }
 
 
 
   public void runFrontDown(){
-    frontMotor.set(-0.4);
+    frontMotor.set(-0.6);
   }
   
   public void runBackDown(){
-    backMotor.set(-0.4);
+    backMotor.set(-0.6);
   }
 
   public void climbUp(){
     runFrontUp();
     runBackUp();
-    Constants.isClimbing = true;
-    timer = 0;
-    
+
   }
 
   public void climbDown(){
     runFrontDown();
     runBackDown();
-    Constants.isClimbing = true;
-    timer = 0;
 
   }
 
@@ -114,20 +108,5 @@ public class DeepClimb extends SubsystemBase {
     frontMotor.set(0);
     backMotor.set(0);
   }
-
-  
-  @Override
-  public void periodic() {
-    if(Constants.isClimbing){
-        timer++;
-    }
-    if(timer > 100){
-        Constants.isClimbing = false;
-    }
-
-    SmartDashboard.putBoolean("Climber/isClimbing", Constants.isClimbing);
-  }
-
-
 
 }

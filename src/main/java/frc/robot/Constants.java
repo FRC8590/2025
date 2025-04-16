@@ -143,7 +143,7 @@ public final class Constants
     }
 
     public final class pid{
-        public static final double kP = 3.6; //heads up changing this will actually explode the robot not joking
+        public static final double kP = 3.25; //heads up changing this will actually explode the robot not joking
         public static final double kI = 0;
         public static final double kD = 0.04;
     }   

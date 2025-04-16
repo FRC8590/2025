@@ -243,6 +243,10 @@ public class RobotContainer
     m_chooser.addOption("51", "51");
     m_chooser.addOption("52", "52");
     m_chooser.addOption("53", "53");
+    m_chooser.addOption("54", "54");
+    m_chooser.addOption("55", "55");
+    m_chooser.addOption("56", "56");
+    m_chooser.addOption("57", "57");
 
 
     
@@ -343,7 +347,7 @@ public class RobotContainer
     {
       // Create a default command for the shooter to always run the intake logic
       Constants.SHOOTER.setDefaultCommand(new IntakeCoral());
-      // Constants.LEDSystem.setDefaultCommand(new SetLED());
+      Constants.LEDSystem.setDefaultCommand(new SetLED());
       Constants.ALGAE_REMOVER.setDefaultCommand(Constants.ALGAE_REMOVER.toggleCommand());
       Constants.DeepClimb.setDefaultCommand(new RunDeepClimb());
       

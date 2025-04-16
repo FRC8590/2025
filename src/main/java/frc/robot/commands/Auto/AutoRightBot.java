@@ -42,7 +42,7 @@ public class AutoRightBot extends SequentialCommandGroup {
 
     new ParallelCommandGroup(
       moveToScore.withTimeout(1),
-      new MoveElevator(0.29)
+      new MoveElevator(0.29).withTimeout(0.2)
     ),
     new ScoreCoral()
     );
