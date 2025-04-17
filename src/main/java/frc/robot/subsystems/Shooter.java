@@ -87,7 +87,7 @@ public class Shooter extends SubsystemBase {
 
   public void ejectCoral() {
 
-    shooterMotor.set(0.7);
+    shooterMotor.set(0.422); 
   }
   
   public void reverseCoral() {
