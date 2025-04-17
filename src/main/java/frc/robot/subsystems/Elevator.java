@@ -161,7 +161,7 @@ public class Elevator extends SubsystemBase {
     output = MathUtil.clamp(output, -1, 1);
 
     if(goalMeters < currentPos){
-      output += 0.015;
+      output += 0.01;
     }
     
     // Apply control output to motor
