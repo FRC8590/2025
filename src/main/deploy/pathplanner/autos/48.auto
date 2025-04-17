@@ -27,22 +27,9 @@
                 }
               },
               {
-                "type": "sequential",
+                "type": "named",
                 "data": {
-                  "commands": [
-                    {
-                      "type": "wait",
-                      "data": {
-                        "waitTime": 0.5
-                      }
-                    },
-                    {
-                      "type": "named",
-                      "data": {
-                        "name": "ZeroElevator"
-                      }
-                    }
-                  ]
+                  "name": "ZeroElevator"
                 }
               },
               {
@@ -55,21 +42,28 @@
           }
         },
         {
-          "type": "named",
+          "type": "deadline",
           "data": {
-            "name": "WaitForCoralIntake"
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "RED coral (bottom) - 7o'clock"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "WaitForCoralIntake"
+                }
+              }
+            ]
           }
         },
         {
-          "type": "path",
-          "data": {
-            "pathName": "RED coral (bottom)-7o'clock"
-          }
-        },
-        {
           "type": "named",
           "data": {
-            "name": "TeleRightTop"
+            "name": "AutoRightTop"
           }
         },
         {
@@ -83,31 +77,37 @@
                 }
               },
               {
-                "type": "sequential",
+                "type": "named",
                 "data": {
-                  "commands": [
-                    {
-                      "type": "wait",
-                      "data": {
-                        "waitTime": 0.5
-                      }
-                    },
-                    {
-                      "type": "named",
-                      "data": {
-                        "name": "ZeroElevator"
-                      }
-                    }
-                  ]
+                  "name": "ZeroElevator"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "deadline",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "RED coral (bottom) - 7o'clock"
                 }
               },
               {
                 "type": "named",
                 "data": {
-                  "name": "InactiveRemover"
+                  "name": "WaitForCoralIntake"
                 }
               }
             ]
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "AutoRightBot"
           }
         }
       ]
