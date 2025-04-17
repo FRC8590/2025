@@ -247,6 +247,10 @@ public class RobotContainer
     m_chooser.addOption("55", "55");
     m_chooser.addOption("56", "56");
     m_chooser.addOption("57", "57");
+    m_chooser.addOption("58", "58");
+    m_chooser.addOption("59", "59");
+    m_chooser.addOption("60", "60");
+    m_chooser.addOption("61", "61");
 
 
     
