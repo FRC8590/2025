@@ -251,7 +251,10 @@ public class RobotContainer
     m_chooser.addOption("59", "59");
     m_chooser.addOption("60", "60");
     m_chooser.addOption("61", "61");
-
+    m_chooser.addOption("62", "62");
+    m_chooser.addOption("63", "63");
+    m_chooser.addOption("64", "64");
+    m_chooser.addOption("65", "65");
 
     
     SmartDashboard.putData("Auto choices", m_chooser);
