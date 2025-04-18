@@ -3,54 +3,59 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 11.35,
-        "y": 4.0
+        "x": 16.44,
+        "y": 0.87
       },
       "prevControl": null,
       "nextControl": {
-        "x": 11.365949642763612,
-        "y": 0.2700341008401015
+        "x": 17.322556323041596,
+        "y": 1.7011266157969036
       },
       "isLocked": false,
-      "linkedName": "Red 9"
+      "linkedName": "Red feed lower"
     },
     {
       "anchor": {
-        "x": 14.890999999999998,
-        "y": 0.7199999999999998
+        "x": 16.92191390041494,
+        "y": 2.846
       },
       "prevControl": {
-        "x": 11.432987551871552,
-        "y": 0.8512033194964301
+        "x": 17.031820739353712,
+        "y": 2.533641627823613
       },
       "nextControl": {
-        "x": 15.515453589351347,
-        "y": 0.6963070882411948
+        "x": 16.748958500577512,
+        "y": 3.337544181180851
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 16.44,
-        "y": 0.87
+        "x": 15.128483606557374,
+        "y": 3.887141393442622
       },
       "prevControl": {
-        "x": 15.492919976983384,
-        "y": 0.772646663153439
+        "x": 14.682441723839467,
+        "y": 2.6855889869431975
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Red feed lower"
+      "linkedName": "Red 3"
     }
   ],
-  "rotationTargets": [],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 0.5,
+      "rotationDegrees": 180.0
+    }
+  ],
   "constraintZones": [],
   "pointTowardsZones": [],
   "eventMarkers": [],
   "globalConstraints": {
-    "maxVelocity": 4.5,
-    "maxAcceleration": 3.5,
+    "maxVelocity": 2.0,
+    "maxAcceleration": 1.0,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0,
     "nominalVoltage": 12.0,
@@ -58,13 +63,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 126.0
+    "rotation": 180.0
   },
   "reversed": false,
   "folder": "Red Side Paths",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 0.0
+    "rotation": 126.0
   },
-  "useDefaultConstraints": true
+  "useDefaultConstraints": false
 }

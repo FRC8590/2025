@@ -8,11 +8,27 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 11.256454918032787,
-        "y": 5.457530737704917
+        "x": 11.365953238303009,
+        "y": 7.729965883783342
       },
       "isLocked": false,
       "linkedName": "Red 9"
+    },
+    {
+      "anchor": {
+        "x": 14.890999999999998,
+        "y": 7.28
+      },
+      "prevControl": {
+        "x": 11.432987551871552,
+        "y": 7.411203319496431
+      },
+      "nextControl": {
+        "x": 15.515453589351347,
+        "y": 7.256307088241195
+      },
+      "isLocked": false,
+      "linkedName": null
     },
     {
       "anchor": {
@@ -20,8 +36,8 @@
         "y": 7.15
       },
       "prevControl": {
-        "x": 13.16999999999999,
-        "y": 5.6689999999999605
+        "x": 15.59292012448566,
+        "y": 7.247354771778588
       },
       "nextControl": null,
       "isLocked": false,
@@ -41,7 +57,7 @@
     "unlimited": false
   },
   "goalEndState": {
-    "velocity": 0.0,
+    "velocity": 0,
     "rotation": -126.0
   },
   "reversed": false,
