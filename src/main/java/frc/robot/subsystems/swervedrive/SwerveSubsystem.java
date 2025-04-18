@@ -363,7 +363,7 @@ public class SwerveSubsystem extends SubsystemBase
 
 
     PathConstraints constraints = new PathConstraints(
-        swerveDrive.getMaximumChassisVelocity(), 2,
+        swerveDrive.getMaximumChassisVelocity(), 3,
         swerveDrive.getMaximumChassisAngularVelocity(), Units.degreesToRadians(720));
 
   
@@ -390,13 +390,14 @@ public class SwerveSubsystem extends SubsystemBase
   
         
 
-      return new AutoAlignmentAuto(
+      return new AutoAlignment(
         constraints,
         this::getPose,  // robotPoseSupplier
         this::setChassisSpeeds,  // robotRelativeSpeedsOutput
         this,  // driveSubsystem
         pose   // targetPose
     );
+
 
   }
 
