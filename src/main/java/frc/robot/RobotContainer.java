@@ -323,16 +323,11 @@ public class RobotContainer
     //     Constants.lockTimer = 0;
     //   }
     // }
-  }
-
-    public void slowMode(){
+    
       SmartDashboard.putNumber("scale factor", Constants.scaleFactor);
       boolean rightTrigger = driverXbox.getRightTriggerAxis() > 0.3;
       if(rightTrigger){
-        Constants.scaleFactor = 0.4;
-      }
-      else{
-        Constants.scaleFactor = 1;
+        Constants.drivebase.lock();
       }
     }
 
