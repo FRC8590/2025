@@ -32,12 +32,12 @@
     },
     {
       "anchor": {
-        "x": 16.54,
-        "y": 7.15
+        "x": 16.13,
+        "y": 7.5
       },
       "prevControl": {
-        "x": 15.59292012448566,
-        "y": 7.247354771778588
+        "x": 15.18292012448566,
+        "y": 7.597354771778588
       },
       "nextControl": null,
       "isLocked": false,
@@ -50,7 +50,7 @@
   "eventMarkers": [],
   "globalConstraints": {
     "maxVelocity": 4.5,
-    "maxAcceleration": 3.5,
+    "maxAcceleration": 3.3,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0,
     "nominalVoltage": 12.0,
@@ -58,7 +58,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -126.0
+    "rotation": -130.2
   },
   "reversed": false,
   "folder": "Red Side Paths",

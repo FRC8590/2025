@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 16.54,
-        "y": 7.15
+        "x": 16.13,
+        "y": 7.5
       },
       "prevControl": null,
       "nextControl": {
-        "x": 15.082357359858369,
-        "y": 6.632156494828833
+        "x": 14.672357359858369,
+        "y": 6.982156494828833
       },
       "isLocked": false,
       "linkedName": "Red feed"
@@ -34,7 +34,7 @@
   "eventMarkers": [],
   "globalConstraints": {
     "maxVelocity": 4.5,
-    "maxAcceleration": 3.5,
+    "maxAcceleration": 3.3,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0,
     "nominalVoltage": 12.0,
@@ -48,7 +48,7 @@
   "folder": "Red Side Paths",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": -126.0
+    "rotation": -130.2
   },
   "useDefaultConstraints": true
 }

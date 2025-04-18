@@ -8,8 +8,8 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 13.21045081967213,
-        "y": 5.961014344262295
+        "x": 13.658979644725154,
+        "y": 6.0101347807764425
       },
       "isLocked": false,
       "linkedName": "Red Top"
@@ -20,8 +20,8 @@
         "y": 5.877100409836065
       },
       "prevControl": {
-        "x": 13.98965163934426,
-        "y": 7.003944672131146
+        "x": 12.127043627972899,
+        "y": 6.141440110500958
       },
       "nextControl": null,
       "isLocked": false,
@@ -34,7 +34,7 @@
   "eventMarkers": [],
   "globalConstraints": {
     "maxVelocity": 4.5,
-    "maxAcceleration": 3.5,
+    "maxAcceleration": 3.3,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0,
     "nominalVoltage": 12.0,

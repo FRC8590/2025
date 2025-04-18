@@ -16,16 +16,16 @@
     },
     {
       "anchor": {
-        "x": 3.368545081967213,
-        "y": 6.020952868852459
+        "x": 3.7139004149377586,
+        "y": 5.463226141078837
       },
       "prevControl": {
-        "x": 1.5431183903402137,
-        "y": 7.45991279708378
+        "x": 1.8884737233107591,
+        "y": 6.902186069310159
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Blue 11"
+      "linkedName": "Blue 11 PID"
     }
   ],
   "rotationTargets": [],
@@ -41,7 +41,7 @@
     "unlimited": false
   },
   "goalEndState": {
-    "velocity": 1.0,
+    "velocity": 0.0,
     "rotation": -61.109494402146716
   },
   "reversed": false,

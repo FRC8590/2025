@@ -3,12 +3,12 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 14.181454918032786,
+        "x": 14.181,
         "y": 5.877100409836065
       },
       "prevControl": null,
       "nextControl": {
-        "x": 15.42914927198986,
+        "x": 15.428694353957075,
         "y": 6.604803439409955
       },
       "isLocked": false,
@@ -16,12 +16,12 @@
     },
     {
       "anchor": {
-        "x": 16.54,
-        "y": 7.15
+        "x": 16.13,
+        "y": 7.5
       },
       "prevControl": {
-        "x": 15.604784702608992,
-        "y": 6.591744579179636
+        "x": 15.194924949820376,
+        "y": 6.941828296550629
       },
       "nextControl": null,
       "isLocked": false,
@@ -34,7 +34,7 @@
   "eventMarkers": [],
   "globalConstraints": {
     "maxVelocity": 4.5,
-    "maxAcceleration": 3.5,
+    "maxAcceleration": 3.3,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0,
     "nominalVoltage": 12.0,
@@ -42,7 +42,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -126.0
+    "rotation": -130.2
   },
   "reversed": false,
   "folder": "Red Side Paths",

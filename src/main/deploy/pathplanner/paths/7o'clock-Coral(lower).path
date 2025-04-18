@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 3.1407786885245907,
-        "y": 2.1129610655737703
+        "x": 3.4408195020746883,
+        "y": 2.259076763485475
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.0313198193611446,
-        "y": 1.524596673189535
+        "x": 2.3313606329112417,
+        "y": 1.67071237110124
       },
       "isLocked": false,
       "linkedName": "Blue 7"
@@ -33,8 +33,8 @@
   "pointTowardsZones": [],
   "eventMarkers": [],
   "globalConstraints": {
-    "maxVelocity": 5.0,
-    "maxAcceleration": 5.0,
+    "maxVelocity": 4.5,
+    "maxAcceleration": 3.3,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0,
     "nominalVoltage": 12.0,
@@ -50,5 +50,5 @@
     "velocity": 0,
     "rotation": 59.99999999999999
   },
-  "useDefaultConstraints": false
+  "useDefaultConstraints": true
 }

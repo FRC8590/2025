@@ -16,16 +16,16 @@
     },
     {
       "anchor": {
-        "x": 3.1407786885245907,
-        "y": 2.1129610655737703
+        "x": 3.6501815352697093,
+        "y": 2.614081950207468
       },
       "prevControl": {
-        "x": 2.868425880480144,
-        "y": 1.896018849663963
+        "x": 3.3778287272252627,
+        "y": 2.3971397342976606
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Blue 7"
+      "linkedName": "Blue 7 PID"
     }
   ],
   "rotationTargets": [],
@@ -33,15 +33,15 @@
   "pointTowardsZones": [],
   "eventMarkers": [],
   "globalConstraints": {
-    "maxVelocity": 5.0,
-    "maxAcceleration": 5.0,
+    "maxVelocity": 4.5,
+    "maxAcceleration": 3.3,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0,
     "nominalVoltage": 12.0,
     "unlimited": false
   },
   "goalEndState": {
-    "velocity": 1.0,
+    "velocity": 0.0,
     "rotation": 59.99999999999999
   },
   "reversed": false,
@@ -50,5 +50,5 @@
     "velocity": 0,
     "rotation": 51.5
   },
-  "useDefaultConstraints": false
+  "useDefaultConstraints": true
 }

@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 7.081898340248962,
-        "y": 6.810425311203319
+        "x": 7.118309128630706,
+        "y": 6.164133817427385
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.0873983402489635,
-        "y": 3.2901753112033174
+        "x": 6.1238091286307075,
+        "y": 2.6438838174273838
       },
       "isLocked": false,
       "linkedName": "Blue Top"
     },
     {
       "anchor": {
-        "x": 3.1407786885245907,
-        "y": 2.1129610655737703
+        "x": 3.4408195020746883,
+        "y": 2.259076763485475
       },
       "prevControl": {
-        "x": 4.826028688524591,
-        "y": 0.9249610655737697
+        "x": 5.126069502074689,
+        "y": 1.0710767634854745
       },
       "nextControl": null,
       "isLocked": false,
@@ -34,7 +34,7 @@
   "eventMarkers": [],
   "globalConstraints": {
     "maxVelocity": 4.5,
-    "maxAcceleration": 3.5,
+    "maxAcceleration": 3.3,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0,
     "nominalVoltage": 12.0,
