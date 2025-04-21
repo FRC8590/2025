@@ -28,6 +28,7 @@ public class RunDeepClimb extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    
     boolean rightTrigger = Robot.getInstance().m_robotContainer.driverXbox.start().getAsBoolean();
     boolean leftTrigger = Robot.getInstance().m_robotContainer.driverXbox.back().getAsBoolean();
 
