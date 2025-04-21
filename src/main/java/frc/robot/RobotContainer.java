@@ -259,6 +259,7 @@ public class RobotContainer
     m_chooser.addOption("67", "67");
     m_chooser.addOption("68", "68");
     m_chooser.addOption("69", "69");
+    m_chooser.addOption("2468", "2468");
 
     
     SmartDashboard.putData("Auto choices", m_chooser);
@@ -323,7 +324,7 @@ public class RobotContainer
     //     Constants.lockTimer = 0;
     //   }
     // }
-    
+
       SmartDashboard.putNumber("scale factor", Constants.scaleFactor);
       boolean rightTrigger = driverXbox.getRightTriggerAxis() > 0.3;
       if(rightTrigger){
