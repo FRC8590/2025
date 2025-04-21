@@ -8,8 +8,8 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 4.8008360655749565,
-        "y": 1.745959016393442
+        "x": 4.192829653761388,
+        "y": 1.6991777069780651
       },
       "isLocked": false,
       "linkedName": "Blue 5"
@@ -20,26 +20,21 @@
         "y": 0.96
       },
       "prevControl": {
-        "x": 2.0845176348547714,
-        "y": 0.5659751037344393
+        "x": 1.442345343523536,
+        "y": 1.1365209798993843
       },
       "nextControl": null,
       "isLocked": false,
       "linkedName": "feed Lower"
     }
   ],
-  "rotationTargets": [
-    {
-      "waypointRelativePos": 0.7576675501703913,
-      "rotationDegrees": 59.822
-    }
-  ],
+  "rotationTargets": [],
   "constraintZones": [],
   "pointTowardsZones": [],
   "eventMarkers": [],
   "globalConstraints": {
-    "maxVelocity": 5.0,
-    "maxAcceleration": 2.5,
+    "maxVelocity": 4.5,
+    "maxAcceleration": 3.3,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0,
     "nominalVoltage": 12.0,
@@ -55,5 +50,5 @@
     "velocity": 0,
     "rotation": 119.99999999999999
   },
-  "useDefaultConstraints": false
+  "useDefaultConstraints": true
 }

@@ -142,6 +142,7 @@ public class Elevator extends SubsystemBase {
       return;
     }
 
+
     // Bound goal to valid range
     goalMeters = MathUtil.clamp(goalMeters, MIN_HEIGHT_METERS, MAX_HEIGHT_METERS);
     
@@ -160,7 +161,7 @@ public class Elevator extends SubsystemBase {
     output = MathUtil.clamp(output, -1, 1);
 
     if(goalMeters < currentPos){
-      output += 0.04;
+      output += 0.01;
     }
     
     // Apply control output to motor

@@ -263,6 +263,13 @@ public class TalonSRXSwerve extends SwerveMotor
     motor.set(percentOutput);
   }
 
+    
+  @Override
+  public double getMotorTemperature(){
+    return motor.getTemperature();
+  }
+
+
   /**
    * Convert the setpoint into native sensor units.
    *

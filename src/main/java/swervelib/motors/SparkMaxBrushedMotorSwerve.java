@@ -586,6 +586,11 @@ public class SparkMaxBrushedMotorSwerve extends SwerveMotor
     return motor.getAppliedOutput();
   }
 
+  @Override
+  public double getMotorTemperature(){
+    return motor.getMotorTemperature();
+  }
+
   /**
    * Get the velocity of the integrated encoder.
    *

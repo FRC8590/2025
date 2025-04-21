@@ -87,7 +87,7 @@ public class Shooter extends SubsystemBase {
 
   public void ejectCoral() {
 
-    shooterMotor.set(0.7);
+    shooterMotor.set(0.6); 
   }
   
   public void reverseCoral() {
@@ -191,7 +191,7 @@ public class Shooter extends SubsystemBase {
 
   
   public Command troughyCoral(){
-    return run(() -> reverseCoral())
+    return run(() -> slowCoral())
     .until(noCoral())
     .andThen(new WaitCommand(0.2))
     .finallyDo(() -> stopShooter());

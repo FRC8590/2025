@@ -46,20 +46,20 @@ public class AutoAlignmentAuto extends SequentialCommandGroup {
     ) {
 
         roughHolonomicDriveController = new HolonomicDriveController(
-            new PIDController(3, 0, 0),  // X controller 
-            new PIDController(3, 0, 0),  // Y controller - increased P, added I and D terms
+            new PIDController(4, 0, 0),  // X controller 
+            new PIDController(4, 0, 0),  // Y controller - increased P, added I and D terms
             new ProfiledPIDController(4, 0, 0, 
-                new TrapezoidProfile.Constraints(3, 6))); 
+                new TrapezoidProfile.Constraints(5, 6))); 
         smallHolonomicDriveController = new HolonomicDriveController(
-                new PIDController(13, 0, 0),  // X controller 
-                new PIDController(13, 0, 0),  // Y controller - increased P, added I and D terms
-                new ProfiledPIDController(10, 0, 0, 
-                        new TrapezoidProfile.Constraints(3, 6))); 
+                new PIDController(7, 0, 0),  // X controller 
+                new PIDController(7, 0, 0),  // Y controller - increased P, added I and D terms
+                new ProfiledPIDController(5, 0, 0, 
+                        new TrapezoidProfile.Constraints(3, 4))); 
 
 
             
         // Tighter tolerance for Y direction
-        smallHolonomicDriveController.setTolerance(new Pose2d(0.02, 0.02, Rotation2d.fromDegrees(1)));
+        smallHolonomicDriveController.setTolerance(new Pose2d(0.12, 0.12, Rotation2d.fromDegrees(1)));
         roughHolonomicDriveController.setTolerance(new Pose2d(0.15, 0.15, Rotation2d.fromDegrees(1)));
 
         final Command
@@ -102,9 +102,13 @@ public class AutoAlignmentAuto extends SequentialCommandGroup {
         // super.addCommands(resetOdom);
         // super.addCommands(new WaitCommand(0.03));
         // super.addCommands(pathFindToTargetRough);
-        super.addCommands(roughAlignment);
-        // // super.addCommands(new PrintCommand("DONEEE"));
-        super.addCommands(new WaitCommand(0.05));
+        super.addCommands(new PrintCommand("DONEEE"));
+        super.addCommands(new PrintCommand("DONEEE"));
+        super.addCommands(new PrintCommand("DONEEE"));
+
+        // super.addCommands(roughAlignment);
+
+        // super.addCommands(new WaitCommand(0.05));
         super.addCommands(preciseAlignment);
 
 

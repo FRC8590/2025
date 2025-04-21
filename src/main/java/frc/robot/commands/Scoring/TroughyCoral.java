@@ -18,9 +18,10 @@ public class TroughyCoral extends SequentialCommandGroup {
    */
   public TroughyCoral() {
     addCommands(
-      Constants.SHOOTER.troughCoral() // Eject coral for 5 seconds
+      new MoveElevator(0.1),
+      Constants.SHOOTER.troughyCoral(), // Eject coral for 5 seconds
+      new MoveElevator(0)
     );
-
     addRequirements(Constants.SHOOTER);
   }
 }

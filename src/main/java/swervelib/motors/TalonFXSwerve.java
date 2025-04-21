@@ -140,6 +140,13 @@ public class TalonFXSwerve extends SwerveMotor
     motor.clearStickyFaults();
   }
 
+  
+  @Override
+  public double getMotorTemperature(){
+    return motor.getDeviceTemp().getValueAsDouble();
+  }
+
+
   /**
    * Set the absolute encoder to be a compatible absolute encoder.
    *

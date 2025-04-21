@@ -42,40 +42,28 @@
           }
         },
         {
-          "type": "named",
-          "data": {
-            "name": "WaitForCoralIntake"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Coral-1o'clock"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "TeleRightBot"
-          }
-        },
-        {
           "type": "deadline",
           "data": {
             "commands": [
               {
                 "type": "path",
                 "data": {
-                  "pathName": "1o'clock-coral"
+                  "pathName": "Coral-1o'clock"
                 }
               },
               {
                 "type": "named",
                 "data": {
-                  "name": "ZeroElevator"
+                  "name": "WaitForCoralIntake"
                 }
               }
             ]
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "TeleRightBot"
           }
         }
       ]

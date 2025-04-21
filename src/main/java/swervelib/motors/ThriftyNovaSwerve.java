@@ -226,6 +226,12 @@ public class ThriftyNovaSwerve extends SwerveMotor
     // Do nothing
   }
 
+  @Override
+  public double getMotorTemperature(){
+    return motor.getTemperature();
+  }
+
+
   /**
    * Set the idle mode.
    *

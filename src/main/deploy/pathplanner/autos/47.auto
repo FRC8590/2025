@@ -27,22 +27,9 @@
                 }
               },
               {
-                "type": "sequential",
+                "type": "named",
                 "data": {
-                  "commands": [
-                    {
-                      "type": "wait",
-                      "data": {
-                        "waitTime": 0.5
-                      }
-                    },
-                    {
-                      "type": "named",
-                      "data": {
-                        "name": "ZeroElevator"
-                      }
-                    }
-                  ]
+                  "name": "ZeroElevator"
                 }
               },
               {
@@ -61,15 +48,22 @@
           }
         },
         {
-          "type": "path",
+          "type": "deadline",
           "data": {
-            "pathName": "RED coral-11o'clock"
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "RED coral-11o'clock"
+                }
+              }
+            ]
           }
         },
         {
           "type": "named",
           "data": {
-            "name": "TeleRightTop"
+            "name": "AutoRightTop"
           }
         },
         {
@@ -83,31 +77,37 @@
                 }
               },
               {
-                "type": "sequential",
-                "data": {
-                  "commands": [
-                    {
-                      "type": "wait",
-                      "data": {
-                        "waitTime": 0.5
-                      }
-                    },
-                    {
-                      "type": "named",
-                      "data": {
-                        "name": "ZeroElevator"
-                      }
-                    }
-                  ]
-                }
-              },
-              {
                 "type": "named",
                 "data": {
-                  "name": "InactiveRemover"
+                  "name": "ZeroElevator"
                 }
               }
             ]
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "WaitForCoralIntake"
+          }
+        },
+        {
+          "type": "deadline",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "RED coral-11o'clock"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "AutoRightBot"
           }
         }
       ]

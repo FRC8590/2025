@@ -74,22 +74,21 @@ public class DeepClimb extends SubsystemBase {
 
 
   public void runFrontUp(){
-    frontMotor.set(0.4);
+    frontMotor.set(0.6);
   }
   
   public void runBackUp(){
-    backMotor.set(0.4);
-
+    backMotor.set(0.6);
   }
 
 
 
   public void runFrontDown(){
-    frontMotor.set(-0.4);
+    frontMotor.set(-0.6);
   }
   
   public void runBackDown(){
-    backMotor.set(-0.4);
+    backMotor.set(-0.6);
   }
 
   public void climbUp(){

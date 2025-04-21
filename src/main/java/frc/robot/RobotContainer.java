@@ -45,6 +45,7 @@ import frc.robot.commands.Algae.RemoveBotAlgaeScoreTop;
 import frc.robot.commands.Algae.RemoveTopAlgaeScoreTop;
 import frc.robot.commands.Algae.StateUpdateAlgae;
 import frc.robot.commands.Auto.AutoBotAlgae;
+import frc.robot.commands.Auto.AutoRightBot;
 import frc.robot.commands.Auto.AutoTopAlgae;
 import frc.robot.commands.Auto.AutoRightTop;
 import frc.robot.commands.Auto.AutoRightTopRemoveAlgae;
@@ -238,6 +239,27 @@ public class RobotContainer
     m_chooser.addOption("47", "47");
     m_chooser.addOption("48", "48");
 
+    m_chooser.addOption("50", "50");
+    m_chooser.addOption("51", "51");
+    m_chooser.addOption("52", "52");
+    m_chooser.addOption("53", "53");
+    m_chooser.addOption("54", "54");
+    m_chooser.addOption("55", "55");
+    m_chooser.addOption("56", "56");
+    m_chooser.addOption("57", "57");
+    m_chooser.addOption("58", "58");
+    m_chooser.addOption("59", "59");
+    m_chooser.addOption("60", "60");
+    m_chooser.addOption("61", "61");
+    m_chooser.addOption("62", "62");
+    m_chooser.addOption("63", "63");
+    m_chooser.addOption("64", "64");
+    m_chooser.addOption("65", "65");
+    m_chooser.addOption("66", "66");
+    m_chooser.addOption("67", "67");
+    m_chooser.addOption("68", "68");
+    m_chooser.addOption("69", "69");
+    m_chooser.addOption("2468", "2468");
 
     
     SmartDashboard.putData("Auto choices", m_chooser);
@@ -256,6 +278,8 @@ public class RobotContainer
 
 
     NamedCommands.registerCommand("AutoRightTop", new AutoRightTop());
+    NamedCommands.registerCommand("AutoRightBot", new AutoRightBot());
+
     NamedCommands.registerCommand("TeleLeftBot", new TeleLeftBot());
     NamedCommands.registerCommand("TeleRightBot", new TeleRightBot());
     NamedCommands.registerCommand("TeleLeftTop", new TeleLeftTop());
@@ -300,16 +324,11 @@ public class RobotContainer
     //     Constants.lockTimer = 0;
     //   }
     // }
-  }
 
-    public void slowMode(){
       SmartDashboard.putNumber("scale factor", Constants.scaleFactor);
       boolean rightTrigger = driverXbox.getRightTriggerAxis() > 0.3;
       if(rightTrigger){
-        Constants.scaleFactor = 0.4;
-      }
-      else{
-        Constants.scaleFactor = 1;
+        Constants.drivebase.lock();
       }
     }
 
@@ -338,7 +357,6 @@ public class RobotContainer
       Constants.LEDSystem.setDefaultCommand(new SetLED());
       Constants.ALGAE_REMOVER.setDefaultCommand(Constants.ALGAE_REMOVER.toggleCommand());
       Constants.DeepClimb.setDefaultCommand(new RunDeepClimb());
-
       
       driverXbox.povDown().whileTrue(new TeleLeftTop()); //score on the left top
       driverXbox.povLeft().whileTrue(new TeleRightTop()); //score on the right top
@@ -359,7 +377,6 @@ public class RobotContainer
 
       operatorController.rightBumper().whileTrue(new ScoreCoral());
       operatorController.leftBumper().whileTrue(new StopShooter());
-
 
 
       driverXbox.leftStick().whileTrue(new TeleBotAlgae());

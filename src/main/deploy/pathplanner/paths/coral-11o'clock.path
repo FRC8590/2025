@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.12,
-        "y": 7.19
+        "x": 1.442629076086957,
+        "y": 7.419947350543477
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.4221508291976444,
-        "y": 6.911990746520867
+        "x": 1.8205301045671174,
+        "y": 7.033389118701758
       },
       "isLocked": false,
       "linkedName": "feed"
     },
     {
       "anchor": {
-        "x": 3.5483606557377048,
-        "y": 5.445543032786884
+        "x": 3.1677385892116177,
+        "y": 5.681690871369295
       },
       "prevControl": {
-        "x": 1.97433531020424,
-        "y": 6.957452621663914
+        "x": 1.4302255855554526,
+        "y": 7.379900814962067
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Blue 11"
+      "linkedName": "Blue 11 PID"
     }
   ],
   "rotationTargets": [],
@@ -48,7 +48,7 @@
   "folder": "Blue Side Paths",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": -55.5
+    "rotation": -52.69605172201652
   },
   "useDefaultConstraints": false
 }

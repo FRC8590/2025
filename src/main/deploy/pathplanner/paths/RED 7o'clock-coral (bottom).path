@@ -8,20 +8,20 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 14.021351500591463,
-        "y": 1.3412388980702854
+        "x": 13.235321576763212,
+        "y": 1.6400933609999617
       },
       "isLocked": false,
       "linkedName": "Red 7"
     },
     {
       "anchor": {
-        "x": 16.44,
-        "y": 0.87
+        "x": 16.3,
+        "y": 0.66
       },
       "prevControl": {
-        "x": 14.819190871369294,
-        "y": 0.3566130705394197
+        "x": 14.801749676000531,
+        "y": 0.39581804402369425
       },
       "nextControl": null,
       "isLocked": false,
@@ -33,8 +33,8 @@
   "pointTowardsZones": [],
   "eventMarkers": [],
   "globalConstraints": {
-    "maxVelocity": 5.0,
-    "maxAcceleration": 2.5,
+    "maxVelocity": 4.5,
+    "maxAcceleration": 3.3,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0,
     "nominalVoltage": 12.0,
@@ -42,7 +42,7 @@
   },
   "goalEndState": {
     "velocity": 0.0,
-    "rotation": 126.0
+    "rotation": 125.80000000000001
   },
   "reversed": false,
   "folder": "Red Side Paths",
@@ -50,5 +50,5 @@
     "velocity": 0,
     "rotation": 59.99999999999999
   },
-  "useDefaultConstraints": false
+  "useDefaultConstraints": true
 }

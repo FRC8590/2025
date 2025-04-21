@@ -266,6 +266,10 @@ public class SwerveSubsystem extends SubsystemBase
     PathfindingCommand.warmupCommand().schedule();
   }
 
+  public double[][] getMotorTemperatures(){
+    return swerveDrive.getTemps();
+  }
+
   /**
    * Get the distance to the speaker.
    *
@@ -359,21 +363,12 @@ public class SwerveSubsystem extends SubsystemBase
 
 
     PathConstraints constraints = new PathConstraints(
-        swerveDrive.getMaximumChassisVelocity(), 2,
+        swerveDrive.getMaximumChassisVelocity(), 3,
         swerveDrive.getMaximumChassisAngularVelocity(), Units.degreesToRadians(720));
 
   
         
-    if(RobotState.isAutonomous()){
-      return new AutoAlignmentAuto(
-        constraints,
-        this::getPose,  // robotPoseSupplier
-        this::setChassisSpeeds,  // robotRelativeSpeedsOutput
-        this,  // driveSubsystem
-        pose   // targetPose
-    );
-    }
-    else{
+
       return new AutoAlignment(
         constraints,
         this::getPose,  // robotPoseSupplier
@@ -381,8 +376,31 @@ public class SwerveSubsystem extends SubsystemBase
         this,  // driveSubsystem
         pose   // targetPose
     );
-    }
+
   }
+
+  public Command driveToPose(Pose2d pose, boolean auto)
+  {
+
+
+    PathConstraints constraints = new PathConstraints(
+        swerveDrive.getMaximumChassisVelocity(), 3,
+        swerveDrive.getMaximumChassisAngularVelocity(), Units.degreesToRadians(720));
+
+  
+        
+
+      return new AutoAlignment(
+        constraints,
+        this::getPose,  // robotPoseSupplier
+        this::setChassisSpeeds,  // robotRelativeSpeedsOutput
+        this,  // driveSubsystem
+        pose   // targetPose
+    );
+
+
+  }
+
 
 
   public Command driveToPose(Pose2d pose, boolean isRight, int tag){

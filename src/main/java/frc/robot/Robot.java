@@ -19,6 +19,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.Commands;
 import frc.robot.commands.InactiveRemover;
+import frc.robot.commands.SetLED;
 import frc.robot.commands.Scoring.WaitForCoralIntake;
 import frc.robot.commands.swervedrive.AutoAlignment;
 import frc.robot.subsystems.swervedrive.Vision;
@@ -129,6 +130,8 @@ public class Robot extends TimedRobot
       disabledTimer.stop();
     }
     m_robotContainer.resetAndStop();
+
+    
   }
 
   /**
@@ -186,15 +189,17 @@ public class Robot extends TimedRobot
   {
 
     m_robotContainer.autoLock();
-    m_robotContainer.slowMode();
 
 
     SmartDashboard.putBoolean("algaeee", Constants.ALGAE_REMOVER.isExtended);
 
     SmartDashboard.putString("LED COLOR", Constants.LEDSystem.currentColor);
     //SmartDashboard.putBoolean("Right Camera Enabled", Constants.vision.getEnabled(1));
-    
 
+    SmartDashboard.putNumberArray("front left motor temps", Constants.drivebase.getMotorTemperatures()[0]);
+    SmartDashboard.putNumberArray("front right motor temps", Constants.drivebase.getMotorTemperatures()[1]);
+    SmartDashboard.putNumberArray("back left motor temps", Constants.drivebase.getMotorTemperatures()[2]);
+    SmartDashboard.putNumberArray("back right motor temps", Constants.drivebase.getMotorTemperatures()[3]);
 
   }
 
