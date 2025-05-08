@@ -249,6 +249,9 @@ public class SwerveSubsystem extends SubsystemBase
             // {
             //   return alliance.get() == DriverStation.Alliance.Red;
             // }
+
+            //This was overwritten in the getSide() method of RobotContainer, so this part just defaults to false now
+
             return false;
           },
           this
@@ -275,7 +278,7 @@ public class SwerveSubsystem extends SubsystemBase
    *
    * @return Distance to speaker in meters.
    */
-  public double getDistanceToSpeaker()
+  public double getDistanceToSpeaker() //Unused method from 2024
   {
     int allianceAprilTag = DriverStation.getAlliance().get() == Alliance.Blue ? 7 : 4;
     // Taken from PhotonUtils.getDistanceToPose
@@ -288,7 +291,7 @@ public class SwerveSubsystem extends SubsystemBase
    *
    * @return {@link Rotation2d} of which you need to achieve.
    */
-  public Rotation2d getSpeakerYaw()
+  public Rotation2d getSpeakerYaw() //Unused method from 2024
   {
     int allianceAprilTag = DriverStation.getAlliance().get() == Alliance.Blue ? 7 : 4;
     // Taken from PhotonUtils.getYawToPose()
@@ -303,7 +306,7 @@ public class SwerveSubsystem extends SubsystemBase
    * @param tolerance Tolerance in degrees.
    * @return Command to turn the robot to the speaker.
    */
-  public Command aimAtSpeaker(double tolerance)
+  public Command aimAtSpeaker(double tolerance) //Unused method from 2024
   {
     SwerveController controller = swerveDrive.getSwerveController();
     return run(
@@ -321,7 +324,7 @@ public class SwerveSubsystem extends SubsystemBase
    *
    * @return A {@link Command} which will run the alignment.
    */
-  public Command aimAtTarget(Cameras camera)
+  public Command aimAtTarget(Cameras camera) 
   {
 
     return run(() -> {
