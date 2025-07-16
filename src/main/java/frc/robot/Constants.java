@@ -23,19 +23,10 @@ import edu.wpi.first.wpilibj.Filesystem;
 import swervelib.math.Matter;
 import frc.robot.constants.IntakeConstants;
 import frc.robot.constants.LEDConstants;
-import frc.robot.constants.ElevatorConstants;
 import frc.robot.constants.AlgaeConstants;
-import frc.robot.constants.AlgaeRemoverConstants;
-import frc.robot.constants.DeepClimbConstants;
 import frc.robot.constants.DriveConstants;
 import frc.robot.constants.OperatorConstants;
 import frc.robot.constants.ScoringConstants;
-import frc.robot.constants.ShooterConstants;
-import frc.robot.subsystems.AlgaeRemover;
-import frc.robot.subsystems.DeepClimb;
-import frc.robot.subsystems.Elevator;
-import frc.robot.subsystems.LEDSubsystem;
-import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.swervedrive.SwerveSubsystem;
 import frc.robot.subsystems.swervedrive.Vision;
 
@@ -99,15 +90,11 @@ public final class Constants
 
     // Constants Records
     public static final IntakeConstants INTAKE_CONSTANTS = IntakeConstants.DEFAULT;
-    public static final ElevatorConstants ELEVATOR_CONSTANTS = ElevatorConstants.DEFAULT;
     public static final DriveConstants DRIVE_CONSTANTS = DriveConstants.DEFAULT;
     public static final OperatorConstants OPERATOR_CONSTANTS = OperatorConstants.DEFAULT;
-    public static final ShooterConstants SHOOTER_CONSTANTS = ShooterConstants.DEFAULT;
     public static final ScoringConstants SCORING_CONSTANTS = ScoringConstants.DEFAULT;
     public static final AlgaeConstants ALGAE_CONSTANTS = AlgaeConstants.DEFAULT;
-    public static final AlgaeRemoverConstants ALGAE_REMOVER_CONSTANTS = AlgaeRemoverConstants.DEFAULT;
     public static final LEDConstants LED_CONSTANTS = LEDConstants.DEFAULT;
-    public static final DeepClimbConstants DEEP_CLIMB_CONSTANTS = DeepClimbConstants.DEFAULT;
 
     public static double distancePerRotation = 1/14.36; //meters per rotations
 
@@ -153,14 +140,5 @@ public final class Constants
 
     public static double rampRate = 0.01;
 
-    public static boolean isClimbing;
-
-
-
-    public static final Elevator ELEVATOR = new Elevator();
-    public static final Shooter SHOOTER = new Shooter();
-    public static final AlgaeRemover ALGAE_REMOVER = new AlgaeRemover();
-    public static final LEDSubsystem LEDSystem = new LEDSubsystem();
-    public static final DeepClimb DeepClimb = new DeepClimb();
 
 }

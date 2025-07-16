@@ -17,10 +17,6 @@ import edu.wpi.first.wpilibj2.command.SelectCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.Constants;
-import frc.robot.commands.ActiveRemover;
-import frc.robot.commands.InactiveRemover;
-import frc.robot.commands.MoveElevator;
-import frc.robot.commands.Scoring.ScoreCoral;
 import frc.robot.constants.ScoringConstants;
 
 import java.io.Console;
@@ -41,18 +37,13 @@ public class AutoBotAlgae extends SequentialCommandGroup {
     
     addCommands(
       new ParallelRaceGroup(
-        new ActiveRemover(),
         new SequentialCommandGroup(
           moveToScore.withTimeout(3),
-          new WaitCommand(0.3),
-          new MoveElevator(0.7),
-          new ScoreCoral()
+          new WaitCommand(0.3)
         ) 
       )
   );
       addRequirements(Constants.drivebase);
-    addRequirements(Constants.SHOOTER);
-    addRequirements(Constants.ELEVATOR);
   }
 
 

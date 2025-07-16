@@ -18,9 +18,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.Commands;
-import frc.robot.commands.InactiveRemover;
-import frc.robot.commands.SetLED;
-import frc.robot.commands.Scoring.WaitForCoralIntake;
 import frc.robot.commands.swervedrive.AutoAlignment;
 import frc.robot.subsystems.swervedrive.Vision;
 import frc.robot.subsystems.swervedrive.AutoDetection.Cameras;
@@ -103,7 +100,6 @@ public class Robot extends TimedRobot
     // block in order for anything in the Command-based framework to work.
     CommandScheduler.getInstance().run();
     //SmartDashboard.putBoolean("right camrea status", Constants.vision.getEnabled(1));
-    Constants.SHOOTER.updateSensorStatus();
   }
 
   /**
@@ -123,7 +119,6 @@ public class Robot extends TimedRobot
   public void disabledPeriodic()
   {
 
-    Commands.run(() -> Constants.LEDSystem.setGOAT(), Constants.LEDSystem);
 
     if (disabledTimer.hasElapsed(Constants.DRIVE_CONSTANTS.wheelLockTime()))
     {
@@ -178,7 +173,6 @@ public class Robot extends TimedRobot
       CommandScheduler.getInstance().cancelAll();
     }
     m_robotContainer.setDriveMode();
-    Constants.ELEVATOR.setGoal(Constants.ELEVATOR.getElevatorHeightEncoder());
   }
 
   /**
@@ -191,9 +185,6 @@ public class Robot extends TimedRobot
     m_robotContainer.autoLock();
 
 
-    SmartDashboard.putBoolean("algaeee", Constants.ALGAE_REMOVER.isExtended);
-
-    SmartDashboard.putString("LED COLOR", Constants.LEDSystem.currentColor);
     //SmartDashboard.putBoolean("Right Camera Enabled", Constants.vision.getEnabled(1));
 
     SmartDashboard.putNumberArray("front left motor temps", Constants.drivebase.getMotorTemperatures()[0]);

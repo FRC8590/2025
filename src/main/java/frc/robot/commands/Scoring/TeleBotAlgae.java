@@ -16,10 +16,6 @@ import edu.wpi.first.wpilibj2.command.SelectCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.Constants;
-import frc.robot.commands.ActiveRemover;
-import frc.robot.commands.InactiveRemover;
-import frc.robot.commands.MoveElevator;
-import frc.robot.commands.Scoring.ScoreCoral;
 import frc.robot.constants.ScoringConstants;
 
 import java.io.Console;
@@ -40,19 +36,13 @@ public class TeleBotAlgae extends SequentialCommandGroup {
     
     addCommands(
       new ParallelCommandGroup(
-        new ActiveRemover(),
         new SequentialCommandGroup(
           moveToScore.withTimeout(2.5),
-          new MoveElevator(0.7),
-          new ScoreCoral(),
-          moveBack,
-          new MoveElevator(0)
+          moveBack
        ) 
       )
     );
       addRequirements(Constants.drivebase);
-    addRequirements(Constants.SHOOTER);
-    addRequirements(Constants.ELEVATOR);
   }
 
 
