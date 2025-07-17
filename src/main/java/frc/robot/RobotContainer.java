@@ -59,7 +59,7 @@ public class RobotContainer
   public final         CommandXboxController operatorController = new CommandXboxController(1);
 
   //auto list object
-  private final SendableChooser<String> m_chooser = new SendableChooser<>();
+  private final SendableChooser<String> m_chooser = new SendableChooser<>();//////////////////////////////////////////////////////////////////////
   //red or blue side object
 
   // The robot's subsystems and commands are defined here...
@@ -178,77 +178,10 @@ public class RobotContainer
         .withWidget(BuiltInWidgets.kBooleanBox)
         .getEntry();
 
-    //set up auto and add options
-    m_chooser.setDefaultOption("21", "21");
+    //set up auto and add options////////////////////////////////////////////////////////////////////////////////////////////////////
+    m_chooser.setDefaultOption("1", "1");
+    m_chooser.addOption("BlueTopAuto", "BlueTopAuto");
     m_chooser.addOption("1", "1");
-    m_chooser.addOption("2", "2");
-    m_chooser.addOption("3", "3");
-    m_chooser.addOption("4", "4");
-    m_chooser.addOption("5", "5");
-    m_chooser.addOption("6", "6");
-    m_chooser.addOption("7", "7");
-    m_chooser.addOption("8", "8");
-    m_chooser.addOption("9", "9");
-    m_chooser.addOption("10", "10");
-    m_chooser.addOption("11", "11");
-    m_chooser.addOption("12", "12");
-    m_chooser.addOption("13", "13");
-    m_chooser.addOption("14", "14");
-    m_chooser.addOption("15", "15");
-    m_chooser.addOption("16", "16");
-    m_chooser.addOption("17", "17");
-    m_chooser.addOption("18", "18");
-    m_chooser.addOption("19", "19");
-    m_chooser.addOption("20", "20");
-    m_chooser.addOption("22", "22");
-    m_chooser.addOption("23", "23");
-    m_chooser.addOption("24", "24");
-    m_chooser.addOption("25", "25");
-    m_chooser.addOption("26", "26");
-    m_chooser.addOption("27", "27");
-    m_chooser.addOption("28", "28");
-    m_chooser.addOption("29", "29");
-    m_chooser.addOption("30", "30");
-    m_chooser.addOption("31", "31");
-    m_chooser.addOption("32", "32");
-    m_chooser.addOption("33", "33");
-    m_chooser.addOption("34", "34");
-    m_chooser.addOption("35", "35");
-    m_chooser.addOption("36", "36");
-    m_chooser.addOption("37", "37");
-    m_chooser.addOption("38", "38");
-    m_chooser.addOption("39", "39");
-
-    m_chooser.addOption("41", "41");
-    m_chooser.addOption("42", "42");
-    m_chooser.addOption("43", "43");
-    m_chooser.addOption("44", "44");
-    m_chooser.addOption("45", "45");
-    m_chooser.addOption("46", "46");
-    m_chooser.addOption("47", "47");
-    m_chooser.addOption("48", "48");
-
-    m_chooser.addOption("50", "50");
-    m_chooser.addOption("51", "51");
-    m_chooser.addOption("52", "52");
-    m_chooser.addOption("53", "53");
-    m_chooser.addOption("54", "54");
-    m_chooser.addOption("55", "55");
-    m_chooser.addOption("56", "56");
-    m_chooser.addOption("57", "57");
-    m_chooser.addOption("58", "58");
-    m_chooser.addOption("59", "59");
-    m_chooser.addOption("60", "60");
-    m_chooser.addOption("61", "61");
-    m_chooser.addOption("62", "62");
-    m_chooser.addOption("63", "63");
-    m_chooser.addOption("64", "64");
-    m_chooser.addOption("65", "65");
-    m_chooser.addOption("66", "66");
-    m_chooser.addOption("67", "67");
-    m_chooser.addOption("68", "68");
-    m_chooser.addOption("69", "69");
-    m_chooser.addOption("2468", "2468");
 
     
     SmartDashboard.putData("Auto choices", m_chooser);
@@ -260,7 +193,6 @@ public class RobotContainer
     
 
     NamedCommands.registerCommand("TeleBotAlgae", new TeleBotAlgae());
-
     NamedCommands.registerCommand("AutoBotAlgae", new AutoBotAlgae());
 
 

@@ -1,0 +1,49 @@
+{
+  "version": "2025.0",
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "path",
+          "data": {
+            "pathName": "BlueTop-Reef11"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "AutoBotAlgae"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Reef11-BlueFeederTop"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 1.0
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "BlueFeederTop-Reef11"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "AutoBotAlgae"
+          }
+        }
+      ]
+    }
+  },
+  "resetOdom": true,
+  "folder": null,
+  "choreoAuto": false
+}
